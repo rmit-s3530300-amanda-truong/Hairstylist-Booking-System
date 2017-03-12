@@ -109,13 +109,13 @@ public class Menu {
 		
 		//customer login validate
 		public boolean customerLogin(){
-			System.out.print("Please enter your username: ");
+			/*System.out.print("Please enter your username: ");
 			String bUserName = input.next();
 			System.out.print("Please enter your password: ");
 			String bPassword = input.next();
 			if(bUserName.equals("customer")&&bPassword.equals("customer")){
 				customerMenu();
-			}
+			}*/
 			return true;
 		}
 		
