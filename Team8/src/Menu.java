@@ -87,7 +87,7 @@ public class Menu {
 			int id = customerData.size() + 1;
 			String username = "cust000"+ id;
 			
-			/*System.out.printf("Your username will be: %s\n", username);
+			System.out.printf("Your username will be: %s\n", username);
 			System.out.print("Please enter your first name: ");
 			String cFname = input.next();
 			System.out.print("Please enter your last name: ");
@@ -97,25 +97,24 @@ public class Menu {
 			System.out.print("Please enter mobile number: ");
 			String cMobile = input.next();
 			System.out.print("Please enter a address: ");
-			String cAddress = input.next();*/
+			String cAddress = input.next();
 			
-			// String[] custInfo = {username, cFname, cLname};
-			String[] custInfo = {username, "john", "snow"};
-			/*System.out.printf("your username: %s \nyour fullname: %s %s \npassword: %s \nmobile: %s \naddress: %s",
-					username,cFname,cLname,cpassword, cMobile, cAddress);*/
+			String[] custInfo = {username, cFname, cLname};
+			System.out.printf("your username: %s \nyour fullname: %s %s \npassword: %s \nmobile: %s \naddress: %s",
+					username,cFname,cLname,cpassword, cMobile, cAddress);
 			
 			return custInfo;
 		}
 		
 		//customer login validate
 		public boolean customerLogin(){
-			/*System.out.print("Please enter your username: ");
+			System.out.print("Please enter your username: ");
 			String bUserName = input.next();
 			System.out.print("Please enter your password: ");
 			String bPassword = input.next();
 			if(bUserName.equals("customer")&&bPassword.equals("customer")){
 				customerMenu();
-			}*/
+			}
 			return true;
 		}
 		
