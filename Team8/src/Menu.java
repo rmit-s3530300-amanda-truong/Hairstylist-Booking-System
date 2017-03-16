@@ -97,7 +97,7 @@ public class Menu {
 		System.out.print("Please enter mobile number: ");
 		String cMobile = input.next();
 		System.out.print("Please enter a address: ");
-		String cAddress = input.next();
+		String cAddress = input.next()
 		
 		String[] custInfo = {username, cFname, cLname};
 		System.out.printf("your username: %s \nyour fullname: %s %s \npassword: %s \nmobile: %s \naddress: %s",

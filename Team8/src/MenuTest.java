@@ -15,7 +15,7 @@ public class MenuTest {
 	public void TestCustomerLogin() {
 		String password = "aaa";
 		String username = "john";
-		Boolean actualResult = m1.customerLogin();
+		Boolean actualResult = m1.customerLogin(username,password);
 		Boolean expectedResult = true;
 		assertEquals(expectedResult, actualResult);
 	}*/
