@@ -2,12 +2,8 @@
 public class BookingManagementSystem {
 	private Company company;
 	
-	public void displayMenu() {
+	public static void main(String args[]) {
 		Menu m1 = new Menu();
 		m1.mainMenu();
-	}
-	
-	public void main(String args[]) {
-		displayMenu();
 	}
 }
