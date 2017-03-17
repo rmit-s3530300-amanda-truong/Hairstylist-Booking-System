@@ -1,5 +1,3 @@
-package Team8.src;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -37,28 +35,35 @@ public class Database {
 			}
 			
 			stmt = conn.createStatement();
-			String sql = "CREATE TABLE IF NOT EXISTS CUSTINFO (id integer PRIMARY KEY AUTOINCREMENT, "
+			String sql = "CREATE TABLE IF NOT EXISTS CUSTINFO ("
 					+ "fname text NOT NULL, "
 					+ "lname text NOT NULL, "
 					+ "password text NOT NULL, "
-					+ "gender text NOT NULL)";
+					+ "gender text NOT NULL, "
+					+ "mobile text NOT NULL, "
+					+ "address text NOT NULL)";
+			
 			stmt.executeUpdate(sql);
 			stmt.close();
 			
 			// testing to see if values are added
-			PreparedStatement prep = conn.prepareStatement("INSERT INTO CUSTINFO values(?,?,?,?,?);");
-			prep.setString(2,"john");	
-			prep.setString(3,"poop");
-			prep.setString(4,"password");
-			prep.setString(5,"boi");
+			PreparedStatement prep = conn.prepareStatement("INSERT INTO CUSTINFO values(?,?,?,?,?,?);");
+			prep.setString(1,"john");	
+			prep.setString(2,"poop");
+			prep.setString(3,"password");
+			prep.setString(4,"boi");
+			prep.setString(5,"0412123123");
+			prep.setString(6,"1 happy street, happy surburb, 3000");
 			prep.execute();
 			prep.close();
 			
-			PreparedStatement prep2 = conn.prepareStatement("INSERT INTO CUSTINFO values(?,?,?,?,?);");
-			prep2.setString(2,"girly");
-			prep2.setString(3,"poop");
-			prep2.setString(4,"password1");
-			prep2.setString(5,"girl");
+			PreparedStatement prep2 = conn.prepareStatement("INSERT INTO CUSTINFO values(?,?,?,?,?,?);");
+			prep2.setString(1,"girly");
+			prep2.setString(2,"poop");
+			prep2.setString(3,"password1");
+			prep2.setString(4,"girl");
+			prep2.setString(5,"0469123123");
+			prep2.setString(6,"1 sad street, sad surburb, 2000");
 			prep2.execute();
 			prep2.close();
 			
@@ -73,7 +78,7 @@ public class Database {
 	}
 	
 	// add all the values into a record
-	public static void addCustInfo(String fname, String lname, String pw, String gender)
+	public static void addCustInfo(String fname, String lname, String pw, String gender, String mobile, String address)
 	{		
 		try
 		{
@@ -82,13 +87,15 @@ public class Database {
 				getConnection();
 			}
 			
-			conn.setAutoCommit(false);
+			//conn.setAutoCommit(false);
 			
-			PreparedStatement prep = conn.prepareStatement("INSERT INTO CUSTINFO values(?,?,?,?,?;");
-			prep.setString(2, fname);
-			prep.setString(3, lname);
-			prep.setString(4, pw);
-			prep.setString(5, gender);
+			PreparedStatement prep = conn.prepareStatement("INSERT INTO CUSTINFO values(?,?,?,?,?,?);");
+			prep.setString(1, fname);
+			prep.setString(2, lname);
+			prep.setString(3, pw);
+			prep.setString(4, gender);
+			prep.setString(5, mobile);
+			prep.setString(6, address);
 			
 			prep.execute();
 			prep.close();
@@ -113,12 +120,12 @@ public class Database {
 			}
 			
 			stmt = conn.createStatement();
-			result = stmt.executeQuery("SELECT id, fname, lname, password, gender FROM CUSTINFO");
-
+			result = stmt.executeQuery("SELECT * FROM CUSTINFO");
 			while (result.next())
 			{
-				System.out.println(result.getInt("id") +  " " + result.getString("fname") + " " + result.getString("lname") + " "
-						+ result.getString("password") + " " + result.getString("gender"));
+				System.out.println(result.getString("fname") + " " + result.getString("lname") + " "
+						+ result.getString("password") + " " + result.getString("gender") + " " + result.getString("mobile")
+						+ result.getString("address"));
 			}
 			
 			stmt.close();
@@ -146,7 +153,7 @@ public class Database {
 			stmt = conn.createStatement();
 			String sql = "DELETE FROM " + tableName;
 			stmt.execute(sql);
-			
+			stmt.close();
 			closeConn();
 		}
 		catch(Exception e)
@@ -166,9 +173,9 @@ public class Database {
 			}
 			
 			stmt = conn.createStatement();
-			String sql = "DELETE FROM " + tableName + " WHERE id = " + id;
+			String sql = "DELETE FROM " + tableName + " WHERE rowid = " + id;
 			stmt.execute(sql);
-			
+			stmt.close();
 			closeConn();
 		}
 		catch(Exception e)
@@ -187,10 +194,10 @@ public class Database {
 			{
 				getConnection();
 			}
-			conn.setAutoCommit(false);
+			//conn.setAutoCommit(false);
 			
 			stmt = conn.createStatement();
-			String sql = "UPDATE CUSTINFO SET ? = ?, WHERE id = ?;";
+			String sql = "UPDATE CUSTINFO SET ? = ?, WHERE rowid = ?";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, update);
 			pstmt.setString(2, value);
@@ -198,7 +205,7 @@ public class Database {
 			stmt.executeUpdate(sql);
 			conn.commit();
 			 
-			rs = stmt.executeQuery("SELECT id, fname, lname, password, gender FROM CUSTINFO");
+			rs = stmt.executeQuery("SELECT * FROM CUSTINFO");
 
 			while (rs.next())
 			{
@@ -234,9 +241,11 @@ public class Database {
 		getConnection();
 		createCustTable();
 		displayCustTable();
-		//updateCust("fname","johnny",1);
-		//deleteAllR("CUSTINFO");
-		deleteCust("CUSTINFO",2);
+		deleteCust("CUSTINFO",1);
+		displayCustTable();
+		addCustInfo("mary","lamb","123","girl","12301203","238012as sdfjlsdfj");
+		displayCustTable();
+		deleteCust("CUSTINFO",1);
 		displayCustTable();
 		deleteAllR("CUSTINFO");
 		closeConn();
