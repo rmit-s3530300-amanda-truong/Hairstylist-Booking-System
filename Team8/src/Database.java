@@ -10,7 +10,7 @@ public class Database {
 	private static Statement stmt = null;
 	private static ResultSet result = null;
 	
-	private static void getConnection()
+	public static void getConnection()
 	{
 		try
 		{
@@ -25,7 +25,7 @@ public class Database {
 		}
 	}
 	
-	private static void createCustTable()
+	public static void createCustTable()
 	{
 		try
 		{
@@ -74,7 +74,7 @@ public class Database {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
-		System.out.println("Table CUSTINFO created successfully");
+//		System.out.println("Table CUSTINFO created successfully");
 	}
 	
 	// add all the values into a record
@@ -237,18 +237,18 @@ public class Database {
 		}
 	}
 	
-	public static void main(String[] args) {
-		getConnection();
-		createCustTable();
-		displayCustTable();
-		deleteCust("CUSTINFO",1);
-		displayCustTable();
-		addCustInfo("mary","lamb","123","girl","12301203","238012as sdfjlsdfj");
-		displayCustTable();
-		deleteCust("CUSTINFO",1);
-		displayCustTable();
-		deleteAllR("CUSTINFO");
-		closeConn();
-	}
+//	public static void main(String[] args) {
+//		getConnection();
+//		createCustTable();
+//		displayCustTable();
+//		deleteCust("CUSTINFO",1);
+//		displayCustTable();
+//		addCustInfo("mary","lamb","123","girl","12301203","238012as sdfjlsdfj");
+//		displayCustTable();
+//		deleteCust("CUSTINFO",1);
+//		displayCustTable();
+//		deleteAllR("CUSTINFO");
+//		closeConn();
+//	}
 
 }

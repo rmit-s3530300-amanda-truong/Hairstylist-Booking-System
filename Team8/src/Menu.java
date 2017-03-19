@@ -7,6 +7,8 @@ public class Menu {
 	private Scanner input;
 	ArrayList<String> customerData = new ArrayList<String>
 	(Arrays.asList("cust00001"));
+	Database db1 = new Database();
+
 	
 	//main menu displayed at the start of the program
 	public void mainMenu(){
@@ -82,28 +84,33 @@ public class Menu {
 	}
 		
 	//customer registration menu
-	public String[] registerCustomer(){
+	public void registerCustomer(){
 		//calculating the next id
 		int id = customerData.size() + 1;
 		String username = "cust000"+ id;
-		
+		db1.getConnection();
+		db1.createCustTable();
 		System.out.printf("Your username will be: %s\n", username);
 		System.out.print("Please enter your first name: ");
 		String cFname = input.next();
 		System.out.print("Please enter your last name: ");
 		String cLname = input.next();
 		System.out.print("Please enter a password: ");
-		String cpassword = input.next();
+		String cPassword = input.next();
+		System.out.print("Please enter Gender(Male or Female): ");
+		String cGender = input.next();
 		System.out.print("Please enter mobile number: ");
 		String cMobile = input.next();
+		
 		System.out.print("Please enter a address: ");
 		String cAddress = input.next();
 		
-		String[] custInfo = {username, cFname, cLname};
-		System.out.printf("your username: %s \nyour fullname: %s %s \npassword: %s \nmobile: %s \naddress: %s",
-				username,cFname,cLname,cpassword, cMobile, cAddress);
-		
-		return custInfo;
+
+		//adding user input to database
+				db1.addCustInfo(cFname, cLname, cPassword, cGender, cMobile, cAddress);
+//				db1.displayCustTable();
+				System.out.println(" ");
+				customerMenu();
 	}
 	
 	
