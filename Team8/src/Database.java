@@ -49,16 +49,16 @@ public class Database {
 				
 				if(!res.next())
 				{
-					System.out.println("Building CUSTINFO table");
+					//System.out.println("Building CUSTINFO table");
 					stmt = conn.createStatement();
 					String sql = "CREATE TABLE IF NOT EXISTS CUSTINFO ("
-							+ "fname text NOT NULL, "
-							+ "lname text NOT NULL, "
-							+ "password text NOT NULL, "
-							+ "gender text NOT NULL, "
-							+ "mobile text NOT NULL, "
-							+ "address text NOT NULL, "
-							+ "username text NOT NULL);";
+							+ "username text NOT NULL	,"
+							+ "fname text NOT NULL		,"
+							+ "lname text NOT NULL		,"
+							+ "password text NOT NULL	,"
+							+ "gender text NOT NULL		,"
+							+ "mobile text NOT NULL		, "
+							+ "address text NOT NULL	);";
 					
 					stmt.executeUpdate(sql);
 					stmt.close();
@@ -73,28 +73,30 @@ public class Database {
 					
 					/*
 					// testing to see if values are added
-					PreparedStatement prep = conn.prepareStatement("INSERT INTO CUSTINFO values(?,?,?,?,?,?);");
-					prep.setString(1,"john");	
-					prep.setString(2,"poop");
-					prep.setString(3,"password");
-					prep.setString(4,"boi");
-					prep.setString(5,"0412123123");
-					prep.setString(6,"1 happy street, happy surburb, 3000");
+					PreparedStatement prep = conn.prepareStatement("INSERT INTO CUSTINFO values(?,?,?,?,?,?,?);");
+					prep.setString(1,"jpoop");
+					prep.setString(2,"john");	
+					prep.setString(3,"poop");
+					prep.setString(4,"password");
+					prep.setString(5,"boi");
+					prep.setString(6,"0412123123");
+					prep.setString(7,"1 happy street, happy surburb, 3000");
 					prep.execute();
 					prep.close();
 					
-					PreparedStatement prep2 = conn.prepareStatement("INSERT INTO CUSTINFO values(?,?,?,?,?,?);");
-					prep2.setString(1,"girly");
-					prep2.setString(2,"poop");
-					prep2.setString(3,"password1");
-					prep2.setString(4,"girl");
-					prep2.setString(5,"0469123123");
-					prep2.setString(6,"1 sad street, sad surburb, 2000");
+					PreparedStatement prep2 = conn.prepareStatement("INSERT INTO CUSTINFO values(?,?,?,?,?,?,?);");
+					prep2.setString(1,"gpoop");
+					prep2.setString(2,"girly");
+					prep2.setString(3,"poop");
+					prep2.setString(4,"password1");
+					prep2.setString(5,"girl");
+					prep2.setString(6,"0469123123");
+					prep2.setString(7,"1 sad street, sad surburb, 2000");
 					prep2.execute();
 					prep2.close();
 					*/
 					closeConn();
-					System.out.println("Table CUSTINFO created successfully");
+					//System.out.println("Table CUSTINFO created successfully");
 				}
 			}
 		}
@@ -106,7 +108,8 @@ public class Database {
 	}
 	
 	// add all the values into a record
-	public void addCustInfo(String username, String fname, String lname, String pw, String gender, String mobile, String address)
+	public void addCustInfo(String username, String fname, String lname, String pw, String gender, 
+			String mobile, String address)
 	{		
 		try
 		{
@@ -118,13 +121,14 @@ public class Database {
 			//conn.setAutoCommit(false);
 			
 			PreparedStatement prep = conn.prepareStatement("INSERT INTO CUSTINFO values(?,?,?,?,?,?,?);");
-			prep.setString(1, fname);
-			prep.setString(2, lname);
-			prep.setString(3, pw);
-			prep.setString(4, gender);
-			prep.setString(5, mobile);
-			prep.setString(6, address);
-			prep.setString(7, username);
+			prep.setString(1, username);
+			prep.setString(2, fname);
+			prep.setString(3, lname);
+			prep.setString(4, pw);
+			prep.setString(5, gender);
+			prep.setString(6, mobile);
+			prep.setString(7, address);
+			
 			
 			prep.execute();
 			prep.close();
@@ -152,9 +156,10 @@ public class Database {
 			result = stmt.executeQuery("SELECT * FROM CUSTINFO");
 			while (result.next())
 			{
-				System.out.println(result.getString("username") + result.getString("fname") + " " + result.getString("lname") + " "
-						+ result.getString("password") + " " + result.getString("gender") + " " + result.getString("mobile")
-						+ result.getString("address"));
+				System.out.println(result.getString("username") + result.getString("fname") 
+				+ " " + result.getString("lname") + " " + result.getString("password") 
+				+ " " + result.getString("gender") + " " + result.getString("mobile") 
+				+ result.getString("address"));
 			}
 			
 			stmt.close();

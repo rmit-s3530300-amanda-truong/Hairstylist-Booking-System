@@ -5,8 +5,6 @@ import java.util.Scanner;
 public class Menu {
 	
 	private Scanner input;
-	ArrayList<String> customerData = new ArrayList<String>
-	(Arrays.asList("cust00001"));
 	Database db1 = new Database();
 
 	
@@ -85,12 +83,12 @@ public class Menu {
 		
 	//customer registration menu
 	public void registerCustomer(){
-		//calculating the next id
-		int id = customerData.size() + 1;
-		String username = "cust000"+ id;
-		db1.getConnection();
-		db1.createCustTable();
-		System.out.printf("Your username will be: %s\n", username);
+		//iniliasing the database
+		db1.initialise();
+		
+		//getting user input
+		System.out.print("Please enter a username: ");
+		String cUserName = input.next();
 		System.out.print("Please enter your first name: ");
 		String cFname = input.next();
 		System.out.print("Please enter your last name: ");
@@ -101,15 +99,17 @@ public class Menu {
 		String cGender = input.next();
 		System.out.print("Please enter mobile number: ");
 		String cMobile = input.next();
-		
 		System.out.print("Please enter a address: ");
 		String cAddress = input.next();
 		
 
 		//adding user input to database
-				db1.addCustInfo(cFname, cLname, cPassword, cGender, cMobile, cAddress);
-//				db1.displayCustTable();
-				System.out.println(" ");
+				db1.addCustInfo(cUserName, cFname, cLname, cPassword, cGender, cMobile, cAddress);
+				/*for testing
+				 * db1.displayCustTable();
+				 */
+				
+				System.out.println("\nSuccessfully registered..");
 				customerMenu();
 	}
 	
@@ -195,7 +195,7 @@ public class Menu {
 		System.out.println("Welcome to Owner's Portal of abc Hairstylist");
 		System.out.println("---------------------------------------------");
 		System.out.println("1. Add an employee");
-		System.out.println("2. Remove an emplyee");
+		System.out.println("2. Remove an employee");
 		System.out.println("3. Accept upcoming appoinments");
 		System.out.println("4. View history");
 		System.out.println("5. Add available times");
