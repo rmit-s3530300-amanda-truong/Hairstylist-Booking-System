@@ -85,10 +85,21 @@ public class Menu {
 	public void registerCustomer(){
 		//iniliasing the database
 		db1.initialise();
+		db1.addTest();
+		Boolean result;
 		
 		//getting user input
 		System.out.print("Please enter a username: ");
 		String cUserName = input.next();
+		
+		result = db1.checkValue(cUserName);
+		while(result == true)
+		{
+			System.out.println("Username is already taken, please enter another: ");
+			cUserName = input.next();
+			result = db1.checkValue(cUserName);
+		}
+		
 		System.out.print("Please enter your first name: ");
 		String cFname = input.next();
 		System.out.print("Please enter your last name: ");
