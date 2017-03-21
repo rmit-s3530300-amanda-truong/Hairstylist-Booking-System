@@ -128,13 +128,31 @@ public class Menu {
 	
 	//customer login validate
 	public boolean customerLogin(){
+		Boolean result;
+		db1.initialise();
+		db1.addTest();
+		
 		System.out.print("Please enter your username: ");
 		String bUserName = input.next();
 		System.out.print("Please enter your password: ");
 		String bPassword = input.next();
-		if(bUserName.equals("customer")&&bPassword.equals("customer")){
+		
+		result = db1.checkLogin(bUserName, bPassword);
+		while(result == false)
+		{
+			System.out.println("Invalid username or password, please try again: \n");
+			System.out.print("Please enter your username: ");
+			bUserName = input.next();
+			System.out.print("Please enter your password: ");
+			bPassword = input.next();
+			result = db1.checkLogin(bUserName,bPassword);
+		}
+		if(result == true)
+		{
+			System.out.println("Successfully logged in \n");
 			customerMenu();
 		}
+
 		return true;
 	}
 	

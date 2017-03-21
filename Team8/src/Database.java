@@ -70,31 +70,7 @@ public class Database {
 					{
 						deleteAllR("CUSTINFO");
 					}
-					
-					/*
-					// testing to see if values are added
-					PreparedStatement prep = conn.prepareStatement("INSERT INTO CUSTINFO values(?,?,?,?,?,?,?);");
-					prep.setString(1,"jpoop");
-					prep.setString(2,"john");	
-					prep.setString(3,"poop");
-					prep.setString(4,"password");
-					prep.setString(5,"boi");
-					prep.setString(6,"0412123123");
-					prep.setString(7,"1 happy street, happy surburb, 3000");
-					prep.execute();
-					prep.close();
-					
-					PreparedStatement prep2 = conn.prepareStatement("INSERT INTO CUSTINFO values(?,?,?,?,?,?,?);");
-					prep2.setString(1,"gpoop");
-					prep2.setString(2,"girly");
-					prep2.setString(3,"poop");
-					prep2.setString(4,"password1");
-					prep2.setString(5,"girl");
-					prep2.setString(6,"0469123123");
-					prep2.setString(7,"1 sad street, sad surburb, 2000");
-					prep2.execute();
-					prep2.close();
-					*/
+
 					closeConn();
 					//System.out.println("Table CUSTINFO created successfully");
 				}
@@ -219,6 +195,44 @@ public class Database {
 		}
 	}
 	
+	public boolean checkLogin(String username, String password)
+	{
+		Boolean check = null;
+		PreparedStatement prep;
+		ResultSet rs;
+		try
+		{
+			if(conn.isClosed())
+			{
+				getConnection();
+			}
+			
+			prep = conn.prepareStatement("SELECT username,password FROM CUSTINFO WHERE username = ? AND password = ?;");
+			prep.setString(1, username);
+			prep.setString(2, password);
+			
+			rs = prep.executeQuery();
+			
+			if(rs.next())
+			{
+				check = true;
+			}
+			else
+			{
+				check = false;
+			}
+			prep.close();
+			rs.close();
+			closeConn();
+		}
+		catch(Exception e)
+		{
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+		return check;
+	}
+	
 	public boolean checkValue(String value)
 	{
 		Boolean check = null;
@@ -275,6 +289,28 @@ public class Database {
 			prep.setString(7,"1 happy street, happy surburb, 3000");
 			prep.execute();
 			prep.close();
+			
+			PreparedStatement prep2 = conn.prepareStatement("INSERT INTO CUSTINFO values(?,?,?,?,?,?,?);");
+			prep2.setString(1,"gpoop");
+			prep2.setString(2,"girly");
+			prep2.setString(3,"poop");
+			prep2.setString(4,"password1");
+			prep2.setString(5,"girl");
+			prep2.setString(6,"0469123123");
+			prep2.setString(7,"1 sad street, sad surburb, 2000");
+			prep2.execute();
+			prep2.close();
+			
+			PreparedStatement prep3 = conn.prepareStatement("INSERT INTO CUSTINFO values(?,?,?,?,?,?,?);");
+			prep3.setString(1,"hithere");
+			prep3.setString(2,"hi");
+			prep3.setString(3,"there");
+			prep3.setString(4,"password2");
+			prep3.setString(5,"girl");
+			prep3.setString(6,"0469999999");
+			prep3.setString(7,"1 angry street, angry surburb, 3333");
+			prep3.execute();
+			prep3.close();
 			
 			closeConn();
 		}
