@@ -156,7 +156,7 @@ public class Database {
 			result = stmt.executeQuery("SELECT * FROM CUSTINFO");
 			while (result.next())
 			{
-				System.out.println(result.getString("username") + result.getString("fname") 
+				System.out.println(result.getString("username") + " " + result.getString("fname") 
 				+ " " + result.getString("lname") + " " + result.getString("password") 
 				+ " " + result.getString("gender") + " " + result.getString("mobile") 
 				+ result.getString("address"));
@@ -219,6 +219,73 @@ public class Database {
 		}
 	}
 	
+	public boolean checkValue(String value)
+	{
+		Boolean check = null;
+		PreparedStatement prep;
+		ResultSet rs;
+		
+		try
+		{
+			if(conn.isClosed())
+			{
+				getConnection();
+			}
+			
+			prep = conn.prepareStatement("SELECT username FROM CUSTINFO WHERE username = ?;");
+			prep.setString(1, value);
+			rs = prep.executeQuery();
+			
+			if(rs.next())
+			{
+				check = true;
+			}
+			else
+			{
+				check = false;
+			}
+			prep.close();
+			rs.close();
+			closeConn();
+		}
+		catch(Exception e)
+		{
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+		
+		return check;
+	}
+	
+	public void addTest()
+	{
+		try
+		{
+			if(conn.isClosed())
+			{
+				getConnection();
+			}
+			PreparedStatement prep = conn.prepareStatement("INSERT INTO CUSTINFO values(?,?,?,?,?,?,?);");
+			prep.setString(1,"jpoop");
+			prep.setString(2,"john");	
+			prep.setString(3,"poop");
+			prep.setString(4,"password");
+			prep.setString(5,"boi");
+			prep.setString(6,"0412123123");
+			prep.setString(7,"1 happy street, happy surburb, 3000");
+			prep.execute();
+			prep.close();
+			
+			closeConn();
+		}
+		catch(Exception e)
+		{
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+
+		
+	}
 	public void updateCust(String update, String value, Integer id)
 	{
 		ResultSet rs = null;
