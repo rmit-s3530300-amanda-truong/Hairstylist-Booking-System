@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.util.*;
+import java.util.Map.Entry;
 
 public class Calendar {
 	public enum Status {
@@ -12,8 +13,8 @@ public class Calendar {
 	private LocalDate currentDate;
 	private HashMap<String, Booking> bookingList;
 	
-	public Calendar(LocalDate date) {
-		information = new HashMap<String, HashMap<String, Status>>();
+	public Calendar(LocalDate date, HashMap<String,HashMap<String,Status>> info) {
+		information = info;
 		bookingList = new HashMap<String, Booking>();
 		currentDate = date;
 	}
@@ -34,6 +35,18 @@ public class Calendar {
 		}
 	}
 	
+	public LocalDate getDate() {
+		return currentDate;
+	}
+	
+	public void setCurrentDate(LocalDate date) {
+		currentDate = date;
+	}
+	
+	public HashMap<String, HashMap<String, Status>> getCalendarInfo() {
+		return information;
+	}
+	
 	// TODO: Check if booking is free before add pending status
 	// TODO: Needs Testing
 	public void requestBooking(String date, String time) {
@@ -49,7 +62,8 @@ public class Calendar {
 		for(int i =0; i < 7; i++){
 			HashMap<String, Status> timeInfo = information.get(oldDateString);
 			historyInfo.put(oldDateString, timeInfo);
-			oldDateString = oldDate.plusDays(1).toString();
+			oldDate = oldDate.plusDays(1);
+			oldDateString = oldDate.toString();
 		}
 		return historyInfo;
 	}
@@ -74,24 +88,6 @@ public class Calendar {
 	
 	// TODO: returns a concatenated String which displays the calendar on console
 	public String displayCalendar() {
-		// Example Output:
-		/*	-------------------------------------------------
-			              CALENDAR: MONTH 3
-			-------------------------------------------------
-					| 1/2 | 2/2 | 3/2 | 4/2 | 5/2 | 6/2 |7/2
-			-------------------------------------------------
-			08:00   |  X  |		|	  |		|  	  |		|
-			09:00   (more lines here)
-			10:00
-			11:00
-			12:00
-			13:00
-			14:00
-			15:00
-			16:00
-			--------------------------------------------------
-			--------------------------------------------------*/
-		// Flexible with times displayed on the left
 		return null;
 	}
 	
