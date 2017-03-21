@@ -6,7 +6,7 @@ public class Menu {
 	
 	private Scanner input;
 	Database db1 = new Database();
-
+	CompanyDatabase compDb = new CompanyDatabase();
 	
 	//main menu displayed at the start of the program
 	public void mainMenu(){
@@ -202,21 +202,36 @@ public class Menu {
 	
 	//business login validate
 	public boolean businessLogin(){
+		Boolean result;
+		compDb.initialise();
+		compDb.addTest();
+		
+		System.out.print("Please enter your business id code: ");
+		String bID = input.next();
 		System.out.print("Please enter your username: ");
 		String bUserName = input.next();
 		System.out.print("Please enter your password: ");
 		String bPassword = input.next();
-		if(bUserName.equals("admin")&&bPassword.equals("admin")){
-			businessOwnerMenu();
-			return true;
-		}
-		else{
-			System.out.println("Invalid Password. Please try again");
-			System.out.println("----------------------------------");
-			businessLogin();
-			return false;
-		}
 		
+		result = compDb.checkLogin(bUserName, bPassword, bID);
+		while(result == false)
+		{
+			System.out.println("Invalid username,password or business ID, please try again: \n");
+			System.out.print("Please enter your business id code: ");
+			bID = input.next();
+			System.out.print("Please enter your username: ");
+			bUserName = input.next();
+			System.out.print("Please enter your password: ");
+			bPassword = input.next();
+			result = compDb.checkLogin(bUserName,bPassword, bID);
+		}
+		if(result == true)
+		{
+			System.out.println("Successfully logged in \n");
+
+			businessOwnerMenu();
+		}
+			return true;
 	}
 	
 	//business owner menu
