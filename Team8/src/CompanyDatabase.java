@@ -119,7 +119,7 @@ public class CompanyDatabase {
 		}
 	}
 	
-	// displaying the values in customer table
+	// displaying the values in company table
 	public ResultSet displayCompanyTable()
 	{
 		try
@@ -264,7 +264,7 @@ public class CompanyDatabase {
 			prep.setString(1,"bigboi1");
 			prep.setString(2,"john");	
 			prep.setString(3,"abc");
-			prep.setString(4,"haireverywhere");
+			prep.setString(4,"haireverywhere");//password
 			prep.setString(5,"0430202101");
 			prep.setString(6,"1 haircut street, haircut surburb, 3000");
 			prep.setString(7,"111");

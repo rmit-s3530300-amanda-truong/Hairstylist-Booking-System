@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Menu {
@@ -83,49 +81,70 @@ public class Menu {
 		
 	//customer registration menu
 	public void registerCustomer(){
+		
+		Boolean result;
 		//iniliasing the database
 		db1.initialise();
 		db1.addTest();
-		Boolean result;
 		
-		//getting user input
+		//Username
 		System.out.print("Please enter a username: ");
 		String cUserName = input.next();
-		
+		//checking if the username already exists in database
 		result = db1.checkValue(cUserName);
-		while(result == true)
-		{
-			System.out.println("Username is already taken, please enter another: ");
+		while(result == true){
+			System.out.println("This username is already taken, please enter another: ");
 			cUserName = input.next();
 			result = db1.checkValue(cUserName);
 		}
 		
+		//firstname
 		System.out.print("Please enter your first name: ");
 		String cFname = input.next();
+				
+		//lastname
 		System.out.print("Please enter your last name: ");
 		String cLname = input.next();
+		
+		//password
 		System.out.print("Please enter a password: ");
 		String cPassword = input.next();
+		
+		
+		//Gender
 		System.out.print("Please enter Gender(Male or Female): ");
 		String cGender = input.next();
+		//checking if the Gender is correct
+		while(!cGender.matches("Male|Female|male|female")){
+			System.out.print("Invalid Gender. Please try again.");
+			cGender = input.next();
+		}
+		
+		//Mobile Number
 		System.out.print("Please enter mobile number: ");
 		String cMobile = input.next();
-		System.out.print("Please enter a address: ");
-		String cAddress = input.next();
+		//checking if the mobile number is valid
+		while(!cMobile.matches("04[0-9]*{9}")){
+			System.out.print("Invalid mobile number. Please try again.");
+			cMobile = input.next();
+		}
 		
+		//address
+		input.nextLine(); //this is to consume \n that is added when pressing enter key
+		System.out.println("Please enter a address: ");
+		String cAddress = input.nextLine();
 
 		//adding user input to database
-				db1.addCustInfo(cUserName, cFname, cLname, cPassword, cGender, cMobile, cAddress);
-				/*for testing
-				 * db1.displayCustTable();
-				 */
+		db1.addCustInfo(cUserName, cFname, cLname, cPassword, cGender, cMobile, cAddress);
+		
+		/*for testing
+		 * db1.displayCustTable();
+		 */
 				
-				System.out.println("\nSuccessfully registered..");
-				customerMenu();
+		System.out.println("\nSuccessfully registered..");
+		customerMenu();
 	}
-	
-	
-	
+		
 	//customer login validate
 	public boolean customerLogin(){
 		Boolean result;
@@ -227,8 +246,7 @@ public class Menu {
 		}
 		if(result == true)
 		{
-			System.out.println("Successfully logged in \n");
-
+			System.out.println("\nSuccessfully logged in.");
 			businessOwnerMenu();
 		}
 			return true;
