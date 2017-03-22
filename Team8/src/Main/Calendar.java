@@ -1,6 +1,8 @@
+package Main;
+
 import java.time.LocalDate;
 import java.util.*;
-import java.util.Map.Entry;
+import java.util.Map.Entrg;
 
 public class Calendar {
 	public enum Status {
@@ -76,7 +78,8 @@ public class Calendar {
 		for(int i =0; i < 7; i++){
 			HashMap<String, Status> timeInfo = information.get(newDateString);
 			futureInfo.put(newDateString, timeInfo);
-			newDateString = newDate.plusDays(1).toString();
+			newDate = newDate.plusDays(1);
+			newDateString = newDate.toString();
 		}
 		return futureInfo;
 	}

@@ -1,3 +1,5 @@
+package Main;
+import Role;
 
 public class Employee extends Role {
 	public enum Service {

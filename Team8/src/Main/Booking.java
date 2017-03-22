@@ -1,4 +1,4 @@
-
+package Main;
 public class Booking {
 	private String ID;
 	private Employee.Service[] serviceType;
