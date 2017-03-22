@@ -1,3 +1,4 @@
+package Database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -11,12 +12,14 @@ public class Database {
 	private static ResultSet result = null;
 	private static boolean hasData = false;
 	
+	//get initial connection and create the table
 	public void initialise()
 	{
 		getConnection();
 		createCustTable();
 	}
 	
+	//get connection to jdbc sqlite
 	private void getConnection()
 	{
 		try
@@ -32,6 +35,7 @@ public class Database {
 		}
 	}
 	
+	//create the custinfo table
 	private void createCustTable()
 	{
 		try
@@ -150,7 +154,7 @@ public class Database {
 		return result;
 	}
 	
-	//deletes all rows in the table for testing
+	//deletes all rows in the table
 	public void deleteAllR(String tableName)
 	{
 		try
@@ -171,30 +175,10 @@ public class Database {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
+		closeConn();
 	}
 	
-	public void deleteCust(String tableName,int id)
-	{
-		try
-		{
-			if(conn.isClosed())
-			{
-				getConnection();
-			}
-			
-			stmt = conn.createStatement();
-			String sql = "DELETE FROM " + tableName + " WHERE rowid = " + id;
-			stmt.execute(sql);
-			stmt.close();
-			closeConn();
-		}
-		catch(Exception e)
-		{
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
-		}
-	}
-	
+	//check if user is authenticated
 	public boolean checkLogin(String username, String password)
 	{
 		Boolean check = null;
@@ -233,6 +217,8 @@ public class Database {
 		return check;
 	}
 	
+	//check if username already exists
+	//need to delete because fixed checkExists but need to update menu first
 	public boolean checkValue(String value)
 	{
 		Boolean check = null;
@@ -271,6 +257,7 @@ public class Database {
 		return check;
 	}
 	
+	//adding initial records to custinfo table
 	public void addTest()
 	{
 		try
@@ -318,10 +305,10 @@ public class Database {
 		{
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
-		}
-
-		
+		}	
 	}
+	
+	//update cust details - NOT WORKING
 	public void updateCust(String update, String value, Integer id)
 	{
 		ResultSet rs = null;
@@ -362,7 +349,127 @@ public class Database {
 		}
 	}
 	
-	private void closeConn()
+	//check if value exists in table
+	public boolean checkExists(String col, String value)
+	{
+		Boolean check = null;
+		PreparedStatement prep;
+		ResultSet rs;
+		
+		try
+		{
+			if(conn.isClosed())
+			{
+				getConnection();
+			}
+			
+			prep = conn.prepareStatement("SELECT " + col + " FROM CUSTINFO WHERE " + col + " = '" + value + "';");
+			rs = prep.executeQuery();
+			
+			if(rs.next())
+			{
+				check = true;
+			}
+			else
+			{
+				check = false;
+			}
+			prep.close();
+			rs.close();
+			closeConn();
+		}
+		catch(Exception e)
+		{
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+		return check;
+	}
+	
+	//check if table exists
+	public boolean checkTable()
+	{
+		boolean tableE = false;
+		try
+		{
+			if(conn.isClosed())
+			{
+				getConnection();
+			}
+			
+			ResultSet rs = conn.getMetaData().getTables(null, null, "CUSTINFO", null);
+			while(rs.next()){
+				String name = rs.getString("TABLE_NAME");
+				if(name.equals("CUSTINFO"))
+				{
+					tableE = true;
+				}
+			}
+			rs.close();
+			closeConn();
+		}
+		catch(Exception e)
+		{
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+		return tableE;
+	}
+	
+	//check if rows exists in table
+	public boolean checkRows()
+	{
+		boolean check = false;;
+		try
+		{
+			if(conn.isClosed())
+			{
+				getConnection();
+			}
+			Statement stmt = conn.createStatement();
+			String sql = "SELECT * FROM CUSTINFO";
+			ResultSet result = stmt.executeQuery(sql);
+			if(result.next())
+			{
+				check = true;
+			}
+			
+			
+			
+		}
+		catch(Exception e)
+		{
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+		return check;
+	}
+	
+	public boolean checkConnection()
+	{
+		Boolean check = null;
+		try
+		{
+			if(conn.isClosed())
+			{
+				check = false;
+			}
+			else
+			{
+				check = true;
+			}
+		}
+		catch(Exception e)
+		{
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+		return check;
+
+	}
+	
+	//close connection
+	public void closeConn()
 	{
 		try
 		{
@@ -374,5 +481,4 @@ public class Database {
 			System.exit(0);
 		}
 	}
-
 }

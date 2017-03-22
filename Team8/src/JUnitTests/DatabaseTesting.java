@@ -11,7 +11,7 @@ import org.junit.Before;
 import org.junit.After;
 import org.junit.Test;
 
-import Main.Database;
+import Database.Database;
 public class DatabaseTesting {
 
 	Database db1 = new Database();

@@ -1,3 +1,4 @@
+package Database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -119,7 +120,7 @@ public class CompanyDatabase {
 		}
 	}
 	
-	// displaying the values in company table
+	// displaying the values in customer table
 	public ResultSet displayCompanyTable()
 	{
 		try
@@ -174,7 +175,7 @@ public class CompanyDatabase {
 		}
 	}
 
-	public boolean checkLogin(String username, String password, String busCode)
+	public boolean checkLogin(String username, String password)
 	{
 		Boolean check = null;
 		PreparedStatement prep;
@@ -186,11 +187,10 @@ public class CompanyDatabase {
 				getConnection();
 			}
 			
-			prep = conn.prepareStatement("SELECT username,password,busCode FROM COMPANY WHERE "
-					+ "username = ? AND password = ? AND busCode = ?;");
+			prep = conn.prepareStatement("SELECT username,password FROM COMPANY WHERE "
+					+ "username = ? AND password = ?;");
 			prep.setString(1, username);
 			prep.setString(2, password);
-			prep.setString(3, busCode);
 			
 			rs = prep.executeQuery();
 			
@@ -264,7 +264,7 @@ public class CompanyDatabase {
 			prep.setString(1,"bigboi1");
 			prep.setString(2,"john");	
 			prep.setString(3,"abc");
-			prep.setString(4,"haireverywhere");//password
+			prep.setString(4,"haireverywhere");
 			prep.setString(5,"0430202101");
 			prep.setString(6,"1 haircut street, haircut surburb, 3000");
 			prep.setString(7,"111");

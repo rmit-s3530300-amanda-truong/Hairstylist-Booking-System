@@ -1,6 +1,10 @@
+package Calendar;
+
 import java.time.LocalDate;
 import java.util.*;
 import java.util.Map.Entry;
+
+import AppoinmentProgram.Booking;
 
 public class Calendar {
 	public enum Status {
