@@ -1,4 +1,3 @@
-package Main;
 
 public class BookingManagementSystem {
 	private Company company;
