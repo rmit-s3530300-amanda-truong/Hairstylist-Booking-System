@@ -107,66 +107,168 @@ public void mainMenu(){
 	}
 	
 	//customer registration menu
-		public void registerCustomer(){
-			
-			Boolean result;
-			//iniliasing the database
-			db1.initialise();
-			db1.addTest();
-			
+	public void registerCustomer(){
+		
+		Boolean result;
+		//iniliasing the database
+		db1.initialise();
+		db1.addTest();
+		Pattern usernamePattern = Pattern.compile("^[a-zA-Z0-9._-]*$");
+		Pattern namePattern = Pattern.compile("^[a-zA-Z-//s]*$");
+		Matcher matcher;
+		Boolean usernameValid = false;
+		Boolean passwordValid = false;
+		Boolean nameValid = false;
+		String cUsername = null, cFname = null, cLname = null, cPassword = null, cGender = null, cMobile = null;
+		
+		if(input.hasNextLine()) {
+			input.nextLine();
+		}
+		while(!usernameValid){
 			//Username
 			System.out.print("Please enter a username: ");
-			String cUserName = input.next();
-			//checking if the username already exists in database
-			result = db1.checkExists("username",cUserName);
-			while(result == true){
-				System.out.println("This username is already taken, please enter another: ");
-				cUserName = input.next();
-				result = db1.checkExists("username",cUserName);
+			cUsername = input.nextLine();
+			matcher = usernamePattern.matcher(cUsername);
+			Boolean status = matcher.find();
+			if(cUsername.isEmpty() || cUsername.contains(" ") || !status ) {
+				System.out.println("Error: Username is entered incorrectly.");
+			} else {
+				result = db1.checkExists("username",cUsername);
+				if(result) {
+					System.out.println("This username is already taken, please enter another: ");
+				} else {
+					usernameValid = true;
+				}
 			}
-			
+		}
+		while(!nameValid){
 			//firstname
-			System.out.print("Please enter your first name: ");
-			String cFname = input.next();
-					
-			//lastname
-			System.out.print("Please enter your last name: ");
-			String cLname = input.next();
 			
+			System.out.print("Please enter your first name: ");
+			cFname = input.nextLine();
+			matcher = namePattern.matcher(cFname);
+			Boolean firstNameValid = matcher.find();
+			if(cFname.isEmpty() || !firstNameValid) {
+				System.out.println("Error: First name entered incorrectly.");
+			} else {
+				while(!nameValid){
+					System.out.print("Please enter your last name: ");
+					cLname = input.nextLine();
+					matcher = namePattern.matcher(cLname);
+					Boolean lnameValid = matcher.find();
+					if(cLname.isEmpty() || !lnameValid) {
+						System.out.println("Error: Last name entered incorrectly.");
+					} else {
+						nameValid = true;
+					}
+				}
+			}
+		}
+		
+		while(!passwordValid){
 			//password
 			System.out.print("Please enter a password: ");
-			String cPassword = input.next();
-			
-			
-			//Gender
-			System.out.print("Please enter Gender(Male or Female): ");
-			String cGender = input.next();
-			//checking if the Gender is correct
-			while(!cGender.matches("Male|Female|male|female|m|f|M|F")){
-				System.out.print("Invalid Gender. Please try again.");
-				cGender = input.next();
+			cPassword = input.nextLine();
+			if(cPassword.isEmpty()) {
+				System.out.println("Error: Password cannot be null.");
+			} else {
+				passwordValid = true;
 			}
 			
-			//Mobile Number
-			System.out.print("Please enter mobile number: ");
-			String cMobile = input.next();
-			//checking if the mobile number is valid
-			while(!cMobile.matches("04[0-9]*{9}")){
-				System.out.print("Invalid mobile number. Please try again.");
-				cMobile = input.next();
-			}
-			
-			//address
-			input.nextLine(); //this is to consume \n that is added when pressing enter key
-			System.out.println("Please enter a address: ");
-			String cAddress = input.nextLine();
-
-			//adding user input to database
-			db1.addCustInfo(cUserName, cFname, cLname, cPassword, cGender, cMobile, cAddress);
-			
-			System.out.println("\nSuccessfully registered..");
-			customerMenu();
 		}
+			
+		Boolean genderValid = false;		
+		//Gender
+		while(!genderValid){
+		System.out.print("Please enter Gender(Male or Female): ");
+		cGender = input.nextLine();
+		//checking if the Gender is correct
+			if(!cGender.matches("Male|Female|male|female|m|f|M|F")){
+				System.out.println("Invalid Gender. Please try again.");
+			} else {
+				genderValid = true;
+			}
+		}
+		Boolean numberValid = false;	
+		//Mobile Number
+		while(!numberValid){
+			System.out.print("Please enter mobile number: ");
+			cMobile = input.nextLine();
+			//checking if the mobile number is valid
+			Pattern p1 = Pattern.compile("^(04||\\+614)(\\s?)[0-9]{2}(\\s?)[0-9]{3}(\\s?)[0-9]{3}$");
+			matcher = p1.matcher(cMobile);
+			Boolean status1 = matcher.find();
+			if(!status1){
+				System.out.println("Invalid mobile number. Please try again.");
+			} else {
+				numberValid = true;
+			}
+		}
+			
+		//address
+		Boolean addressNValid = false;
+		String cNumber = null, cStreet = null, cSuburb = null,cZip = null, cState = null;
+		while(!addressNValid) {
+			System.out.print("Please enter address number: ");
+			cNumber = input.nextLine();
+			if(!cNumber.matches("^[0-9-/]*$") || cNumber.isEmpty()) {
+				System.out.println("Error: Address Number entered incorrectly");
+			} else {
+				addressNValid=true;
+			}
+		}
+		
+		Boolean streetValid = false;
+		while(!streetValid){
+				System.out.print("Please enter street name: ");
+				cStreet = input.nextLine();
+				if(!cStreet.matches("^([a-zA-Z](\\s?))*$") || cStreet.isEmpty()) {
+					System.out.println("Error: Address Street entered incorrectly");
+				} else {
+					streetValid = true;
+				}
+		}
+		
+		Boolean suburbValid = false;
+		while(!suburbValid){
+			System.out.print("Please enter suburb: ");
+			cSuburb = input.nextLine();
+			if(!cSuburb.matches("^([a-zA-Z](\\s?))*$") || cSuburb.isEmpty()) {
+				System.out.println("Error: Address Suburb entered incorrectly");
+			} else {
+				suburbValid = true;
+			}
+		}
+		
+		Boolean zipValid = false;
+		while(!zipValid) {
+			System.out.print("Please enter zip code: ");
+			cZip = input.nextLine();
+			if(!cZip.matches("^[0-9]{4}$")) {
+				System.out.println("Error: Zip code entered incorrectly");
+			} else {
+				zipValid = true;		
+			}				
+		}
+		
+		Boolean stateValid = false;
+		while(!stateValid) {
+			System.out.print("Please enter State: ");
+			cState = input.nextLine();
+			if(!cState.matches("^([a-zA-Z](\\s?))*$") || cState.isEmpty()) {
+				System.out.println("Error: State has been entered incorrectly");
+			} else {
+				stateValid = true;
+			}
+		}
+		String cAddress = cNumber+cStreet+cSuburb+cZip +cState;
+		
+		//adding user input to database
+		db1.addCustInfo(cUsername, cFname, cLname, cPassword, cGender, cMobile, cAddress);
+		
+		System.out.println("\nSuccessfully registered..");
+		customerMenu();
+	}
 
 	//customer menu
 	private void customerMenu() {
