@@ -68,7 +68,7 @@ public class DatabaseTesting {
 		
 		db1.addCustInfo("bsmith","bob","smith","pass","boy","0412123123","1 happy street, happy, 3000");
 		
-		check = db1.checkValue(uname);
+		check = db1.checkExists("username",uname);
 		assertEquals(true,check);
 		check = false;
 		

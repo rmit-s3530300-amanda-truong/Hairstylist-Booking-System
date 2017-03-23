@@ -92,11 +92,11 @@ public class Menu {
 			System.out.print("Please enter a username: ");
 			String cUserName = input.next();
 			//checking if the username already exists in database
-			result = db1.checkValue(cUserName);
+			result = db1.checkExists("username",cUserName);
 			while(result == true){
 				System.out.println("This username is already taken, please enter another: ");
 				cUserName = input.next();
-				result = db1.checkValue(cUserName);
+				result = db1.checkExists("username",cUserName);
 			}
 			
 			//firstname

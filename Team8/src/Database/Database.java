@@ -217,87 +217,52 @@ public class Database {
 		return check;
 	}
 	
-	//check if username already exists
-	//need to delete because fixed checkExists but need to update menu first
-	public boolean checkValue(String value)
-	{
-		Boolean check = null;
-		PreparedStatement prep;
-		ResultSet rs;
-		
-		try
-		{
-			if(conn.isClosed())
-			{
-				getConnection();
-			}
-			
-			prep = conn.prepareStatement("SELECT username FROM CUSTINFO WHERE username = ?;");
-			prep.setString(1, value);
-			rs = prep.executeQuery();
-			
-			if(rs.next())
-			{
-				check = true;
-			}
-			else
-			{
-				check = false;
-			}
-			prep.close();
-			rs.close();
-			closeConn();
-		}
-		catch(Exception e)
-		{
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
-		}
-		
-		return check;
-	}
-	
 	//adding initial records to custinfo table
 	public void addTest()
 	{
 		try
 		{
-			if(conn.isClosed())
+			if(!checkExists("username","jpoop") || 
+					!checkExists("username","gpoop") || !checkExists("username","hithere"))
 			{
-				getConnection();
+				if(conn.isClosed())
+				{
+					getConnection();
+				}
+				
+				PreparedStatement prep = conn.prepareStatement("INSERT INTO CUSTINFO values(?,?,?,?,?,?,?);");
+				prep.setString(1,"jpoop");
+				prep.setString(2,"john");	
+				prep.setString(3,"poop");
+				prep.setString(4,"password");
+				prep.setString(5,"boi");
+				prep.setString(6,"0412123123");
+				prep.setString(7,"1 happy street, happy surburb, 3000");
+				prep.execute();
+				prep.close();
+				
+				PreparedStatement prep2 = conn.prepareStatement("INSERT INTO CUSTINFO values(?,?,?,?,?,?,?);");
+				prep2.setString(1,"gpoop");
+				prep2.setString(2,"girly");
+				prep2.setString(3,"poop");
+				prep2.setString(4,"password1");
+				prep2.setString(5,"girl");
+				prep2.setString(6,"0469123123");
+				prep2.setString(7,"1 sad street, sad surburb, 2000");
+				prep2.execute();
+				prep2.close();
+				
+				PreparedStatement prep3 = conn.prepareStatement("INSERT INTO CUSTINFO values(?,?,?,?,?,?,?);");
+				prep3.setString(1,"hithere");
+				prep3.setString(2,"hi");
+				prep3.setString(3,"there");
+				prep3.setString(4,"password2");
+				prep3.setString(5,"girl");
+				prep3.setString(6,"0469999999");
+				prep3.setString(7,"1 angry street, angry surburb, 3333");
+				prep3.execute();
+				prep3.close();
 			}
-			PreparedStatement prep = conn.prepareStatement("INSERT INTO CUSTINFO values(?,?,?,?,?,?,?);");
-			prep.setString(1,"jpoop");
-			prep.setString(2,"john");	
-			prep.setString(3,"poop");
-			prep.setString(4,"password");
-			prep.setString(5,"boi");
-			prep.setString(6,"0412123123");
-			prep.setString(7,"1 happy street, happy surburb, 3000");
-			prep.execute();
-			prep.close();
-			
-			PreparedStatement prep2 = conn.prepareStatement("INSERT INTO CUSTINFO values(?,?,?,?,?,?,?);");
-			prep2.setString(1,"gpoop");
-			prep2.setString(2,"girly");
-			prep2.setString(3,"poop");
-			prep2.setString(4,"password1");
-			prep2.setString(5,"girl");
-			prep2.setString(6,"0469123123");
-			prep2.setString(7,"1 sad street, sad surburb, 2000");
-			prep2.execute();
-			prep2.close();
-			
-			PreparedStatement prep3 = conn.prepareStatement("INSERT INTO CUSTINFO values(?,?,?,?,?,?,?);");
-			prep3.setString(1,"hithere");
-			prep3.setString(2,"hi");
-			prep3.setString(3,"there");
-			prep3.setString(4,"password2");
-			prep3.setString(5,"girl");
-			prep3.setString(6,"0469999999");
-			prep3.setString(7,"1 angry street, angry surburb, 3333");
-			prep3.execute();
-			prep3.close();
 			
 			closeConn();
 		}
@@ -306,47 +271,6 @@ public class Database {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}	
-	}
-	
-	//update cust details - NOT WORKING
-	public void updateCust(String update, String value, Integer id)
-	{
-		ResultSet rs = null;
-		try
-		{
-			if(conn.isClosed())
-			{
-				getConnection();
-			}
-			//conn.setAutoCommit(false);
-			
-			stmt = conn.createStatement();
-			//String sql = "UPDATE CUSTINFO SET ? = ?, WHERE rowid = ?";
-			String sql = "UPDATE CUSTINFO SET " + update + " = '" + value + "' WHERE rowid = " + id;
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, "update");
-			pstmt.setString(2, "value");
-			pstmt.setInt(3, id);
-			stmt.executeUpdate(sql);
-			conn.commit();
-			 
-			rs = stmt.executeQuery("SELECT * FROM CUSTINFO");
-
-			while (rs.next())
-			{
-				System.out.println(rs.getString("fname") + " " + rs.getString("lname") + " "
-						+ rs.getString("password") + " " + rs.getString("gender"));
-			}
-		      
-			stmt.close();
-			rs.close();
-			closeConn();
-		}
-		catch(Exception e)
-		{
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
-		}
 	}
 	
 	//check if value exists in table

@@ -120,6 +120,43 @@ public class CompanyDatabase {
 		}
 	}
 	
+	//check if value exists in table
+		public boolean checkExists(String col, String value)
+		{
+			Boolean check = null;
+			PreparedStatement prep;
+			ResultSet rs;
+			
+			try
+			{
+				if(conn.isClosed())
+				{
+					getConnection();
+				}
+				
+				prep = conn.prepareStatement("SELECT " + col + " FROM COMPANY WHERE " + col + " = '" + value + "';");
+				rs = prep.executeQuery();
+				
+				if(rs.next())
+				{
+					check = true;
+				}
+				else
+				{
+					check = false;
+				}
+				prep.close();
+				rs.close();
+				closeConn();
+			}
+			catch(Exception e)
+			{
+				System.err.println(e.getClass().getName() + ": " + e.getMessage());
+				System.exit(0);
+			}
+			return check;
+		}
+	
 	// displaying the values in customer table
 	public ResultSet displayCompanyTable()
 	{
@@ -214,43 +251,6 @@ public class CompanyDatabase {
 		return check;
 	}
 	
-	public boolean checkValue(String value)
-	{
-		Boolean check = null;
-		PreparedStatement prep;
-		ResultSet rs;
-		
-		try
-		{
-			if(conn.isClosed())
-			{
-				getConnection();
-			}
-			
-			prep = conn.prepareStatement("SELECT username FROM COMPANY WHERE username = ?;");
-			prep.setString(1, value);
-			rs = prep.executeQuery();
-			
-			if(rs.next())
-			{
-				check = true;
-			}
-			else
-			{
-				check = false;
-			}
-			prep.close();
-			rs.close();
-			closeConn();
-		}
-		catch(Exception e)
-		{
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
-		}
-		
-		return check;
-	}
 	
 	public void addTest()
 	{
