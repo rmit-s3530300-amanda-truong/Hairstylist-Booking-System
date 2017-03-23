@@ -1,10 +1,9 @@
 package Menu;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import Calendar.Calendar;
 import Database.CompanyDatabase;
 import Database.Database;
 
@@ -15,7 +14,10 @@ public class Menu {
 	CompanyDatabase db2 = new CompanyDatabase();
 	
 	//main menu displayed at the start of the program
-	public void mainMenu(){
+public void mainMenu(){
+		
+		input = new Scanner(System.in);
+		int selection = 0;
 		
 		System.out.println("Welcome to abc Hairstylist");
 		System.out.println("ABC hairstylist is a company for you.");
@@ -24,12 +26,18 @@ public class Menu {
 		System.out.println("2. Sign up and create a new account");
 		System.out.println("3. End this Program");
 		System.out.print("Please select an option from above: ");
-		
-		input = new Scanner(System.in);
-		int selection = input.nextInt();
+
+		try{
+			selection = input.nextInt();
+		}
+		catch(InputMismatchException imme) {
+			System.out.print("Invalid Option. Please choose again \n");
+			System.out.println("----------------------------------------\n");
+			input.next();
+			mainMenu();
+		}		
 		
 		if(selection == 1){
-			//code to authenticate will go here.
 			login();
 		}
 		else if(selection == 2){
@@ -41,7 +49,8 @@ public class Menu {
 			System.exit(0);
 		}
 		else{	
-			System.out.println("Invalid option. Please choose again");
+			System.out.print("Invalid Option. Please choose again \n");
+			System.out.println("----------------------------------------\n");
 			mainMenu();
 		}
 	}
@@ -161,6 +170,7 @@ public class Menu {
 
 	//customer menu
 	private void customerMenu() {
+		int selection1 = 0;
 		System.out.println("Welcome back Customer to ABC Hairstylist");
 		System.out.println("---------------------------------------------");
 		System.out.println("1. View Timeslots");
@@ -168,12 +178,18 @@ public class Menu {
 		System.out.println("3. End program");
 		System.out.print("Please select an option from above: ");
 		
-		input = new Scanner(System.in);
-		int selection1 = input.nextInt();
-		
+		try{
+			selection1 = input.nextInt();
+		}
+		catch(InputMismatchException imme){
+			System.out.print("Invalid Option. Please choose again \n");
+			System.out.println("----------------------------------------\n");
+			input.next();
+			customerMenu();
+		}
+			
 		if(selection1 == 1){
-			Calendar c1 = new Calendar(null, null);
-			c1.displayCalendar();
+			System.out.println("Calendar will be displayed here.");
 		}
 		else if(selection1 == 2){
 			//save everything in database
@@ -189,7 +205,10 @@ public class Menu {
 	
 	
 	//business menu
-	private void businessMenu() {	
+	private void businessMenu() {
+		
+		int selection2 = 0;
+		
 		System.out.println("Welcome back Owner of ABC Hairstylist");
 		System.out.println("---------------------------------------------");
 		System.out.println("1. Add an employee");
@@ -202,8 +221,16 @@ public class Menu {
 		System.out.println("8. End program");
 		System.out.print("Please select an option from above: ");
 		
-		input = new Scanner(System.in);
-		int selection2 = input.nextInt();
+		try{
+			selection2 = input.nextInt();
+		}
+		catch(InputMismatchException imme){
+			System.out.print("Invalid Option. Please choose again \n");
+			System.out.println("----------------------------------------\n");
+			input.next();
+			businessMenu();
+		}
+		
 		switch(selection2){
 		case 1:
 			System.out.println("------------------");
