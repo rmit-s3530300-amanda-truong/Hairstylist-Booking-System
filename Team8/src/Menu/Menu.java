@@ -1,6 +1,8 @@
 package Menu;
 
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import Calendar.Calendar;
 import Database.CompanyDatabase;
@@ -49,15 +51,30 @@ public class Menu {
 		db1.addTest();
 		db2.initialise();
 		db2.addTest();
-		String userName,password;
-		
-		do{
-			System.out.print("Please enter your username: ");
-			userName = input.next();
-			System.out.print("Please enter your password: ");
-			password = input.next();
+		String userName, password;
+		Pattern pattern = Pattern.compile("\\s");
+		boolean valid = false;
+		if(input.hasNextLine()){
+			input.nextLine();
+		}
+		while(!valid) {
 			
-		}while(!authenticate(userName,password));
+			System.out.print("Please enter your username: ");
+			userName = input.nextLine();
+			Matcher matcher = pattern.matcher(userName);
+			boolean whiteSpaceFound = matcher.find();
+			if(!userName.isEmpty() && !whiteSpaceFound) {
+				System.out.print("Please enter your password: ");
+				password = input.nextLine();
+				if(authenticate(userName,password)) {
+					valid = true;
+				}
+				
+			} else {
+				System.out.println("Error: Username has been entered incorrectly.");
+			}
+		}
+		
 	}
 	
 	//checks if the username,password is found in both database
