@@ -19,15 +19,14 @@ public class CalendarTest {
 	@Before
 	public void setUp() throws Exception {
 		LocalDate localdate = LocalDate.of(2017, 01, 10);
-		HashMap<String,HashMap<String,Calendar.Status>> info = new HashMap<String,HashMap<String,Calendar.Status>>();
-		HashMap<String,Calendar.Status> nested_info = new HashMap<String, Calendar.Status>();
+		HashMap<LocalDate, HashMap<LocalTime, Calendar.Status>> info = new HashMap<LocalDate, HashMap<LocalTime, Calendar.Status>>();
+		HashMap<LocalTime,Calendar.Status> nested_info = new HashMap<LocalTime, Calendar.Status>();
 		
 		for(int x = 0;x<7;x++){
 			for(int i = 10; i<17 ;i++) {
 				LocalTime localtime = LocalTime.of(i, 00);
-				String localtime_string = localtime.toString();
-				nested_info.put(localtime_string, Calendar.Status.free);
-				info.put(localdate.toString(), nested_info);	
+				nested_info.put(localtime, Calendar.Status.free);
+				info.put(localdate, nested_info);	
 			}
 			localdate = localdate.plusDays(1);
 		}
@@ -42,8 +41,8 @@ public class CalendarTest {
 
 	@Test
 	public void testGetHistoryFree() {
-		HashMap<String,HashMap<String,Calendar.Status>> actual_history = c1.getHistory();
-		HashMap<String,HashMap<String,Calendar.Status>> expected_history = c1.getCalendarInfo();
+		HashMap<LocalDate, HashMap<LocalTime, Status>> actual_history = c1.getHistory();
+		HashMap<LocalDate, HashMap<LocalTime, Status>> expected_history = c1.getCalendarInfo();
 		
 		assertEquals(actual_history, expected_history);
 	}
@@ -52,12 +51,12 @@ public class CalendarTest {
 	public void testGetHistoryNull() {
 		LocalDate date = LocalDate.of(2017, 01, 30);
 		c1.setCurrentDate(date);
-		HashMap<String,HashMap<String,Calendar.Status>> actual_history = c1.getHistory();
+		HashMap<LocalDate, HashMap<LocalTime, Status>> actual_history = c1.getHistory();
 		
-		HashMap<String,HashMap<String,Calendar.Status>> expected_history = new HashMap<String, HashMap<String, Calendar.Status>>();
+		HashMap<LocalDate, HashMap<LocalTime, Calendar.Status>> expected_history = new HashMap<LocalDate, HashMap<LocalTime, Calendar.Status>>();
 		LocalDate modified_date = date.minusDays(7);
 		for(int x = 0;x<7;x++){
-			expected_history.put(modified_date.toString(), null);
+			expected_history.put(modified_date, null);
 			modified_date = modified_date.plusDays(1);
 		}
 		

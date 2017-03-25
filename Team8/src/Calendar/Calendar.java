@@ -1,6 +1,7 @@
 package Calendar;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.*;
 import java.util.Map.Entry;
 
@@ -12,12 +13,12 @@ public class Calendar {
 		booked,
 		free
 	}
-	private HashMap<String,HashMap<String,Status>> information;
+	private HashMap<LocalDate,HashMap<LocalTime,Status>> information;
 	private Booking[] bookingPendingList;
 	private LocalDate currentDate;
 	private HashMap<String, Booking> bookingList;
 	
-	public Calendar(LocalDate date, HashMap<String,HashMap<String,Status>> info) {
+	public Calendar(LocalDate date, HashMap<LocalDate,HashMap<LocalTime,Status>> info) {
 		information = info;
 		bookingList = new HashMap<String, Booking>();
 		currentDate = date;
@@ -29,7 +30,7 @@ public class Calendar {
 	}
 	
 	// TODO: Needs Testing
-	public Boolean isBooked(String date, String time) {
+	public Boolean isBooked(LocalDate date, LocalTime time) {
 		Status status = information.get(date).get(time);
 		if(status == Status.booked) {
 			return true;
@@ -47,40 +48,36 @@ public class Calendar {
 		currentDate = date;
 	}
 	
-	public HashMap<String, HashMap<String, Status>> getCalendarInfo() {
+	public HashMap<LocalDate, HashMap<LocalTime, Status>> getCalendarInfo() {
 		return information;
 	}
 	
 	// TODO: Check if booking is free before add pending status
 	// TODO: Needs Testing
-	public void requestBooking(String date, String time) {
+	public void requestBooking(LocalDate date, LocalTime time) {
 		information.get(date).put(time, Status.pending);
 	}
 	
 	// TODO: Have to do error checking in case there are no last 7 days in Calendar
 	// TODO: Needs Testing
-	public HashMap<String,HashMap<String,Status>> getHistory() {
+	public HashMap<LocalDate,HashMap<LocalTime,Status>> getHistory() {
 		LocalDate oldDate = currentDate.minusDays(7);
-		String oldDateString = oldDate.toString();
-		HashMap<String,HashMap<String,Status>> historyInfo = new HashMap<String, HashMap<String, Status>>();
+		HashMap<LocalDate,HashMap<LocalTime,Status>> historyInfo = new HashMap<LocalDate, HashMap<LocalTime, Status>>();
 		for(int i =0; i < 7; i++){
-			HashMap<String, Status> timeInfo = information.get(oldDateString);
-			historyInfo.put(oldDateString, timeInfo);
+			HashMap<LocalTime, Status> timeInfo = information.get(oldDate);
+			historyInfo.put(oldDate, timeInfo);
 			oldDate = oldDate.plusDays(1);
-			oldDateString = oldDate.toString();
 		}
 		return historyInfo;
 	}
 	
 	// TODO: Needs Testing
-	public HashMap<String, HashMap<String, Status>> getNextWeek() {
+	public HashMap<LocalDate, HashMap<LocalTime, Status>> getNextWeek() {
 		LocalDate newDate = currentDate.plusDays(1);
-		String newDateString = newDate.toString();
-		HashMap<String,HashMap<String,Status>> futureInfo = new HashMap<String, HashMap<String, Status>>();
+		HashMap<LocalDate,HashMap<LocalTime,Status>> futureInfo = new HashMap<LocalDate, HashMap<LocalTime, Status>>();
 		for(int i =0; i < 7; i++){
-			HashMap<String, Status> timeInfo = information.get(newDateString);
-			futureInfo.put(newDateString, timeInfo);
-			newDateString = newDate.plusDays(1).toString();
+			HashMap<LocalTime, Status> timeInfo = information.get(newDate);
+			futureInfo.put(newDate, timeInfo);
 		}
 		return futureInfo;
 	}
