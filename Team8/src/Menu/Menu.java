@@ -261,11 +261,10 @@ public void mainMenu(){
 				stateValid = true;
 			}
 		}
-		String cAddress = cNumber+cStreet+cSuburb+cZip +cState;
+		String cAddress = cNumber+ " " + cStreet + " Street, " +cSuburb + ", " +cZip + ", " +cState;
 		
 		//adding user input to database
 		db1.addCustInfo(cUsername, cFname, cLname, cPassword, cGender, cMobile, cAddress);
-		
 		System.out.println("\nSuccessfully registered..");
 		customerMenu();
 	}

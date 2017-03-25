@@ -10,7 +10,7 @@ public class Database {
 	private static Connection conn = null;
 	private static Statement stmt = null;
 	private static ResultSet result = null;
-	private static boolean hasData = false;
+	private static Boolean hasData = false;
 	
 	//get initial connection and create the table
 	public void initialise()
@@ -66,7 +66,7 @@ public class Database {
 					
 					stmt.executeUpdate(sql);
 					stmt.close();
-					
+					/*
 					Statement state = conn.createStatement();
 					String sql2 = "SELECT * FROM CUSTINFO";
 					ResultSet result = state.executeQuery(sql2);
@@ -74,7 +74,7 @@ public class Database {
 					{
 						deleteAllR("CUSTINFO");
 					}
-
+					*/
 					closeConn();
 					//System.out.println("Table CUSTINFO created successfully");
 				}
@@ -139,7 +139,7 @@ public class Database {
 				System.out.println(result.getString("username") + " " + result.getString("fname") 
 				+ " " + result.getString("lname") + " " + result.getString("password") 
 				+ " " + result.getString("gender") + " " + result.getString("mobile") 
-				+ result.getString("address"));
+				+ " " + result.getString("address"));
 			}
 			
 			stmt.close();
@@ -178,12 +178,23 @@ public class Database {
 		closeConn();
 	}
 	
-	//check if user is authenticated
-	public boolean checkLogin(String username, String password)
+	//check if user is authenticated with user input
+	public Boolean checkLogin(String username, String password)
 	{
+		Boolean authen = null;
 		Boolean check = null;
-		PreparedStatement prep;
-		ResultSet rs;
+		ResultSet rs = null;
+		
+		check = checkAuthen(authen, rs, username,password);
+
+		closeConn();
+
+		return check;
+	}
+	
+	//actual authentication method
+	public Boolean checkAuthen(Boolean authen, ResultSet rs, String username, String password)
+	{
 		try
 		{
 			if(conn.isClosed())
@@ -191,7 +202,7 @@ public class Database {
 				getConnection();
 			}
 			
-			prep = conn.prepareStatement("SELECT username,password FROM CUSTINFO WHERE username = ? AND password = ?;");
+			PreparedStatement prep = conn.prepareStatement("SELECT username,password FROM CUSTINFO WHERE username = ? AND password = ?;");
 			prep.setString(1, username);
 			prep.setString(2, password);
 			
@@ -199,22 +210,21 @@ public class Database {
 			
 			if(rs.next())
 			{
-				check = true;
+				authen = true;
 			}
 			else
 			{
-				check = false;
+				authen = false;
 			}
 			prep.close();
 			rs.close();
-			closeConn();
 		}
 		catch(Exception e)
 		{
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
-		return check;
+		return authen;
 	}
 	
 	//adding initial records to custinfo table
@@ -235,20 +245,20 @@ public class Database {
 				prep.setString(2,"john");	
 				prep.setString(3,"poop");
 				prep.setString(4,"password");
-				prep.setString(5,"boi");
+				prep.setString(5,"male");
 				prep.setString(6,"0412123123");
-				prep.setString(7,"1 happy street, happy surburb, 3000");
+				prep.setString(7,"1 happy street, happy surburb, 3000, nsw");
 				prep.execute();
 				prep.close();
 				
 				PreparedStatement prep2 = conn.prepareStatement("INSERT INTO CUSTINFO values(?,?,?,?,?,?,?);");
 				prep2.setString(1,"gpoop");
 				prep2.setString(2,"girly");
-				prep2.setString(3,"poop");
+				prep2.setString(3,"poop1");
 				prep2.setString(4,"password1");
-				prep2.setString(5,"girl");
+				prep2.setString(5,"female");
 				prep2.setString(6,"0469123123");
-				prep2.setString(7,"1 sad street, sad surburb, 2000");
+				prep2.setString(7,"1 sad street, sad surburb, 2000, vic");
 				prep2.execute();
 				prep2.close();
 				
@@ -257,9 +267,9 @@ public class Database {
 				prep3.setString(2,"hi");
 				prep3.setString(3,"there");
 				prep3.setString(4,"password2");
-				prep3.setString(5,"girl");
+				prep3.setString(5,"female");
 				prep3.setString(6,"0469999999");
-				prep3.setString(7,"1 angry street, angry surburb, 3333");
+				prep3.setString(7,"1 angry street, angry surburb, 3333, vic");
 				prep3.execute();
 				prep3.close();
 			}
@@ -273,13 +283,21 @@ public class Database {
 		}	
 	}
 	
-	//check if value exists in table
-	public boolean checkExists(String col, String value)
+	//check if value exists in table with user input
+	public Boolean checkExists(String col, String value)
 	{
 		Boolean check = null;
-		PreparedStatement prep;
-		ResultSet rs;
+		Boolean cExists = null;
+		ResultSet rs = null;
 		
+		check = cValue(cExists, rs, col, value);
+		
+		return check;
+	}
+	
+	//check value exists actual implementation
+	public Boolean cValue(Boolean cExists, ResultSet rs, String col, String value)
+	{
 		try
 		{
 			if(conn.isClosed())
@@ -287,16 +305,16 @@ public class Database {
 				getConnection();
 			}
 			
-			prep = conn.prepareStatement("SELECT " + col + " FROM CUSTINFO WHERE " + col + " = '" + value + "';");
+			PreparedStatement prep = conn.prepareStatement("SELECT " + col + " FROM CUSTINFO WHERE " + col + " = '" + value + "';");
 			rs = prep.executeQuery();
 			
 			if(rs.next())
 			{
-				check = true;
+				cExists = true;
 			}
 			else
 			{
-				check = false;
+				cExists = false;
 			}
 			prep.close();
 			rs.close();
@@ -307,13 +325,13 @@ public class Database {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
-		return check;
+		return cExists;
 	}
 	
 	//check if table exists
-	public boolean checkTable()
+	public Boolean checkTable()
 	{
-		boolean tableE = false;
+		Boolean tableE = false;
 		try
 		{
 			if(conn.isClosed())
@@ -341,9 +359,9 @@ public class Database {
 	}
 	
 	//check if rows exists in table
-	public boolean checkRows()
+	public Boolean checkRows()
 	{
-		boolean check = false;;
+		Boolean check = false;;
 		try
 		{
 			if(conn.isClosed())
@@ -369,7 +387,8 @@ public class Database {
 		return check;
 	}
 	
-	public boolean checkConnection()
+	//check if connection is valid
+	public Boolean checkConnection()
 	{
 		Boolean check = null;
 		try
