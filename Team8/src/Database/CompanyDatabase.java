@@ -54,12 +54,14 @@ public class CompanyDatabase {
 					stmt = conn.createStatement();
 					String sql = "CREATE TABLE IF NOT EXISTS COMPANY ("
 							+ "username text NOT NULL	,"
-							+ "cname text NOT NULL		,"
-							+ "bOwnername text NOT NULL		,"
-							+ "password text NOT NULL	,"
-							+ "mobile text NOT NULL		, "
-							+ "address text NOT NULL, "
-							+ "busCode text NOT NULL);";
+							+ "cName text NOT NULL		,"
+							+ "bFname text NOT NULL		,"
+							+ "bLname text NOT NULL		,"
+							+ "password text 			,"
+							+ "gender text NOT NULL		,"
+							+ "mobile text NOT NULL		,"
+							+ "address text NOT NULL	,"
+							+ "busStatus text NOT NULL);";
 					
 					stmt.executeUpdate(sql);
 					stmt.close();
@@ -86,8 +88,8 @@ public class CompanyDatabase {
 	}
 	
 	// add all the values into a record
-	public void addBusiness(String username, String cname, String bOwnername, String pw, 
-			String mobile, String address, String busCode)
+	public void addBusiness(String username, String cname, String bFname, String bLname, String pw, String gender, 
+			String mobile, String address, String busStatus)
 	{		
 		try
 		{
@@ -98,14 +100,16 @@ public class CompanyDatabase {
 			
 			//conn.setAutoCommit(false);
 			
-			PreparedStatement prep = conn.prepareStatement("INSERT INTO COMPANY values(?,?,?,?,?,?,?);");
+			PreparedStatement prep = conn.prepareStatement("INSERT INTO COMPANY values(?,?,?,?,?,?,?,?,?);");
 			prep.setString(1, username);
 			prep.setString(2, cname);
-			prep.setString(3, bOwnername);
-			prep.setString(4, pw);
-			prep.setString(5, mobile);
-			prep.setString(6, address);
-			prep.setString(7, busCode);
+			prep.setString(3, bFname);
+			prep.setString(4, bLname);
+			prep.setString(5, pw);
+			prep.setString(6, gender);
+			prep.setString(7, mobile);
+			prep.setString(8, address);
+			prep.setString(9, busStatus);
 			
 			
 			prep.execute();
@@ -171,10 +175,10 @@ public class CompanyDatabase {
 			result = stmt.executeQuery("SELECT * FROM COMPANY");
 			while (result.next())
 			{
-				System.out.println(result.getString("username") + " " + result.getString("cname") 
-				+ " " + result.getString("bOwnername") + " " + result.getString("password") 
-				+ " " + result.getString("mobile") + result.getString("address")
-				+ " " + result.getString("busCode"));
+				System.out.println(result.getString("username") + " " + result.getString("cName") 
+				+ " " + result.getString("bFname") + " " + result.getString("bLname") + " " + result.getString("password") 
+				+ " " + result.getString("gender") + " " + result.getString("mobile") + result.getString("address")
+				+ " " + result.getString("busStatus"));
 			}
 			
 			stmt.close();
@@ -260,36 +264,40 @@ public class CompanyDatabase {
 			{
 				getConnection();
 			}
-			PreparedStatement prep = conn.prepareStatement("INSERT INTO COMPANY values(?,?,?,?,?,?,?);");
+			PreparedStatement prep = conn.prepareStatement("INSERT INTO COMPANY values(?,?,?,?,?,?,?,?,?);");
 			prep.setString(1,"bigboi1");
-			prep.setString(2,"john");	
-			prep.setString(3,"abc");
-			prep.setString(4,"haireverywhere");
-			prep.setString(5,"0430202101");
-			prep.setString(6,"1 haircut street, haircut surburb, 3000");
-			prep.setString(7,"111");
+			prep.setString(2,"ABC");
+			prep.setString(3,"john");
+			prep.setString(4,"bishop");
+			prep.setString(5,"haireverywhere");
+			prep.setString(6,"male");
+			prep.setString(7,"0430202101");
+			prep.setString(8,"1 haircut street, haircut surburb, 3000");
+			prep.setString(9,"owner");
 			prep.execute();
 			prep.close();
 			
-			PreparedStatement prep2 = conn.prepareStatement("INSERT INTO COMPANY values(?,?,?,?,?,?,?);");
-			prep2.setString(1,"bigboi2");
-			prep2.setString(2,"bob");
-			prep2.setString(3,"CutCut");
-			prep2.setString(4,"hairpass");
-			prep2.setString(5,"0400123000");
-			prep2.setString(6,"1 hair street, hair surburb, 2000");
-			prep2.setString(7,"222");
-			prep2.execute();
-			prep2.close();
+//			PreparedStatement prep2 = conn.prepareStatement("INSERT INTO COMPANY values(?,?,?,?,?,?,?);");
+//			prep2.setString(1,"bigboi2");
+//			prep2.setString(2,"bob");
+//			prep2.setString(3,"CutCut");
+//			prep2.setString(4,"hairpass");
+//			prep2.setString(5,"0400123000");
+//			prep2.setString(6,"1 hair street, hair surburb, 2000");
+//			prep2.setString(7,"222");
+//			prep2.execute();
+//			prep2.close();
 			
-			PreparedStatement prep3 = conn.prepareStatement("INSERT INTO COMPANY values(?,?,?,?,?,?,?);");
-			prep3.setString(1,"biggirl1");
-			prep3.setString(2,"Elissa");
-			prep3.setString(3,"Hairlissa");
-			prep3.setString(4,"chopchop");
-			prep3.setString(5,"0469899898");
-			prep3.setString(6,"1 choparoo street, choparoo surburb, 3333");
-			prep3.setString(7,"333");
+			PreparedStatement prep3 = conn.prepareStatement("INSERT INTO COMPANY values(?,?,?,?,?,?,?,?,?);");
+			prep3.setString(1,"e0001");
+			prep3.setString(2,"ABC");
+			prep3.setString(3,"Elissa");
+			prep3.setString(4,"Smith");
+			prep3.setString(5,null);
+			prep3.setString(6,"female");
+			prep3.setString(7,"0469899898");
+			prep3.setString(8,"1 choparoo street, choparoo surburb, 3333");
+			prep3.setString(9,"employee");
 			prep3.execute();
 			prep3.close();
 			closeConn();
