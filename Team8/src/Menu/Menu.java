@@ -6,12 +6,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import Database.CompanyDatabase;
 import Database.Database;
+import AppoinmentProgram.Company;
 
 public class Menu {
 	
 	private Scanner input;
 	Database db1 = new Database();
 	CompanyDatabase db2 = new CompanyDatabase();
+	Company co1 = new Company("abc", null, null);
+	
 	
 	//main menu displayed at the start of the program
 public void mainMenu(){
@@ -82,8 +85,7 @@ public void mainMenu(){
 			} else {
 				System.out.println("Error: Username has been entered incorrectly.");
 			}
-		}
-		
+		}		
 	}
 	
 	//checks if the username,password is found in both database
@@ -304,9 +306,8 @@ public void mainMenu(){
 		}
 	}
 	
-	
 	//business menu
-	private void businessMenu() {
+	public void businessMenu() {
 		
 		int selection2 = 0;
 		
@@ -337,6 +338,7 @@ public void mainMenu(){
 			System.out.println("------------------");
 			System.out.println("Add a new Employee");
 			System.out.println("------------------");
+			co1.addEmployee();
 			break;
 		case 2:
 			System.out.println("------------------");
