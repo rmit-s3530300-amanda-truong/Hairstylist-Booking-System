@@ -260,46 +260,49 @@ public class CompanyDatabase {
 	{
 		try
 		{
-			if(conn.isClosed())
+			if(!checkExists("username","bigboi1") || !checkExists("username","e0001"))
 			{
-				getConnection();
+				if(conn.isClosed())
+				{
+					getConnection();
+				}
+				PreparedStatement prep = conn.prepareStatement("INSERT INTO COMPANY values(?,?,?,?,?,?,?,?,?);");
+				prep.setString(1,"bigboi1");
+				prep.setString(2,"ABC");
+				prep.setString(3,"john");
+				prep.setString(4,"bishop");
+				prep.setString(5,"haireverywhere");
+				prep.setString(6,"male");
+				prep.setString(7,"0430202101");
+				prep.setString(8,"1 haircut street, haircut surburb, 3000");
+				prep.setString(9,"owner");
+				prep.execute();
+				prep.close();
+				
+	//			PreparedStatement prep2 = conn.prepareStatement("INSERT INTO COMPANY values(?,?,?,?,?,?,?);");
+	//			prep2.setString(1,"bigboi2");
+	//			prep2.setString(2,"bob");
+	//			prep2.setString(3,"CutCut");
+	//			prep2.setString(4,"hairpass");
+	//			prep2.setString(5,"0400123000");
+	//			prep2.setString(6,"1 hair street, hair surburb, 2000");
+	//			prep2.setString(7,"222");
+	//			prep2.execute();
+	//			prep2.close();
+				
+				PreparedStatement prep3 = conn.prepareStatement("INSERT INTO COMPANY values(?,?,?,?,?,?,?,?,?);");
+				prep3.setString(1,"e0001");
+				prep3.setString(2,"ABC");
+				prep3.setString(3,"Elissa");
+				prep3.setString(4,"Smith");
+				prep3.setString(5,null);
+				prep3.setString(6,"female");
+				prep3.setString(7,"0469899898");
+				prep3.setString(8,"1 choparoo street, choparoo surburb, 3333");
+				prep3.setString(9,"employee");
+				prep3.execute();
+				prep3.close();
 			}
-			PreparedStatement prep = conn.prepareStatement("INSERT INTO COMPANY values(?,?,?,?,?,?,?,?,?);");
-			prep.setString(1,"bigboi1");
-			prep.setString(2,"ABC");
-			prep.setString(3,"john");
-			prep.setString(4,"bishop");
-			prep.setString(5,"haireverywhere");
-			prep.setString(6,"male");
-			prep.setString(7,"0430202101");
-			prep.setString(8,"1 haircut street, haircut surburb, 3000");
-			prep.setString(9,"owner");
-			prep.execute();
-			prep.close();
-			
-//			PreparedStatement prep2 = conn.prepareStatement("INSERT INTO COMPANY values(?,?,?,?,?,?,?);");
-//			prep2.setString(1,"bigboi2");
-//			prep2.setString(2,"bob");
-//			prep2.setString(3,"CutCut");
-//			prep2.setString(4,"hairpass");
-//			prep2.setString(5,"0400123000");
-//			prep2.setString(6,"1 hair street, hair surburb, 2000");
-//			prep2.setString(7,"222");
-//			prep2.execute();
-//			prep2.close();
-			
-			PreparedStatement prep3 = conn.prepareStatement("INSERT INTO COMPANY values(?,?,?,?,?,?,?,?,?);");
-			prep3.setString(1,"e0001");
-			prep3.setString(2,"ABC");
-			prep3.setString(3,"Elissa");
-			prep3.setString(4,"Smith");
-			prep3.setString(5,null);
-			prep3.setString(6,"female");
-			prep3.setString(7,"0469899898");
-			prep3.setString(8,"1 choparoo street, choparoo surburb, 3333");
-			prep3.setString(9,"employee");
-			prep3.execute();
-			prep3.close();
 			closeConn();
 		}
 		catch(Exception e)
@@ -309,6 +312,35 @@ public class CompanyDatabase {
 		}
 
 		
+	}
+	
+	public int checkEmployees()
+	{
+		int counter = 0;
+		ResultSet rs;
+		try
+		{
+			if(conn.isClosed())
+			{
+				getConnection();
+			}
+			stmt = conn.createStatement();
+			String sql = "SELECT * FROM COMPANY WHERE busStatus = 'employee';";
+			rs = stmt.executeQuery(sql);
+			while(rs.next())
+			{
+				counter++;
+			}
+			stmt.close();
+			rs.close();
+			closeConn();
+		}
+		catch(Exception e)
+		{
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+		return counter;
 	}
 	
 	private void closeConn()
