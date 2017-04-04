@@ -7,20 +7,21 @@ import java.util.regex.Pattern;
 
 import AppoinmentProgram.Employee;
 import AppoinmentProgram.Employee.Service;
+import Database.CompanyDatabase;
 import Database.Database;
 
 public class Menu {
 	
 	private Scanner input;
-	Database custDB = new Database();
-	Database busDB = new Database();
+	Database db1 = new Database();
+	CompanyDatabase db2 = new CompanyDatabase();
 	
 	public Menu(){
 		//initializing all the database
-		custDB.initialise("customer");
-		custDB.addTest("customer");
-		busDB.initialise("company");
-		busDB.addTest("company");
+		db1.initialise();
+		db1.addTest();
+		db2.initialise();
+		db2.addTest();
 	}
 	
 	//main menu displayed at the start of the program
@@ -104,10 +105,10 @@ public class Menu {
 	//checks if the username, password is found in both database
 	public boolean authenticate(String uName, String pass){
 		
-		if(custDB.checkLogin("customer",uName,pass) || busDB.checkLogin("company",uName,pass)){
+		if(db1.checkLogin(uName,pass) || db2.checkLogin(uName,pass)){
 			System.out.println("Login Successfull");
 			//check if the username was customer or business
-			if(custDB.checkLogin("customer",uName,pass)){
+			if(db1.checkLogin(uName,pass)){
 				customerMenu();
 			}
 			else{
@@ -236,14 +237,14 @@ public class Menu {
 		cAddress = cNumber+ " " + cStreet + "," + cSuburb + ", " + cState + " "+ cZip;
 		
 		//adding user input to database
-		custDB.addCustInfo(cUname, cFname, cLname, cPassword, cGender, cMobile, cAddress);
+		db1.addCustInfo(cUname, cFname, cLname, cPassword, cGender, cMobile, cAddress);
 		System.out.println("\nSuccessfully registered..");
 		customerMenu();
 	}
 
 	//checking if the username is unique
 	public boolean uniqueUname(String uUname) {
-		if(custDB.checkExists("customer","username",uUname)){
+		if(db1.checkExists("username",uUname)){
 			System.out.println("This username is already taken, please enter another: ");
 			return false;
 		}
@@ -386,7 +387,7 @@ public class Menu {
 				suburbValid = false,zipValid = false, stateValid = false, serviceValid = false;
 		
 		//getting username
-		int uname = busDB.checkEmployees() + 1;
+		int uname = db2.checkEmployees() + 1;
 		String bUserName = "e" + uname;
 		System.out.println("This employee will be registered as: " + bUserName);	
 		
@@ -490,7 +491,7 @@ public class Menu {
 		/*Employee e1 = */new Employee(bUserName, bFname, bLname, services);
 		
 		//sends user input to database
-		busDB.addBusInfo(bUserName, "ABC", bFname, bLname, null, bGender, bMobile, bAddress,/* bService,*/ "employee");
+		db2.addBusiness(bUserName, "ABC", bFname, bLname, null, bGender, bMobile, bAddress,/* bService,*/ "employee");
 		System.out.println("\nEmployee Successfully registered..");
 		businessMenu();
 	}
