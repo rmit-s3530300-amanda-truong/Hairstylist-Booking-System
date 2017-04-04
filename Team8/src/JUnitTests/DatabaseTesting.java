@@ -10,7 +10,6 @@ import java.sql.Statement;
 import org.junit.Before;
 import org.junit.After;
 import org.junit.Test;
-
 import Database.Database;
 public class DatabaseTesting {
 
@@ -25,7 +24,7 @@ public class DatabaseTesting {
 	@Before
 	public void setUp() throws SQLException
 	{
-		db1.initialise();
+		db1.initialise("customer");
 	}
 	
 	@Test 
@@ -46,7 +45,7 @@ public class DatabaseTesting {
 	@Test
 	public void testCreateTable() throws SQLException
 	{
-		if(db1.checkTable() == true)
+		if(db1.checkTable("customer") == true)
 		{
 			check = true;
 		}
@@ -69,31 +68,31 @@ public class DatabaseTesting {
 		
 		db1.addCustInfo("bsmith","bob","smith","pass","boy","0412123123","1 happy street, happy, 3000, vic");
 		
-		check = db1.checkExists("username",uname);
+		check = db1.checkExists("customer","username",uname);
 		assertEquals(true,check);
 		check = false;
 		
-		check = db1.checkExists("fname",fname);
+		check = db1.checkExists("customer","fname",fname);
 		assertEquals(true,check);
 		check = false;
 		
-		check = db1.checkExists("lname",lname);		
+		check = db1.checkExists("customer","lname",lname);		
 		assertEquals(true,check);
 		check = false;
 		
-		check = db1.checkExists("password",password);
+		check = db1.checkExists("customer","password",password);
 		assertEquals(true,check);
 		check = false;
 		
-		check = db1.checkExists("gender",gender);
+		check = db1.checkExists("customer","gender",gender);
 		assertEquals(true,check);
 		check = false;
 		
-		check = db1.checkExists("mobile",mobile);
+		check = db1.checkExists("customer","mobile",mobile);
 		assertEquals(true,check);
 		check = false;
 		
-		check = db1.checkExists("address",address);
+		check = db1.checkExists("customer","address",address);
 		assertEquals(true,check);
 		check = false;
 	}
@@ -102,8 +101,8 @@ public class DatabaseTesting {
 	public void testDeleteAllR() throws SQLException
 	{
 		Boolean checkR;
-		db1.deleteAllR("CUSTINFO");
-		checkR = db1.checkRows();
+		db1.deleteAllR("customer","CUSTINFO");
+		checkR = db1.checkRows("customer");
 		assertEquals(false,checkR);
 	}
 	
@@ -114,12 +113,12 @@ public class DatabaseTesting {
 		Boolean checkF = true;
 		String username = "jpoop";
 		String password = "password";
-		checkT = db1.checkLogin(username,password);
+		checkT = db1.checkLogin("customer",username,password);
 		assertEquals(true,checkT);
 		
 		String username2 = "jp";
 		String password2 = "pw";
-		checkF = db1.checkLogin(username2,password2);
+		checkF = db1.checkLogin("customer",username2,password2);
 		assertEquals(false,checkF);
 	}
 	
@@ -131,12 +130,12 @@ public class DatabaseTesting {
 		Boolean authen = null;
 		String username = "jpoop";
 		String password = "password";
-		checkT = db1.checkAuthen(authen,result,username,password);
+		checkT = db1.checkAuthen("customer",authen,result,username,password);
 		assertEquals(true,checkT);
 		
 		String username2 = "jp";
 		String password2 = "pw";
-		checkF = db1.checkAuthen(authen,result,username2,password2);
+		checkF = db1.checkAuthen("customer",authen,result,username2,password2);
 		assertEquals(false,checkF);
 	}
 	
@@ -146,10 +145,10 @@ public class DatabaseTesting {
 		Boolean check = false;
 		Boolean check2 = false;
 		Boolean check3 = false;
-		db1.addTest();	
-		check = db1.checkExists("username", "jpoop");
-		check2 = db1.checkExists("username", "gpoop");
-		check3 = db1.checkExists("username", "hithere");
+		db1.addTest("customer");	
+		check = db1.checkExists("customer","username", "jpoop");
+		check2 = db1.checkExists("customer","username", "rgeorge");
+		check3 = db1.checkExists("customer","username", "bstar");
 		assertEquals(true,check);
 		assertEquals(true,check2);
 		assertEquals(true,check3);
@@ -157,9 +156,9 @@ public class DatabaseTesting {
 		check2 = false;
 		check3 = false;
 		
-		check = db1.checkExists("fname","john");
-		check2 = db1.checkExists("fname","girly");
-		check3 = db1.checkExists("fname","hi");
+		check = db1.checkExists("customer","fname","John");
+		check2 = db1.checkExists("customer","fname","Regina");
+		check3 = db1.checkExists("customer","fname","Bob");
 		assertEquals(true,check);
 		assertEquals(true,check2);
 		assertEquals(true,check3);
@@ -167,9 +166,9 @@ public class DatabaseTesting {
 		check2 = false;
 		check3 = false;
 		
-		check = db1.checkExists("lname","poop");
-		check2 = db1.checkExists("lname","poop1");		
-		check3 = db1.checkExists("lname","there");		
+		check = db1.checkExists("customer","lname","Poop");
+		check2 = db1.checkExists("customer","lname","George");		
+		check3 = db1.checkExists("customer","lname","Star");		
 		assertEquals(true,check);
 		assertEquals(true,check2);
 		assertEquals(true,check3);
@@ -177,9 +176,9 @@ public class DatabaseTesting {
 		check2 = false;
 		check3 = false;
 		
-		check = db1.checkExists("password","password");
-		check2 = db1.checkExists("password","password1");
-		check3 = db1.checkExists("password","password2");
+		check = db1.checkExists("customer","password","password");
+		check2 = db1.checkExists("customer","password","password1");
+		check3 = db1.checkExists("customer","password","password2");
 		assertEquals(true,check);
 		assertEquals(true,check2);
 		assertEquals(true,check3);
@@ -187,9 +186,9 @@ public class DatabaseTesting {
 		check2 = false;
 		check3 = false;
 		
-		check = db1.checkExists("gender","male");
-		check2 = db1.checkExists("gender","female");
-		check3 = db1.checkExists("gender","female");
+		check = db1.checkExists("customer","gender","male");
+		check2 = db1.checkExists("customer","gender","female");
+		check3 = db1.checkExists("customer","gender","female");
 		assertEquals(true,check);
 		assertEquals(true,check2);
 		assertEquals(true,check3);
@@ -197,9 +196,9 @@ public class DatabaseTesting {
 		check2 = false;
 		check3 = false;
 		
-		check = db1.checkExists("mobile","0412123123");
-		check2 = db1.checkExists("mobile","0469123123");
-		check3 = db1.checkExists("mobile","0469999999");
+		check = db1.checkExists("customer","mobile","0412123123");
+		check2 = db1.checkExists("customer","mobile","0469123123");
+		check3 = db1.checkExists("customer","mobile","0469999999");
 		assertEquals(true,check);
 		assertEquals(true,check2);
 		assertEquals(true,check3);
@@ -207,9 +206,9 @@ public class DatabaseTesting {
 		check2 = false;
 		check3 = false;
 		
-		check = db1.checkExists("address","1 happy street, happy surburb, 3000, nsw");
-		check2 = db1.checkExists("address","1 sad street, sad surburb, 2000, vic");
-		check3 = db1.checkExists("address","1 angry street, angry surburb, 3333, vic");
+		check = db1.checkExists("customer","address","1 Happy Street, Happyville, 3000, nsw");
+		check2 = db1.checkExists("customer","address","1 Sad street, Sadville, 2000, vic");
+		check3 = db1.checkExists("customer","address","1 Angry Street, Angryville, 3333, vic");
 		assertEquals(true,check);
 		assertEquals(true,check2);
 		assertEquals(true,check3);
@@ -229,29 +228,29 @@ public class DatabaseTesting {
 		String col2 = "username";
 		String value2 = "jp";
 		
-		checkT = db1.checkExists(col,value);
+		checkT = db1.checkExists("customer",col,value);
 		assertEquals(true,checkT);
 		
-		checkF = db1.checkExists(col2, value2);
+		checkF = db1.checkExists("customer",col2, value2);
 		assertEquals(false,checkF);
 	}
 	
 	@Test
 	public void testCheckTable()
 	{
-		check = db1.checkTable();
+		check = db1.checkTable("customer");
 		assertEquals(true,check);
 	}
 	
 	@Test
 	public void testCheckRows()
 	{
-		db1.addTest();
-		check = db1.checkRows();
+		db1.addTest("customer");
+		check = db1.checkRows("customer");
 		assertEquals(true,check);
 		
-		db1.deleteAllR("CUSTINFO");
-		check = db1.checkRows();
+		db1.deleteAllR("customer","CUSTINFO");
+		check = db1.checkRows("customer");
 		assertEquals(false,check);
 	}
 	
@@ -259,7 +258,7 @@ public class DatabaseTesting {
 	public void testCheckConnetion()
 	{
 		Boolean check = false;
-		db1.initialise();
+		db1.initialise("customer");
 		check = db1.checkConnection();
 		assertEquals(true,check);
 		
