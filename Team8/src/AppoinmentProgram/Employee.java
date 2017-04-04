@@ -8,7 +8,7 @@ import java.util.Map.Entry;
 
 public class Employee extends Role {
 	HashMap<LocalDate, ArrayList<LocalTime>> availability;
-	private ArrayList<Service> serviceType;
+	private static ArrayList<Service> serviceType;
 	public enum Service {
 		femaleCut,
 		maleCut,
@@ -27,7 +27,7 @@ public class Employee extends Role {
 	}
 	
 	// TODO: Needs Testing
-	public ArrayList<Service> getService() {
+	public static ArrayList<Service> getService() {
 		return serviceType;
 	}
 	

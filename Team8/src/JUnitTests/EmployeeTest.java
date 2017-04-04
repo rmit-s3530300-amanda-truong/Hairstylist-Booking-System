@@ -18,8 +18,14 @@ import AppoinmentProgram.Employee;
 import AppoinmentProgram.Employee.Service;
 
 public class EmployeeTest {
+	
+	//defining employee details for testing methods
 	Employee e;
-
+	String id = "e0005";
+	String firstName = "john";
+	String lastName = "snow";
+	ArrayList<Employee.Service> service = new ArrayList<Employee.Service>();
+	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 	}
@@ -30,13 +36,18 @@ public class EmployeeTest {
 
 	@Before
 	public void setUp() throws Exception {
-		ArrayList<Employee.Service> a = new ArrayList<Employee.Service>();
-		a.add(Service.maleWash);
-		e = new Employee("1", "a", "b", a);
+		service.add(Service.maleWash);
+		e = new Employee(id, firstName, lastName, service);
 	}
 
 	@After
 	public void tearDown() throws Exception {
+	}
+	
+	@Test
+	public void getService() throws Exception {
+		ArrayList<Service> eService = Employee.getService();
+		assertEquals(eService,service);
 	}
 
 	@Test
