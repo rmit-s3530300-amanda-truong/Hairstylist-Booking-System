@@ -20,8 +20,10 @@ public class Menu {
 		//initializing all the database
 		db1.initialise();
 		db1.addTest();
+		db1.displayCustTable();
 		db2.initialise();
 		db2.addTest();
+		db2.displayCompanyTable();
 	}
 	
 	//main menu displayed at the start of the program
@@ -491,7 +493,7 @@ public class Menu {
 		/*Employee e1 = */new Employee(bUserName, bFname, bLname, services);
 		
 		//sends user input to database
-		db2.addBusiness(bUserName, "ABC", bFname, bLname, null, bGender, bMobile, bAddress,/* bService,*/ "employee");
+		db2.addBusiness(bUserName, "ABC", bFname, bLname, null, bGender, bMobile, bAddress, bService, "employee");
 		System.out.println("\nEmployee Successfully registered..");
 		businessMenu();
 	}

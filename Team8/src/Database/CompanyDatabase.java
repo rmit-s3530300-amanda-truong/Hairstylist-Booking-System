@@ -2,6 +2,7 @@ package Database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
 
@@ -40,8 +41,7 @@ public class CompanyDatabase {
 			if(conn.isClosed())
 			{
 				getConnection();
-			}
-									
+			}						
 			if(!hasData)
 			{
 				hasData = true;
@@ -61,19 +61,11 @@ public class CompanyDatabase {
 							+ "gender text NOT NULL		,"
 							+ "mobile text NOT NULL		,"
 							+ "address text NOT NULL	,"
+							+ "service text				,"
 							+ "busStatus text NOT NULL);";
-					
 					stmt.executeUpdate(sql);
 					stmt.close();
 					
-					Statement state = conn.createStatement();
-					String sql2 = "SELECT * FROM COMPANY";
-					ResultSet result = state.executeQuery(sql2);
-					if(result.next())
-					{
-						deleteAllR("COMPANY");
-					}
-
 					closeConn();
 					//System.out.println("Table COMPANY created successfully");
 				}
@@ -89,7 +81,7 @@ public class CompanyDatabase {
 	
 	// add all the values into a record
 	public void addBusiness(String username, String cname, String bFname, String bLname, String pw, String gender, 
-			String mobile, String address, String busStatus)
+			String mobile, String address, String service, String busStatus)
 	{		
 		try
 		{
@@ -100,7 +92,7 @@ public class CompanyDatabase {
 			
 			//conn.setAutoCommit(false);
 			
-			PreparedStatement prep = conn.prepareStatement("INSERT INTO COMPANY values(?,?,?,?,?,?,?,?,?);");
+			PreparedStatement prep = conn.prepareStatement("INSERT INTO COMPANY values(?,?,?,?,?,?,?,?,?,?);");
 			prep.setString(1, username);
 			prep.setString(2, cname);
 			prep.setString(3, bFname);
@@ -109,7 +101,8 @@ public class CompanyDatabase {
 			prep.setString(6, gender);
 			prep.setString(7, mobile);
 			prep.setString(8, address);
-			prep.setString(9, busStatus);
+			prep.setString(9, service);
+			prep.setString(10, busStatus);
 			
 			
 			prep.execute();
@@ -178,7 +171,7 @@ public class CompanyDatabase {
 				System.out.println(result.getString("username") + " " + result.getString("cName") 
 				+ " " + result.getString("bFname") + " " + result.getString("bLname") + " " + result.getString("password") 
 				+ " " + result.getString("gender") + " " + result.getString("mobile") + result.getString("address")
-				+ " " + result.getString("busStatus"));
+				+ " " + result.getString("service") + " " + result.getString("busStatus"));
 			}
 			
 			stmt.close();
@@ -266,7 +259,7 @@ public class CompanyDatabase {
 				{
 					getConnection();
 				}
-				PreparedStatement prep = conn.prepareStatement("INSERT INTO COMPANY values(?,?,?,?,?,?,?,?,?);");
+				PreparedStatement prep = conn.prepareStatement("INSERT INTO COMPANY values(?,?,?,?,?,?,?,?,?,?);");
 				prep.setString(1,"bigboi1");
 				prep.setString(2,"ABC");
 				prep.setString(3,"john");
@@ -275,7 +268,8 @@ public class CompanyDatabase {
 				prep.setString(6,"male");
 				prep.setString(7,"0430202101");
 				prep.setString(8,"1 haircut street, haircut surburb, 3000");
-				prep.setString(9,"owner");
+				prep.setString(9,null);
+				prep.setString(10,"owner");
 				prep.execute();
 				prep.close();
 				
@@ -290,7 +284,7 @@ public class CompanyDatabase {
 	//			prep2.execute();
 	//			prep2.close();
 				
-				PreparedStatement prep3 = conn.prepareStatement("INSERT INTO COMPANY values(?,?,?,?,?,?,?,?,?);");
+				PreparedStatement prep3 = conn.prepareStatement("INSERT INTO COMPANY values(?,?,?,?,?,?,?,?,?,?);");
 				prep3.setString(1,"e0001");
 				prep3.setString(2,"ABC");
 				prep3.setString(3,"Elissa");
@@ -299,7 +293,8 @@ public class CompanyDatabase {
 				prep3.setString(6,"female");
 				prep3.setString(7,"0469899898");
 				prep3.setString(8,"1 choparoo street, choparoo surburb, 3333");
-				prep3.setString(9,"employee");
+				prep3.setString(9,"femaleCut");
+				prep3.setString(10,"employee");
 				prep3.execute();
 				prep3.close();
 			}
@@ -313,7 +308,7 @@ public class CompanyDatabase {
 
 		
 	}
-	
+
 	public int checkEmployees()
 	{
 		int counter = 0;
@@ -354,6 +349,18 @@ public class CompanyDatabase {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
+	}
+	
+	public void dropTable() throws SQLException
+	{
+		if(conn.isClosed())
+		{
+			getConnection();
+		}
+		String sql2 = "DROP TABLE COMPANY";
+		stmt.executeUpdate(sql2);
+		stmt.close();
+		closeConn();
 	}
 
 }
