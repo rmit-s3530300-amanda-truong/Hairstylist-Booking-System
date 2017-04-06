@@ -13,19 +13,19 @@ public class Database {
 	private static Boolean hasData = false;
 	
 	//get initial connection and create the table
-	public void initialise()
+	public void initialise(String dbName)
 	{
-		getConnection();
-		createCustTable();
+		getConnection(dbName);
+		createTable(dbName);
 	}
 	
 	//get connection to jdbc sqlite
-	private void getConnection()
+	private void getConnection(String dbName)
 	{
 		try
 		{
 			Class.forName("org.sqlite.JDBC");
-			conn = DriverManager.getConnection("jdbc:sqlite:customer.db");
+			conn = DriverManager.getConnection("jdbc:sqlite:"+dbName+".db");
 			//System.out.println("Opened database successfully.");
 		}
 		catch(Exception e)
@@ -36,13 +36,14 @@ public class Database {
 	}
 	
 	//create the custinfo table
-	private void createCustTable()
+	private void createTable(String dbName)
 	{
+		String sql = null;
 		try
 		{
 			if(conn.isClosed())
 			{
-				getConnection();
+				getConnection(dbName);
 			}
 									
 			if(!hasData)
@@ -53,28 +54,34 @@ public class Database {
 				
 				if(!res.next())
 				{
-					//System.out.println("Building CUSTINFO table");
 					stmt = conn.createStatement();
-					String sql = "CREATE TABLE IF NOT EXISTS CUSTINFO ("
-							+ "username text NOT NULL	,"
-							+ "fname text NOT NULL		,"
-							+ "lname text NOT NULL		,"
-							+ "password text NOT NULL	,"
-							+ "gender text NOT NULL		,"
-							+ "mobile text NOT NULL		, "
-							+ "address text NOT NULL	);";
-					
+					if(dbName == "customer")
+					{
+						sql = "CREATE TABLE IF NOT EXISTS CUSTINFO ("
+								+ "username text NOT NULL	,"
+								+ "fname text NOT NULL		,"
+								+ "lname text NOT NULL		,"
+								+ "password text NOT NULL	,"
+								+ "gender text NOT NULL		,"
+								+ "mobile text NOT NULL		, "
+								+ "address text NOT NULL	);";
+					}
+					else
+					{
+						sql = "CREATE TABLE IF NOT EXISTS COMPANY ("
+								+ "username text NOT NULL	,"
+								+ "cName text NOT NULL		,"
+								+ "bFname text NOT NULL		,"
+								+ "bLname text NOT NULL		,"
+								+ "password text 			,"
+								+ "gender text NOT NULL		,"
+								+ "mobile text NOT NULL		,"
+								+ "address text NOT NULL	,"
+								+ "service text				,"
+								+ "busStatus text NOT NULL);";
+					}
 					stmt.executeUpdate(sql);
 					stmt.close();
-					/*
-					Statement state = conn.createStatement();
-					String sql2 = "SELECT * FROM CUSTINFO";
-					ResultSet result = state.executeQuery(sql2);
-					if(result.next())
-					{
-						deleteAllR("CUSTINFO");
-					}
-					*/
 					closeConn();
 					//System.out.println("Table CUSTINFO created successfully");
 				}
@@ -95,10 +102,8 @@ public class Database {
 		{
 			if(conn.isClosed())
 			{
-				getConnection();
+				getConnection("customer");
 			}
-			
-			//conn.setAutoCommit(false);
 			
 			PreparedStatement prep = conn.prepareStatement("INSERT INTO CUSTINFO values(?,?,?,?,?,?,?);");
 			prep.setString(1, username);
@@ -122,24 +127,37 @@ public class Database {
 		}
 	}
 	
-	// displaying the values in customer table
-	public ResultSet displayCustTable()
+	// displaying the values in table
+	public ResultSet displayTable(String dbName)
 	{
 		try
 		{
 			if(conn.isClosed())
 			{
-				getConnection();
+				getConnection(dbName);
 			}
-			
 			stmt = conn.createStatement();
-			result = stmt.executeQuery("SELECT * FROM CUSTINFO");
-			while (result.next())
+			if(dbName == "customer")
 			{
-				System.out.println(result.getString("username") + " " + result.getString("fname") 
-				+ " " + result.getString("lname") + " " + result.getString("password") 
-				+ " " + result.getString("gender") + " " + result.getString("mobile") 
-				+ " " + result.getString("address"));
+				result = stmt.executeQuery("SELECT * FROM CUSTINFO");
+				while (result.next())
+				{
+					System.out.println(result.getString("username") + " " + result.getString("fname") 
+					+ " " + result.getString("lname") + " " + result.getString("password") 
+					+ " " + result.getString("gender") + " " + result.getString("mobile") 
+					+ " " + result.getString("address"));
+				}
+			}
+			else
+			{
+				result = stmt.executeQuery("SELECT * FROM COMPANY");
+				while (result.next())
+				{
+					System.out.println(result.getString("username") + " " + result.getString("cName") 
+					+ " " + result.getString("bFname") + " " + result.getString("bLname") + " " + result.getString("password") 
+					+ " " + result.getString("gender") + " " + result.getString("mobile") + result.getString("address")
+					+ " " + result.getString("service") + " " + result.getString("busStatus"));
+				}
 			}
 			
 			stmt.close();
@@ -155,13 +173,13 @@ public class Database {
 	}
 	
 	//deletes all rows in the table
-	public void deleteAllR(String tableName)
+	public void deleteAllR(String dbName, String tableName)
 	{
 		try
 		{
 			if(conn.isClosed())
 			{
-				getConnection();
+				getConnection(dbName);
 			}
 			
 			stmt = conn.createStatement();
@@ -179,13 +197,13 @@ public class Database {
 	}
 	
 	//check if user is authenticated with user input
-	public Boolean checkLogin(String username, String password)
+	public Boolean checkLogin(String dbName, String username, String password)
 	{
 		Boolean authen = null;
 		Boolean check = null;
 		ResultSet rs = null;
 		
-		check = checkAuthen(authen, rs, username,password);
+		check = checkAuthen(dbName, authen, rs, username,password);
 
 		closeConn();
 
@@ -193,16 +211,25 @@ public class Database {
 	}
 	
 	//actual authentication method
-	public Boolean checkAuthen(Boolean authen, ResultSet rs, String username, String password)
+	public Boolean checkAuthen(String dbName, Boolean authen, ResultSet rs, String username, String password)
 	{
+		String tableName;
 		try
 		{
 			if(conn.isClosed())
 			{
-				getConnection();
+				getConnection(dbName);
 			}
 			
-			PreparedStatement prep = conn.prepareStatement("SELECT username,password FROM CUSTINFO WHERE username = ? AND password = ?;");
+			if(dbName == "customer")
+			{
+				tableName = "CUSTINFO";
+			}
+			else
+			{
+				tableName = "COMPANY";
+			}
+			PreparedStatement prep = conn.prepareStatement("SELECT username,password FROM "+tableName+" WHERE username = ? AND password = ?;");
 			prep.setString(1, username);
 			prep.setString(2, password);
 			
@@ -228,50 +255,100 @@ public class Database {
 	}
 	
 	//adding initial records to custinfo table
-	public void addTest()
+	public void addTest(String dbName)
 	{
 		try
 		{
-			if(!checkExists("username","jpoop") || 
-					!checkExists("username","gpoop") || !checkExists("username","hithere"))
+			if(dbName == "customer")
 			{
-				if(conn.isClosed())
+				if(!checkExists("customer","username","jpoop") || 
+						!checkExists("customer","username","gpoop") || !checkExists("customer","username","hithere"))
 				{
-					getConnection();
+					if(conn.isClosed())
+					{
+						getConnection("customer");
+					}
+					PreparedStatement prep = conn.prepareStatement("INSERT INTO CUSTINFO values(?,?,?,?,?,?,?);");
+					prep.setString(1,"jpoop");
+					prep.setString(2,"john");	
+					prep.setString(3,"poop");
+					prep.setString(4,"password");
+					prep.setString(5,"male");
+					prep.setString(6,"0412123123");
+					prep.setString(7,"1 happy street, happy surburb, 3000, nsw");
+					prep.execute();
+					prep.close();
+					
+					PreparedStatement prep2 = conn.prepareStatement("INSERT INTO CUSTINFO values(?,?,?,?,?,?,?);");
+					prep2.setString(1,"gpoop");
+					prep2.setString(2,"girly");
+					prep2.setString(3,"poop1");
+					prep2.setString(4,"password1");
+					prep2.setString(5,"female");
+					prep2.setString(6,"0469123123");
+					prep2.setString(7,"1 sad street, sad surburb, 2000, vic");
+					prep2.execute();
+					prep2.close();
+					
+					PreparedStatement prep3 = conn.prepareStatement("INSERT INTO CUSTINFO values(?,?,?,?,?,?,?);");
+					prep3.setString(1,"hithere");
+					prep3.setString(2,"hi");
+					prep3.setString(3,"there");
+					prep3.setString(4,"password2");
+					prep3.setString(5,"female");
+					prep3.setString(6,"0469999999");
+					prep3.setString(7,"1 angry street, angry surburb, 3333, vic");
+					prep3.execute();
+					prep3.close();
 				}
-				
-				PreparedStatement prep = conn.prepareStatement("INSERT INTO CUSTINFO values(?,?,?,?,?,?,?);");
-				prep.setString(1,"jpoop");
-				prep.setString(2,"john");	
-				prep.setString(3,"poop");
-				prep.setString(4,"password");
-				prep.setString(5,"male");
-				prep.setString(6,"0412123123");
-				prep.setString(7,"1 happy street, happy surburb, 3000, nsw");
-				prep.execute();
-				prep.close();
-				
-				PreparedStatement prep2 = conn.prepareStatement("INSERT INTO CUSTINFO values(?,?,?,?,?,?,?);");
-				prep2.setString(1,"gpoop");
-				prep2.setString(2,"girly");
-				prep2.setString(3,"poop1");
-				prep2.setString(4,"password1");
-				prep2.setString(5,"female");
-				prep2.setString(6,"0469123123");
-				prep2.setString(7,"1 sad street, sad surburb, 2000, vic");
-				prep2.execute();
-				prep2.close();
-				
-				PreparedStatement prep3 = conn.prepareStatement("INSERT INTO CUSTINFO values(?,?,?,?,?,?,?);");
-				prep3.setString(1,"hithere");
-				prep3.setString(2,"hi");
-				prep3.setString(3,"there");
-				prep3.setString(4,"password2");
-				prep3.setString(5,"female");
-				prep3.setString(6,"0469999999");
-				prep3.setString(7,"1 angry street, angry surburb, 3333, vic");
-				prep3.execute();
-				prep3.close();
+			}
+			else
+			{
+				if(!checkExists("company","username","bigboi1") || !checkExists("company","username","e0001"))
+				{
+					if(conn.isClosed())
+					{
+						getConnection("company");
+					}
+					PreparedStatement prep = conn.prepareStatement("INSERT INTO COMPANY values(?,?,?,?,?,?,?,?,?,?);");
+					prep.setString(1,"bigboi1");
+					prep.setString(2,"ABC");
+					prep.setString(3,"john");
+					prep.setString(4,"bishop");
+					prep.setString(5,"haireverywhere");
+					prep.setString(6,"male");
+					prep.setString(7,"0430202101");
+					prep.setString(8,"1 haircut street, haircut surburb, 3000");
+					prep.setString(9,null);
+					prep.setString(10,"owner");
+					prep.execute();
+					prep.close();
+					
+		//			PreparedStatement prep2 = conn.prepareStatement("INSERT INTO COMPANY values(?,?,?,?,?,?,?);");
+		//			prep2.setString(1,"bigboi2");
+		//			prep2.setString(2,"bob");
+		//			prep2.setString(3,"CutCut");
+		//			prep2.setString(4,"hairpass");
+		//			prep2.setString(5,"0400123000");
+		//			prep2.setString(6,"1 hair street, hair surburb, 2000");
+		//			prep2.setString(7,"222");
+		//			prep2.execute();
+		//			prep2.close();
+					
+					PreparedStatement prep3 = conn.prepareStatement("INSERT INTO COMPANY values(?,?,?,?,?,?,?,?,?,?);");
+					prep3.setString(1,"e0001");
+					prep3.setString(2,"ABC");
+					prep3.setString(3,"Elissa");
+					prep3.setString(4,"Smith");
+					prep3.setString(5,null);
+					prep3.setString(6,"female");
+					prep3.setString(7,"0469899898");
+					prep3.setString(8,"1 choparoo street, choparoo surburb, 3333");
+					prep3.setString(9,"femaleCut");
+					prep3.setString(10,"employee");
+					prep3.execute();
+					prep3.close();
+				}
 			}
 			
 			closeConn();
@@ -284,28 +361,37 @@ public class Database {
 	}
 	
 	//check if value exists in table with user input
-	public Boolean checkExists(String col, String value)
+	public Boolean checkExists(String dbName, String col, String value)
 	{
 		Boolean check = null;
 		Boolean cExists = null;
 		ResultSet rs = null;
 		
-		check = cValue(cExists, rs, col, value);
+		check = cValue(dbName, cExists, rs, col, value);
 		
 		return check;
 	}
 	
 	//check value exists actual implementation
-	public Boolean cValue(Boolean cExists, ResultSet rs, String col, String value)
+	public Boolean cValue(String dbName, Boolean cExists, ResultSet rs, String col, String value)
 	{
+		String tableName;
 		try
 		{
 			if(conn.isClosed())
 			{
-				getConnection();
+				getConnection(dbName);
+			}
+			if(dbName == "customer")
+			{
+				tableName = "CUSTINFO";
+			}
+			else
+			{
+				tableName = "COMPANY";
 			}
 			
-			PreparedStatement prep = conn.prepareStatement("SELECT " + col + " FROM CUSTINFO WHERE " + col + " = '" + value + "';");
+			PreparedStatement prep = conn.prepareStatement("SELECT " + col + " FROM "+tableName+" WHERE " + col + " = '" + value + "';");
 			rs = prep.executeQuery();
 			
 			if(rs.next())
@@ -329,20 +415,28 @@ public class Database {
 	}
 	
 	//check if table exists
-	public Boolean checkTable()
+	public Boolean checkTable(String dbName)
 	{
 		Boolean tableE = false;
+		String tableName;
 		try
 		{
 			if(conn.isClosed())
 			{
-				getConnection();
+				getConnection(dbName);
 			}
-			
-			ResultSet rs = conn.getMetaData().getTables(null, null, "CUSTINFO", null);
+			if(dbName == "customer")
+			{
+				tableName = "CUSTINFO";
+			}
+			else
+			{
+				tableName = "COMPANY";
+			}
+			ResultSet rs = conn.getMetaData().getTables(null, null, tableName, null);
 			while(rs.next()){
 				String name = rs.getString("TABLE_NAME");
-				if(name.equals("CUSTINFO"))
+				if(name.equals(tableName))
 				{
 					tableE = true;
 				}
@@ -359,25 +453,31 @@ public class Database {
 	}
 	
 	//check if rows exists in table
-	public Boolean checkRows()
+	public Boolean checkRows(String dbName)
 	{
+		String tableName;
 		Boolean check = false;;
 		try
 		{
 			if(conn.isClosed())
 			{
-				getConnection();
+				getConnection(dbName);
+			}
+			if(dbName == "customer")
+			{
+				tableName = "CUSTINFO";
+			}
+			else
+			{
+				tableName = "COMPANY";
 			}
 			Statement stmt = conn.createStatement();
-			String sql = "SELECT * FROM CUSTINFO";
+			String sql = "SELECT * FROM " +tableName;
 			ResultSet result = stmt.executeQuery(sql);
 			if(result.next())
 			{
 				check = true;
 			}
-			
-			
-			
 		}
 		catch(Exception e)
 		{
@@ -385,6 +485,69 @@ public class Database {
 			System.exit(0);
 		}
 		return check;
+	}
+	
+	// add all the values into a record
+		public void addBusiness(String username, String cname, String bFname, String bLname, String pw, String gender, 
+				String mobile, String address, String service, String busStatus)
+		{		
+			try
+			{
+				if(conn.isClosed())
+				{
+					getConnection("company");
+				}
+				PreparedStatement prep = conn.prepareStatement("INSERT INTO COMPANY values(?,?,?,?,?,?,?,?,?,?);");
+				prep.setString(1, username);
+				prep.setString(2, cname);
+				prep.setString(3, bFname);
+				prep.setString(4, bLname);
+				prep.setString(5, pw);
+				prep.setString(6, gender);
+				prep.setString(7, mobile);
+				prep.setString(8, address);
+				prep.setString(9, service);
+				prep.setString(10, busStatus);
+				
+				
+				prep.execute();
+				prep.close();
+				
+				closeConn();
+			}
+			catch( Exception e)
+			{
+				System.err.println(e.getClass().getName() + ": " + e.getMessage());
+				System.exit(0);
+			}
+		}
+	public int checkEmployees()
+	{
+		int counter = 0;
+		ResultSet rs;
+		try
+		{
+			if(conn.isClosed())
+			{
+				getConnection("company");
+			}
+			stmt = conn.createStatement();
+			String sql = "SELECT * FROM COMPANY WHERE busStatus = 'employee';";
+			rs = stmt.executeQuery(sql);
+			while(rs.next())
+			{
+				counter++;
+			}
+			stmt.close();
+			rs.close();
+			closeConn();
+		}
+		catch(Exception e)
+		{
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+		return counter;
 	}
 	
 	//check if connection is valid
@@ -408,7 +571,6 @@ public class Database {
 			System.exit(0);
 		}
 		return check;
-
 	}
 	
 	//close connection
