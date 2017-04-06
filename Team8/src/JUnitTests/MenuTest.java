@@ -79,10 +79,10 @@ public class MenuTest {
 		assertEquals(true,check);
 	}
 	
-	@Test
-	public void testValidService() {
-		String service = "femaleCut";
-		boolean check = m1.validService(service);
-		assertEquals(true,check);
-	}
+//	@Test
+//	public void testValidService() {
+//		String service = "femaleCut";
+//		boolean check = m1.validService(service);
+//		assertEquals(true,check);
+//	}
 }

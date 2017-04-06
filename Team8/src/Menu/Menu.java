@@ -58,10 +58,12 @@ public class Menu {
 			if(validOption(select)){
 				if(select == 1){
 					login();
+					selectValid = true;
 				}
 				else if(select == 2){
 					System.out.println("You will be registered as a customer");
 					registerCustomer();
+					selectValid = true;
 				}
 				else if(select == 3){
 					System.out.print("Thanks for using our program.");
@@ -306,6 +308,7 @@ public class Menu {
 		System.out.println("---------------------------------------------");
 		
 		while(!selectValid2){
+			System.out.println("---------------------------------------------");
 			System.out.println("1. Add a new employee");
 			System.out.println("2. Add available Timeslots");
 			System.out.println("3. Booking Summary");
@@ -322,7 +325,6 @@ public class Menu {
 			}
 			catch (NumberFormatException nfe){
 				System.out.println("Error: Invalid Option. Please Choose again");
-				System.out.println("------------------------------------------");
 				continue;
 			}
 			
@@ -387,7 +389,7 @@ public class Menu {
 				bSuburb = null, bZip = null, bState = null;
 		boolean fNameValid = false, lNameValid = false, genderValid = false, 
 				mobileValid = false, streetNumberValid = false, streetValid = false, 
-				suburbValid = false,zipValid = false, stateValid = false, serviceValid = false;
+				suburbValid = false,zipValid = false, stateValid = false;
 		
 		//getting username
 		int uname = db2.checkEmployees() + 1;
@@ -477,20 +479,29 @@ public class Menu {
 		}
 		
 		//getting valid service type
-		while(!serviceValid) {
-			System.out.print("Please select services from below followed by \', \'");
-			System.out.println("\n(femaleCut, maleCut, femaleDye, maleDye, femalePerm, malePerm, femaleWash, maleWash):");
-			bService = input.nextLine();
-			if(validService(bService)){
-				serviceValid = true;
-			}
-		}
+//		while(!serviceValid) {
+//			System.out.print("Please select services from below followed by \', \'");
+//			System.out.println("\n(femaleCut, maleCut, femaleDye, maleDye, femalePerm, malePerm, femaleWash, maleWash):");
+//			bService = input.nextLine();
+//			if(validService(bService)){
+//				serviceValid = true;
+//			}
+//		}
 		
 		//joining the address from user input
 		bAddress = bNumber+ " " + bStreet + "," + bSuburb + ", " + bState + " "+ bZip;
+		bService = "femaleCut, maleCut, femaleDye, maleDye, femalePerm, malePerm, femaleWash, maleWash";
 		
 		//sends user input to the arraylist
 		ArrayList<Service> services = new ArrayList<Service>();
+		services.add(Employee.Service.femaleCut);
+		services.add(Employee.Service.maleCut);
+		services.add(Employee.Service.femaleDye);
+		services.add(Employee.Service.maleDye);
+		services.add(Employee.Service.femalePerm);
+		services.add(Employee.Service.malePerm);
+		services.add(Employee.Service.femaleWash);
+		services.add(Employee.Service.maleWash);
 		/*Employee e1 = */new Employee(bUserName, bFname, bLname, services);
 		
 		//sends user input to database
@@ -500,19 +511,19 @@ public class Menu {
 	}
 			
 	//error checking for valid service
-	public boolean validService(String service){
-		String[] result = service.split(", ");
-		for(int i = 0; i < result.length;){
-			if(!result[i].matches("femaleCut|maleCut|femaleDye|maleDye|femalePerm|malePerm|femaleWash|maleWash")) {
-				System.out.println("Error: Services entered incorrectly.");
-				return false;
-			} 
-			else{
-				return true;
-			}
-		}
-		return true;
-	}
+//	public boolean validService(String service){
+//		String[] result = service.split(", ");
+//		for(int i = 0; i < result.length;){
+//			if(!result[i].matches("femaleCut|maleCut|femaleDye|maleDye|femalePerm|malePerm|femaleWash|maleWash")) {
+//				System.out.println("Error: Services entered incorrectly.");
+//				return false;
+//			} 
+//			else{
+//				return true;
+//			}
+//		}
+//		return true;
+//	}
 	
 	//error checking for valid username
 	private boolean validUname(String uName){
