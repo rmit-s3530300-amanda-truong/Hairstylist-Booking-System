@@ -6,7 +6,12 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 
 
-public class Employee extends Role {
+public class Employee {
+	
+	private String ID;
+	private String firstName;
+	private String lastName;
+	
 	HashMap<LocalDate, ArrayList<LocalTime>> availability;
 	private static ArrayList<Service> serviceType;
 	public enum Service {
@@ -21,7 +26,9 @@ public class Employee extends Role {
 	}
 	
 	public Employee(String ID, String firstName, String lastName, ArrayList<Service> serviceType){
-		super(ID, firstName, lastName, null);
+		this.ID = ID;
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.serviceType = (ArrayList<Service>) serviceType.clone(); 
 		availability = new HashMap<LocalDate, ArrayList<LocalTime>>();
 	}
@@ -44,5 +51,9 @@ public class Employee extends Role {
 	
 	public HashMap<LocalDate, ArrayList<LocalTime>> getAvailability() {
 		return availability;
+	}
+
+	public String getID() {
+		return ID;
 	}
 }
