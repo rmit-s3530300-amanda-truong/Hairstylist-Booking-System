@@ -25,7 +25,7 @@ public class Company {
 	
 	// TODO: Needs Testing
 	public Employee getEmployee(String ID) {
-		return null;
+		return employeeList.get(ID);
 	}
 	
 }

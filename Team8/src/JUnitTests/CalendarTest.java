@@ -11,6 +11,7 @@ import java.util.Map.Entry;
 import org.junit.Before;
 import org.junit.Test;
 
+import AppoinmentProgram.Booking;
 import Calendar.Calendar;
 import Calendar.Calendar.Status;
 
@@ -20,14 +21,14 @@ public class CalendarTest {
 	@Before
 	public void setUp() throws Exception {
 		LocalDate localdate = LocalDate.of(2017, 01, 10);
-		LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Calendar.Status>> info = new LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Calendar.Status>>();
-		LinkedHashMap<LocalTime,Calendar.Status> nested_info = new LinkedHashMap<LocalTime, Calendar.Status>();
+		LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>> info = new LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>>();
+		LinkedHashMap<LocalTime,Booking> nested_info = new LinkedHashMap<LocalTime, Booking>();
 		
 		for(int x = 0;x<7;x++){
 			for(int i = 8; i<17 ;i++) {
 				LocalTime localtime = LocalTime.of(i, 00);
 				for(int y = 0 ; y<4 ;y++){
-					nested_info.put(localtime, Calendar.Status.free);
+					nested_info.put(localtime, new Booking(Calendar.Status.free));
 					localtime = localtime.plusMinutes(15);
 				}
 				info.put(localdate, nested_info);	
@@ -42,8 +43,8 @@ public class CalendarTest {
 
 	@Test
 	public void testGetHistoryFree() {
-		LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Status>> actual_history = c1.getHistory();
-		LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Status>> expected_history = c1.getCalendarInfo();
+		LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>> actual_history = c1.getHistory();
+		LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>> expected_history = c1.getCalendarInfo();
 		
 		assertEquals(actual_history, expected_history);
 	}
@@ -52,9 +53,9 @@ public class CalendarTest {
 	public void testGetHistoryNull() {
 		LocalDate date = LocalDate.of(2017, 01, 30);
 		c1.setCurrentDate(date);
-		LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Status>> actual_history = c1.getHistory();
+		LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>> actual_history = c1.getHistory();
 		
-		LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Calendar.Status>> expected_history = new LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Calendar.Status>>();
+		LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>> expected_history = new LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>>();
 		LocalDate modified_date = date.minusDays(7);
 		for(int x = 0;x<7;x++){
 			expected_history.put(modified_date, null);
@@ -66,7 +67,7 @@ public class CalendarTest {
 	
 	@Test
 	public void testDisplayFutureInfo() {
-		LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Calendar.Status>> info = c1.getCalendarInfo();
+		LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>> info = c1.getCalendarInfo();
 		LocalDate date = c1.getDate().minusDays(14);
 		String actual_cal = c1.displayCalendar(info, date.plusDays(7));
 		assertEquals("--------------------------------------------------------------------------------------------------------------------\n"
@@ -144,7 +145,7 @@ public class CalendarTest {
 	
 	@Test
 	public void testDisplayHistory() {
-		LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Calendar.Status>> info = c1.getCalendarInfo();
+		LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>> info = c1.getCalendarInfo();
 		LocalDate date = c1.getDate();
 		String actual_cal = c1.displayCalendar(info, date.minusDays(7));
 		assertEquals("--------------------------------------------------------------------------------------------------------------------\n"
@@ -222,7 +223,7 @@ public class CalendarTest {
 	
 	@Test
 	public void testDisplayCalendar() {
-		LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Calendar.Status>> info = c1.getCalendarInfo();
+		LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>> info = c1.getCalendarInfo();
 		c1.setCurrentDate(LocalDate.of(2017, 01, 10));
 		String actual_cal = c1.displayCalendar(info, c1.getDate());
 		assertEquals("--------------------------------------------------------------------------------------------------------------------\n"
@@ -298,12 +299,12 @@ public class CalendarTest {
 				+"--------------------------------------------------------------------------------------------------------------------\n", actual_cal);
 	}
 
-	public void printHashMap(LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Status>> information2) {
-		for(Entry<LocalDate, LinkedHashMap<LocalTime, Status>> entry : information2.entrySet()) {
-			LinkedHashMap<LocalTime, Status> entry2 = entry.getValue();
+	public void printHashMap(LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>> information2) {
+		for(Entry<LocalDate, LinkedHashMap<LocalTime, Booking>> entry : information2.entrySet()) {
+			LinkedHashMap<LocalTime, Booking> entry2 = entry.getValue();
 			System.out.println("OuterKey: "+entry.getKey());
-			for(Entry<LocalTime, Status> entry3 : entry2.entrySet()) {
-				System.out.println("AKey: " + entry3.getKey() + " Value: " + entry3.getValue());
+			for(Entry<LocalTime, Booking> entry3 : entry2.entrySet()) {
+				System.out.println("AKey: " + entry3.getKey() + " Value: " + entry3.getValue().getStatus());
 			}			
 		}
 	}
