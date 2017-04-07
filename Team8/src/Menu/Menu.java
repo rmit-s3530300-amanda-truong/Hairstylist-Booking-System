@@ -5,6 +5,7 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import AppoinmentProgram.Company;
 import AppoinmentProgram.Employee;
 import AppoinmentProgram.Employee.Service;
 import Database.CompanyDatabase;
@@ -15,6 +16,7 @@ public class Menu {
 	private Scanner input;
 	CustomerDatabase db1 = new CustomerDatabase();
 	CompanyDatabase db2 = new CompanyDatabase();
+	Company co1 = new Company();
 	
 	public Menu(){
 		//initializing all the database
@@ -475,16 +477,6 @@ public class Menu {
 			}
 		}
 		
-		//getting valid service type
-//		while(!serviceValid) {
-//			System.out.print("Please select services from below followed by \', \'");
-//			System.out.println("\n(femaleCut, maleCut, femaleDye, maleDye, femalePerm, malePerm, femaleWash, maleWash):");
-//			bService = input.nextLine();
-//			if(validService(bService)){
-//				serviceValid = true;
-//			}
-//		}
-		
 		//joining the address from user input
 		bAddress = bNumber+ " " + bStreet + "," + bSuburb + ", " + bState + " "+ bZip;
 		bService = "femaleCut, maleCut, femaleDye, maleDye, femalePerm, malePerm, femaleWash, maleWash";
@@ -499,29 +491,15 @@ public class Menu {
 		services.add(Employee.Service.malePerm);
 		services.add(Employee.Service.femaleWash);
 		services.add(Employee.Service.maleWash);
-		/*Employee e1 = */new Employee(bUserName, bFname, bLname, services);
+		Employee e1 = new Employee(bUserName, bFname, bLname, services);
+		co1.addEmployee(e1);
 		
 		//sends user input to database
 		db2.addBusiness(bUserName, "ABC", bFname, bLname, null, bGender, bMobile, bAddress, bService, "employee");
 		System.out.println("\nEmployee Successfully registered..");
 		businessMenu();
 	}
-			
-	//error checking for valid service
-//	public boolean validService(String service){
-//		String[] result = service.split(", ");
-//		for(int i = 0; i < result.length;){
-//			if(!result[i].matches("femaleCut|maleCut|femaleDye|maleDye|femalePerm|malePerm|femaleWash|maleWash")) {
-//				System.out.println("Error: Services entered incorrectly.");
-//				return false;
-//			} 
-//			else{
-//				return true;
-//			}
-//		}
-//		return true;
-//	}
-	
+		
 	//error checking for valid username
 	private boolean validUname(String uName){
 		Matcher matcher;

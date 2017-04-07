@@ -1,21 +1,18 @@
 package AppoinmentProgram;
 
+import java.time.LocalDate;
 import java.util.*;
 
 import Calendar.Calendar;
 
 public class Company {
-	private String businessName;
 	private HashMap<String, Employee> employeeList;
-	private String ownerID;
 	private Calendar calendar;
 	
 	// TODO: Add in other details that company need here
-	public Company(String businessName, String ownerID, Calendar calendar) {
-		this.businessName = businessName;
-		this.ownerID = ownerID;
+	public Company() {
 		employeeList = new HashMap<String, Employee>();
-		this.calendar = calendar;
+		this.calendar = new Calendar(LocalDate.now());
 	}
 	
 	public void addEmployee(Employee employee) {
@@ -28,4 +25,7 @@ public class Company {
 		return employeeList.get(ID);
 	}
 	
+	public Calendar getCalendar() {
+		return calendar;
+	}
 }
