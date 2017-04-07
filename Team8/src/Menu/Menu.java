@@ -5,6 +5,7 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import AppoinmentProgram.Company;
 import AppoinmentProgram.Employee;
 import AppoinmentProgram.Employee.Service;
 import Database.CompanyDatabase;
@@ -281,7 +282,7 @@ public class Menu {
 			
 			if(validOption(select1)){
 				if(select1 == 1){
-					System.out.println("Display the calendar here");
+					System.out.println("Calendar Display");
 					System.exit(0);//delete this when the method id added
 				}
 				else if(select1 == 2){

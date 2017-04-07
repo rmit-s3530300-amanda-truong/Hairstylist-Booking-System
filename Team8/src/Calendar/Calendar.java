@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 
 import AppoinmentProgram.Booking;
 import AppoinmentProgram.Employee;
+import AppoinmentProgram.Employee.Service;
 import Calendar.Calendar;
 
 public class Calendar {
@@ -52,8 +53,9 @@ public class Calendar {
 		}
 	}
 	
-	public HashMap<String, Booking> getBookingSummary() {
-		HashMap<String, Booking> list = new HashMap<String, Booking>();
+	public String getBookingSummary() {
+		LinkedHashMap<String, Booking> list = new LinkedHashMap<String, Booking>();
+		String output="";
 		for(Entry<LocalDate, LinkedHashMap<LocalTime, Booking>> x : bookingList.entrySet()) {
 			for(Entry<LocalTime, Booking> y : x.getValue().entrySet()) {
 				if(y.getValue().getStatus() == Status.pending || y.getValue().getStatus() == Status.booked) {
@@ -61,7 +63,23 @@ public class Calendar {
 				}
 			}
 		}
-		return list;
+		for(Entry<String,Booking> entry : list.entrySet()) {
+			String service_string="";
+			Booking book = entry.getValue();
+			LocalTime time = book.getTime();
+			HashMap<Service,String> services = book.getServices();
+			int time_block=0;
+			for(Entry<Service,String> x : services.entrySet()) {
+				service_string = service_string + x.getKey() + "|" + x.getValue() + ", ";
+				time_block+=x.getKey().getTime();
+			}
+			for(int i=0; i<time_block;i++) {
+				time = time.plusMinutes(15);
+			}
+			
+			output = output + String.format("Status: %s, Date: %s, Start Time: %s, End Time: %s, Customer: %s, Service|Employee: %s \n",book.getStatus().toString(), book.getDate(), book.getTime(), time.toString(), book.getCustomerID(), service_string);
+		}
+		return output;
 	}
 	
 	// Ensure employee has 14 days worth of availability before calling this method(maybe?)
@@ -150,16 +168,34 @@ public class Calendar {
 	}
 	
     // TODO: Needs Testing
-	public HashMap<String, Booking> getBookingPendingList() {
+	public String getBookingPendingList() {
 		HashMap<String, Booking> list = new HashMap<String, Booking>();
+		String output = "";
 		for(Entry<LocalDate, LinkedHashMap<LocalTime, Booking>> x : bookingList.entrySet()) {
 			for(Entry<LocalTime, Booking> y : x.getValue().entrySet()) {
-				if(y.getValue().getStatus() == Status.pending) {
-					list.put(y.getValue().getCustomerID(), y.getValue());
+				Booking book = y.getValue();
+				if(book.getStatus() == Status.pending) {
+					list.put(book.getCustomerID(), book);
 				}
 			}
 		}
-		return list;
+		for(Entry<String,Booking> entry : list.entrySet()) {
+			String service_string="";
+			Booking book = entry.getValue();
+			LocalTime time = book.getTime();
+			HashMap<Service,String> services = book.getServices();
+			int time_block=0;
+			for(Entry<Service,String> x : services.entrySet()) {
+				service_string = service_string + x.getKey() + "|" + x.getValue() + ", ";
+				time_block+=x.getKey().getTime();
+			}
+			for(int i=0; i<time_block;i++) {
+				time = time.plusMinutes(15);
+			}
+			
+			output = output + String.format("Status: %s, Date: %s, Start Time: %s, End Time: %s, Customer: %s, Service|Employee: %s \n", book.getStatus().toString(), book.getDate(), book.getTime(), time.toString(), book.getCustomerID(), service_string);
+		}
+		return output;
 	}
 	
 	// Returns a concatenated String which displays the calendar on console

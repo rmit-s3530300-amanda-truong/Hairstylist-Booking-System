@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
@@ -12,6 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import AppoinmentProgram.Booking;
+import AppoinmentProgram.Employee.Service;
 import Calendar.Calendar;
 import Calendar.Calendar.Status;
 
@@ -40,8 +42,55 @@ public class CalendarTest {
 		c1 = new Calendar(localdate);
 		c1.setCalendarInfo(info);
 	}
-
+	
 	@Test
+	public void testGetBookingPendingList() {
+		String expected_output = "Status: pending, Date: 2017-01-15, Start Time: 10:00, End Time: 11:30, Customer: 000, Service|Employee: femaleCut|Alan, femaleDye|Candy,  \n";
+		String actual_output;
+		
+		LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>> info = c1.getCalendarInfo();
+		LinkedHashMap<LocalTime,Booking> nested_info;
+		LocalDate date = LocalDate.of(2017, 01, 15);
+		LocalTime time = LocalTime.of(10, 00);
+		nested_info = info.get(date);
+		Booking book = nested_info.get(time);
+		HashMap<Service,String> services = new HashMap<Service,String>();
+		services.put(Service.femaleCut, "Alan");
+		services.put(Service.femaleDye, "Candy");
+		book.addDetails("0", services, date, time, "000");
+		nested_info.put(LocalTime.of(5, 00), book);
+		info.put(date, nested_info);
+		c1.setCalendarInfo(info);
+		
+		actual_output = c1.getBookingPendingList();
+		
+		assertEquals(expected_output, actual_output);
+	}
+	
+	@Test
+	public void testGetBookingSummary() {
+		String expected_output = "Status: pending, Date: 2017-01-15, Start Time: 10:00, End Time: 10:30, Customer: 000, Service|Employee: femaleCut|Alan,  \n";
+		String actual_output;
+		
+		LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>> info = c1.getCalendarInfo();
+		LinkedHashMap<LocalTime,Booking> nested_info;
+		LocalDate date = LocalDate.of(2017, 01, 15);
+		LocalTime time = LocalTime.of(10, 00);
+		nested_info = info.get(date);
+		Booking book = nested_info.get(time);
+		HashMap<Service,String> services = new HashMap<Service,String>();
+		services.put(Service.femaleCut, "Alan");
+		book.addDetails("0", services, date, time, "000");
+		nested_info.put(LocalTime.of(5, 00), book);
+		info.put(date, nested_info);
+		c1.setCalendarInfo(info);
+		
+		actual_output = c1.getBookingSummary();
+		
+		assertEquals(expected_output, actual_output);
+	}
+
+	/*@Test
 	public void testGetHistoryFree() {
 		LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>> actual_history = c1.getHistory();
 		LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>> expected_history = c1.getCalendarInfo();
@@ -298,7 +347,7 @@ public class CalendarTest {
 				+"|16:00        | free         |free         |free         |free         |free         |free         |free         |\n"
 				+"--------------------------------------------------------------------------------------------------------------------\n", actual_cal);
 	}
-
+*/
 	public void printHashMap(LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>> information2) {
 		for(Entry<LocalDate, LinkedHashMap<LocalTime, Booking>> entry : information2.entrySet()) {
 			LinkedHashMap<LocalTime, Booking> entry2 = entry.getValue();
