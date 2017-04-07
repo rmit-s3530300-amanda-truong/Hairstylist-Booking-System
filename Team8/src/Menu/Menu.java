@@ -7,24 +7,21 @@ import java.util.regex.Pattern;
 
 import AppoinmentProgram.Employee;
 import AppoinmentProgram.Employee.Service;
-import Database.Database;
+import Database.CompanyDatabase;
+import Database.CustomerDatabase;
 
 public class Menu {
 	
 	private Scanner input;
-	Database db1 = new Database();
-	Database db2 = new Database();
+	CustomerDatabase db1 = new CustomerDatabase();
+	CompanyDatabase db2 = new CompanyDatabase();
 	
 	public Menu(){
 		//initializing all the database
-		db1.initialise("customer");
-		//db1.deleteAllR("customer","CUSTINFO");
-		db1.addTest("customer");
-		//db1.displayTable("customer");
-		db2.initialise("company");
-		//db2.deleteAllR("company","COMPANY");
-		db2.addTest("company");
-		//db2.displayTable("company");
+		db1.initialise();
+		db1.addTest();
+		db2.initialise();
+		db2.addTest();
 	}
 	
 	//main menu displayed at the start of the program
@@ -110,10 +107,10 @@ public class Menu {
 	//checks if the username, password is found in both database
 	public boolean authenticate(String uName, String pass){
 		
-		if(db1.checkLogin("customer",uName,pass) || db2.checkLogin("company",uName,pass)){
+		if(db1.checkLogin(uName,pass) || db2.checkLogin(uName,pass)){
 			System.out.println("Login Successful");
 			//check if the username was customer or business
-			if(db1.checkLogin("customer",uName,pass)){
+			if(db1.checkLogin(uName,pass)){
 				customerMenu();
 			}
 			else{
@@ -249,7 +246,7 @@ public class Menu {
 
 	//checking if the username is unique
 	public boolean uniqueUname(String uUname) {
-		if(db1.checkExists("customer","username",uUname)){
+		if(db1.checkExists("username",uUname)){
 			System.out.println("This username is already taken, please enter another: ");
 			return false;
 		}
