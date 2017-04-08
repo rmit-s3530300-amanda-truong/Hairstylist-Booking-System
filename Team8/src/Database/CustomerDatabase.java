@@ -21,15 +21,14 @@ public class CustomerDatabase{
 	}
 	
 	//get initial connection and create the table
-	public Connection initialise()
+	public void initialise()
 	{
-		Connection conn = getConnection();
+		getConnection();
 		createCustTable();
-		return conn;
 	}
 	
 	//create connection to JDBC sqlite
-	private Connection getConnection()
+	private void getConnection()
 	{
 		try
 		{
@@ -41,7 +40,6 @@ public class CustomerDatabase{
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
-		return conn;
 	}
 	
 	private void createCustTable()
