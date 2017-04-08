@@ -1,6 +1,11 @@
 package Menu;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.YearMonth;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -14,9 +19,9 @@ import Database.CustomerDatabase;
 public class Menu {
 	
 	private Scanner input;
-	Company comp;
-	CustomerDatabase customerDb;
-	CompanyDatabase companyDb;
+	private Company comp;
+	private CustomerDatabase customerDb;
+	private CompanyDatabase companyDb;
 	
 	public Menu(Company company, CustomerDatabase customerDb, CompanyDatabase companyDb){
 		comp = company;
@@ -294,7 +299,7 @@ public class Menu {
 			if(validOption(select1)){
 				if(select1 == 1){
 					System.out.println("Calendar Display");
-					System.exit(0);//delete this when the method id added
+					System.out.println(comp.getCalendar().displayCalendar());
 				}
 				else if(select1 == 2){
 					System.out.println("You have been redirected to Main Menu.");
@@ -353,16 +358,21 @@ public class Menu {
 				System.out.println("---------------");
 				System.out.println("Booking Summary");
 				System.out.println("---------------");
+				System.out.println(comp.getCalendar().getBookingSummary());
+				businessMenu();
 				break;
 			case 4:
 				System.out.println("-----------------------");
 				System.out.println("Accept/Decline Bookings");
 				System.out.println("-----------------------");
+				updateBooking();
 				break;
 			case 5:
 				System.out.println("---------------------------");
 				System.out.println("View Employees availability");
 				System.out.println("---------------------------");
+				System.out.println(comp.getCalendar().displayCalendar());
+				businessMenu();
 				break;
 			case 6:
 				System.out.println("You have been redirected to Main Menu.");
@@ -379,11 +389,63 @@ public class Menu {
 		}
 	}
 	
+	private void updateBooking() {
+		// Enter booking ID
+		// comp.getCalendar().containsBooking(String ID);
+		// if true continue...
+		// press A to accept 
+		// comp.getCalendar().acceptBooking(String ID);
+		
+		// press D to decline
+		// comp.getCalendar().acceptBooking(String ID);
+		// businessMenu();
+	}
+	
 	private void addEmployeeAvailability() {
 		System.out.print("Enter Employee ID: ");
-		System.out.print("Enter Date: ");
-		System.out.println("Enter Start Time: ");
-		System.out.println("Enter End Time: ");
+		String id = input.nextLine();
+		if(companyDb.checkExists("username",id));
+		
+		System.out.print("Enter Month of the Date (MM): ");
+		Boolean validMonth = false;
+		int month = input.nextInt();
+		if(month > 0 && month <= 12){
+			int current_month = comp.getCalendar().getDate().getMonthValue();
+			if(month-current_month <= 1 && month-current_month >= 0) {
+				validMonth = true;
+			} else {
+				System.out.println(">> Error: Must be within a month.");
+			}
+		}
+		
+		System.out.print("Enter Day of the Date (DD): ");
+		Boolean validDay = false;
+		int day = input.nextInt();
+		int current_day = comp.getCalendar().getDate().getDayOfMonth();
+		YearMonth yearMonthObject = YearMonth.of(2017, month);
+		int daysInMonth = yearMonthObject.lengthOfMonth();
+		if(day > 0 && day <= daysInMonth) {
+			validDay = true;
+		} else {
+			System.out.println(">> Error: Must be a valid day");
+		}
+		
+		// add date and month
+		LocalDate date = LocalDate.of(2017, month, day);
+		
+		System.out.print("Enter Start Time (eg. 24:00): ");
+		String startTime_string = input.nextLine();
+		String[] startTime_split = startTime_string.split(":");
+		//error check
+		LocalTime startTime = LocalTime.of(Integer.parseInt(startTime_split[0]), Integer.parseInt(startTime_split[1]));
+		
+		System.out.print("Enter End Time (eg. 24:00): ");
+		String endTime_string = input.nextLine();
+		String[] endTime_split = endTime_string.split(":");
+		//error check
+		LocalTime endTime = LocalTime.of(Integer.parseInt(endTime_split[0]), Integer.parseInt(endTime_split[1]));
+		
+		//to LocalTime
 		System.out.println("Available Time Has Been Added");
 		businessMenu();
 	}

@@ -19,11 +19,12 @@ public class Calendar {
 	}
 	// private Booking[] bookingPendingList;
 	private LocalDate currentDate;
-	private LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>> bookingList;
+	private LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>> calendar;
+	private LinkedHashMap<String, Booking> bookingList;
 	
 	public Calendar(LocalDate date) {
 		currentDate = date;
-		bookingList = new LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>>();
+		calendar = new LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>>();
 		
 		// Constructing calendar with a previous week of unavailable time slots
 		LinkedHashMap<LocalTime, Booking> nested_info = new LinkedHashMap<LocalTime, Booking>();
@@ -35,7 +36,7 @@ public class Calendar {
 					nested_info.put(localtime, new Booking());
 					localtime = localtime.plusMinutes(15);
 				}
-				bookingList.put(lastWeekDate, nested_info);
+				calendar.put(lastWeekDate, nested_info);
 			}
 			lastWeekDate = lastWeekDate.plusDays(1);
 		}
@@ -47,16 +48,26 @@ public class Calendar {
 					nested_info.put(localtime, new Booking());
 					localtime = localtime.plusMinutes(15);
 				}
-				bookingList.put(date, nested_info);
+				calendar.put(date, nested_info);
 			}
 			date = date.plusDays(1);
+		}
+		
+		// Adding pending bookings to list
+		for(Entry<LocalDate, LinkedHashMap<LocalTime, Booking>> x : calendar.entrySet()) {
+			for(Entry<LocalTime, Booking> y : x.getValue().entrySet()) {
+				Booking book = y.getValue();
+				if(book.getStatus() == Status.pending || book.getStatus() == Status.booked) {
+					bookingList.put(book.getCustomerID(), book);
+				}
+			}
 		}
 	}
 	
 	public String getBookingSummary() {
 		LinkedHashMap<String, Booking> list = new LinkedHashMap<String, Booking>();
 		String output="";
-		for(Entry<LocalDate, LinkedHashMap<LocalTime, Booking>> x : bookingList.entrySet()) {
+		for(Entry<LocalDate, LinkedHashMap<LocalTime, Booking>> x : calendar.entrySet()) {
 			for(Entry<LocalTime, Booking> y : x.getValue().entrySet()) {
 				if(y.getValue().getStatus() == Status.pending || y.getValue().getStatus() == Status.booked) {
 					list.put(y.getValue().getCustomerID(), y.getValue());
@@ -77,7 +88,7 @@ public class Calendar {
 				time = time.plusMinutes(15);
 			}
 			
-			output = output + String.format("Status: %s, Date: %s, Start Time: %s, End Time: %s, Customer: %s, Service|Employee: %s \n",book.getStatus().toString(), book.getDate(), book.getTime(), time.toString(), book.getCustomerID(), service_string);
+			output = output + String.format("ID: %s, Status: %s, Date: %s, Start Time: %s, End Time: %s, Customer: %s, Service|Employee: %s \n",book.getID(), book.getStatus().toString(), book.getDate(), book.getTime(), time.toString(), book.getCustomerID(), service_string);
 		}
 		return output;
 	}
@@ -97,7 +108,7 @@ public class Calendar {
 						map_time = new LinkedHashMap<LocalTime, Booking>();
 						map_time.put(available_times.get(x), new Booking(Status.free));
 					}
-					bookingList.put(date, map_time);
+					calendar.put(date, map_time);
 				}
 				date = date.plusDays(1);
 			}
@@ -106,7 +117,7 @@ public class Calendar {
 	
 	// TODO: Needs Testing
 	public Boolean isBooked(LocalDate date, LocalTime time) {
-		Status status = bookingList.get(date).get(time).getStatus();
+		Status status = calendar.get(date).get(time).getStatus();
 		if(status == Status.booked) {
 			return true;
 		}
@@ -124,32 +135,52 @@ public class Calendar {
 	}
 	
 	public void setCalendarInfo(LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>> info) {
-		bookingList = info;
+		calendar = info;
 	}
 	
 	public LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>> getCalendarInfo() {
-		return bookingList;
+		return calendar;
 	}
 	
 	// TODO: Needs Testing
 	// returns false when cannot book
 	public Boolean requestBooking(LocalDate date, LocalTime time) {
-		Booking book = bookingList.get(date).get(time);
-		if(book.getStatus() == Status.booked){
-			return false;
-		} else {
+		Booking book = calendar.get(date).get(time);
+		if(book.getStatus() == Status.free ) {
 			book.setStatus(Status.pending);
-			bookingList.get(date).put(time, book);
+			calendar.get(date).put(time, book);
+			bookingList.put(book.getID(),book);
 			return true;
 		}
+		return false;
 		
+	}
+	
+	public Boolean acceptBooking(String bookingID) {
+		Status status = getBooking(bookingID).getStatus();
+		if(status == Calendar.Status.pending){
+			status = Calendar.Status.booked;
+			return true;
+		}
+		return false;
+	}
+	
+
+	public Boolean declineBooking(String bookingID) {
+		Status status = getBooking(bookingID).getStatus();
+		if(status == Calendar.Status.pending){
+			status = Calendar.Status.free;
+			bookingList.remove(bookingID);
+			return true;
+		}
+		return false;
 	}
 	
 	public LinkedHashMap<LocalDate,LinkedHashMap<LocalTime,Booking>> getHistory() {
 		LocalDate oldDate = currentDate.minusDays(7);
 		LinkedHashMap<LocalDate,LinkedHashMap<LocalTime,Booking>> historyInfo = new LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>>();
 		for(int i =0; i < 7; i++){
-			LinkedHashMap<LocalTime, Booking> timeInfo = bookingList.get(oldDate);
+			LinkedHashMap<LocalTime, Booking> timeInfo = calendar.get(oldDate);
 			historyInfo.put(oldDate, timeInfo);
 			oldDate = oldDate.plusDays(1);
 		}
@@ -160,18 +191,30 @@ public class Calendar {
 		LocalDate newDate = currentDate.plusDays(1);
 		LinkedHashMap<LocalDate,LinkedHashMap<LocalTime,Booking>> futureInfo = new LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>>();
 		for(int i =0; i < 7; i++){
-			LinkedHashMap<LocalTime, Booking> timeInfo = bookingList.get(newDate);
+			LinkedHashMap<LocalTime, Booking> timeInfo = calendar.get(newDate);
 			futureInfo.put(newDate, timeInfo);
 			newDate = newDate.plusDays(1);
 		}
 		return futureInfo;
 	}
 	
+	public HashMap<String, Booking> getPendingBooking() {
+		return bookingList;
+	}
+	
+	public Booking getBooking(String ID) {
+		return bookingList.get(ID);
+	}
+	
+	public Boolean containsBooking(String ID) {
+		return bookingList.containsKey(ID);
+	}
+	
     // TODO: Needs Testing
-	public String getBookingPendingList() {
+	public String getBookingPendingString() {
 		HashMap<String, Booking> list = new HashMap<String, Booking>();
 		String output = "";
-		for(Entry<LocalDate, LinkedHashMap<LocalTime, Booking>> x : bookingList.entrySet()) {
+		for(Entry<LocalDate, LinkedHashMap<LocalTime, Booking>> x : calendar.entrySet()) {
 			for(Entry<LocalTime, Booking> y : x.getValue().entrySet()) {
 				Booking book = y.getValue();
 				if(book.getStatus() == Status.pending) {
@@ -193,8 +236,15 @@ public class Calendar {
 				time = time.plusMinutes(15);
 			}
 			
-			output = output + String.format("Status: %s, Date: %s, Start Time: %s, End Time: %s, Customer: %s, Service|Employee: %s \n", book.getStatus().toString(), book.getDate(), book.getTime(), time.toString(), book.getCustomerID(), service_string);
+			output = output + String.format("ID: %s, Status: %s, Date: %s, Start Time: %s, End Time: %s, Customer: %s, Service|Employee: %s \n",book.getID(), book.getStatus().toString(), book.getDate(), book.getTime(), time.toString(), book.getCustomerID(), service_string);
 		}
+		return output;
+	}
+	
+	public String displayCalendar() {
+		LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>> info = getCalendarInfo();
+		LocalDate date = getDate();
+		String output = displayCalendar(info, date);
 		return output;
 	}
 	

@@ -45,7 +45,7 @@ public class CalendarTest {
 	
 	@Test
 	public void testGetBookingPendingList() {
-		String expected_output = "Status: pending, Date: 2017-01-15, Start Time: 10:00, End Time: 11:30, Customer: 000, Service|Employee: femaleCut|Alan, femaleDye|Candy,  \n";
+		String expected_output = "ID: 0, Status: pending, Date: 2017-01-15, Start Time: 10:00, End Time: 11:30, Customer: 000, Service|Employee: femaleCut|Alan, femaleDye|Candy,  \n";
 		String actual_output;
 		
 		LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>> info = c1.getCalendarInfo();
@@ -62,14 +62,14 @@ public class CalendarTest {
 		info.put(date, nested_info);
 		c1.setCalendarInfo(info);
 		
-		actual_output = c1.getBookingPendingList();
+		actual_output = c1.getBookingPendingString();
 		
 		assertEquals(expected_output, actual_output);
 	}
 	
 	@Test
 	public void testGetBookingSummary() {
-		String expected_output = "Status: pending, Date: 2017-01-15, Start Time: 10:00, End Time: 10:30, Customer: 000, Service|Employee: femaleCut|Alan,  \n";
+		String expected_output = "ID: 0, Status: pending, Date: 2017-01-15, Start Time: 10:00, End Time: 10:30, Customer: 000, Service|Employee: femaleCut|Alan,  \n";
 		String actual_output;
 		
 		LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>> info = c1.getCalendarInfo();
@@ -90,7 +90,7 @@ public class CalendarTest {
 		assertEquals(expected_output, actual_output);
 	}
 
-	/*@Test
+	@Test
 	public void testGetHistoryFree() {
 		LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>> actual_history = c1.getHistory();
 		LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>> expected_history = c1.getCalendarInfo();
@@ -347,7 +347,7 @@ public class CalendarTest {
 				+"|16:00        | free         |free         |free         |free         |free         |free         |free         |\n"
 				+"--------------------------------------------------------------------------------------------------------------------\n", actual_cal);
 	}
-*/
+
 	public void printHashMap(LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>> information2) {
 		for(Entry<LocalDate, LinkedHashMap<LocalTime, Booking>> entry : information2.entrySet()) {
 			LinkedHashMap<LocalTime, Booking> entry2 = entry.getValue();

@@ -32,23 +32,6 @@ public class Booking {
 		this.status = Calendar.Status.pending;
 	}
 	
-	public Boolean acceptBooking() {
-		if(status == Calendar.Status.pending){
-			status = Calendar.Status.booked;
-			return true;
-		}
-		return false;
-	}
-	
-
-	public Boolean declineBooking() {
-		if(status == Calendar.Status.pending){
-			status = Calendar.Status.free;
-			return true;
-		}
-		return false;
-	}
-	
 	public LocalDate getDate() {
 		return bookingDate;
 	}
@@ -71,6 +54,10 @@ public class Booking {
 	
 	public HashMap<Service, String> getServices() {
 		return services;
+	}
+	
+	public String getID() {
+		return ID;
 	}
 	
 }
