@@ -32,7 +32,6 @@ public class Booking {
 		this.status = Calendar.Status.pending;
 	}
 	
-	// TODO: Needs Testing
 	public Boolean acceptBooking() {
 		if(status == Calendar.Status.pending){
 			status = Calendar.Status.booked;
@@ -41,8 +40,7 @@ public class Booking {
 		return false;
 	}
 	
-	// TODO: remove from booking pending list
-	// TODO: Needs Testing
+
 	public Boolean declineBooking() {
 		if(status == Calendar.Status.pending){
 			status = Calendar.Status.free;

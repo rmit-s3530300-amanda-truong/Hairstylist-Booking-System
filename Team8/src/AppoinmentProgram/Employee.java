@@ -13,7 +13,7 @@ public class Employee {
 	private String lastName;
 	
 	HashMap<LocalDate, ArrayList<LocalTime>> availability;
-	private static ArrayList<Service> serviceType;
+	private ArrayList<Service> serviceType;
 	
 	// 1 block equals to 15 minutes so 2 blocks is 30minutes etc
 	public enum Service {
@@ -46,7 +46,7 @@ public class Employee {
 	}
 	
 	// TODO: Needs Testing
-	public static ArrayList<Service> getService() {
+	public ArrayList<Service> getService() {
 		return serviceType;
 	}
 	
