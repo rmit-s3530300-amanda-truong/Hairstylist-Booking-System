@@ -41,37 +41,4 @@ public class BookingTest {
 		
 		assertEquals(expected_status, actual_status);
 	}
-	
-	
-	
-	@Test
-	public void testAcceptBooking() {
-		book.setStatus(Calendar.Status.pending);
-		
-		assertTrue(book.acceptBooking());
-	}
-	
-	@Test
-	public void testAcceptBookingFail() {
-		book.setStatus(Calendar.Status.free);
-		
-		assertFalse(book.acceptBooking());
-	}
-	
-	@Test
-	public void testDeclineBooking() {
-		book.setStatus(Calendar.Status.pending);
-		
-		assertTrue(book.declineBooking());
-	}
-	
-	@Test
-	public void testDeclineBookingFail() {
-		book.setStatus(Calendar.Status.booked);
-		
-		assertFalse(book.declineBooking());
-	}
-	
-	
-
 }

@@ -43,6 +43,24 @@ public class CalendarTest {
 		c1.setCalendarInfo(info);
 	}
 	
+	
+	
+	@Test
+	public void testAcceptBooking() {
+	}
+	
+	@Test
+	public void testAcceptBookingFail() {
+	}
+	
+	@Test
+	public void testDeclineBooking() {
+	}
+	
+	@Test
+	public void testDeclineBookingFail() {
+	}
+	
 	@Test
 	public void testGetBookingPendingList() {
 		String expected_output = "ID: 0, Status: pending, Date: 2017-01-15, Start Time: 10:00, End Time: 11:30, Customer: 000, Service|Employee: femaleCut|Alan, femaleDye|Candy,  \n";
