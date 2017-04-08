@@ -1,13 +1,26 @@
 package JUnitTests;
 
 import static org.junit.Assert.*;
+import org.junit.Before;
 import org.junit.Test;
 
 import Menu.Menu;
 
 public class MenuTest {
 	
-	Menu m1 = new Menu();
+	Menu m1;
+	
+	@Before
+	public void setUp() throws Exception {
+		m1 = new Menu();
+	}
+	
+	@Test
+	public void testValidUname() {
+		String uName = "j_snow";
+		boolean check = m1.validUname(uName);
+		assertEquals(true,check);
+	}
 	
 	@Test
 	public void testValidFName() {
@@ -78,11 +91,4 @@ public class MenuTest {
 		boolean check = m1.validLogin(username);
 		assertEquals(true,check);
 	}
-	
-//	@Test
-//	public void testValidService() {
-//		String service = "femaleCut";
-//		boolean check = m1.validService(service);
-//		assertEquals(true,check);
-//	}
 }

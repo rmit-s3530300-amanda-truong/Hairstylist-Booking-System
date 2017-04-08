@@ -5,9 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-
 public class Employee {
-	
 	private String ID;
 	private String firstName;
 	private String lastName;

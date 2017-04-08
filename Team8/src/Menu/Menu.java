@@ -26,15 +26,18 @@ public class Menu {
 		db2.addTest();
 	}
 	
-	//main menu displayed at the start of the program
 	public void mainMenu(){
 		input = new Scanner(System.in);
 		String selection = null;
 		boolean selectValid = false;
 		int select = 0;
 		
-		System.out.println("Welcome to abc Hairstylist");
-		System.out.println("ABC hairstylist is a company for you.");
+		System.out.println("WELCOME TO ABC HAIRSTYLIST");
+		System.out.println("--------------------------");
+		System.out.println("This is ABC's Appoinment Booking Program\n"
+						 + "You can view available time, select your\n"
+						 + "desired haristylist. But before that you\n"
+						 + "have to login into our program.");
 		System.out.println("----------------------------------------");
 		
 		while(!selectValid){
@@ -69,6 +72,18 @@ public class Menu {
 					System.exit(0);
 				}
 			}
+		}
+	}
+	
+	//error checking if the user input is valid for main menu
+	public boolean validOption(int select) {
+		if(select > 3 || select < 1) {
+			System.out.println("Error: Invalid Option. Please Choose again");
+			System.out.println("------------------------------------------");
+			return false;
+		} 
+		else{
+			return true;
 		}
 	}
 
@@ -106,7 +121,6 @@ public class Menu {
 		}
 	}
 	
-	//checks if the username, password is found in both database
 	public boolean authenticate(String uName, String pass){
 		
 		if(db1.checkLogin(uName,pass) || db2.checkLogin(uName,pass)){
@@ -126,7 +140,6 @@ public class Menu {
 		}
 	}
 	
-	//adds a new customer to database
 	private void registerCustomer(){
 		String cUname = null, cFname = null, cLname = null, cPassword = null,
 				cGender = null, cMobile = null, cAddress = null;
@@ -257,7 +270,6 @@ public class Menu {
 		}
 	}
 
-	//customer menu
 	private void customerMenu() {
 		String selection1 = null;
 		int select1 = 0;
@@ -298,7 +310,6 @@ public class Menu {
 		}
 	}
 	
-	//business menu
 	private void businessMenu() {
 		String selection2 = null;
 		int select2 = 0;
@@ -356,6 +367,7 @@ public class Menu {
 				break;
 			case 6:
 				System.out.println("You have been redirected to Main Menu.");
+				System.out.println("--------------------------------------");
 				mainMenu();
 				break;
 			case 7:
@@ -368,21 +380,7 @@ public class Menu {
 		}
 	}
 
-	//error checking if the user input is valid for main menu
-	public boolean validOption(int select) {
-		if(select > 3 || select < 1) {
-			System.out.println("Error: Invalid Option. Please Choose again");
-			System.out.println("------------------------------------------");
-			return false;
-		} 
-		else{
-			return true;
-		}
-	}
-
-	//adds a new employee to database
 	private void addNewEmployee() {
-		//initialising required variables
 		String bFname = null, bLname = null, bGender = null, bMobile = null,
 				bAddress = null, bService = null, bNumber = null, bStreet = null,
 				bSuburb = null, bZip = null, bState = null;
@@ -390,12 +388,12 @@ public class Menu {
 				mobileValid = false, streetNumberValid = false, streetValid = false, 
 				suburbValid = false,zipValid = false, stateValid = false;
 		
-		//getting username
+		//generating username based on number of employees in database
 		int uname = db2.checkEmployees() + 1;
 		String bUserName = "e" + uname;
 		System.out.println("This employee will be registered as: " + bUserName);	
 		
-		//getting first name input
+		//getting first name
 		while(!fNameValid){
 			System.out.print("Please enter employee first name: ");
 			bFname = input.nextLine();
@@ -404,7 +402,7 @@ public class Menu {
 			}
 		}
 		
-		//getting last name input
+		//getting last name
 		while(!lNameValid){
 			System.out.print("Please enter employee last name: ");
 			bLname = input.nextLine();
@@ -481,7 +479,7 @@ public class Menu {
 		bAddress = bNumber+ " " + bStreet + "," + bSuburb + ", " + bState + " "+ bZip;
 		bService = "femaleCut, maleCut, femaleDye, maleDye, femalePerm, malePerm, femaleWash, maleWash";
 		
-		//sends user input to the arraylist
+		//sends user input to the arraylist of services
 		ArrayList<Service> services = new ArrayList<Service>();
 		services.add(Employee.Service.femaleCut);
 		services.add(Employee.Service.maleCut);
@@ -501,7 +499,7 @@ public class Menu {
 	}
 				
 	//error checking for valid username
-	private boolean validUname(String uName){
+	public boolean validUname(String uName){
 		Matcher matcher;
 		Pattern namePattern = Pattern.compile("^[a-zA-Z0-9._-]*$");
 		matcher = namePattern.matcher(uName);
@@ -641,5 +639,4 @@ public class Menu {
 			return true;
 		}
 	}
-	
 }
