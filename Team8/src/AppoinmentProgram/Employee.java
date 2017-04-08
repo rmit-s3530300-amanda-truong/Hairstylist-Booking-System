@@ -3,8 +3,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map.Entry;
-
 
 public class Employee {
 	
@@ -45,7 +43,6 @@ public class Employee {
 		availability = new HashMap<LocalDate, ArrayList<LocalTime>>();
 	}
 	
-	// TODO: Needs Testing
 	public static ArrayList<Service> getService() {
 		return serviceType;
 	}
@@ -60,6 +57,14 @@ public class Employee {
 		availability.put(date,times);
 	}
 	
+	public String getFirstName() {
+		return firstName;
+	}
+	
+	public String getLastName() {
+		return lastName;
+	}
+
 	public HashMap<LocalDate, ArrayList<LocalTime>> getAvailability() {
 		return availability;
 	}

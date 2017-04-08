@@ -19,12 +19,11 @@ import AppoinmentProgram.Employee.Service;
 
 public class EmployeeTest {
 	
-	//defining employee details for testing methods
 	Employee e;
-	String id = "e0005";
-	String firstName = "john";
-	String lastName = "snow";
-	ArrayList<Employee.Service> service = new ArrayList<Employee.Service>();
+	String id;
+	String firstName;
+	String lastName;
+	ArrayList<Employee.Service> service;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -36,6 +35,10 @@ public class EmployeeTest {
 
 	@Before
 	public void setUp() throws Exception {
+		id = "e0005";
+		firstName = "john";
+		lastName = "snow";
+		service = new ArrayList<Employee.Service>();
 		service.add(Service.maleWash);
 		e = new Employee(id, firstName, lastName, service);
 	}
@@ -45,7 +48,25 @@ public class EmployeeTest {
 	}
 	
 	@Test
-	public void getService() throws Exception {
+	public void testgetID() throws Exception {
+		String eID = e.getID();
+		assertEquals(id, eID);
+	}
+	
+	@Test
+	public void testgetFname() throws Exception {
+		String efName = e.getFirstName();
+		assertEquals(firstName, efName);
+	}
+	
+	@Test
+	public void testgetLname() throws Exception {
+		String elName = e.getLastName();
+		assertEquals(lastName, elName);
+	}
+	
+	@Test
+	public void testgetService() throws Exception {
 		ArrayList<Service> eService = Employee.getService();
 		assertEquals(eService,service);
 	}
