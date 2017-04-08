@@ -42,6 +42,8 @@ public class BookingTest {
 		assertEquals(expected_status, actual_status);
 	}
 	
+	
+	
 	@Test
 	public void testAcceptBooking() {
 		book.setStatus(Calendar.Status.pending);

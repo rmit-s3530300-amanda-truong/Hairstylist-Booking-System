@@ -20,55 +20,43 @@ import AppoinmentProgram.Employee.Service;
 public class EmployeeTest {
 	
 	Employee e;
-	String id;
-	String firstName;
-	String lastName;
-	ArrayList<Employee.Service> service;
-	
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-	}
-
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-	}
+	String expected_id;
+	String expected_firstName;
+	String expected_lastName;
+	ArrayList<Employee.Service> expected_service;
 
 	@Before
 	public void setUp() throws Exception {
-		id = "e0005";
-		firstName = "john";
-		lastName = "snow";
-		service = new ArrayList<Employee.Service>();
-		service.add(Service.maleWash);
-		e = new Employee(id, firstName, lastName, service);
-	}
-
-	@After
-	public void tearDown() throws Exception {
+		expected_id = "e0005";
+		expected_firstName = "john";
+		expected_lastName = "snow";
+		expected_service = new ArrayList<Employee.Service>();
+		expected_service.add(Service.maleWash);
+		e = new Employee(expected_id, expected_firstName, expected_lastName, expected_service);
 	}
 	
 	@Test
 	public void testgetID() throws Exception {
-		String eID = e.getID();
-		assertEquals(id, eID);
+		String actual_ID = e.getID();
+		assertEquals(expected_id, actual_ID);
 	}
 	
 	@Test
 	public void testgetFname() throws Exception {
-		String efName = e.getFirstName();
-		assertEquals(firstName, efName);
+		String actual_firstName = e.getFirstName();
+		assertEquals(expected_firstName, actual_firstName);
 	}
 	
 	@Test
 	public void testgetLname() throws Exception {
-		String elName = e.getLastName();
-		assertEquals(lastName, elName);
+		String actual_Lname = e.getLastName();
+		assertEquals(expected_lastName, actual_Lname);
 	}
 	
 	@Test
 	public void testgetService() throws Exception {
-		ArrayList<Service> eService = Employee.getService();
-		assertEquals(eService,service);
+		ArrayList<Service> actual_service = e.getService();
+		assertEquals(expected_service,actual_service);
 	}
 
 	@Test
@@ -88,7 +76,7 @@ public class EmployeeTest {
 		}
 		String expected_availability = "2017-10-30, 03:00, 03:15, 03:30, 03:45, 04:00, 04:15, 04:30, 04:45, 05:00, 05:15";
 		
-		assertEquals(actual_availability, expected_availability);
+		assertEquals(expected_availability, actual_availability);
 	}
 	
 	@Test
@@ -105,7 +93,7 @@ public class EmployeeTest {
 		time.add(LocalTime.of(3, 15));
 		expected_availability.put(LocalDate.of(2017, 10, 30), time);
 		
-		assertEquals(actual_availability, expected_availability);
+		assertEquals(expected_availability, actual_availability);
 		
 	}
 

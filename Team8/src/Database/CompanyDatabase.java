@@ -3,6 +3,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.sql.ResultSet;
 
 public class CompanyDatabase{
@@ -12,6 +15,11 @@ public class CompanyDatabase{
 	private static ResultSet result = null;
 	private static boolean hasData = false;
 	private static PreparedStatement prep = null;
+	
+	public CompanyDatabase() {
+		this.initialise();
+		this.addTest();
+	}
 	
 	//get initial connection and create the table
 	public void initialise()
@@ -178,6 +186,51 @@ public class CompanyDatabase{
 			System.exit(0);
 		}
 		return result;
+	}
+	
+	public HashMap<String, HashMap<String,String>> storeEmpValues()
+	{
+		HashMap<String, HashMap<String,String>> empValues = new HashMap<String, HashMap<String,String>>();
+		try
+		{
+			if(conn.isClosed())
+			{
+				getConnection();
+			}
+			
+			stmt = conn.createStatement();
+			result = stmt.executeQuery("SELECT * FROM COMPANY");
+			while (result.next())
+			{
+				if(result.getString("busStatus").equals("employee")){
+					HashMap<String,String> empInfo = new HashMap<String,String>();
+					String id = result.getString("username");
+					String fName = result.getString("bFname");
+					String lName = result.getString("bLname");
+					String service = result.getString("service");
+					empInfo.put("fName", fName);
+					empInfo.put("lName", lName);
+					empInfo.put("service", service);
+					empValues.put(id, empInfo);
+				}
+			}
+			stmt.close();
+			result.close();
+			conn.close();
+		}
+		catch(Exception e)
+		{
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+		
+		/*for(Entry<String, HashMap<String,String>> x: empValues.entrySet()){
+			System.out.println("Key: "+x.getKey());
+			for(Entry<String,String> y : x.getValue().entrySet()) {
+				System.out.println("Key2: "+y.getKey()+" Value: "+y.getValue());
+			}
+		}*/
+		return empValues;
 	}
 
 	//check if user is authenticated with user input

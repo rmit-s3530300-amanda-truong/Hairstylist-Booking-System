@@ -32,7 +32,7 @@ public class Employee {
 		
 		public int getTime() {
 			return time;
-		} 
+		}
 	}
 	
 	public Employee(String ID, String firstName, String lastName, ArrayList<Service> serviceType){
@@ -43,7 +43,6 @@ public class Employee {
 		availability = new HashMap<LocalDate, ArrayList<LocalTime>>();
 	}
 	
-	// TODO: Needs Testing
 	public ArrayList<Service> getService() {
 		return serviceType;
 	}
@@ -64,5 +63,13 @@ public class Employee {
 
 	public String getID() {
 		return ID;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
 	}
 }

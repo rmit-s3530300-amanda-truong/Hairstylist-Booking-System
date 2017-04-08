@@ -3,6 +3,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map.Entry;
 import java.sql.ResultSet;
 
 public class CustomerDatabase{
@@ -12,6 +14,11 @@ public class CustomerDatabase{
 	private static ResultSet result = null;
 	private static Boolean hasData = false;
 	private static PreparedStatement prep = null;
+	
+	public CustomerDatabase() {
+		this.initialise();
+		this.addTest();
+	}
 	
 	//get initial connection and create the table
 	public Connection initialise()
@@ -112,6 +119,41 @@ public class CustomerDatabase{
 		Boolean check = null;
 		check = checkAuthen(authen, username,password);
 		return check;
+	}
+	
+	public HashMap<String, HashMap<String,String>> storeCustomerValues()
+	{
+		HashMap<String, HashMap<String,String>> custValues = new HashMap<String, HashMap<String,String>>();
+		try
+		{
+			if(conn.isClosed())
+			{
+				getConnection();
+			}
+			stmt = conn.createStatement();
+			result = stmt.executeQuery("SELECT * FROM CUSTINFO");
+			while (result.next())
+			{
+				HashMap<String,String> custInfo = new HashMap<String,String>();
+				String id = result.getString("username");
+				String fName = result.getString("fname");
+				String lName = result.getString("lname");
+				String gender = result.getString("gender");
+				custInfo.put("fName", fName);
+				custInfo.put("lName", lName);
+				custInfo.put("gender", gender);
+				custValues.put(id, custInfo);
+			}
+			stmt.close();
+			result.close();
+			conn.close();
+		}
+		catch(Exception e)
+		{
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+		return custValues;
 	}
 	
 	//authentication method

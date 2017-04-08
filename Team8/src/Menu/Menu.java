@@ -14,16 +14,14 @@ import Database.CustomerDatabase;
 public class Menu {
 	
 	private Scanner input;
-	CustomerDatabase db1 = new CustomerDatabase();
-	CompanyDatabase db2 = new CompanyDatabase();
-	Company co1 = new Company();
+	Company comp;
+	CustomerDatabase customerDb;
+	CompanyDatabase companyDb;
 	
-	public Menu(){
-		//initializing all the database
-		db1.initialise();
-		db1.addTest();
-		db2.initialise();
-		db2.addTest();
+	public Menu(Company company, CustomerDatabase customerDb, CompanyDatabase companyDb){
+		comp = company;
+		this.companyDb = companyDb;
+		this.customerDb = customerDb;
 	}
 	
 	public void mainMenu(){
@@ -123,10 +121,10 @@ public class Menu {
 	
 	public boolean authenticate(String uName, String pass){
 		
-		if(db1.checkLogin(uName,pass) || db2.checkLogin(uName,pass)){
+		if(customerDb.checkLogin(uName,pass) || companyDb.checkLogin(uName,pass)){
 			System.out.println("Login Successful");
 			//check if the username was customer or business
-			if(db1.checkLogin(uName,pass)){
+			if(customerDb.checkLogin(uName,pass)){
 				customerMenu();
 			}
 			else{
@@ -254,14 +252,14 @@ public class Menu {
 		cAddress = cNumber+ " " + cStreet + "," + cSuburb + ", " + cState + " "+ cZip;
 		
 		//adding user input to database
-		db1.addCustInfo(cUname, cFname, cLname, cPassword, cGender, cMobile, cAddress);
+		customerDb.addCustInfo(cUname, cFname, cLname, cPassword, cGender, cMobile, cAddress);
 		System.out.println("\nSuccessfully registered..");
 		customerMenu();
 	}
 
 	//checking if the username is unique
 	public boolean uniqueUname(String uUname) {
-		if(db1.checkExists("username",uUname)){
+		if(customerDb.checkExists("username",uUname)){
 			System.out.println("This username is already taken, please enter another: ");
 			return false;
 		}
@@ -349,6 +347,7 @@ public class Menu {
 				System.out.println("-----------------------");
 				System.out.println("Add available TimeSlots");
 				System.out.println("-----------------------");
+				addEmployeeAvailability();
 				break;
 			case 3:
 				System.out.println("---------------");
@@ -379,6 +378,15 @@ public class Menu {
 			}
 		}
 	}
+	
+	private void addEmployeeAvailability() {
+		System.out.print("Enter Employee ID: ");
+		System.out.print("Enter Date: ");
+		System.out.println("Enter Start Time: ");
+		System.out.println("Enter End Time: ");
+		System.out.println("Available Time Has Been Added");
+		businessMenu();
+	}
 
 	private void addNewEmployee() {
 		String bFname = null, bLname = null, bGender = null, bMobile = null,
@@ -389,7 +397,7 @@ public class Menu {
 				suburbValid = false,zipValid = false, stateValid = false;
 		
 		//generating username based on number of employees in database
-		int uname = db2.checkEmployees() + 1;
+		int uname = companyDb.checkEmployees() + 1;
 		String bUserName = "e" + uname;
 		System.out.println("This employee will be registered as: " + bUserName);	
 		
@@ -490,10 +498,10 @@ public class Menu {
 		services.add(Employee.Service.femaleWash);
 		services.add(Employee.Service.maleWash);
 		Employee e1 = new Employee(bUserName, bFname, bLname, services);
-		co1.addEmployee(e1);
+		comp.addEmployee(e1);
 		
 		//sends user input to database
-		db2.addBusiness(bUserName, "ABC", bFname, bLname, null, bGender, bMobile, bAddress, bService, "employee");
+		companyDb.addBusiness(bUserName, "ABC", bFname, bLname, null, bGender, bMobile, bAddress, bService, "employee");
 		System.out.println("\nEmployee Successfully registered..");
 		businessMenu();
 	}
@@ -541,7 +549,7 @@ public class Menu {
 	
 	//error checking for valid gender
 	public boolean validGender(String gender){
-		if(!gender.matches("Male|Female|male|female|m|f|M|F")) {
+		if(!gender.matches("male|female")) {
 			System.out.println("Error: Gender entered incorrectly.");
 			return false;
 		} 
