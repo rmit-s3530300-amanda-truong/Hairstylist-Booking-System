@@ -14,14 +14,15 @@ public class CustomerDatabase{
 	private static PreparedStatement prep = null;
 	
 	//get initial connection and create the table
-	public void initialise()
+	public Connection initialise()
 	{
-		getConnection();
+		Connection conn = getConnection();
 		createCustTable();
+		return conn;
 	}
 	
 	//create connection to JDBC sqlite
-	private void getConnection()
+	private Connection getConnection()
 	{
 		try
 		{
@@ -33,6 +34,7 @@ public class CustomerDatabase{
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
+		return conn;
 	}
 	
 	private void createCustTable()
