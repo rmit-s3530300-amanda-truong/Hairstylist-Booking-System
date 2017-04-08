@@ -264,7 +264,7 @@ public class Menu {
 
 	//checking if the username is unique
 	public boolean uniqueUname(String uUname) {
-		if(customerDb.checkExists("username",uUname)){
+		if(customerDb.checkValueExists("username",uUname)){
 			System.out.println("This username is already taken, please enter another: ");
 			return false;
 		}
@@ -404,7 +404,7 @@ public class Menu {
 	private void addEmployeeAvailability() {
 		System.out.print("Enter Employee ID: ");
 		String id = input.nextLine();
-		if(companyDb.checkExists("username",id));
+		if(companyDb.checkValueExists("username",id));
 		
 		System.out.print("Enter Month of the Date (MM): ");
 		Boolean validMonth = false;
@@ -563,7 +563,7 @@ public class Menu {
 		comp.addEmployee(e1);
 		
 		//sends user input to database
-		companyDb.addBusiness(bUserName, "ABC", bFname, bLname, null, bGender, bMobile, bAddress, bService, "employee");
+		companyDb.addBusInfo(bUserName, "ABC", bFname, bLname, null, bGender, bMobile, bAddress, bService, "employee");
 		System.out.println("\nEmployee Successfully registered..");
 		businessMenu();
 	}

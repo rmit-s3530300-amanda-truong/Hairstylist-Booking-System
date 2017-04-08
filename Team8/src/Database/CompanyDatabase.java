@@ -4,8 +4,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.sql.ResultSet;
 
 public class CompanyDatabase{
@@ -22,14 +20,15 @@ public class CompanyDatabase{
 	}
 	
 	//get initial connection and create the table
-	public void initialise()
+	public Connection initialise()
 	{
-		getConnection();
+		Connection connInit = getConnection();
 		createCompanyTable();
+		return connInit;
 	}
 	
 	//create connection to JDBC sqlite
-	private void getConnection()
+	private Connection getConnection()
 	{
 		try
 		{
@@ -41,6 +40,7 @@ public class CompanyDatabase{
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
+		return conn;
 	}
 	
 	private void createCompanyTable()
@@ -62,9 +62,9 @@ public class CompanyDatabase{
 					stmt = conn.createStatement();
 					String sql = "CREATE TABLE IF NOT EXISTS COMPANY ("
 							+ "username text NOT NULL	,"
-							+ "cName text NOT NULL		,"
-							+ "bFname text NOT NULL		,"
-							+ "bLname text NOT NULL		,"
+							+ "compName text NOT NULL	,"
+							+ "fname text NOT NULL		,"
+							+ "lname text NOT NULL		,"
 							+ "password text 			,"
 							+ "gender text NOT NULL		,"
 							+ "mobile text NOT NULL		,"
@@ -86,7 +86,7 @@ public class CompanyDatabase{
 	}
 	
 	// add business owner or employee info to a record
-	public void addBusiness(String username, String cname, String bFname, String bLname, String pw, String gender, 
+	public void addBusInfo(String username, String cname, String bFname, String bLname, String pw, String gender, 
 			String mobile, String address, String service, String busStatus)
 	{		
 		try
@@ -117,34 +117,25 @@ public class CompanyDatabase{
 		}
 	}
 	
-	//check if value exists in table with user input
-	public Boolean checkExists(String col, String value)
+	//check if value exists in table
+	public Boolean checkValueExists(String col, String value)
 	{
-		Boolean check = null;
-		Boolean cExists = null;
-		check = cValue(cExists, col, value);
-		return check;
-	}
-	
-	//check value exists implementation
-	public Boolean cValue(Boolean cExists, String col, String value)
-	{
+		Boolean checkExists = null;
 		try
 		{
 			if(conn.isClosed())
 			{
 				getConnection();
 			}
-			
 			prep = conn.prepareStatement("SELECT " + col + " FROM COMPANY WHERE " + col + " = '" + value + "';");
 			result = prep.executeQuery();
 			if(result.next())
 			{
-				cExists = true;
+				checkExists = true;
 			}
 			else
 			{
-				cExists = false;
+				checkExists = false;
 			}
 			prep.close();
 			result.close();
@@ -155,37 +146,7 @@ public class CompanyDatabase{
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
-		return cExists;
-	}
-	
-	public ResultSet displayCompanyTable()
-	{
-		try
-		{
-			if(conn.isClosed())
-			{
-				getConnection();
-			}
-			
-			stmt = conn.createStatement();
-			result = stmt.executeQuery("SELECT * FROM COMPANY");
-			while (result.next())
-			{
-				System.out.println(result.getString("username") + " " + result.getString("cName") 
-				+ " " + result.getString("bFname") + " " + result.getString("bLname") + " " + result.getString("password") 
-				+ " " + result.getString("gender") + " " + result.getString("mobile") + result.getString("address")
-				+ " " + result.getString("service") + " " + result.getString("busStatus"));
-			}
-			stmt.close();
-			result.close();
-			conn.close();
-		}
-		catch(Exception e)
-		{
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
-		}
-		return result;
+		return checkExists;
 	}
 	
 	public HashMap<String, HashMap<String,String>> storeEmpValues()
@@ -205,11 +166,11 @@ public class CompanyDatabase{
 				if(result.getString("busStatus").equals("employee")){
 					HashMap<String,String> empInfo = new HashMap<String,String>();
 					String id = result.getString("username");
-					String fName = result.getString("bFname");
-					String lName = result.getString("bLname");
+					String fName = result.getString("fname");
+					String lName = result.getString("lname");
 					String service = result.getString("service");
-					empInfo.put("fName", fName);
-					empInfo.put("lName", lName);
+					empInfo.put("fname", fName);
+					empInfo.put("lname", lName);
 					empInfo.put("service", service);
 					empValues.put(id, empInfo);
 				}
@@ -224,27 +185,13 @@ public class CompanyDatabase{
 			System.exit(0);
 		}
 		
-		/*for(Entry<String, HashMap<String,String>> x: empValues.entrySet()){
-			System.out.println("Key: "+x.getKey());
-			for(Entry<String,String> y : x.getValue().entrySet()) {
-				System.out.println("Key2: "+y.getKey()+" Value: "+y.getValue());
-			}
-		}*/
 		return empValues;
 	}
 
-	//check if user is authenticated with user input
+	//check if user is authenticated
 	public Boolean checkLogin(String username, String password)
 	{
-		Boolean authen = null;
-		Boolean check = null;
-		check = checkAuthen(authen, username,password);
-		return check;
-	}
-	
-	//authentication method
-	public Boolean checkAuthen(Boolean authen, String username, String password)
-	{
+		Boolean checkAuthen = null;
 		try
 		{
 			if(conn.isClosed())
@@ -253,15 +200,15 @@ public class CompanyDatabase{
 			}
 			prep = conn.prepareStatement("SELECT username,password FROM COMPANY WHERE username = ? AND password = ?;");
 			prep.setString(1, username);
-			prep.setString(2, password);
+			prep.setString(2, password);			
 			result = prep.executeQuery();
 			if(result.next())
 			{
-				authen = true;
+				checkAuthen = true;
 			}
 			else
 			{
-				authen = false;
+				checkAuthen = false;
 			}
 			prep.close();
 			result.close();
@@ -272,7 +219,7 @@ public class CompanyDatabase{
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
-		return authen;
+		return checkAuthen;
 	}
 	
 	public void addTest()
@@ -280,8 +227,8 @@ public class CompanyDatabase{
 		try
 		{
 			//making sure no duplicates are added when program restarts
-			if(!checkExists("username","abcboss") || !checkExists("username","e1")
-					|| !checkExists("username","e2"))
+			if(!checkValueExists("username","abcboss") || !checkValueExists("username","e1")
+					|| !checkValueExists("username","e2"))
 			{
 				if(conn.isClosed())
 				{

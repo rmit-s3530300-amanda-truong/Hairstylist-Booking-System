@@ -4,7 +4,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.HashMap;
-import java.util.Map.Entry;
 import java.sql.ResultSet;
 
 public class CustomerDatabase{
@@ -21,14 +20,15 @@ public class CustomerDatabase{
 	}
 	
 	//get initial connection and create the table
-	public void initialise()
+	public Connection initialise()
 	{
-		getConnection();
+		Connection connInit = getConnection();
 		createCustTable();
+		return connInit;
 	}
 	
 	//create connection to JDBC sqlite
-	private void getConnection()
+	private Connection getConnection()
 	{
 		try
 		{
@@ -40,6 +40,7 @@ public class CustomerDatabase{
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
+		return conn;
 	}
 	
 	private void createCustTable()
@@ -110,15 +111,6 @@ public class CustomerDatabase{
 		}
 	}
 	
-	//check if user is authenticated with user input
-	public Boolean checkLogin(String username, String password)
-	{
-		Boolean authen = null;
-		Boolean check = null;
-		check = checkAuthen(authen, username,password);
-		return check;
-	}
-	
 	public HashMap<String, HashMap<String,String>> storeCustomerValues()
 	{
 		HashMap<String, HashMap<String,String>> custValues = new HashMap<String, HashMap<String,String>>();
@@ -137,8 +129,8 @@ public class CustomerDatabase{
 				String fName = result.getString("fname");
 				String lName = result.getString("lname");
 				String gender = result.getString("gender");
-				custInfo.put("fName", fName);
-				custInfo.put("lName", lName);
+				custInfo.put("fname", fName);
+				custInfo.put("lname", lName);
 				custInfo.put("gender", gender);
 				custValues.put(id, custInfo);
 			}
@@ -154,9 +146,10 @@ public class CustomerDatabase{
 		return custValues;
 	}
 	
-	//authentication method
-	public Boolean checkAuthen(Boolean authen, String username, String password)
+	//check if user is authenticated
+	public Boolean checkLogin(String username, String password)
 	{
+		Boolean checkAuthen = null;
 		try
 		{
 			if(conn.isClosed())
@@ -165,17 +158,15 @@ public class CustomerDatabase{
 			}
 			prep = conn.prepareStatement("SELECT username,password FROM CUSTINFO WHERE username = ? AND password = ?;");
 			prep.setString(1, username);
-			prep.setString(2, password);
-			
+			prep.setString(2, password);			
 			result = prep.executeQuery();
-			
 			if(result.next())
 			{
-				authen = true;
+				checkAuthen = true;
 			}
 			else
 			{
-				authen = false;
+				checkAuthen = false;
 			}
 			prep.close();
 			result.close();
@@ -186,7 +177,7 @@ public class CustomerDatabase{
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
-		return authen;
+		return checkAuthen;
 	}
 	
 	//adding initial records to custinfo table
@@ -195,8 +186,8 @@ public class CustomerDatabase{
 		try
 		{
 			//making sure no duplicates are added when program restarts
-			if(!checkExists("username","jbrown") || 
-					!checkExists("username","rgeorge") || !checkExists("username","tswizzle"))
+			if(!checkValueExists("username","jbrown") || 
+					!checkValueExists("username","rgeorge") || !checkValueExists("username","tswizzle"))
 			{
 				if(conn.isClosed())
 				{
@@ -242,34 +233,25 @@ public class CustomerDatabase{
 		}	
 	}
 	
-	//check if value exists in table with user input
-	public Boolean checkExists(String col, String value)
+	//check if value exists in table
+	public Boolean checkValueExists(String col, String value)
 	{
-		Boolean check = null;
-		Boolean cExists = null;
-		check = cValue(cExists, col, value);
-		return check;
-	}
-	
-	//check value exists implementation
-	public Boolean cValue(Boolean cExists, String col, String value)
-	{
+		Boolean checkExists = null;
 		try
 		{
 			if(conn.isClosed())
 			{
 				getConnection();
 			}
-			
 			prep = conn.prepareStatement("SELECT " + col + " FROM CUSTINFO WHERE " + col + " = '" + value + "';");
 			result = prep.executeQuery();
 			if(result.next())
 			{
-				cExists = true;
+				checkExists = true;
 			}
 			else
 			{
-				cExists = false;
+				checkExists = false;
 			}
 			prep.close();
 			result.close();
@@ -280,6 +262,6 @@ public class CustomerDatabase{
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
-		return cExists;
+		return checkExists;
 	}
 }
