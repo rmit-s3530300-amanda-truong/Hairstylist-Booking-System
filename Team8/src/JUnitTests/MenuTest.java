@@ -16,6 +16,13 @@ public class MenuTest {
 	}
 	
 	@Test
+	public void testValidUname() {
+		String uName = "j_snow";
+		boolean check = m1.validUname(uName);
+		assertEquals(true,check);
+	}
+	
+	@Test
 	public void testValidFName() {
 		String name = "john";
 		boolean check = m1.validName(name);
