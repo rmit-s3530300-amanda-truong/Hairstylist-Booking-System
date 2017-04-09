@@ -71,7 +71,7 @@ public class EmployeeTest {
 				actual_availability = actual_availability + ", "+x.getValue().get(i).toString();
 			}
 		}
-		String expected_availability = "2017-10-30, 03:00, 03:15, 03:30, 03:45, 04:00, 04:15, 04:30, 04:45, 05:00, 05:15";
+		String expected_availability = "2017-10-30, 03:00, 03:15, 03:30, 03:45, 04:00, 04:15, 04:30, 04:45, 05:00";
 		
 		assertEquals(expected_availability, actual_availability);
 	}
@@ -80,7 +80,7 @@ public class EmployeeTest {
 	public void GetAvailabilityTest() {
 		LocalDate date = LocalDate.of(2017, 10, 30);
 		LocalTime start_time = LocalTime.of(3, 00);
-		LocalTime end_time = LocalTime.of(3, 15);
+		LocalTime end_time = LocalTime.of(3, 30);
 		e.addAvailability(date, start_time, end_time);
 		HashMap<LocalDate, ArrayList<LocalTime>> actual_availability = e.getAvailability();
 		
@@ -91,7 +91,6 @@ public class EmployeeTest {
 		expected_availability.put(LocalDate.of(2017, 10, 30), time);
 		
 		assertEquals(expected_availability, actual_availability);
-		
 	}
 
 }
