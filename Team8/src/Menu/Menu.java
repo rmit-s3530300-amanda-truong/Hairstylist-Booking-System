@@ -1,20 +1,15 @@
 package Menu;
 
-import java.sql.SQLException;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import AppoinmentProgram.Booking;
 import AppoinmentProgram.Company;
 import AppoinmentProgram.Employee;
 import AppoinmentProgram.Employee.Service;
@@ -500,7 +495,6 @@ public class Menu {
 		HashMap<String, Employee> employeeList = comp.getEmployeeList();
 		Employee e = employeeList.get(id);
 		e.addAvailability(date, startTime, endTime);
-		HashMap<LocalDate, ArrayList<LocalTime>> av = e.getAvailability();
 		employeeList.put(id, e);
 		Calendar cal = comp.getCalendar();
 		cal.updateCalendar(employeeList);
