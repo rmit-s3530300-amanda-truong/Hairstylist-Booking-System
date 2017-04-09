@@ -1,5 +1,6 @@
 package Menu;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.YearMonth;
@@ -400,49 +401,148 @@ public class Menu {
 	}
 	
 	private void addEmployeeAvailability() {
-		System.out.print("Enter Employee ID: ");
-		String id = input.nextLine();
-		if(companyDb.checkValueExists("username",id));
-		
-		System.out.print("Enter Month of the Date (MM): ");
+		Boolean startTimeValid = false;
+		Boolean endTimeValid = false;
+		Boolean idValid = false;
+		Boolean validDay = false;
 		Boolean validMonth = false;
-		int month = input.nextInt();
-		if(month > 0 && month <= 12){
-			int current_month = comp.getCalendar().getDate().getMonthValue();
-			if(month-current_month <= 1 && month-current_month >= 0) {
-				validMonth = true;
-			} else {
-				System.out.println(">> Error: Must be within a month.");
+		Boolean bothTimeValid = false;
+		int month = 0;
+		while(!idValid)
+		{
+			System.out.print("Enter Employee ID: ");
+			String id = input.nextLine();
+			if(companyDb.checkValueExists("username",id))
+			{
+				idValid = true;
+				while(!validMonth)
+				{
+					System.out.print("Enter Month of the Date (MM): ");
+					String monthString = input.nextLine();
+					try
+					{
+						month = Integer.parseInt(monthString);
+						if(month > 0 && month <= 12){
+							int current_month = comp.getCalendar().getDate().getMonthValue();
+							if(month-current_month <= 1 && month-current_month >= 0) 
+							{
+								validMonth = true;
+							} 
+							else 
+							{
+								System.out.println("Error: Must be within a month.");
+							}
+						}
+						else
+						{
+							System.out.println("Error: Must be a valid month");
+						}
+					}
+					catch(NumberFormatException e)
+					{
+						System.out.println("Error: Input must be a number");
+					}
+				}
+				
+				while(!validDay)
+				{
+					System.out.print("Enter Day of the Date (DD): ");
+					String dayString = input.nextLine();
+					try
+					{
+						int day = Integer.parseInt(dayString);
+						int current_day = comp.getCalendar().getDate().getDayOfMonth();
+						int current_month = comp.getCalendar().getDate().getMonthValue();
+						YearMonth yearMonthObject = YearMonth.of(2017, month);
+						int daysInMonth = yearMonthObject.lengthOfMonth();
+						if(day > 0 && day <= daysInMonth) {
+							if(month == current_month)
+							{
+								if(day >= current_day)
+								{
+									validDay = true;
+								}
+								else
+								{
+									System.out.println("Error: Can only add availabilty for future dates");
+								}
+							}
+							else
+							{
+								
+							}
+						} 
+						// add date and month
+						LocalDate date = LocalDate.of(2017, month, day);
+					}
+					catch(DateTimeException e)
+					{
+						System.out.println("Error: Must be a valid day");
+					}
+					catch(NumberFormatException e)
+					{
+						System.out.println("Error: Input must be a number");
+					}
+				}
+				String[] startTime_split = null;
+				while(!bothTimeValid)
+				{
+					while(!startTimeValid)
+					{
+						System.out.print("Enter Start Time (eg. 24:00): ");
+						String startTime_string = input.nextLine();
+						if(validTime(startTime_string))
+						{
+							startTime_split = startTime_string.split(":");
+							LocalTime startTime = LocalTime.of(Integer.parseInt(startTime_split[0]), Integer.parseInt(startTime_split[1]));
+							//add to calendar
+							startTimeValid = true;
+						}
+					}
+					
+					while(!endTimeValid && startTimeValid)
+					{
+						System.out.print("Enter End Time (eg. 24:00): ");
+						String endTime_string = input.nextLine();
+						if(validTime(endTime_string))
+						{
+							String[] endTime_split = endTime_string.split(":");
+							if(Integer.parseInt(startTime_split[0]) == Integer.parseInt(endTime_split[0]))
+							{
+								if(Integer.parseInt(startTime_split[1]) < Integer.parseInt(endTime_split[1]))
+								{
+									LocalTime endTime = LocalTime.of(Integer.parseInt(endTime_split[0]), Integer.parseInt(endTime_split[1]));
+									//add to calendar
+									endTimeValid = true;
+									bothTimeValid = true;
+								}
+								else
+								{
+									System.out.println("Error: End time must be later than start time");
+									startTimeValid = false;
+								}
+							}
+							else if(Integer.parseInt(startTime_split[0]) > Integer.parseInt(endTime_split[0]))
+							{
+								System.out.println("Error: End time must be later than start time");
+								startTimeValid = false;
+							}
+							else
+							{
+								LocalTime endTime = LocalTime.of(Integer.parseInt(endTime_split[0]), Integer.parseInt(endTime_split[1]));
+								//add to calendar
+								endTimeValid = true;
+								bothTimeValid = true;
+							}
+						}
+					}
+				}
+			}
+			else
+			{
+				System.out.println("Error: Invalid employee ID");
 			}
 		}
-		
-		System.out.print("Enter Day of the Date (DD): ");
-		Boolean validDay = false;
-		int day = input.nextInt();
-		int current_day = comp.getCalendar().getDate().getDayOfMonth();
-		YearMonth yearMonthObject = YearMonth.of(2017, month);
-		int daysInMonth = yearMonthObject.lengthOfMonth();
-		if(day > 0 && day <= daysInMonth) {
-			validDay = true;
-		} else {
-			System.out.println(">> Error: Must be a valid day");
-		}
-		
-		// add date and month
-		LocalDate date = LocalDate.of(2017, month, day);
-		
-		System.out.print("Enter Start Time (eg. 24:00): ");
-		String startTime_string = input.nextLine();
-		String[] startTime_split = startTime_string.split(":");
-		//error check
-		LocalTime startTime = LocalTime.of(Integer.parseInt(startTime_split[0]), Integer.parseInt(startTime_split[1]));
-		
-		System.out.print("Enter End Time (eg. 24:00): ");
-		String endTime_string = input.nextLine();
-		String[] endTime_split = endTime_string.split(":");
-		//error check
-		LocalTime endTime = LocalTime.of(Integer.parseInt(endTime_split[0]), Integer.parseInt(endTime_split[1]));
-		
 		//to LocalTime
 		System.out.println("Available Time Has Been Added");
 		businessMenu();
@@ -701,6 +801,22 @@ public class Menu {
 		Boolean stateValid = matcher.find();
 		if(state.isEmpty() || !stateValid) {
 			System.out.println("Error: State entered incorrectly.");
+			return false;
+		} 
+		else{
+			return true;
+		}
+	}
+	
+	//error checking for valid start time
+	public boolean validTime(String time)
+	{
+		Matcher matcher;
+		Pattern timePattern = Pattern.compile("^([0][8-9]|[1][0-6])[:]([0|3][0]|[1|4][5])$");
+		matcher = timePattern.matcher(time);
+		Boolean timeValid = matcher.find();
+		if(time.isEmpty() || !timeValid) {
+			System.out.println("Error: start time entered incorrectly.");
 			return false;
 		} 
 		else{
