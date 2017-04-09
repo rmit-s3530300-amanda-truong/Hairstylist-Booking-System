@@ -1,5 +1,6 @@
 package Menu;
 
+import java.io.Console;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -96,7 +97,8 @@ public class Menu {
 
 	//login to program
 	public void login(){
-		
+		Console console = System.console();
+		char [] passwd;
 		String userName, password;
 		boolean valid = false;
 		
@@ -104,8 +106,16 @@ public class Menu {
 			System.out.print("Please enter your username: ");
 			userName = input.nextLine();
 			if(validLogin(userName)) {
-				System.out.print("Please enter your password: ");
-				password = input.nextLine();
+				//checks for using IDE or comand prompt
+				if(console == null){
+					System.out.print("Please enter your password: ");
+					password = input.nextLine();
+				}
+				else{
+					//hides the password if command prompt
+					passwd = System.console().readPassword("%s", "Please enter your password: ");
+					password = new String(passwd);
+				}
 				if(authenticate(userName,password)) {
 					valid = true;
 				}
