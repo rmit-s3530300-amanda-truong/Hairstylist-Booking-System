@@ -79,33 +79,6 @@ public class AvailabilityDatabase {
 		}
 	}
 	
-	public ResultSet displayTable()
-	{
-		try
-		{
-			if(conn.isClosed())
-			{
-				getConnection();
-			}
-			stmt = conn.createStatement();
-			result = stmt.executeQuery("SELECT * FROM AVAILABILITY");
-			while (result.next())
-			{
-				System.out.println(result.getString("employeeID") + " " + result.getString("date") 
-				+ " " + result.getString("startTime") + " " + result.getString("endTime"));
-			}
-			stmt.close();
-			result.close();
-			conn.close();
-		}
-		catch(Exception e)
-		{
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
-		}
-		return result;
-	}
-	
 	// add employee availability to a record
 	public void addAvailabilityInfo(String employeeID, String date, String startTime, String endTime)
 	{		
@@ -202,6 +175,7 @@ public class AvailabilityDatabase {
 		return checkExists;
 	}
 	
+	//delete records if availability exists for employee already
 	public void deleteAvail(String id, String date)
 	{
 		try
@@ -210,11 +184,11 @@ public class AvailabilityDatabase {
 			{
 				getConnection();
 			}
-			prep = conn.prepareStatement("DELETE FROM AVAILABILITY WHERE employeeID = '" +id+ 
-					"' AND date = '" + date + "'");
-			result = prep.executeQuery();
-			prep.close();
-			result.close();
+			stmt = conn.createStatement();
+			String sql = "DELETE FROM AVAILABILITY WHERE employeeID = '" +id+ 
+					"' AND date = '" + date + "'";
+			stmt.execute(sql);
+			stmt.close();
 			conn.close();
 		}
 		catch(Exception e)

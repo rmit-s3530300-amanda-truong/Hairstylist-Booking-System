@@ -485,18 +485,14 @@ public class Menu {
 			}
 		}
 		updateEmpAvailability(date, startTime, endTime, id);
-
-		/*Boolean checkId = availDb.checkValueExists("id",id);
-		System.out.println(checkId);
+		Boolean checkId = availDb.checkValueExists("employeeID",id);
 		Boolean checkDate = availDb.checkValueExists("date",date.toString());
-		System.out.println(checkDate);
 		if(checkId && checkDate)
 		{
 			availDb.deleteAvail(id, date.toString());
-		}*/
+		}
 		availDb.addAvailabilityInfo(id, date.toString(), startTime.toString(), endTime.toString());
 		System.out.println("Available Time Has Been Added");
-		//availDb.displayTable();
 		businessMenu();
 	}
 	
