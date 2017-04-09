@@ -5,13 +5,18 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.YearMonth;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import AppoinmentProgram.Booking;
 import AppoinmentProgram.Company;
 import AppoinmentProgram.Employee;
 import AppoinmentProgram.Employee.Service;
+import Calendar.Calendar;
 import Database.CompanyDatabase;
 import Database.CustomerDatabase;
 
@@ -407,145 +412,203 @@ public class Menu {
 		Boolean validDay = false;
 		Boolean validMonth = false;
 		Boolean bothTimeValid = false;
+		
+		String id = "";
+		LocalDate date = null;
+		LocalTime startTime = null;
+		LocalTime endTime = null;
 		int month = 0;
+		int day = 0;
+		
 		while(!idValid)
-		{
+		{	
 			System.out.print("Enter Employee ID: ");
-			String id = input.nextLine();
-			if(companyDb.checkValueExists("username",id))
+			id = input.nextLine();
+			idValid = idValid(id);
+		}
+		while(!validMonth)
+		{
+			System.out.print("Enter Month of the Date (MM): ");
+			String monthString = input.nextLine();
+			validMonth = validMonth(monthString);
+			if(validMonth){
+				month = Integer.parseInt(monthString);
+			}
+			
+		}
+		while(!validDay)
+		{
+			System.out.print("Enter Day of the Date (DD): ");
+			String dayString = input.nextLine();
+			validDay = validDay(dayString, month);
+			if(validDay) {
+				day = Integer.parseInt(dayString);
+			}
+		}
+		date = LocalDate.of(2017, month, day);
+		
+		while(!bothTimeValid)
+		{
+			String[] startTime_split = null;
+			while(!startTimeValid)
 			{
-				idValid = true;
-				while(!validMonth)
+				System.out.print("Enter Start Time (eg. 24:00): ");
+				String startTime_string = input.nextLine();
+				if(validTime(startTime_string))
 				{
-					System.out.print("Enter Month of the Date (MM): ");
-					String monthString = input.nextLine();
-					try
-					{
-						month = Integer.parseInt(monthString);
-						if(month > 0 && month <= 12){
-							int current_month = comp.getCalendar().getDate().getMonthValue();
-							if(month-current_month <= 1 && month-current_month >= 0) 
-							{
-								validMonth = true;
-							} 
-							else 
-							{
-								System.out.println("Error: Must be within a month.");
-							}
-						}
-						else
-						{
-							System.out.println("Error: Must be a valid month");
-						}
-					}
-					catch(NumberFormatException e)
-					{
-						System.out.println("Error: Input must be a number");
+					startTime_split = startTime_string.split(":");
+					startTime = LocalTime.of(Integer.parseInt(startTime_split[0]), Integer.parseInt(startTime_split[1]));
+					//add to calendar
+					startTimeValid = true;
+				}
+			}
+			
+			while(!endTimeValid)
+			{
+				System.out.print("Enter End Time (eg. 24:00): ");
+				String endTime_string = input.nextLine();
+				if(validTime(endTime_string))
+				{
+					String[] endTime_split = endTime_string.split(":");
+					Boolean status = validEndTime(endTime_split, startTime_split);
+					if(status) {
+						endTime = LocalTime.of(Integer.parseInt(endTime_split[0]), Integer.parseInt(endTime_split[1]));
+						endTimeValid = status;
+						bothTimeValid = status;
 					}
 				}
-				
-				while(!validDay)
+			}
+		}
+		HashMap<String, Employee> employeeList = comp.getEmployeeList();
+		Employee e = employeeList.get(id);
+		e.addAvailability(date, startTime, endTime);
+		HashMap<LocalDate, ArrayList<LocalTime>> av = e.getAvailability();
+		/*for(Entry<LocalDate, ArrayList<LocalTime>> ent : av.entrySet()) {
+			System.out.println(ent.getKey());
+			for(int i =0; i<ent.getValue().size(); i++){
+				System.out.println(ent.getValue().get(i));
+			}
+		}*/
+		employeeList.put(id, e);
+		Calendar cal = comp.getCalendar();
+		cal.updateCalendar(employeeList);
+		comp.setCalendar(cal);
+		
+		Calendar cal2 = comp.getCalendar();
+		LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>> info = cal2.getCalendarInfo();
+		
+		/*for(Entry<LocalDate, LinkedHashMap<LocalTime, Booking>> en : info.entrySet()) {
+			System.out.println(en.getKey());
+			for(Entry<LocalTime, Booking> b : en.getValue().entrySet()){
+				System.out.println(b.getKey() + " " + b.getValue().getStatus());
+			}
+		}*/
+		System.out.println("Available Time Has Been Added");
+		businessMenu();
+	}
+	
+	public boolean idValid(String id) {
+		if(companyDb.checkValueExists("username",id))
+		{
+			return true;
+		}
+		else
+		{
+			System.out.println("Error: Invalid employee ID");
+			return false;
+		}
+	}
+	
+	public boolean validEndTime(String[] endTime_split, String[] startTime_split) {
+		if(Integer.parseInt(startTime_split[0]) == Integer.parseInt(endTime_split[0]))
+		{
+			if(Integer.parseInt(startTime_split[1]) < Integer.parseInt(endTime_split[1]))
+			{
+				return true;
+			}
+			else
+			{
+				System.out.println("Error: End time must be later than start time");
+				return false;
+			}
+		}
+		else if(Integer.parseInt(startTime_split[0]) > Integer.parseInt(endTime_split[0]))
+		{
+			System.out.println("Error: End time must be later than start time");
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
+	
+	public Boolean validMonth(String monthString){
+		try
+		{
+			int month = Integer.parseInt(monthString);
+			if(month > 0 && month <= 12){
+				int current_month = comp.getCalendar().getDate().getMonthValue();
+				if(month-current_month <= 1 && month-current_month >= 0) 
 				{
-					System.out.print("Enter Day of the Date (DD): ");
-					String dayString = input.nextLine();
-					try
-					{
-						int day = Integer.parseInt(dayString);
-						int current_day = comp.getCalendar().getDate().getDayOfMonth();
-						int current_month = comp.getCalendar().getDate().getMonthValue();
-						YearMonth yearMonthObject = YearMonth.of(2017, month);
-						int daysInMonth = yearMonthObject.lengthOfMonth();
-						if(day > 0 && day <= daysInMonth) {
-							if(month == current_month)
-							{
-								if(day >= current_day)
-								{
-									validDay = true;
-								}
-								else
-								{
-									System.out.println("Error: Can only add availabilty for future dates");
-								}
-							}
-							else
-							{
-								
-							}
-						} 
-						// add date and month
-						LocalDate date = LocalDate.of(2017, month, day);
-					}
-					catch(DateTimeException e)
-					{
-						System.out.println("Error: Must be a valid day");
-					}
-					catch(NumberFormatException e)
-					{
-						System.out.println("Error: Input must be a number");
-					}
-				}
-				String[] startTime_split = null;
-				while(!bothTimeValid)
+					return true;
+				} 
+				else 
 				{
-					while(!startTimeValid)
-					{
-						System.out.print("Enter Start Time (eg. 24:00): ");
-						String startTime_string = input.nextLine();
-						if(validTime(startTime_string))
-						{
-							startTime_split = startTime_string.split(":");
-							LocalTime startTime = LocalTime.of(Integer.parseInt(startTime_split[0]), Integer.parseInt(startTime_split[1]));
-							//add to calendar
-							startTimeValid = true;
-						}
-					}
-					
-					while(!endTimeValid && startTimeValid)
-					{
-						System.out.print("Enter End Time (eg. 24:00): ");
-						String endTime_string = input.nextLine();
-						if(validTime(endTime_string))
-						{
-							String[] endTime_split = endTime_string.split(":");
-							if(Integer.parseInt(startTime_split[0]) == Integer.parseInt(endTime_split[0]))
-							{
-								if(Integer.parseInt(startTime_split[1]) < Integer.parseInt(endTime_split[1]))
-								{
-									LocalTime endTime = LocalTime.of(Integer.parseInt(endTime_split[0]), Integer.parseInt(endTime_split[1]));
-									//add to calendar
-									endTimeValid = true;
-									bothTimeValid = true;
-								}
-								else
-								{
-									System.out.println("Error: End time must be later than start time");
-									startTimeValid = false;
-								}
-							}
-							else if(Integer.parseInt(startTime_split[0]) > Integer.parseInt(endTime_split[0]))
-							{
-								System.out.println("Error: End time must be later than start time");
-								startTimeValid = false;
-							}
-							else
-							{
-								LocalTime endTime = LocalTime.of(Integer.parseInt(endTime_split[0]), Integer.parseInt(endTime_split[1]));
-								//add to calendar
-								endTimeValid = true;
-								bothTimeValid = true;
-							}
-						}
-					}
+					System.out.println("Error: Must be within a month.");
+					return false;
 				}
 			}
 			else
 			{
-				System.out.println("Error: Invalid employee ID");
+				System.out.println("Error: Must be a valid month");
+				return false;
 			}
 		}
-		//to LocalTime
-		System.out.println("Available Time Has Been Added");
-		businessMenu();
+		catch(NumberFormatException e)
+		{
+			System.out.println("Error: Input must be a number");
+			return false;
+		}
+	}
+	
+	public Boolean validDay(String dayString, int month) {
+		try
+		{
+			int day = Integer.parseInt(dayString);
+			int current_day = comp.getCalendar().getDate().getDayOfMonth();
+			int current_month = comp.getCalendar().getDate().getMonthValue();
+			YearMonth yearMonthObject = YearMonth.of(2017, month);
+			int daysInMonth = yearMonthObject.lengthOfMonth();
+			if(day > 0 && day <= daysInMonth) {
+				if(month == current_month)
+				{
+					if(day > current_day)
+					{
+						return true;
+					}
+					else
+					{
+						System.out.println("Error: Can only add availabilty for future dates");
+						return false;
+					}
+				}
+				return true;
+			} else {
+				System.out.println("Error: Must be a valid day");
+				return false;
+			}
+		}
+		catch(DateTimeException e)
+		{
+			System.out.println("Error: Must be a valid day");
+			return false;
+		}
+		catch(NumberFormatException e)
+		{
+			System.out.println("Error: Input must be a number");
+			return false;
+		}
 	}
 
 	private void addNewEmployee() {

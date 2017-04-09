@@ -103,9 +103,8 @@ public class Calendar {
 			for(int i = 0; i <14; i++) {
 				if(availability.containsKey(date)) {
 					ArrayList<LocalTime> available_times = availability.get(date);
-					LinkedHashMap<LocalTime, Booking> map_time = null;
+					LinkedHashMap<LocalTime, Booking> map_time = new LinkedHashMap<LocalTime, Booking>();
 					for(int x=0; x<available_times.size();x++) {
-						map_time = new LinkedHashMap<LocalTime, Booking>();
 						map_time.put(available_times.get(x), new Booking(Status.free));
 					}
 					calendar.put(date, map_time);
@@ -113,6 +112,13 @@ public class Calendar {
 				date = date.plusDays(1);
 			}
 		}
+		// only does 12 - 16 as free
+		/*for(Entry<LocalDate, LinkedHashMap<LocalTime, Booking>> en : calendar.entrySet()) {
+			System.out.println(en.getKey());
+			for(Entry<LocalTime, Booking> b : en.getValue().entrySet()){
+				System.out.println(b.getKey() + " " + b.getValue().getStatus());
+			}
+		}*/
 	}
 	
 	// TODO: Needs Testing
@@ -258,22 +264,32 @@ public class Calendar {
 		output = output + String.format("%s\n", printBorder("-", 12*9+8));
 		output = output + String.format("|%-13s", "");
 		LocalDate date = startDate; 
+		
+		// printing the dates in a row
 		for(int i = 0; i < 7; i++){
 			output = output + String.format("|%-13s", date.toString());
 			date = date.plusDays(1);
 		}
 		output = output + String.format("\n%s\n", printBorder("-", 12*9+8));
+		
 		LocalTime time = LocalTime.of(8, 00);
 		LocalDate date2=startDate;
 		while(!time.toString().equals(LocalTime.of(16, 15).toString())) {
 			date2 = startDate;
 			output = output + String.format("|%-13s| ", time.toString());
 			for(int i =0; i < 7; i ++) {
-				output = output + String.format("%-13s|", info.get(date2).get(time).getStatus().toString());
-				date2.plusDays(1);
+				Status status;
+				if(info.get(date2).get(time) == null){
+					status = Status.unavailable;
+				} else {
+					status = info.get(date2).get(time).getStatus();  
+				}
+				output = output + String.format("%-13s|",status.toString());
+				date2 = date2.plusDays(1);
 			}
 			output = output + String.format("\n%s\n", printBorder("-", 12*9+8));
 			time = time.plusMinutes(15);
+			
 		}
 		return output;
 	}

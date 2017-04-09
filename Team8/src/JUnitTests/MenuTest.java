@@ -2,10 +2,13 @@ package JUnitTests;
 
 import static org.junit.Assert.*;
 
+import java.time.LocalDate;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import AppoinmentProgram.Company;
+import Calendar.Calendar;
 import Database.CompanyDatabase;
 import Database.CustomerDatabase;
 import Menu.Menu;
@@ -18,7 +21,164 @@ public class MenuTest {
 	
 	@Before
 	public void setUp() throws Exception {
+		compDb = new CompanyDatabase();
+		custDb = new CustomerDatabase();
+		Calendar cal = new Calendar(LocalDate.of(2017, 04, 01));
+		comp = new Company();
+		comp.setCalendar(cal);
 		m1 = new Menu(comp,custDb,compDb);
+	}
+	
+	@Test
+	public void testIdValid() {
+		String username = "e1";
+		Boolean expected = true;
+		Boolean actual = m1.idValid(username);
+		
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void testIdValidFail() {
+		String username = "e5";
+		Boolean expected = false;
+		Boolean actual = m1.idValid(username);
+		
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void testValidMonth() {
+		String month = "04";
+		Boolean expected = true;
+		Boolean actual = m1.validMonth(month);
+		
+		assertEquals(expected,actual);
+	}
+	
+	@Test
+	public void testValidMonth2() {
+		String month = "05";
+		Boolean expected = true;
+		Boolean actual = m1.validMonth(month);
+		
+		assertEquals(expected,actual);
+	}
+	
+	@Test
+	public void testValidMonthFail() {
+		String month = "03";
+		Boolean expected = false;
+		Boolean actual = m1.validMonth(month);
+		
+		assertEquals(expected,actual);
+	}
+	
+	@Test
+	public void testValidMonthFail2() {
+		String month = "06";
+		Boolean expected = false;
+		Boolean actual = m1.validMonth(month);
+		
+		assertEquals(expected,actual);
+	}
+	
+	@Test
+	public void testValidMonthFail3() {
+		String month = "13";
+		Boolean expected = false;
+		Boolean actual = m1.validMonth(month);
+		
+		assertEquals(expected,actual);
+	}
+	
+	@Test
+	public void testValidMonthFail4() {
+		String month = "0";
+		Boolean expected = false;
+		Boolean actual = m1.validMonth(month);
+		
+		assertEquals(expected,actual);
+	}
+	
+	@Test
+	public void testValidDay() {
+		String day = "10";
+		int month = 4;
+		Boolean expected = true;
+		Boolean actual = m1.validDay(day, month);
+		
+		assertEquals(expected,actual);
+	}
+	
+	@Test
+	public void testValidDay2() {
+		String day = "02";
+		int month = 4;
+		Boolean expected = true;
+		Boolean actual = m1.validDay(day, month);
+		
+		assertEquals(expected,actual);
+	}
+	
+	@Test
+	public void testValidDay3() {
+		String day = "30";
+		int month = 4;
+		Boolean expected = true;
+		Boolean actual = m1.validDay(day, month);
+		
+		assertEquals(expected,actual);
+	}
+	
+	@Test
+	public void testValidDayFail() {
+		String day = "1";
+		int month = 4;
+		Boolean expected = false;
+		Boolean actual = m1.validDay(day, month);
+		
+		assertEquals(expected,actual);
+	}
+	
+	@Test
+	public void testValidDayFail2() {
+		String day = "31";
+		int month = 4;
+		Boolean expected = false;
+		Boolean actual = m1.validDay(day, month);
+		
+		assertEquals(expected,actual);
+	}
+	
+	@Test
+	public void testValidDayFail3() {
+		String day = "0";
+		int month = 4;
+		Boolean expected = false;
+		Boolean actual = m1.validDay(day, month);
+		
+		assertEquals(expected,actual);
+	}
+	
+	@Test
+	public void testValidDayFail4() {
+		String day = "32";
+		int month = 4;
+		Boolean expected = false;
+		Boolean actual = m1.validDay(day, month);
+		
+		assertEquals(expected,actual);
+	}
+	
+	@Test
+	public void testValidDayFail5() {
+		String day = "a";
+		int month = 4;
+		Boolean expected = false;
+		Boolean actual = m1.validDay(day, month);
+		
+		assertEquals(expected,actual);
 	}
 	
 	@Test
