@@ -11,8 +11,8 @@ import java.util.Map.Entry;
 import org.junit.Before;
 import org.junit.Test;
 
-import AppoinmentProgram.Employee;
-import AppoinmentProgram.Employee.Service;
+import Business.Employee;
+import Business.Employee.Service;
 
 public class EmployeeTest {
 	

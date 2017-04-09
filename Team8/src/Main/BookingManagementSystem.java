@@ -1,6 +1,6 @@
 package Main;
 
-import AppoinmentProgram.Company;
+import Business.Company;
 import Database.AvailabilityDatabase;
 import Database.CompanyDatabase;
 import Database.CustomerDatabase;

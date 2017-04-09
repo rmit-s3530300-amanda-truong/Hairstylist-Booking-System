@@ -1,10 +1,9 @@
-package AppoinmentProgram;
+package Calendar;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.HashMap;
 
-import AppoinmentProgram.Employee.Service;
-import Calendar.Calendar;
+import Business.Employee.Service;
 
 public class Booking {
 	private String ID;

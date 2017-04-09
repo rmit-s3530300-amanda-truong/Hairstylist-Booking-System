@@ -9,11 +9,11 @@ import java.util.HashMap;
 import org.junit.Before;
 import org.junit.Test;
 
-import AppoinmentProgram.Company;
-import AppoinmentProgram.Customer;
-import AppoinmentProgram.Employee;
-import AppoinmentProgram.Employee.Service;
+import Business.Company;
+import Business.Employee;
+import Business.Employee.Service;
 import Calendar.Calendar;
+import Customer.Customer;
 import Database.AvailabilityDatabase;
 import Database.CompanyDatabase;
 import Database.CustomerDatabase;

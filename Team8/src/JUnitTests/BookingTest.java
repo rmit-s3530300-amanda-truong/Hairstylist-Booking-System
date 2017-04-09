@@ -9,9 +9,9 @@ import java.util.HashMap;
 import org.junit.Before;
 import org.junit.Test;
 
+import Calendar.Booking;
 import Calendar.Calendar;
-import AppoinmentProgram.Booking;
-import AppoinmentProgram.Employee.Service;
+import Business.Employee.Service;
 
 public class BookingTest {
 	Booking book;

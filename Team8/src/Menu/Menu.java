@@ -11,9 +11,9 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import AppoinmentProgram.Company;
-import AppoinmentProgram.Employee;
-import AppoinmentProgram.Employee.Service;
+import Business.Company;
+import Business.Employee;
+import Business.Employee.Service;
 import Calendar.Calendar;
 import Database.AvailabilityDatabase;
 import Database.CompanyDatabase;

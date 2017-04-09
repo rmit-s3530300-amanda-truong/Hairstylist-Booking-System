@@ -5,9 +5,8 @@ import java.time.LocalTime;
 import java.util.*;
 import java.util.Map.Entry;
 
-import AppoinmentProgram.Booking;
-import AppoinmentProgram.Employee;
-import AppoinmentProgram.Employee.Service;
+import Business.Employee;
+import Business.Employee.Service;
 import Calendar.Calendar;
 
 public class Calendar {

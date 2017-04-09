@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 
-import AppoinmentProgram.Company;
+import Business.Company;
 import Calendar.Calendar;
 import Database.AvailabilityDatabase;
 import Database.CompanyDatabase;

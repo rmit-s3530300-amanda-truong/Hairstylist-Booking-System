@@ -4,18 +4,15 @@ import static org.junit.Assert.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.Map.Entry;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import AppoinmentProgram.Booking;
-import AppoinmentProgram.Employee.Service;
+import Business.Employee.Service;
+import Calendar.Booking;
 import Calendar.Calendar;
-import Calendar.Calendar.Status;
 
 public class CalendarTest {
 	Calendar c1;

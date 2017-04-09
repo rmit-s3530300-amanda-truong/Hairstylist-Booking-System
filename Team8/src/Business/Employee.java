@@ -1,4 +1,4 @@
-package AppoinmentProgram;
+package Business;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -34,6 +34,7 @@ public class Employee {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public Employee(String ID, String firstName, String lastName, ArrayList<Service> serviceType){
 		this.ID = ID;
 		this.firstName = firstName;

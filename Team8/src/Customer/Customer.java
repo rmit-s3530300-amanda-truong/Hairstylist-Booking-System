@@ -1,4 +1,4 @@
-package AppoinmentProgram;
+package Customer;
 
 public class Customer {
 	String username;

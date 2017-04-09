@@ -1,12 +1,13 @@
-package AppoinmentProgram;
+package Business;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
 import java.util.Map.Entry;
 
-import AppoinmentProgram.Employee.Service;
+import Business.Employee.Service;
 import Calendar.Calendar;
+import Customer.Customer;
 import Database.AvailabilityDatabase;
 import Database.CompanyDatabase;
 import Database.CustomerDatabase;

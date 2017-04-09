@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import AppoinmentProgram.Customer;
+import Customer.Customer;
 
 public class CustomerTest {
 	Customer customer;
