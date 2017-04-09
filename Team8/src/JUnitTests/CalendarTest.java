@@ -317,14 +317,4 @@ public class CalendarTest {
 				+"|15:45 - 16:00| free         |free         |free         |free         |free         |free         |free         |\n"
 				+"--------------------------------------------------------------------------------------------------------------------\n", actual_cal);
 	}
-
-	public void printHashMap(LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>> information2) {
-		for(Entry<LocalDate, LinkedHashMap<LocalTime, Booking>> entry : information2.entrySet()) {
-			LinkedHashMap<LocalTime, Booking> entry2 = entry.getValue();
-			System.out.println("OuterKey: "+entry.getKey());
-			for(Entry<LocalTime, Booking> entry3 : entry2.entrySet()) {
-				System.out.println("AKey: " + entry3.getKey() + " Value: " + entry3.getValue().getStatus());
-			}			
-		}
-	}
 }
