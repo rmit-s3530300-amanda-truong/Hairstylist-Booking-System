@@ -341,8 +341,9 @@ public class Menu {
 			System.out.println("3. Booking Summary");
 			System.out.println("4. New Bookings");
 			System.out.println("5. View Employees availability");
-			System.out.println("6. Log out");
-			System.out.println("7. End program");
+			System.out.println("6. View Calendar");
+			System.out.println("7. Log out");
+			System.out.println("8. End program");
 			System.out.print("Please select an option from above: ");
 			
 			selection2 = input.nextLine();
@@ -390,11 +391,18 @@ public class Menu {
 				businessMenu();
 				break;
 			case 6:
+				System.out.println("-------------");
+				System.out.println("View Calendar");
+				System.out.println("-------------");
+				System.out.println(comp.getCalendar().displayCalendar());
+				businessMenu();
+				break;
+			case 7:
 				System.out.println("You have been redirected to Main Menu.");
 				System.out.println("--------------------------------------");
 				mainMenu();
 				break;
-			case 7:
+			case 8:
 				System.out.println("Thanks for using our program.");
 				System.exit(0);
 				break;
