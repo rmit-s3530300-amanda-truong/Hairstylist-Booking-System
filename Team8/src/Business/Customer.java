@@ -1,4 +1,4 @@
-package Customer;
+package Business;
 
 public class Customer {
 	String username;

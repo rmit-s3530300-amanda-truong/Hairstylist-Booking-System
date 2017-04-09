@@ -10,10 +10,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import Business.Company;
+import Business.Customer;
 import Business.Employee;
 import Business.Employee.Service;
 import Calendar.Calendar;
-import Customer.Customer;
 import Database.AvailabilityDatabase;
 import Database.CompanyDatabase;
 import Database.CustomerDatabase;
