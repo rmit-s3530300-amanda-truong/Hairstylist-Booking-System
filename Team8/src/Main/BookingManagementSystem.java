@@ -1,6 +1,4 @@
 package Main;
-import java.security.KeyStore.Entry;
-import java.util.HashMap;
 
 import AppoinmentProgram.Company;
 import Database.CompanyDatabase;
@@ -13,6 +11,7 @@ public class BookingManagementSystem {
 		CompanyDatabase companyDb = new CompanyDatabase();
 		Company comp = new Company();
 		comp.retrieveDatabaseInfo(customerDb, companyDb);
+		comp.getCalendar().updateCalendar(comp.getEmployeeList());
 		
 		Menu m1 = new Menu(comp, customerDb, companyDb);
 		m1.mainMenu();

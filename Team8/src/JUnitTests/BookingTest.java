@@ -31,7 +31,6 @@ public class BookingTest {
 		expected_time = LocalTime.of(12,00);
 		expected_customerID = "a";
 		
-		Booking b = new Booking();
 		book.addDetails(expected_ID, expected_service, expected_date, expected_time, expected_customerID);
 	}
 	
