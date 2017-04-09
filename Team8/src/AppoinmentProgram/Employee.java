@@ -49,7 +49,7 @@ public class Employee {
 	public void addAvailability(LocalDate date, LocalTime start_time, LocalTime end_time) {
 		ArrayList<LocalTime> times = new ArrayList<LocalTime>();
 		LocalTime time = start_time;
-		while(!time.toString().equals(end_time.plusMinutes(15).toString())) {
+		while(!time.toString().equals(end_time.toString())) {
 			times.add(time);
 			time = time.plusMinutes(15);
 		}

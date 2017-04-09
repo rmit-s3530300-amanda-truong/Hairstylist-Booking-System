@@ -276,7 +276,7 @@ public class Calendar {
 		LocalDate date2=startDate;
 		while(!time.toString().equals(LocalTime.of(16, 15).toString())) {
 			date2 = startDate;
-			output = output + String.format("|%-13s| ", time.toString());
+			output = output + String.format("|%s - %s| ", time.toString(),time.plusMinutes(15).toString());
 			for(int i =0; i < 7; i ++) {
 				Status status;
 				if(info.get(date2).get(time) == null){

@@ -339,7 +339,7 @@ public class Menu {
 			System.out.println("1. Add a new employee");
 			System.out.println("2. Add available Timeslots");
 			System.out.println("3. Booking Summary");
-			System.out.println("4. Accept/Decline Bookings");
+			System.out.println("4. New Bookings");
 			System.out.println("5. View Employees availability");
 			System.out.println("6. Log out");
 			System.out.println("7. End program");
@@ -376,16 +376,17 @@ public class Menu {
 				businessMenu();
 				break;
 			case 4:
-				System.out.println("-----------------------");
-				System.out.println("Accept/Decline Bookings");
-				System.out.println("-----------------------");
-				updateBooking();
+				System.out.println("------------");
+				System.out.println("New Bookings");
+				System.out.println("------------");
+				System.out.println(comp.getCalendar().getBookingPendingString());
+				businessMenu();
 				break;
 			case 5:
 				System.out.println("---------------------------");
 				System.out.println("View Employees availability");
 				System.out.println("---------------------------");
-				System.out.println(comp.getCalendar().displayCalendar());
+				System.out.println(comp.showEmployeeAvailability());
 				businessMenu();
 				break;
 			case 6:
@@ -401,18 +402,6 @@ public class Menu {
 				break;
 			}
 		}
-	}
-	
-	private void updateBooking() {
-		// Enter booking ID
-		// comp.getCalendar().containsBooking(String ID);
-		// if true continue...
-		// press A to accept 
-		// comp.getCalendar().acceptBooking(String ID);
-		
-		// press D to decline
-		// comp.getCalendar().acceptBooking(String ID);
-		// businessMenu();
 	}
 	
 	private void addEmployeeAvailability() {
@@ -462,7 +451,7 @@ public class Menu {
 			String[] startTime_split = null;
 			while(!startTimeValid)
 			{
-				System.out.print("Enter Start Time (eg. 24:00): ");
+				System.out.print("Enter Start Time (08:00-16:00): ");
 				String startTime_string = input.nextLine();
 				if(validTime(startTime_string))
 				{
@@ -475,7 +464,7 @@ public class Menu {
 			
 			while(!endTimeValid)
 			{
-				System.out.print("Enter End Time (eg. 24:00): ");
+				System.out.print("Enter End Time (08:00-16:00): ");
 				String endTime_string = input.nextLine();
 				if(validTime(endTime_string))
 				{

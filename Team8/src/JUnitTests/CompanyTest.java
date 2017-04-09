@@ -87,12 +87,6 @@ public class CompanyTest {
 		assertEquals(expected_customer, actual_customer);
 	}
 	
-	// TODO: finish
-	@Test 
-	public void testRetrieveDatabaseInfo() {
-
-	}
-	
 	@Test
 	public void testGetCustList() {
 		HashMap<String, Customer> expected = custList;
@@ -219,7 +213,7 @@ public class CompanyTest {
 	}
 	
 	@Test
-	public void getCalendar() {
+	public void testGetCalendar() {
 		Calendar expected_cal = new Calendar(LocalDate.of(2017, 02, 02));
 		comp.setCalendar(expected_cal);
 		Calendar actual_cal = comp.getCalendar();
