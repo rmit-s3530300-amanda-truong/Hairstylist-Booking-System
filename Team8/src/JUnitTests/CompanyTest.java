@@ -138,7 +138,7 @@ public class CompanyTest {
 		assertEquals(expected_gender, actual_gender);
 	}
 	
-	@Test
+	/*@Test
 	public void testSetAvailList()
 	{
 		HashMap<LocalDate, ArrayList<LocalTime>> expected_list = new HashMap<LocalDate, ArrayList<LocalTime>>();
@@ -177,7 +177,7 @@ public class CompanyTest {
 		
 		expected_list.put(date, localTime_list);
 		assertEquals(expected_list,actual_list);
-	}
+	}*/
 	
 	@Test
 	public void testAddEmployee() {

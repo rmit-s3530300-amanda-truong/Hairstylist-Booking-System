@@ -18,7 +18,6 @@ public class AvailabilityDatabase {
 	
 	public AvailabilityDatabase() {
 		this.initialise();
-		this.addTest();
 	}
 	
 	//get initial connection and create the table
@@ -92,8 +91,8 @@ public class AvailabilityDatabase {
 			result = stmt.executeQuery("SELECT * FROM AVAILABILITY");
 			while (result.next())
 			{
-					System.out.println(result.getString("employeeID") + " " + result.getString("date") 
-					+ " " + result.getString("startTime") + " " + result.getString("endTime"));
+				System.out.println(result.getString("employeeID") + " " + result.getString("date") 
+				+ " " + result.getString("startTime") + " " + result.getString("endTime"));
 			}
 			stmt.close();
 			result.close();
@@ -132,48 +131,9 @@ public class AvailabilityDatabase {
 		}
 	}
 	
-	public void addTest()
-	{
-		try
-		{
-				if(conn.isClosed())
-				{
-					getConnection();
-				}
-				prep = conn.prepareStatement("INSERT INTO AVAILABILITY values(?,?,?,?);");
-				prep.setString(1,"e1");
-				prep.setString(2,"2017-05-10");
-				prep.setString(3,"08:15");
-				prep.setString(4,"10:00");
-				prep.execute();
-				prep.close();
-				PreparedStatement prep2 = conn.prepareStatement("INSERT INTO AVAILABILITY values(?,?,?,?);");
-				prep2.setString(1,"e2");
-				prep2.setString(2,"2017-05-08");
-				prep2.setString(3,"09:15");
-				prep2.setString(4,"15:00");
-				prep2.execute();
-				prep2.close();
-				PreparedStatement prep3 = conn.prepareStatement("INSERT INTO AVAILABILITY values(?,?,?,?);");
-				prep3.setString(1,"e2");
-				prep3.setString(2,"2017-05-07");
-				prep3.setString(3,"09:15");
-				prep3.setString(4,"15:00");
-				prep3.execute();
-				prep3.close();
-			conn.close();
-		}
-		catch(Exception e)
-		{
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
-		}
-	}
-	
 	public HashMap<String, ArrayList<String>> storeAvailValues()
 	{
 		HashMap<String, ArrayList<String>> availabilityMap = new HashMap<String, ArrayList<String>>();
-		ArrayList<String> timeList = new ArrayList<String>();
 		try
 		{
 			if(conn.isClosed())
@@ -184,14 +144,16 @@ public class AvailabilityDatabase {
 			result = stmt.executeQuery("SELECT * FROM AVAILABILITY");
 			while (result.next())
 			{
+				ArrayList<String> timeList = new ArrayList<String>();
 				String employeeID = result.getString("employeeID");
 				String dateStr = result.getString("date");
+				String key = employeeID + ":" + dateStr;
 				String startTimeStr = result.getString("startTime");
 				String endTimeStr = result.getString("endTime");
 				timeList.add(dateStr);
 				timeList.add(startTimeStr);
-				timeList.add(endTimeStr);
-				availabilityMap.put(employeeID,timeList);
+				timeList.add(endTimeStr);	
+				availabilityMap.put(key, timeList);
 			}
 			stmt.close();
 			result.close();
@@ -202,7 +164,63 @@ public class AvailabilityDatabase {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
+		
+		
+		
 		return availabilityMap;
 	}
-
+	
+	//check if value exists in table
+	public Boolean checkValueExists(String col, String value)
+	{
+		Boolean checkExists = null;
+		try
+		{
+			if(conn.isClosed())
+			{
+				getConnection();
+			}
+			prep = conn.prepareStatement("SELECT " + col + " FROM AVAILABILITY WHERE " + col + " = '" + value + "';");
+			result = prep.executeQuery();
+			if(result.next())
+			{
+				checkExists = true;
+			}
+			else
+			{
+				checkExists = false;
+			}
+			prep.close();
+			result.close();
+			conn.close();
+		}
+		catch(Exception e)
+		{
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+		return checkExists;
+	}
+	
+	public void deleteAvail(String id, String date)
+	{
+		try
+		{
+			if(conn.isClosed())
+			{
+				getConnection();
+			}
+			prep = conn.prepareStatement("DELETE FROM AVAILABILITY WHERE employeeID = '" +id+ 
+					"' AND date = '" + date + "'");
+			result = prep.executeQuery();
+			prep.close();
+			result.close();
+			conn.close();
+		}
+		catch(Exception e)
+		{
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+	}
 }

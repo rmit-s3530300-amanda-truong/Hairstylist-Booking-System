@@ -8,6 +8,7 @@ import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -484,11 +485,20 @@ public class Menu {
 			}
 		}
 		updateEmpAvailability(date, startTime, endTime, id);
+
+		/*Boolean checkId = availDb.checkValueExists("id",id);
+		System.out.println(checkId);
+		Boolean checkDate = availDb.checkValueExists("date",date.toString());
+		System.out.println(checkDate);
+		if(checkId && checkDate)
+		{
+			availDb.deleteAvail(id, date.toString());
+		}*/
 		availDb.addAvailabilityInfo(id, date.toString(), startTime.toString(), endTime.toString());
 		System.out.println("Available Time Has Been Added");
+		//availDb.displayTable();
 		businessMenu();
 	}
-	
 	
 	public void updateEmpAvailability(LocalDate date, LocalTime startTime, LocalTime endTime, String id) {
 		HashMap<String, Employee> employeeList = comp.getEmployeeList();

@@ -55,37 +55,27 @@ public class Company {
 		String dateStr;
 		String startTimeStr;
 		String endTimeStr;
+		String key;
 		
 		for(Map.Entry<String, ArrayList<String>> x: list.entrySet())
 		{
-			employeeID = x.getKey();
 			ArrayList<String> infoList = x.getValue();
-			dateStr = infoList.get(0);
-			System.out.println(dateStr);
+			key = x.getKey();
 			startTimeStr = infoList.get(1);
-			System.out.println(startTimeStr);
 			endTimeStr = infoList.get(2);
-			System.out.println(endTimeStr);
+			String[] keyList = key.split(":");
+			dateStr = keyList[1];
+			employeeID = keyList[0];
 			String[] dateList = dateStr.split("-");
 			String[] startTimeList = startTimeStr.split(":");
-			System.out.println(dateList);
-			System.out.println(startTimeList);
 			String[] endTimeList = endTimeStr.split(":");
-			System.out.println(endTimeList);
 			int yearInt = Integer.parseInt(dateList[0]);
-			System.out.println(yearInt);
 			int monthInt = Integer.parseInt(dateList[1]);
-			System.out.println(monthInt);
 			int dayInt = Integer.parseInt(dateList[2]);
-			System.out.println(dayInt);
 			int startHourInt = Integer.parseInt(startTimeList[0]);
-			System.out.println(startHourInt);
 			int startMinInt = Integer.parseInt(startTimeList[1]);
-			System.out.println(startMinInt);
 			int endHourInt = Integer.parseInt(endTimeList[0]);
-			System.out.println(endHourInt);
 			int endMinInt = Integer.parseInt(endTimeList[1]);
-			System.out.println(endMinInt);
 			LocalTime startTime = LocalTime.of(startHourInt, startMinInt);
 			LocalTime endTime = LocalTime.of(endHourInt, endMinInt);
 			LocalDate date = LocalDate.of(yearInt,monthInt,dayInt);
