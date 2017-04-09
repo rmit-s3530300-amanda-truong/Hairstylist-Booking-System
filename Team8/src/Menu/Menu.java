@@ -479,32 +479,21 @@ public class Menu {
 				}
 			}
 		}
+		updateEmpAvailability(date, startTime, endTime, id);
+		System.out.println("Available Time Has Been Added");
+		businessMenu();
+	}
+	
+	
+	public void updateEmpAvailability(LocalDate date, LocalTime startTime, LocalTime endTime, String id) {
 		HashMap<String, Employee> employeeList = comp.getEmployeeList();
 		Employee e = employeeList.get(id);
 		e.addAvailability(date, startTime, endTime);
 		HashMap<LocalDate, ArrayList<LocalTime>> av = e.getAvailability();
-		/*for(Entry<LocalDate, ArrayList<LocalTime>> ent : av.entrySet()) {
-			System.out.println(ent.getKey());
-			for(int i =0; i<ent.getValue().size(); i++){
-				System.out.println(ent.getValue().get(i));
-			}
-		}*/
 		employeeList.put(id, e);
 		Calendar cal = comp.getCalendar();
 		cal.updateCalendar(employeeList);
 		comp.setCalendar(cal);
-		
-		Calendar cal2 = comp.getCalendar();
-		LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>> info = cal2.getCalendarInfo();
-		
-		/*for(Entry<LocalDate, LinkedHashMap<LocalTime, Booking>> en : info.entrySet()) {
-			System.out.println(en.getKey());
-			for(Entry<LocalTime, Booking> b : en.getValue().entrySet()){
-				System.out.println(b.getKey() + " " + b.getValue().getStatus());
-			}
-		}*/
-		System.out.println("Available Time Has Been Added");
-		businessMenu();
 	}
 	
 	public boolean idValid(String id) {
