@@ -274,7 +274,7 @@ public class Calendar {
 		
 		LocalTime time = LocalTime.of(8, 00);
 		LocalDate date2=startDate;
-		while(!time.toString().equals(LocalTime.of(16, 15).toString())) {
+		while(!time.toString().equals(LocalTime.of(16, 00).toString())) {
 			date2 = startDate;
 			output = output + String.format("|%s - %s| ", time.toString(),time.plusMinutes(15).toString());
 			for(int i =0; i < 7; i ++) {
