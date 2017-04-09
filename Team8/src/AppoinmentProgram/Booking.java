@@ -9,6 +9,7 @@ import Calendar.Calendar;
 
 public class Booking {
 	private String ID;
+	// String is the ID of the employee which will be performing the service
 	private HashMap<Service, String> services;
 	private LocalDate bookingDate;
 	private LocalTime bookingTime;
@@ -23,9 +24,9 @@ public class Booking {
 		status = stat;
 	}
 	
-	public void addDetails(String ID, HashMap<Service, String> serviceType, LocalDate bookingDate, LocalTime bookingTime, String customerID) {
+	public void addDetails(String ID, HashMap<Service, String> service, LocalDate bookingDate, LocalTime bookingTime, String customerID) {
 		this.ID = ID;
-		this.services = serviceType;
+		this.services = service;
 		this.bookingDate = bookingDate;
 		this.bookingTime = bookingTime;
 		this.customerID = customerID;

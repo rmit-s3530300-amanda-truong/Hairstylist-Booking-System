@@ -30,6 +30,10 @@ public class Company {
 		return custList.get(username);
 	}
 	
+	public HashMap<String, Customer> getCustList() {
+		return custList;
+	}
+	
 	public void retrieveDatabaseInfo(CustomerDatabase customerDb, CompanyDatabase companyDb) {
 		HashMap<String, HashMap<String,String>> empValues;
 		HashMap<String, HashMap<String,String>> custValues;
@@ -60,8 +64,16 @@ public class Company {
 		return employeeList.get(ID);
 	}
 	
+	public HashMap<String, Employee> getEmployeeList() {
+		return employeeList;
+	}
+	
 	public Calendar getCalendar() {
 		return calendar;
+	}
+	
+	public void setCalendar( Calendar cal) {
+		calendar = cal;
 	}
 	
 	public void setEmployeeList(HashMap<String, HashMap<String, String>> map) {
@@ -81,6 +93,7 @@ public class Company {
 			}
 			employList.put(username, new Employee(username,fname,lname,service_arraylist));
 		}
+		employeeList = employList;
 	}
 	
 	// Helper method for setEmployeeList
@@ -107,7 +120,7 @@ public class Company {
 		else if(s.equals(Service.femaleWash.toString())){
 			return Service.femaleWash;
 		} 
-		else if (s.equals(Service.femaleWash.toString())){
+		else if (s.equals(Service.maleWash.toString())){
 			return Service.maleWash;
 		} else {
 			return null;

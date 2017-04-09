@@ -16,4 +16,16 @@ public class Customer {
 	public String getUsername() {
 		return username;
 	}
+	
+	public String getFirstName() {
+		return fname;
+	}
+	
+	public String getLastName() {
+		return lname;
+	}
+	
+	public String getGender() {
+		return gender;
+	}
 }
