@@ -131,47 +131,6 @@ public class CompanyTest {
 		assertEquals(expected_gender, actual_gender);
 	}
 	
-	/*@Test
-	public void testSetAvailList()
-	{
-		HashMap<LocalDate, ArrayList<LocalTime>> expected_list = new HashMap<LocalDate, ArrayList<LocalTime>>();
-		HashMap<LocalDate, ArrayList<LocalTime>> actual_list;
-		HashMap<String, ArrayList<String>> list;
-		ArrayList<LocalTime> localTime_list = new ArrayList<LocalTime>(); 
-		String employID = "e1";
-		String dateStr = "2017-05-08";
-		String startTimeStr = "08:00";
-		String endTimeStr = "12:00";
-		availDb.addAvailabilityInfo(employID,dateStr,startTimeStr,endTimeStr);
-		list = availDb.storeAvailValues();
-		actual_list = comp.setAvailList(list);
-		
-		String[] dateList = dateStr.split(".");
-		String[] startTimeList = startTimeStr.split(":");
-		String[] endTimeList = endTimeStr.split(":");
-		int yearInt = Integer.parseInt(dateList[0]);
-		int monthInt = Integer.parseInt(dateList[1]);
-		int dayInt = Integer.parseInt(dateList[2]);
-		int startHourInt = Integer.parseInt(startTimeList[0]);
-		int startMinInt = Integer.parseInt(startTimeList[1]);
-		int endHourInt = Integer.parseInt(endTimeList[0]);
-		int endMinInt = Integer.parseInt(endTimeList[1]);
-		LocalTime startTime = LocalTime.of(startHourInt, startMinInt);
-		LocalTime endTime = LocalTime.of(endHourInt, endMinInt);
-		LocalDate date = LocalDate.of(yearInt,monthInt,dayInt);
-		Employee emp = comp.getEmployee(employID);
-		emp.addAvailability(date,startTime,endTime);
-		
-		LocalTime time = startTime;
-		while(!time.toString().equals(endTime.plusMinutes(15).toString())) {
-			localTime_list.add(time);
-			time = time.plusMinutes(15);
-		}
-		
-		expected_list.put(date, localTime_list);
-		assertEquals(expected_list,actual_list);
-	}*/
-	
 	@Test
 	public void testAddEmployee() {
 		ArrayList<Service> expected_service = new ArrayList<Service>();

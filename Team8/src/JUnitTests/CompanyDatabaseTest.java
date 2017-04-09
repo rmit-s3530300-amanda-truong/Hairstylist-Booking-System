@@ -16,7 +16,7 @@ import org.junit.Test;
 import Database.CompanyDatabase;
 public class CompanyDatabaseTest {
 
-	CompanyDatabase compDb = new CompanyDatabase();
+	CompanyDatabase compDb;
 	Connection conn = null;
 	Statement stmt = null;
 	Statement stmt2 = null;
@@ -26,6 +26,7 @@ public class CompanyDatabaseTest {
 	@Before
 	public void setUp() throws SQLException
 	{
+		compDb = new CompanyDatabase();
 		conn = compDb.initialise();
 	}
 	
@@ -69,126 +70,8 @@ public class CompanyDatabaseTest {
 		assertEquals(expected,actual);
 	}
 	
-	// test works but is adding to real database and not deleting after need to fix
-	/*@Test
-	public void testaddBusInfo() throws SQLException {
-		Boolean actual = false;
-		Boolean expected = true;
-		Boolean expectedNull = false;
-		String uname = "testboss";
-		String cname = "ABC";
-		String fname = "bob";
-		String lname = "smith";
-		String password = "password";
-		String gender = "male";
-		String mobile = "0412123123";
-		String address = "1 happy street, happy, 3000, vic";
-		String busStatus = "owner";
-		String service = null;
-		compDb.addBusInfo(uname,cname,fname,lname,password,gender,mobile,address,service,busStatus);
-		
-		actual = compDb.checkValueExists("username",uname);
-		assertEquals(expected,actual);
-		actual = false;
-		
-		actual = compDb.checkValueExists("compName",cname);
-		assertEquals(expected,actual);
-		actual = false;
-		
-		actual = compDb.checkValueExists("fname",fname);
-		assertEquals(expected,actual);
-		actual = false;
-		
-		actual = compDb.checkValueExists("lname",lname);		
-		assertEquals(expected,actual);
-		actual = false;
-		
-		actual = compDb.checkValueExists("password",password);
-		assertEquals(expected,actual);
-		actual = false;
-		
-		actual = compDb.checkValueExists("gender",gender);
-		assertEquals(expected,actual);
-		actual = false;
-		
-		actual = compDb.checkValueExists("mobile",mobile);
-		assertEquals(expected,actual);
-		actual = false;
-		
-		actual = compDb.checkValueExists("address",address);
-		assertEquals(expected,actual);
-		actual= false;
-		
-		//business doesnt have service, expect null
-		actual = compDb.checkValueExists("service",service);
-		assertEquals(expectedNull,actual);
-		
-		actual = compDb.checkValueExists("busStatus",busStatus);
-		assertEquals(expected,actual);
-		actual = false;
-	}*/
-	//test works but is adding to real database and not deleting after need to fix
-	/*@Test
-	public void testaddEmpInfo() throws SQLException {
-		Boolean actual = false;
-		Boolean expected = true;
-		Boolean expectedNull = false;
-		String uname = "e3";
-		String cname = "testComp";
-		String fname = "bob";
-		String lname = "smith";
-		String password = null;
-		String gender = "male";
-		String mobile = "0412123123";
-		String address = "1 happy street, happy, 3000, vic";
-		String busStatus = "employee";
-		String service = "femaleCut, maleCut";
-		compDb.addBusInfo(uname,cname,fname,lname,password,gender,mobile,address,service,busStatus);
-		
-		actual = compDb.checkValueExists("username",uname);
-		assertEquals(expected,actual);
-		actual = false;
-		
-		actual = compDb.checkValueExists("compName",cname);
-		assertEquals(expected,actual);
-		actual = false;
-		
-		actual = compDb.checkValueExists("fname",fname);
-		assertEquals(expected,actual);
-		actual = false;
-		
-		actual = compDb.checkValueExists("lname",lname);		
-		assertEquals(expected,actual);
-		actual = false;
-		
-		//employee doesnt have password, expects null
-		actual = compDb.checkValueExists("password",password);
-		assertEquals(expectedNull,actual);
-		
-		actual = compDb.checkValueExists("gender",gender);
-		assertEquals(expected,actual);
-		actual = false;
-		
-		actual = compDb.checkValueExists("mobile",mobile);
-		assertEquals(expected,actual);
-		actual = false;
-		
-		actual = compDb.checkValueExists("address",address);
-		assertEquals(expected,actual);
-		actual= false;
-
-		actual = compDb.checkValueExists("service",service);
-		assertEquals(expected,actual);
-		actual = false;
-		
-		actual = compDb.checkValueExists("busStatus",busStatus);
-		assertEquals(expected,actual);
-		actual = false;
-	}*/
-	
-	//not working actual2 fix later
 	@Test
-	public void testStoreCustValues()
+	public void testStoreValues()
 	{
 		Boolean actual = false;
 		Boolean actual2 = false;
@@ -204,13 +87,13 @@ public class CompanyDatabaseTest {
 		String fname2 = "Elissa";
 		String lname2 = "Smith";
 		String service2 = "femaleCut";
-		empInfo.put("fName",fname);
-		empInfo.put("lName",lname);
+		empInfo.put("fname",fname);
+		empInfo.put("lname",lname);
 		empInfo.put("service",service);
 		empValues.put(id,empInfo);
 		empInfo.clear();
-		empInfo.put("fName",fname2);
-		empInfo.put("lName",lname2);
+		empInfo.put("fname",fname2);
+		empInfo.put("lname",lname2);
 		empInfo.put("service",service2);
 		empValues.put(id2,empInfo);
 		checkMap = compDb.storeEmpValues();

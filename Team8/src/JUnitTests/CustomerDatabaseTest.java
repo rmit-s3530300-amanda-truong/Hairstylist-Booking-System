@@ -7,7 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashMap;
 
 import org.junit.Before;
 import org.junit.After;
@@ -16,7 +15,7 @@ import org.junit.Test;
 import Database.CustomerDatabase;
 public class CustomerDatabaseTest {
 
-	CustomerDatabase custDb = new CustomerDatabase();
+	CustomerDatabase custDb;
 	Connection conn = null;
 	Statement stmt = null;
 	ResultSet result = null;
@@ -25,6 +24,7 @@ public class CustomerDatabaseTest {
 	@Before
 	public void setUp() throws SQLException
 	{
+		custDb = new CustomerDatabase();
 		conn = custDb.initialise();
 	}
 	
@@ -111,58 +111,6 @@ public class CustomerDatabaseTest {
 		actual= false;
 	}
 	
-	@Test
-	public void testStoreCustValues()
-	{
-		Boolean actual = false;
-		Boolean actual2 = false;
-		Boolean expected = true;
-		HashMap<String, HashMap<String,String>> checkMap = new HashMap<String,HashMap<String,String>>();
-		HashMap<String, HashMap<String,String>> custValues = new HashMap<String,HashMap<String,String>>();
-		HashMap<String,String> custInfo = new HashMap<String,String>();
-		String id = "jbrown";
-		String fname = "John";
-		String lname = "Brown";
-		String gender = "male";
-		String id2 = "rgeorge";
-		String fname2 = "Regina";
-		String lname2 = "George";
-		String gender2 = "female";
-		String id3 = "tswizzle";
-		String fname3 = "Taylor";
-		String lname3 = "Swift";
-		String gender3 = "female";
-		custInfo.put("fName",fname);
-		custInfo.put("lName",lname);
-		custInfo.put("gender",gender);
-		custValues.put(id,custInfo);
-		custInfo.clear();
-		custInfo.put("fName",fname2);
-		custInfo.put("lName",lname2);
-		custInfo.put("gender",gender2);
-		custValues.put(id2,custInfo);
-		custInfo.clear();
-		custInfo.put("fName",fname3);
-		custInfo.put("lName",lname3);
-		custInfo.put("gender",gender3);
-		custValues.put(id3,custInfo);
-		checkMap = custDb.storeCustomerValues();
-		for (String key : checkMap.keySet())
-        {
-            if (custValues.containsKey(key)) {
-                actual = true;
-            }
-        } 
-		for (String val : custValues.keySet())
-        {
-            if (checkMap.get(val).equals(custValues.get(val))) {
-                actual2 = true;
-            }
-        } 
-		assertEquals(expected,actual);
-		assertEquals(expected,actual2);
-	}
-
 	@Test
 	public void testCheckLogin()
 	{
