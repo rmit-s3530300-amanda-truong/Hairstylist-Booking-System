@@ -12,7 +12,7 @@ public class MenuTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		m1 = new Menu();
+		m1 = new Menu(null, null, null);
 	}
 	
 	@Test
