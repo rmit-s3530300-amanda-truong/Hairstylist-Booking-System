@@ -17,7 +17,6 @@ public class Calendar {
 		free,
 		unavailable
 	}
-	// private Booking[] bookingPendingList;
 	private LocalDate currentDate;
 	private LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>> calendar;
 	private LinkedHashMap<String, Booking> bookingList;
@@ -112,16 +111,8 @@ public class Calendar {
 				date = date.plusDays(1);
 			}
 		}
-		// only does 12 - 16 as free
-		/*for(Entry<LocalDate, LinkedHashMap<LocalTime, Booking>> en : calendar.entrySet()) {
-			System.out.println(en.getKey());
-			for(Entry<LocalTime, Booking> b : en.getValue().entrySet()){
-				System.out.println(b.getKey() + " " + b.getValue().getStatus());
-			}
-		}*/
 	}
 	
-	// TODO: Needs Testing
 	public Boolean isBooked(LocalDate date, LocalTime time) {
 		Status status = calendar.get(date).get(time).getStatus();
 		if(status == Status.booked) {
@@ -150,7 +141,7 @@ public class Calendar {
 	
 	// TODO: Needs Testing
 	// returns false when cannot book
-	public Boolean requestBooking(LocalDate date, LocalTime time) {
+	/*public Boolean requestBooking(LocalDate date, LocalTime time) {
 		Booking book = calendar.get(date).get(time);
 		if(book.getStatus() == Status.free ) {
 			book.setStatus(Status.pending);
@@ -160,9 +151,9 @@ public class Calendar {
 		}
 		return false;
 		
-	}
+	}*/
 	
-	public Boolean acceptBooking(String bookingID) {
+	/*public Boolean acceptBooking(String bookingID) {
 		Status status = getBooking(bookingID).getStatus();
 		if(status == Calendar.Status.pending){
 			status = Calendar.Status.booked;
@@ -180,7 +171,7 @@ public class Calendar {
 			return true;
 		}
 		return false;
-	}
+	}*/
 	
 	public LinkedHashMap<LocalDate,LinkedHashMap<LocalTime,Booking>> getHistory() {
 		LocalDate oldDate = currentDate.minusDays(7);
@@ -216,7 +207,6 @@ public class Calendar {
 		return bookingList.containsKey(ID);
 	}
 	
-    // TODO: Needs Testing
 	public String getBookingPendingString() {
 		HashMap<String, Booking> list = new HashMap<String, Booking>();
 		String output = "";

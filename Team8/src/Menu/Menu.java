@@ -373,14 +373,22 @@ public class Menu {
 				System.out.println("---------------");
 				System.out.println("Booking Summary");
 				System.out.println("---------------");
-				System.out.println(comp.getCalendar().getBookingSummary());
+				if(comp.getCalendar().getBookingSummary().equals("")){
+					System.out.println("No Bookings Available\n");
+				} else {
+					System.out.println(comp.getCalendar().getBookingSummary());	
+				}
 				businessMenu();
 				break;
 			case 4:
 				System.out.println("------------");
 				System.out.println("New Bookings");
 				System.out.println("------------");
-				System.out.println(comp.getCalendar().getBookingPendingString());
+				if(comp.getCalendar().getBookingPendingString().equals("")) {
+					System.out.println("No Bookings Available\n");
+				} else {
+					System.out.println(comp.getCalendar().getBookingPendingString());
+				}
 				businessMenu();
 				break;
 			case 5:
@@ -435,7 +443,7 @@ public class Menu {
 		}
 		while(!validMonth)
 		{
-			System.out.print("Enter Month of the Date (MM): ");
+			System.out.print("Enter Month (MM): ");
 			String monthString = input.nextLine();
 			validMonth = validMonth(monthString);
 			if(validMonth){
