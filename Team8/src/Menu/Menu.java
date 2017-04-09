@@ -1,5 +1,6 @@
 package Menu;
 
+import java.sql.SQLException;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -17,6 +18,7 @@ import AppoinmentProgram.Company;
 import AppoinmentProgram.Employee;
 import AppoinmentProgram.Employee.Service;
 import Calendar.Calendar;
+import Database.AvailabilityDatabase;
 import Database.CompanyDatabase;
 import Database.CustomerDatabase;
 
@@ -26,11 +28,13 @@ public class Menu {
 	private Company comp;
 	private CustomerDatabase customerDb;
 	private CompanyDatabase companyDb;
+	private AvailabilityDatabase availDb;
 	
-	public Menu(Company company, CustomerDatabase customerDb, CompanyDatabase companyDb){
+	public Menu(Company company, CustomerDatabase customerDb, CompanyDatabase companyDb, AvailabilityDatabase availDb){
 		comp = company;
 		this.companyDb = companyDb;
 		this.customerDb = customerDb;
+		this.availDb = availDb;
 	}
 	
 	public void mainMenu(){
@@ -480,6 +484,7 @@ public class Menu {
 			}
 		}
 		updateEmpAvailability(date, startTime, endTime, id);
+		availDb.addAvailabilityInfo(id, date.toString(), startTime.toString(), endTime.toString());
 		System.out.println("Available Time Has Been Added");
 		businessMenu();
 	}

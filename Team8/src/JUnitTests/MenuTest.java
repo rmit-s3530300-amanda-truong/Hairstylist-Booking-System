@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import AppoinmentProgram.Company;
 import Calendar.Calendar;
+import Database.AvailabilityDatabase;
 import Database.CompanyDatabase;
 import Database.CustomerDatabase;
 import Menu.Menu;
@@ -17,16 +18,18 @@ public class MenuTest {
 	Company comp;
 	CompanyDatabase compDb;
 	CustomerDatabase custDb;
+	AvailabilityDatabase availDb;
 	Menu m1;
 	
 	@Before
 	public void setUp() throws Exception {
 		compDb = new CompanyDatabase();
 		custDb = new CustomerDatabase();
+		availDb = new AvailabilityDatabase();
 		Calendar cal = new Calendar(LocalDate.of(2017, 04, 01));
 		comp = new Company();
 		comp.setCalendar(cal);
-		m1 = new Menu(comp,custDb,compDb);
+		m1 = new Menu(comp,custDb,compDb,availDb);
 	}
 	
 	@Test

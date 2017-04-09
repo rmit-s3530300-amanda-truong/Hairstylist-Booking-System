@@ -1,11 +1,13 @@
 package AppoinmentProgram;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.*;
 import java.util.Map.Entry;
 
 import AppoinmentProgram.Employee.Service;
 import Calendar.Calendar;
+import Database.AvailabilityDatabase;
 import Database.CompanyDatabase;
 import Database.CustomerDatabase;
 
@@ -34,13 +36,64 @@ public class Company {
 		return custList;
 	}
 	
-	public void retrieveDatabaseInfo(CustomerDatabase customerDb, CompanyDatabase companyDb) {
+	public void retrieveDatabaseInfo(CustomerDatabase customerDb, CompanyDatabase companyDb, AvailabilityDatabase availDb) {
 		HashMap<String, HashMap<String,String>> empValues;
 		HashMap<String, HashMap<String,String>> custValues;
+		HashMap<String, ArrayList<String>> availValues;
 		empValues = companyDb.storeEmpValues();
 		setEmployeeList(empValues);
 		custValues = customerDb.storeCustomerValues();
 		setCustList(custValues);
+		availValues = availDb.storeAvailValues();
+		setAvailList(availValues);
+	}
+	
+	public HashMap<LocalDate, ArrayList<LocalTime>> setAvailList(HashMap<String, ArrayList<String>> list)
+	{
+		HashMap<LocalDate,ArrayList<LocalTime>> timeMap = new HashMap<LocalDate,ArrayList<LocalTime>>();
+		String employeeID = null;
+		String dateStr;
+		String startTimeStr;
+		String endTimeStr;
+		
+		for(Map.Entry<String, ArrayList<String>> x: list.entrySet())
+		{
+			employeeID = x.getKey();
+			ArrayList<String> infoList = x.getValue();
+			dateStr = infoList.get(0);
+			System.out.println(dateStr);
+			startTimeStr = infoList.get(1);
+			System.out.println(startTimeStr);
+			endTimeStr = infoList.get(2);
+			System.out.println(endTimeStr);
+			String[] dateList = dateStr.split("-");
+			String[] startTimeList = startTimeStr.split(":");
+			System.out.println(dateList);
+			System.out.println(startTimeList);
+			String[] endTimeList = endTimeStr.split(":");
+			System.out.println(endTimeList);
+			int yearInt = Integer.parseInt(dateList[0]);
+			System.out.println(yearInt);
+			int monthInt = Integer.parseInt(dateList[1]);
+			System.out.println(monthInt);
+			int dayInt = Integer.parseInt(dateList[2]);
+			System.out.println(dayInt);
+			int startHourInt = Integer.parseInt(startTimeList[0]);
+			System.out.println(startHourInt);
+			int startMinInt = Integer.parseInt(startTimeList[1]);
+			System.out.println(startMinInt);
+			int endHourInt = Integer.parseInt(endTimeList[0]);
+			System.out.println(endHourInt);
+			int endMinInt = Integer.parseInt(endTimeList[1]);
+			System.out.println(endMinInt);
+			LocalTime startTime = LocalTime.of(startHourInt, startMinInt);
+			LocalTime endTime = LocalTime.of(endHourInt, endMinInt);
+			LocalDate date = LocalDate.of(yearInt,monthInt,dayInt);
+			Employee emp = getEmployee(employeeID);
+			emp.addAvailability(date,startTime,endTime);
+			timeMap = emp.getAvailability();
+		}
+		return timeMap;
 	}
 	
 	public void setCustList(HashMap<String, HashMap<String, String>> map) {

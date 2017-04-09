@@ -80,7 +80,6 @@ public class CompanyDatabase{
 		catch (Exception e)
 		{
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			
 			System.exit(0);
 		}
 	}
@@ -158,7 +157,6 @@ public class CompanyDatabase{
 			{
 				getConnection();
 			}
-			
 			stmt = conn.createStatement();
 			result = stmt.executeQuery("SELECT * FROM COMPANY");
 			while (result.next())
@@ -184,10 +182,9 @@ public class CompanyDatabase{
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
-		
 		return empValues;
 	}
-
+	
 	//check if user is authenticated
 	public Boolean checkLogin(String username, String password)
 	{
