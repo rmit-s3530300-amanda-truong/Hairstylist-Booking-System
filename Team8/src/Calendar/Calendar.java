@@ -275,7 +275,6 @@ public class Calendar {
 			output = output + String.format("\n%s\n", printBorder("-", 12*9+8));
 			time = time.plusMinutes(15);
 		}
-		System.out.println(output);
 		return output;
 	}
 	
