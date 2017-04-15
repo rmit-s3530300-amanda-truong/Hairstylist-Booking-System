@@ -137,43 +137,58 @@ public class AvailabilityDatabase {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
-		
-		
-		
 		return availabilityMap;
 	}
 	
 	//check if value exists in table
-	public Boolean checkValueExists(String col, String value)
-	{
-		Boolean checkExists = null;
-		try
+		public Boolean checkValueExists(String col, String value)
 		{
-			if(conn.isClosed())
+			Boolean checkExists = null;
+			String colName = null;
+			try
 			{
-				getConnection();
+				if(conn.isClosed())
+				{
+					getConnection();
+				}
+				if(col.equals("employeeID"))
+				{
+					colName = "employeeID";
+				}
+				else if(col.equals("date"))
+				{
+					colName = "date";
+				}
+				else if(col.equals("startTime"))
+				{
+					colName = "startTime";
+				}
+				else if(col.equals("endTime"))
+				{
+					colName = "endTime";
+				}
+				prep = conn.prepareStatement("SELECT * FROM AVAILABILITY WHERE "+colName+" = ?;");
+				prep.setString(1, value);
+				result = prep.executeQuery();
+				if(result.next())
+				{
+					checkExists = true;
+				}
+				else
+				{
+					checkExists = false;
+				}
+				prep.close();
+				result.close();
+				conn.close();
 			}
-			prep = conn.prepareStatement("SELECT " + col + " FROM AVAILABILITY WHERE " + col + " = '" + value + "';");
-			result = prep.executeQuery();
-			if(result.next())
+			catch(Exception e)
 			{
-				checkExists = true;
+				System.err.println(e.getClass().getName() + ": " + e.getMessage());
+				System.exit(0);
 			}
-			else
-			{
-				checkExists = false;
-			}
-			prep.close();
-			result.close();
-			conn.close();
+			return checkExists;
 		}
-		catch(Exception e)
-		{
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
-		}
-		return checkExists;
-	}
 	
 	//delete records if availability exists for employee already
 	public void deleteAvail(String id, String date)

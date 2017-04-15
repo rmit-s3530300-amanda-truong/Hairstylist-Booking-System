@@ -237,13 +237,43 @@ public class CustomerDatabase{
 	public Boolean checkValueExists(String col, String value)
 	{
 		Boolean checkExists = null;
+		String colName = null;
 		try
 		{
 			if(conn.isClosed())
 			{
 				getConnection();
 			}
-			prep = conn.prepareStatement("SELECT " + col + " FROM CUSTINFO WHERE " + col + " = '" + value + "';");
+			if(col.equals("username"))
+			{
+				colName = "username";
+			}
+			else if(col.equals("fname"))
+			{
+				colName = "fname";
+			}
+			else if(col.equals("lname"))
+			{
+				colName = "lname";
+			}
+			else if(col.equals("password"))
+			{
+				colName = "password";
+			}
+			else if(col.equals("gender"))
+			{
+				colName = "gender";
+			}
+			else if(col.equals("mobile"))
+			{
+				colName = "mobile";
+			}
+			else if(col.equals("address"))
+			{
+				colName = "address";
+			}
+			prep = conn.prepareStatement("SELECT * FROM CUSTINFO WHERE "+colName+" = ?;");
+			prep.setString(1, value);
 			result = prep.executeQuery();
 			if(result.next())
 			{
