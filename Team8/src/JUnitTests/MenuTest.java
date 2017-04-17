@@ -185,8 +185,36 @@ public class MenuTest {
 	}
 	
 	@Test
-	public void testValidUname() {
+	public void testValidUname1() {
 		String uName = "j_snow";
+		boolean check = m1.validUname(uName);
+		assertEquals(true,check);
+	}
+	
+	@Test
+	public void testValidUname2() {
+		String uName = "jsnow";
+		boolean check = m1.validUname(uName);
+		assertEquals(true,check);
+	}
+	
+	@Test
+	public void testValidUname3() {
+		String uName = "12345";
+		boolean check = m1.validUname(uName);
+		assertEquals(false,check);
+	}
+	
+	@Test
+	public void testValidUname4() {
+		String uName = "js123";
+		boolean check = m1.validUname(uName);
+		assertEquals(true,check);
+	}
+	
+	@Test
+	public void testValidUname5() {
+		String uName = "j_snow123";
 		boolean check = m1.validUname(uName);
 		assertEquals(true,check);
 	}
@@ -248,8 +276,57 @@ public class MenuTest {
 	}
 	
 	@Test
-	public void testValidMobile() {
+	public void testValidMobile1() {
 		String mobile = "0412345678";
+		boolean check = m1.validMobile(mobile);
+		assertEquals(true,check);
+	}
+	
+	@Test
+	public void testValidMobile2() {
+		String mobile = "0412 345 678";
+		boolean check = m1.validMobile(mobile);
+		assertEquals(true,check);
+	}
+	
+	@Test
+	public void testValidMobile3() {
+		String mobile = "";
+		boolean check = m1.validMobile(mobile);
+		assertEquals(false,check);
+	}
+	
+	@Test
+	public void testValidMobile4() {
+		String mobile = "412345678";
+		boolean check = m1.validMobile(mobile);
+		assertEquals(true,check);
+	}
+	
+	@Test
+	public void testValidMobile5() {
+		String mobile = "+61412345678";
+		boolean check = m1.validMobile(mobile);
+		assertEquals(true,check);
+	}
+	
+	@Test
+	public void testValidMobile6() {
+		String mobile = "+61 412 345 678";
+		boolean check = m1.validMobile(mobile);
+		assertEquals(true,check);
+	}
+	
+	@Test
+	public void testValidMobile7() {
+		String mobile = "04 1234 5678";
+		boolean check = m1.validMobile(mobile);
+		assertEquals(true,check);
+	}
+	
+	@Test
+	public void testValidMobile8() {
+		String mobile = "+61 412 345678";
 		boolean check = m1.validMobile(mobile);
 		assertEquals(true,check);
 	}

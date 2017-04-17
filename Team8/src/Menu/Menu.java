@@ -760,8 +760,8 @@ public class Menu {
 	//error checking for valid username
 	public boolean validUname(String uName){
 		Matcher matcher;
-		Pattern namePattern = Pattern.compile("^[a-zA-Z0-9._-]*$");
-		matcher = namePattern.matcher(uName);
+		Pattern uNamePattern = Pattern.compile("^(?=^.{5,}$)^[a-zA-Z][a-zA-Z0-9]*[._-]?[a-zA-Z0-9]+$");
+		matcher = uNamePattern.matcher(uName);
 		Boolean uNameValid = matcher.find();
 		if(uName.isEmpty() || !uNameValid) {
 			System.out.println("Error: username entered incorrectly.");
@@ -821,7 +821,7 @@ public class Menu {
 	//error checking for mobile number
 	public boolean validMobile(String mobile){
 		Matcher matcher;
-		Pattern namePattern = Pattern.compile("^(04||\\+614)(\\s?)[0-9]{2}(\\s?)[0-9]{3}(\\s?)[0-9]{3}$");
+		Pattern namePattern = Pattern.compile("^(?:\\+?(61))? ?(?:\\((?=.*\\)))?(0?[2-57-8])\\)? ?(\\d\\d(?:[- ](?=\\d{3})|(?!\\d\\d[- ]?\\d[- ]))\\d\\d[- ]?\\d[- ]?\\d{3})$");
 		matcher = namePattern.matcher(mobile);
 		Boolean mobileValid = matcher.find();
 		if(mobile.isEmpty() || !mobileValid) {
