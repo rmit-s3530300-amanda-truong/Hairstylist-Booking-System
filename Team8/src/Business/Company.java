@@ -39,12 +39,14 @@ public class Company {
 	public String showEmployeeAvailability() {
 		String output="";
 		for(Entry<String, Employee> entry : employeeList.entrySet()) {
-			output = output + entry.getKey() + ":" + entry.getValue().getFirstName() + "\n";
-			HashMap<LocalDate, ArrayList<LocalTime>> list = entry.getValue().getAvailability();
-			for(Entry<LocalDate, ArrayList<LocalTime>> entry2 : list.entrySet()) {
-				output = output + entry2.getKey() + " " + entry2.getValue().get(0) + "-" + entry2.getValue().get(entry2.getValue().size()-1).plusMinutes(15) + "\n";
+			if(!entry.getValue().getAvailability().values().isEmpty()) {
+				output = output + entry.getKey() + ":" + entry.getValue().getFirstName() + "\n";
+				HashMap<LocalDate, ArrayList<LocalTime>> list = entry.getValue().getAvailability();
+				for(Entry<LocalDate, ArrayList<LocalTime>> entry2 : list.entrySet()) {
+					output = output + entry2.getKey() + " " + entry2.getValue().get(0) + "-" + entry2.getValue().get(entry2.getValue().size()-1).plusMinutes(15) + "\n";
+				}
+				output = output + "\n";
 			}
-			output = output + "\n";
 		}
 		return output;
 	}
