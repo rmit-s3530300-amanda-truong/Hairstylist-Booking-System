@@ -192,6 +192,48 @@ public class MenuTest {
 	}
 	
 	@Test
+	public void testValidPassword1() {
+		String password = "1234";
+		boolean check = m1.validPassword(password);
+		assertEquals(false,check);
+	}
+	
+	@Test
+	public void testValidPassword2() {
+		String password = "abcd";
+		boolean check = m1.validPassword(password);
+		assertEquals(false,check);
+	}
+	
+	@Test
+	public void testValidPassword3() {
+		String password = "abc123";
+		boolean check = m1.validPassword(password);
+		assertEquals(false,check);
+	}
+	
+	@Test
+	public void testValidPassword4() {
+		String password = "aBc123";
+		boolean check = m1.validPassword(password);
+		assertEquals(false,check);
+	}
+	
+	@Test
+	public void testValidPassword5() {
+		String password = "aBc1@";
+		boolean check = m1.validPassword(password);
+		assertEquals(false,check);
+	}
+	
+	@Test
+	public void testValidPassword6() {
+		String password = "aBc12@";
+		boolean check = m1.validPassword(password);
+		assertEquals(true,check);
+	}
+	
+	@Test
 	public void testValidFName() {
 		String name = "john";
 		boolean check = m1.validName(name);

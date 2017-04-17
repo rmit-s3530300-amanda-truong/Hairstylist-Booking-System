@@ -192,8 +192,18 @@ public class Menu {
 		
 		//getting password input
 		while(!passwordValid){
-			System.out.print("Please enter a password: ");
-			cPassword = input.nextLine();
+			Console console = System.console();
+			char [] passwd;
+			//checking if the user is using IDE or command prompt
+			if(console == null){
+				System.out.print("Please enter your password: ");
+				cPassword = input.nextLine();
+			}
+			else{
+				//hides the password if command prompt
+				passwd = System.console().readPassword("%s", "Please enter your password: ");
+				cPassword = new String(passwd);
+			}
 			if(validPassword(cPassword)){
 				passwordValid = true;
 			}
@@ -770,10 +780,19 @@ public class Menu {
 	
 	//error checking for valid password
 	public boolean validPassword(String password){
+		Matcher matcher;
+		Pattern passwordPattern = Pattern.compile("^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=\\S+$)(?=.*[@#$%^&+=]).{6,}$");
+		matcher = passwordPattern.matcher(password);
+		Boolean passwordValid = matcher.find();
 		if(password.isEmpty()) {
 			System.out.println("Error: Password cannot be null.");
 			return false;
-		} 
+		}
+		else if (!passwordValid){
+			System.out.println("Error: Password must contain atleast a number, capital letters, atleast one unique "
+					+ "symbol and must be atleast 6 characters long.");
+			return false;
+		}
 		else{
 			return true;
 		}
