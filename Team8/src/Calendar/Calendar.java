@@ -1,5 +1,6 @@
 package Calendar;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
@@ -16,6 +17,7 @@ public class Calendar {
 		free,
 		unavailable
 	}
+	
 	private LocalDate currentDate;
 	private LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>> calendar;
 	private LinkedHashMap<String, Booking> bookingList;
@@ -91,16 +93,15 @@ public class Calendar {
 		return output;
 	}
 	
-	// Ensure employee has 14 days worth of availability before calling this method(maybe?)
-	// Need to test
 	public void updateCalendar(HashMap<String, Employee> employeeList) {
 		for(Entry<String, Employee> value : employeeList.entrySet()) {
 			Employee emp = value.getValue();
-			HashMap<LocalDate, ArrayList<LocalTime>> availability = emp.getAvailability();
+			HashMap<DayOfWeek, ArrayList<LocalTime>> availability = emp.getAvailability();
 			LocalDate date = currentDate;
+			DayOfWeek day = currentDate.getDayOfWeek();
 			for(int i = 0; i <14; i++) {
-				if(availability.containsKey(date)) {
-					ArrayList<LocalTime> available_times = availability.get(date);
+				if(availability.containsKey(day)) {
+					ArrayList<LocalTime> available_times = availability.get(day);
 					LinkedHashMap<LocalTime, Booking> map_time = new LinkedHashMap<LocalTime, Booking>();
 					for(int x=0; x<available_times.size();x++) {
 						map_time.put(available_times.get(x), new Booking(Status.free));
@@ -108,6 +109,7 @@ public class Calendar {
 					calendar.put(date, map_time);
 				}
 				date = date.plusDays(1);
+				day = date.getDayOfWeek();
 			}
 		}
 	}

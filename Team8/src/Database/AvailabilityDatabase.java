@@ -63,7 +63,7 @@ public class AvailabilityDatabase {
 					stmt = conn.createStatement();
 					String sql = "CREATE TABLE IF NOT EXISTS AVAILABILITY ("
 							+ "employeeID text REFERENCES COMPANY(username) NOT NULL	,"
-							+ "date text NOT NULL		,"
+							+ "day text NOT NULL		,"
 							+ "startTime text NOT NULL	,"
 							+ "endTime text NOT NULL   );";
 					stmt.executeUpdate(sql);
@@ -80,7 +80,7 @@ public class AvailabilityDatabase {
 	}
 	
 	// add employee availability to a record
-	public void addAvailabilityInfo(String employeeID, String date, String startTime, String endTime)
+	public void addAvailabilityInfo(String employeeID, String day, String startTime, String endTime)
 	{		
 		try
 		{
@@ -90,7 +90,7 @@ public class AvailabilityDatabase {
 			}
 			prep = conn.prepareStatement("INSERT INTO AVAILABILITY values(?,?,?,?);");
 			prep.setString(1, employeeID);
-			prep.setString(2, date);
+			prep.setString(2, day);
 			prep.setString(3, startTime);
 			prep.setString(4, endTime);
 			prep.execute();
@@ -119,11 +119,11 @@ public class AvailabilityDatabase {
 			{
 				ArrayList<String> timeList = new ArrayList<String>();
 				String employeeID = result.getString("employeeID");
-				String dateStr = result.getString("date");
-				String key = employeeID + ":" + dateStr;
+				String dayStr = result.getString("day");
+				String key = employeeID + ":" + dayStr;
 				String startTimeStr = result.getString("startTime");
 				String endTimeStr = result.getString("endTime");
-				timeList.add(dateStr);
+				timeList.add(dayStr);
 				timeList.add(startTimeStr);
 				timeList.add(endTimeStr);	
 				availabilityMap.put(key, timeList);
@@ -155,9 +155,9 @@ public class AvailabilityDatabase {
 				{
 					colName = "employeeID";
 				}
-				else if(col.equals("date"))
+				else if(col.equals("day"))
 				{
-					colName = "date";
+					colName = "day";
 				}
 				else if(col.equals("startTime"))
 				{
@@ -191,7 +191,7 @@ public class AvailabilityDatabase {
 		}
 	
 	//delete records if availability exists for employee already
-	public void deleteAvail(String id, String date)
+	public void deleteAvail(String id, String day)
 	{
 		try
 		{
@@ -201,7 +201,7 @@ public class AvailabilityDatabase {
 			}
 			stmt = conn.createStatement();
 			String sql = "DELETE FROM AVAILABILITY WHERE employeeID = '" +id+ 
-					"' AND date = '" + date + "'";
+					"' AND day = '" + day + "'";
 			stmt.execute(sql);
 			stmt.close();
 			conn.close();

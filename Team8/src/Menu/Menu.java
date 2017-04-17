@@ -2,7 +2,7 @@ package Menu;
 
 import java.io.Console;
 import java.time.DateTimeException;
-import java.time.LocalDate;
+import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.time.YearMonth;
 import java.util.ArrayList;
@@ -425,15 +425,12 @@ public class Menu {
 		Boolean endTimeValid = false;
 		Boolean idValid = false;
 		Boolean validDay = false;
-		Boolean validMonth = false;
 		Boolean bothTimeValid = false;
 		
 		String id = "";
-		LocalDate date = null;
 		LocalTime startTime = null;
 		LocalTime endTime = null;
-		int month = 0;
-		int day = 0;
+		DayOfWeek days = null;
 		
 		while(!idValid)
 		{	
@@ -441,26 +438,38 @@ public class Menu {
 			id = input.nextLine();
 			idValid = idValid(id);
 		}
-		while(!validMonth)
-		{
-			System.out.print("Enter Month (MM): ");
-			String monthString = input.nextLine();
-			validMonth = validMonth(monthString);
-			if(validMonth){
-				month = Integer.parseInt(monthString);
-			}
-			
-		}
-		while(!validDay)
-		{
-			System.out.print("Enter Day of the Date (DD): ");
+		
+		while(!validDay) {
+			System.out.println("Enter Weekday (Monday - Friday): ");
 			String dayString = input.nextLine();
-			validDay = validDay(dayString, month);
-			if(validDay) {
-				day = Integer.parseInt(dayString);
+			int day_int = 0;
+			if(dayString.equals("mon")) {
+				day_int = 1;
+				validDay = true;
+			}
+			else if (dayString.equals("tues")) {
+				day_int = 2;
+				validDay = true;
+			}
+			else if(dayString.equals("wed")) {
+				day_int = 3;
+				validDay = true;
+			}
+			else if(dayString.equals("thurs")) {
+				day_int = 4;
+				validDay = true;
+			}
+			else if(dayString.equals("fri")) {
+				day_int = 5;
+				validDay = true;
+			}
+			else {
+				System.out.println("Wrong");
+			}
+			if(validDay){
+				days = DayOfWeek.of(day_int);
 			}
 		}
-		date = LocalDate.of(2017, month, day);
 		
 		while(!bothTimeValid)
 		{
@@ -494,22 +503,22 @@ public class Menu {
 				}
 			}
 		}
-		updateEmpAvailability(date, startTime, endTime, id);
+		updateEmpAvailability(days, startTime, endTime, id);
 		Boolean checkId = availDb.checkValueExists("employeeID",id);
-		Boolean checkDate = availDb.checkValueExists("date",date.toString());
+		Boolean checkDate = availDb.checkValueExists("date",days.toString());
 		if(checkId && checkDate)
 		{
-			availDb.deleteAvail(id, date.toString());
+			availDb.deleteAvail(id, days.toString());
 		}
-		availDb.addAvailabilityInfo(id, date.toString(), startTime.toString(), endTime.toString());
+		availDb.addAvailabilityInfo(id, Integer.toString(days.getValue()), startTime.toString(), endTime.toString());
 		System.out.println("Available Time Has Been Added");
 		businessMenu();
 	}
 	
-	public void updateEmpAvailability(LocalDate date, LocalTime startTime, LocalTime endTime, String id) {
+	public void updateEmpAvailability(DayOfWeek day, LocalTime startTime, LocalTime endTime, String id) {
 		HashMap<String, Employee> employeeList = comp.getEmployeeList();
 		Employee e = employeeList.get(id);
-		e.addAvailability(date, startTime, endTime);
+		e.addAvailability(day, startTime, endTime);
 		employeeList.put(id, e);
 		Calendar cal = comp.getCalendar();
 		cal.updateCalendar(employeeList);

@@ -1,5 +1,6 @@
 package Business;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
@@ -41,9 +42,9 @@ public class Company {
 		for(Entry<String, Employee> entry : employeeList.entrySet()) {
 			if(!entry.getValue().getAvailability().values().isEmpty()) {
 				output = output + entry.getKey() + ":" + entry.getValue().getFirstName() + "\n";
-				HashMap<LocalDate, ArrayList<LocalTime>> list = entry.getValue().getAvailability();
-				for(Entry<LocalDate, ArrayList<LocalTime>> entry2 : list.entrySet()) {
-					output = output + entry2.getKey() + " " + entry2.getValue().get(0) + "-" + entry2.getValue().get(entry2.getValue().size()-1).plusMinutes(15) + "\n";
+				HashMap<DayOfWeek, ArrayList<LocalTime>> list = entry.getValue().getAvailability();
+				for(Entry<DayOfWeek, ArrayList<LocalTime>> entry2 : list.entrySet()) {
+					output = output + entry2.getKey().toString() + " " + entry2.getValue().get(0) + "-" + entry2.getValue().get(entry2.getValue().size()-1).plusMinutes(15) + "\n";
 				}
 				output = output + "\n";
 			}
@@ -63,11 +64,11 @@ public class Company {
 		setAvailList(availValues);
 	}
 	
-	public HashMap<LocalDate, ArrayList<LocalTime>> setAvailList(HashMap<String, ArrayList<String>> list)
+	public HashMap<DayOfWeek, ArrayList<LocalTime>> setAvailList(HashMap<String, ArrayList<String>> list)
 	{
-		HashMap<LocalDate,ArrayList<LocalTime>> timeMap = new HashMap<LocalDate,ArrayList<LocalTime>>();
+		HashMap<DayOfWeek,ArrayList<LocalTime>> timeMap = new HashMap<DayOfWeek,ArrayList<LocalTime>>();
 		String employeeID = null;
-		String dateStr;
+		String dayStr;
 		String startTimeStr;
 		String endTimeStr;
 		String key;
@@ -79,23 +80,21 @@ public class Company {
 			startTimeStr = infoList.get(1);
 			endTimeStr = infoList.get(2);
 			String[] keyList = key.split(":");
-			dateStr = keyList[1];
+			dayStr = keyList[1];
 			employeeID = keyList[0];
-			String[] dateList = dateStr.split("-");
+			
 			String[] startTimeList = startTimeStr.split(":");
 			String[] endTimeList = endTimeStr.split(":");
-			int yearInt = Integer.parseInt(dateList[0]);
-			int monthInt = Integer.parseInt(dateList[1]);
-			int dayInt = Integer.parseInt(dateList[2]);
+			int dayInt = Integer.parseInt(dayStr);
 			int startHourInt = Integer.parseInt(startTimeList[0]);
 			int startMinInt = Integer.parseInt(startTimeList[1]);
 			int endHourInt = Integer.parseInt(endTimeList[0]);
 			int endMinInt = Integer.parseInt(endTimeList[1]);
 			LocalTime startTime = LocalTime.of(startHourInt, startMinInt);
 			LocalTime endTime = LocalTime.of(endHourInt, endMinInt);
-			LocalDate date = LocalDate.of(yearInt,monthInt,dayInt);
+			DayOfWeek day = DayOfWeek.of(dayInt);
 			Employee emp = getEmployee(employeeID);
-			emp.addAvailability(date,startTime,endTime);
+			emp.addAvailability(day,startTime,endTime);
 			timeMap = emp.getAvailability();
 		}
 		return timeMap;

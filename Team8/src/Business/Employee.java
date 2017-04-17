@@ -1,4 +1,5 @@
 package Business;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -8,8 +9,7 @@ public class Employee {
 	private String ID;
 	private String firstName;
 	private String lastName;
-	
-	HashMap<LocalDate, ArrayList<LocalTime>> availability;
+	private HashMap<DayOfWeek, ArrayList<LocalTime>> availability;
 	private ArrayList<Service> serviceType;
 	
 	// 1 block equals to 15 minutes so 2 blocks is 30minutes etc
@@ -40,27 +40,28 @@ public class Employee {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.serviceType = (ArrayList<Service>) serviceType.clone(); 
-		availability = new HashMap<LocalDate, ArrayList<LocalTime>>();
+		// availability = new HashMap<LocalDate, ArrayList<LocalTime>>();
+		availability = new HashMap<DayOfWeek, ArrayList<LocalTime>>();
 	}
 	
 	public ArrayList<Service> getService() {
 		return serviceType;
 	}
 	
-	public void addAvailability(LocalDate date, LocalTime start_time, LocalTime end_time) {
+	public void addAvailability(DayOfWeek day, LocalTime start_time, LocalTime end_time) {
 		ArrayList<LocalTime> times = new ArrayList<LocalTime>();
 		LocalTime time = start_time;
 		while(!time.toString().equals(end_time.toString())) {
 			times.add(time);
 			time = time.plusMinutes(15);
 		}
-		availability.put(date,times);
+		availability.put(day,times);
 	}
 	
-	public HashMap<LocalDate, ArrayList<LocalTime>> getAvailability() {
+	public HashMap<DayOfWeek,ArrayList<LocalTime>> getAvailability() {
 		return availability;
 	}
-
+	
 	public String getID() {
 		return ID;
 	}
