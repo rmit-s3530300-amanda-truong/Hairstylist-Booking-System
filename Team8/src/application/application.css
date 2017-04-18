@@ -1,0 +1,16 @@
+.button{
+	-fx-background-color: #aa9144;
+	-fx-border-radius: 20;
+	-fx-background-radius: 20;
+	}
+#menuPane{
+	-fx-background-color: #212121;
+}
+#logo{
+	-fx-background-image: url("application-img/logo.png");
+}
+#content{
+	-fx-background-image: url("application-img/content.png");
+	-fx-background-size: 1400 714;
+    -fx-background-repeat: no-repeat;
+}
