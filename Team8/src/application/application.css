@@ -1,4 +1,4 @@
-.button{
+#button{
 	-fx-background-color: #aa9144;
 	-fx-border-radius: 20;
 	-fx-background-radius: 20;
@@ -8,9 +8,11 @@
 }
 #logo{
 	-fx-background-image: url("application-img/logo.png");
+	-fx-background-size: 166 75;
+    -fx-background-repeat: no-repeat;
 }
 #content{
-	-fx-background-image: url("application-img/content.png");
+	-fx-background-image: url("application-img/content.jpg");
 	-fx-background-size: 1400 714;
     -fx-background-repeat: no-repeat;
 }

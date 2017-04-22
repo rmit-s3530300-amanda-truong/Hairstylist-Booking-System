@@ -33,12 +33,12 @@
          </children></Pane>
       <Pane id="menuPane" prefHeight="75.0" prefWidth="1400.0">
          <children>
-            <JFXButton fx:id="gotoRegister" layoutX="1199.0" layoutY="19.0" prefHeight="38.0" prefWidth="125.0" stylesheets="@application.css" text="REGISTER" textFill="WHITE">
+            <JFXButton id="button" fx:id="gotoRegister" layoutX="1199.0" layoutY="19.0" prefHeight="38.0" prefWidth="125.0" stylesheets="@application.css" text="REGISTER" textFill="WHITE">
                <font>
                   <Font name="Helvetica-Normal" size="16.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="gotoLogin" layoutX="1034.0" layoutY="19.0" prefHeight="38.0" prefWidth="125.0" stylesheets="@application.css" text="LOGIN" textFill="WHITE">
+            <JFXButton id="button" fx:id="gotoLogin" layoutX="1034.0" layoutY="19.0" prefHeight="38.0" prefWidth="125.0" stylesheets="@application.css" text="LOGIN" textFill="WHITE">
                <font>
                   <Font name="Helvetica-Normal" size="16.0" />
                </font>

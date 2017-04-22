@@ -38,7 +38,7 @@
                <font>
                   <Font size="16.0" />
                </font></JFXPasswordField>
-            <JFXButton fx:id="loginAction" layoutX="529.0" layoutY="483.0" prefHeight="60.0" prefWidth="250.0" style="-fx-background-radius: 60;" stylesheets="@application.css" text="LOGIN" textFill="WHITE">
+            <JFXButton id="button" fx:id="loginAction" layoutX="529.0" layoutY="483.0" prefHeight="60.0" prefWidth="250.0" style="-fx-background-radius: 60;" stylesheets="@application.css" text="LOGIN" textFill="WHITE">
                <font>
                   <Font name="Lato Black" size="20.0" />
                </font>
@@ -46,12 +46,12 @@
          </children></Pane>
       <Pane id="menuPane" prefHeight="75.0" prefWidth="1400.0">
          <children>
-            <JFXButton fx:id="gotoRegister" layoutX="1199.0" layoutY="19.0" prefHeight="38.0" prefWidth="125.0" stylesheets="@application.css" text="REGISTER" textFill="WHITE">
+            <JFXButton id="button" fx:id="gotoRegister" layoutX="1199.0" layoutY="19.0" prefHeight="38.0" prefWidth="125.0" stylesheets="@application.css" text="REGISTER" textFill="WHITE">
                <font>
                   <Font name="Helvetica-Normal" size="16.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="gotoLogin" disable="true" layoutX="1034.0" layoutY="19.0" prefHeight="38.0" prefWidth="125.0" stylesheets="@application.css" text="LOGIN" textFill="WHITE">
+            <JFXButton id="button" fx:id="gotoLogin" disable="true" layoutX="1034.0" layoutY="19.0" prefHeight="38.0" prefWidth="125.0" stylesheets="@application.css" text="LOGIN" textFill="WHITE">
                <font>
                   <Font name="Helvetica-Normal" size="16.0" />
                </font>
