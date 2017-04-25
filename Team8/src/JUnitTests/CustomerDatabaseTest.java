@@ -76,11 +76,10 @@ public class CustomerDatabaseTest {
 		String fname = "bob";
 		String lname = "smith";
 		String password = "pass";
-		String gender = "male";
 		String mobile = "0412123123";
 		String address = "1 happy street, happy, 3000, vic";
 		
-		custDb.addCustInfo(uname,fname,lname,password,gender,mobile,address);
+		custDb.addCustInfo(uname,fname,lname,password,mobile,address);
 		
 		actual = custDb.checkValueExists("username",uname);
 		assertEquals(expected,actual);
@@ -95,10 +94,6 @@ public class CustomerDatabaseTest {
 		actual = false;
 		
 		actual = custDb.checkValueExists("password",password);
-		assertEquals(expected,actual);
-		actual = false;
-		
-		actual = custDb.checkValueExists("gender",gender);
 		assertEquals(expected,actual);
 		actual = false;
 		
@@ -185,16 +180,6 @@ public class CustomerDatabaseTest {
 		actual = custDb.checkValueExists("password","password");
 		actual2 = custDb.checkValueExists("password","password1");
 		actual3 = custDb.checkValueExists("password","password2");
-		assertEquals(expected,actual);
-		assertEquals(expected,actual2);
-		assertEquals(expected,actual3);
-		actual = false;
-		actual2 = false;
-		actual3 = false;
-		
-		actual = custDb.checkValueExists("gender","male");
-		actual2 = custDb.checkValueExists("gender","female");
-		actual3 = custDb.checkValueExists("gender","female");
 		assertEquals(expected,actual);
 		assertEquals(expected,actual2);
 		assertEquals(expected,actual3);

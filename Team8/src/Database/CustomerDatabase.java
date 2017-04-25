@@ -65,7 +65,6 @@ public class CustomerDatabase{
 							+ "fname text NOT NULL		,"
 							+ "lname text NOT NULL		,"
 							+ "password text NOT NULL	,"
-							+ "gender text NOT NULL		,"
 							+ "mobile text NOT NULL		, "
 							+ "address text NOT NULL	);";
 					stmt.executeUpdate(sql);
@@ -83,7 +82,7 @@ public class CustomerDatabase{
 	}
 	
 	// add customer info into a record
-	public void addCustInfo(String username, String fname, String lname, String pw, String gender, 
+	public void addCustInfo(String username, String fname, String lname, String pw, 
 			String mobile, String address)
 	{		
 		try
@@ -92,14 +91,13 @@ public class CustomerDatabase{
 			{
 				getConnection();
 			}
-			prep = conn.prepareStatement("INSERT INTO CUSTINFO values(?,?,?,?,?,?,?);");
+			prep = conn.prepareStatement("INSERT INTO CUSTINFO values(?,?,?,?,?,?);");
 			prep.setString(1, username);
 			prep.setString(2, fname);
 			prep.setString(3, lname);
 			prep.setString(4, pw);
-			prep.setString(5, gender);
-			prep.setString(6, mobile);
-			prep.setString(7, address);
+			prep.setString(5, mobile);
+			prep.setString(6, address);
 			prep.execute();
 			prep.close();
 			conn.close();
@@ -128,10 +126,8 @@ public class CustomerDatabase{
 				String id = result.getString("username");
 				String fName = result.getString("fname");
 				String lName = result.getString("lname");
-				String gender = result.getString("gender");
 				custInfo.put("fname", fName);
 				custInfo.put("lname", lName);
-				custInfo.put("gender", gender);
 				custValues.put(id, custInfo);
 			}
 			stmt.close();
@@ -193,34 +189,31 @@ public class CustomerDatabase{
 				{
 					getConnection();
 				}
-				prep = conn.prepareStatement("INSERT INTO CUSTINFO values(?,?,?,?,?,?,?);");
+				prep = conn.prepareStatement("INSERT INTO CUSTINFO values(?,?,?,?,?,?);");
 				prep.setString(1,"jbrown");
 				prep.setString(2,"John");	
 				prep.setString(3,"Brown");
 				prep.setString(4,"password");
-				prep.setString(5,"male");
-				prep.setString(6,"0412123123");
-				prep.setString(7,"1 Happy Street, Happyville, 3000, nsw");
+				prep.setString(5,"0412123123");
+				prep.setString(6,"1 Happy Street, Happyville, 3000, nsw");
 				prep.execute();
 				prep.close();
-				PreparedStatement prep2 = conn.prepareStatement("INSERT INTO CUSTINFO values(?,?,?,?,?,?,?);");
+				PreparedStatement prep2 = conn.prepareStatement("INSERT INTO CUSTINFO values(?,?,?,?,?,?);");
 				prep2.setString(1,"rgeorge");
 				prep2.setString(2,"Regina");
 				prep2.setString(3,"George");
 				prep2.setString(4,"password1");
-				prep2.setString(5,"female");
-				prep2.setString(6,"0469123123");
-				prep2.setString(7,"1 Sad street, Sadville, 2000, vic");
+				prep2.setString(5,"0469123123");
+				prep2.setString(6,"1 Sad street, Sadville, 2000, vic");
 				prep2.execute();
 				prep2.close();
-				PreparedStatement prep3 = conn.prepareStatement("INSERT INTO CUSTINFO values(?,?,?,?,?,?,?);");
+				PreparedStatement prep3 = conn.prepareStatement("INSERT INTO CUSTINFO values(?,?,?,?,?,?);");
 				prep3.setString(1,"tswizzle");
 				prep3.setString(2,"Taylor");
 				prep3.setString(3,"Swift");
 				prep3.setString(4,"password2");
-				prep3.setString(5,"female");
-				prep3.setString(6,"0469999999");
-				prep3.setString(7,"1 Sing Street, Singville, 3333, vic");
+				prep3.setString(5,"0469999999");
+				prep3.setString(6,"1 Sing Street, Singville, 3333, vic");
 				prep3.execute();
 				prep3.close();
 			}
@@ -259,10 +252,6 @@ public class CustomerDatabase{
 			else if(col.equals("password"))
 			{
 				colName = "password";
-			}
-			else if(col.equals("gender"))
-			{
-				colName = "gender";
 			}
 			else if(col.equals("mobile"))
 			{

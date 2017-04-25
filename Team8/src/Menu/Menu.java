@@ -159,9 +159,9 @@ public class Menu {
 	
 	private void registerCustomer(){
 		String cUname = null, cFname = null, cLname = null, cPassword = null,
-				cGender = null, cMobile = null, cAddress = null;
+				cMobile = null, cAddress = null;
 		boolean userNameValid = false, fNameValid = false, lNameValid = false,
-				passwordValid = false, genderValid = false, mobileValid = false;
+				passwordValid = false, mobileValid = false;
 		
 		//getting username input
 		while(!userNameValid){
@@ -206,15 +206,6 @@ public class Menu {
 			}
 			if(validPassword(cPassword)){
 				passwordValid = true;
-			}
-		}
-		
-		//getting gender input
-		while(!genderValid){
-			System.out.print("Please enter your Gender(male or female): ");
-			cGender = input.nextLine();
-			if(validGender(cGender)){
-				genderValid = true;
 			}
 		}
 		
@@ -281,7 +272,7 @@ public class Menu {
 		cAddress = cNumber+ " " + cStreet + "," + cSuburb + ", " + cState + " "+ cZip;
 		
 		//adding user input to database
-		customerDb.addCustInfo(cUname, cFname, cLname, cPassword, cGender, cMobile, cAddress);
+		customerDb.addCustInfo(cUname, cFname, cLname, cPassword, cMobile, cAddress);
 		System.out.println("\nSuccessfully registered..");
 		customerMenu();
 	}
@@ -640,10 +631,10 @@ public class Menu {
 	}
 
 	private void addNewEmployee() {
-		String bFname = null, bLname = null, bGender = null, bMobile = null,
+		String bFname = null, bLname = null, bMobile = null,
 				bAddress = null, bService = null, bNumber = null, bStreet = null,
 				bSuburb = null, bZip = null, bState = null;
-		boolean fNameValid = false, lNameValid = false, genderValid = false, 
+		boolean fNameValid = false, lNameValid = false, 
 				mobileValid = false, streetNumberValid = false, streetValid = false, 
 				suburbValid = false,zipValid = false, stateValid = false;
 		
@@ -667,15 +658,6 @@ public class Menu {
 			bLname = input.nextLine();
 			if(validName(bLname)){
 				lNameValid = true;
-			}
-		}
-		
-		//getting gender
-		while(!genderValid){
-			System.out.print("Please enter employee Gender(male or female): ");
-			bGender = input.nextLine();
-			if(validGender(bGender)){
-				genderValid = true;
 			}
 		}
 		
@@ -752,7 +734,7 @@ public class Menu {
 		comp.addEmployee(e1);
 		
 		//sends user input to database
-		companyDb.addBusInfo(bUserName, "ABC", bFname, bLname, null, bGender, bMobile, bAddress, bService, "employee");
+		companyDb.addBusInfo(bUserName, "ABC", bFname, bLname, null, bMobile, bAddress, bService, "employee");
 		System.out.println("\nEmployee Successfully registered..");
 		businessMenu();
 	}
@@ -802,17 +784,6 @@ public class Menu {
 					+ "symbol and must be atleast 6 characters long.");
 			return false;
 		}
-		else{
-			return true;
-		}
-	}
-	
-	//error checking for valid gender
-	public boolean validGender(String gender){
-		if(!gender.matches("male|female")) {
-			System.out.println("Error: Gender entered incorrectly.");
-			return false;
-		} 
 		else{
 			return true;
 		}

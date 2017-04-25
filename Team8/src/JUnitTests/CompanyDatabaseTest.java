@@ -189,16 +189,6 @@ public class CompanyDatabaseTest {
 		assertEquals(expected,actual);
 		actual = false;
 		
-		actual = compDb.checkValueExists("gender","male");
-		actual2 = compDb.checkValueExists("gender","male");
-		actual3 = compDb.checkValueExists("gender","female");
-		assertEquals(expected,actual);
-		assertEquals(expected,actual2);
-		assertEquals(expected,actual3);
-		actual = false;
-		actual2 = false;
-		actual3 = false;
-		
 		actual = compDb.checkValueExists("mobile","0430202101");
 		actual2 = compDb.checkValueExists("mobile","0400123000");
 		actual3 = compDb.checkValueExists("mobile","0469899898");

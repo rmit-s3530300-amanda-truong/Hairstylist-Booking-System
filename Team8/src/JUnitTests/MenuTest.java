@@ -269,13 +269,6 @@ public class MenuTest {
 	}
 	
 	@Test
-	public void testValidGender() {
-		String gender = "male";
-		boolean check = m1.validGender(gender);
-		assertEquals(true,check);
-	}
-	
-	@Test
 	public void testValidMobile1() {
 		String mobile = "0412345678";
 		boolean check = m1.validMobile(mobile);
