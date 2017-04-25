@@ -13,6 +13,7 @@ import org.junit.Test;
 import Business.Employee.Service;
 import Calendar.Booking;
 import Calendar.Calendar;
+import Calendar.Calendar.Status;
 
 public class CalendarTest {
 	Calendar c1;
@@ -22,13 +23,15 @@ public class CalendarTest {
 		LocalDate localdate = LocalDate.of(2017, 01, 10);
 		LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>> info = new LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>>();
 		LinkedHashMap<LocalTime,Booking> nested_info = new LinkedHashMap<LocalTime, Booking>();
-		
+		int counter =0;
 		for(int x = 0;x<7;x++){
 			for(int i = 8; i<17 ;i++) {
 				LocalTime localtime = LocalTime.of(i, 00);
 				for(int y = 0 ; y<4 ;y++){
-					nested_info.put(localtime, new Booking(Calendar.Status.free));
+					String id=localdate.toString()+"-"+localtime.toString();
+					nested_info.put(localtime, new Booking(Calendar.Status.free, id));
 					localtime = localtime.plusMinutes(15);
+					counter++;
 				}
 				info.put(localdate, nested_info);	
 			}
@@ -42,7 +45,7 @@ public class CalendarTest {
 
 	@Test
 	public void testGetBookingPendingList() {
-		String expected_output = "ID: 0, Status: pending, Date: 2017-01-15, Start Time: 10:00, End Time: 11:30, Customer: 000, Service|Employee: femaleCut|Alan, femaleDye|Candy,  \n";
+		String expected_output = "ID: 2017-01-16-10:00, Status: pending, Date: 2017-01-15, Start Time: 10:00, End Time: 10:30, Customer: 000, Service|Employee: femaleCut|01,  \n";
 		String actual_output;
 		
 		LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>> info = c1.getCalendarInfo();
@@ -52,9 +55,8 @@ public class CalendarTest {
 		nested_info = info.get(date);
 		Booking book = nested_info.get(time);
 		HashMap<Service,String> services = new HashMap<Service,String>();
-		services.put(Service.femaleCut, "Alan");
-		services.put(Service.femaleDye, "Candy");
-		book.addDetails("0", services, date, time, "000");
+		services.put(Service.femaleCut, "01");
+		book.addDetails(services, date, time, "000");
 		nested_info.put(LocalTime.of(5, 00), book);
 		info.put(date, nested_info);
 		c1.setCalendarInfo(info);
@@ -66,7 +68,7 @@ public class CalendarTest {
 	
 	@Test
 	public void testGetBookingSummary() {
-		String expected_output = "ID: 0, Status: pending, Date: 2017-01-15, Start Time: 10:00, End Time: 10:30, Customer: 000, Service|Employee: femaleCut|Alan,  \n";
+		String expected_output = "ID: 2017-01-16-10:00, Status: pending, Date: 2017-01-15, Start Time: 10:00, End Time: 10:30, Customer: 000, Service|Employee: femaleCut|01,  \n";
 		String actual_output;
 		
 		LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>> info = c1.getCalendarInfo();
@@ -76,8 +78,8 @@ public class CalendarTest {
 		nested_info = info.get(date);
 		Booking book = nested_info.get(time);
 		HashMap<Service,String> services = new HashMap<Service,String>();
-		services.put(Service.femaleCut, "Alan");
-		book.addDetails("0", services, date, time, "000");
+		services.put(Service.femaleCut, "01");
+		book.addDetails(services, date, time, "000");
 		nested_info.put(LocalTime.of(5, 00), book);
 		info.put(date, nested_info);
 		c1.setCalendarInfo(info);
@@ -85,6 +87,175 @@ public class CalendarTest {
 		actual_output = c1.getBookingSummary();
 		
 		assertEquals(expected_output, actual_output);
+	}
+	
+	@Test
+	public void requestBookingTest() {
+		Boolean expected_boolean = true;
+		Status expected_status = Status.pending;
+		Boolean actual_boolean;
+		Status actual_status;
+		
+		actual_boolean = c1.requestBooking(LocalDate.of(2017, 01, 10), LocalTime.of(8, 00));
+		Booking book = c1.getCalendarInfo().get(LocalDate.of(2017, 01, 10)).get(LocalTime.of(8, 00));
+		actual_status = book.getStatus();
+		
+		assertEquals(expected_boolean, actual_boolean);
+		assertEquals(expected_status, actual_status);
+		
+	}
+	
+	@Test
+	// Accepting booking when it is in pending status, expect TRUE
+	public void acceptBookingTest() {
+		Boolean expected_boolean = true;
+		Status expected_status = Status.booked;
+		Boolean actual_boolean;
+		Status actual_status;
+		
+		c1.requestBooking(LocalDate.of(2017, 01, 10), LocalTime.of(8, 00));
+		Booking book = c1.getCalendarInfo().get(LocalDate.of(2017, 01, 10)).get(LocalTime.of(8, 00));
+		
+		actual_boolean = c1.acceptBooking(book.getID());
+		book = c1.getCalendarInfo().get(LocalDate.of(2017, 01, 10)).get(LocalTime.of(8, 00));
+		actual_status = book.getStatus();
+		
+		assertEquals(expected_boolean, actual_boolean);
+		assertEquals(expected_status, actual_status);
+	}
+	
+	@Test
+	// Accepting booking when the booking is not in pending status, expect FALSE
+	public void acceptBookingTestFail() {
+		Boolean expected_boolean = false;
+		Status expected_status = Status.free;
+		Boolean actual_boolean;
+		Status actual_status;
+		
+		Booking book = c1.getCalendarInfo().get(LocalDate.of(2017, 01, 10)).get(LocalTime.of(8, 00));
+		
+		actual_boolean = c1.acceptBooking(book.getID());
+		book = c1.getCalendarInfo().get(LocalDate.of(2017, 01, 10)).get(LocalTime.of(8, 00));
+		actual_status = book.getStatus();
+		
+		assertEquals(expected_boolean, actual_boolean);
+		assertEquals(expected_status, actual_status);
+	}
+	
+	@Test
+	// Accepting booking when the booking is already in booked status, expect FALSE
+	public void acceptBookingTestFail2() {
+		Boolean expected_boolean = false;
+		Status expected_status = Status.booked;
+		Boolean actual_boolean;
+		Status actual_status;
+		
+		c1.requestBooking(LocalDate.of(2017, 01, 10), LocalTime.of(8, 00));
+		Booking book = c1.getCalendarInfo().get(LocalDate.of(2017, 01, 10)).get(LocalTime.of(8, 00));
+		c1.acceptBooking(book.getID());
+		
+		actual_boolean = c1.acceptBooking(book.getID());
+		
+		book = c1.getCalendarInfo().get(LocalDate.of(2017, 01, 10)).get(LocalTime.of(8, 00));
+		actual_status = book.getStatus();
+		
+		assertEquals(expected_boolean, actual_boolean);
+		assertEquals(expected_status, actual_status);
+	}
+	
+	@Test
+	// Accepting booking when the booking is in unavailable status, expect FALSE
+	public void acceptBookingTestFail3() {
+		Boolean expected_boolean = false;
+		Status expected_status = Status.unavailable;
+		Boolean actual_boolean;
+		Status actual_status;
+		
+		Booking book = c1.getCalendarInfo().get(LocalDate.of(2017, 01, 10)).get(LocalTime.of(8, 00));
+		book.setStatus(Status.unavailable);
+		
+		actual_boolean = c1.acceptBooking(book.getID());
+		book = c1.getCalendarInfo().get(LocalDate.of(2017, 01, 10)).get(LocalTime.of(8, 00));
+		actual_status = book.getStatus();
+		
+		assertEquals(expected_boolean, actual_boolean);
+		assertEquals(expected_status, actual_status);
+	}
+	
+	@Test
+	// Decline booking when it is in pending state, expect TRUE
+	public void declineBookingTest() {
+		Boolean expected_boolean = true;
+		Status expected_status = Status.free;
+		Boolean actual_boolean;
+		Status actual_status;
+		
+		c1.requestBooking(LocalDate.of(2017, 01, 10), LocalTime.of(8, 00));
+		Booking book = c1.getCalendarInfo().get(LocalDate.of(2017, 01, 10)).get(LocalTime.of(8, 00));
+		
+		actual_boolean = c1.declineBooking(book.getID());
+		book = c1.getCalendarInfo().get(LocalDate.of(2017, 01, 10)).get(LocalTime.of(8, 00));
+		actual_status = book.getStatus();
+		
+		assertEquals(expected_boolean, actual_boolean);
+		assertEquals(expected_status, actual_status);
+	}
+	
+	@Test
+	// Decline booking when it is in free state, expect FALSE
+	public void declineBookingTestFail() {
+		Boolean expected_boolean = false;
+		Status expected_status = Status.free;
+		Boolean actual_boolean;
+		Status actual_status;
+		
+		Booking book = c1.getCalendarInfo().get(LocalDate.of(2017, 01, 10)).get(LocalTime.of(8, 00));
+		
+		actual_boolean = c1.declineBooking(book.getID());
+		book = c1.getCalendarInfo().get(LocalDate.of(2017, 01, 10)).get(LocalTime.of(8, 00));
+		actual_status = book.getStatus();
+		
+		assertEquals(expected_boolean, actual_boolean);
+		assertEquals(expected_status, actual_status);
+	}
+	
+	@Test
+	// Decline booking when it is in booked state, expect FALSE
+	public void declineBookingTestFail2() {
+		Boolean expected_boolean = false;
+		Status expected_status = Status.booked;
+		Boolean actual_boolean;
+		Status actual_status;
+		
+		c1.requestBooking(LocalDate.of(2017, 01, 10), LocalTime.of(8, 00));
+		Booking book = c1.getCalendarInfo().get(LocalDate.of(2017, 01, 10)).get(LocalTime.of(8, 00));
+		c1.acceptBooking(book.getID());
+		
+		actual_boolean = c1.declineBooking(book.getID());
+		book = c1.getCalendarInfo().get(LocalDate.of(2017, 01, 10)).get(LocalTime.of(8, 00));
+		actual_status = book.getStatus();
+		
+		assertEquals(expected_boolean, actual_boolean);
+		assertEquals(expected_status, actual_status);
+	}
+	
+	@Test
+	// Decline booking when it is in unavailable state, expect FALSE
+	public void declineBookingTestFail3() {
+		Boolean expected_boolean = false;
+		Status expected_status = Status.unavailable;
+		Boolean actual_boolean;
+		Status actual_status;
+		
+		Booking book = c1.getCalendarInfo().get(LocalDate.of(2017, 01, 10)).get(LocalTime.of(8, 00));
+		book.setStatus(Status.unavailable);
+		
+		actual_boolean = c1.declineBooking(book.getID());
+		book = c1.getCalendarInfo().get(LocalDate.of(2017, 01, 10)).get(LocalTime.of(8, 00));
+		actual_status = book.getStatus();
+		
+		assertEquals(expected_boolean, actual_boolean);
+		assertEquals(expected_status, actual_status);
 	}
 	
 	@Test

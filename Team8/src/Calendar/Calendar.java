@@ -23,6 +23,7 @@ public class Calendar {
 	private LinkedHashMap<String, Booking> bookingList;
 	
 	public Calendar(LocalDate date) {
+		bookingList = new LinkedHashMap<String, Booking>();
 		currentDate = date;
 		calendar = new LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>>();
 		
@@ -33,7 +34,8 @@ public class Calendar {
 			for(int i = 8; i<17 ;i++) {
 				LocalTime localtime = LocalTime.of(i, 00);
 				for(int y = 0 ; y<4 ;y++){
-					nested_info.put(localtime, new Booking());
+					String id = date.toString()+"-"+localtime.toString();
+					nested_info.put(localtime, new Booking(id));
 					localtime = localtime.plusMinutes(15);
 				}
 				calendar.put(lastWeekDate, nested_info);
@@ -45,7 +47,8 @@ public class Calendar {
 			for(int i = 8; i<17 ;i++) {
 				LocalTime localtime = LocalTime.of(i, 00);
 				for(int y = 0 ; y<4 ;y++){
-					nested_info.put(localtime, new Booking());
+					String id = date.toString()+"-"+localtime.toString();
+					nested_info.put(localtime, new Booking(id));
 					localtime = localtime.plusMinutes(15);
 				}
 				calendar.put(date, nested_info);
@@ -99,12 +102,14 @@ public class Calendar {
 			HashMap<DayOfWeek, ArrayList<LocalTime>> availability = emp.getAvailability();
 			LocalDate date = currentDate;
 			DayOfWeek day = currentDate.getDayOfWeek();
+			int counter=0;
 			for(int i = 0; i <14; i++) {
 				if(availability.containsKey(day)) {
 					ArrayList<LocalTime> available_times = availability.get(day);
 					LinkedHashMap<LocalTime, Booking> map_time = new LinkedHashMap<LocalTime, Booking>();
 					for(int x=0; x<available_times.size();x++) {
-						map_time.put(available_times.get(x), new Booking(Status.free));
+						String id = date.toString()+available_times.get(x).toString();
+						map_time.put(available_times.get(x), new Booking(Status.free,id));
 					}
 					calendar.put(date, map_time);
 				}
@@ -142,7 +147,7 @@ public class Calendar {
 	
 	// TODO: Needs Testing
 	// returns false when cannot book
-	/*public Boolean requestBooking(LocalDate date, LocalTime time) {
+	public Boolean requestBooking(LocalDate date, LocalTime time) {
 		Booking book = calendar.get(date).get(time);
 		if(book.getStatus() == Status.free ) {
 			book.setStatus(Status.pending);
@@ -152,27 +157,37 @@ public class Calendar {
 		}
 		return false;
 		
-	}*/
+	}
 	
-	/*public Boolean acceptBooking(String bookingID) {
-		Status status = getBooking(bookingID).getStatus();
-		if(status == Calendar.Status.pending){
-			status = Calendar.Status.booked;
-			return true;
+	public Boolean acceptBooking(String bookingID) {
+		Booking book = getBooking(bookingID);
+		if(book != null) {
+			Status status = book.getStatus();
+			if(status == Calendar.Status.pending){
+				book.setStatus(Calendar.Status.booked);
+				return true;
+			}
+			return false;
+		} else {
+			return false;
 		}
-		return false;
 	}
 	
 
 	public Boolean declineBooking(String bookingID) {
-		Status status = getBooking(bookingID).getStatus();
-		if(status == Calendar.Status.pending){
-			status = Calendar.Status.free;
-			bookingList.remove(bookingID);
-			return true;
+		Booking book = getBooking(bookingID);
+		if(book != null) {
+			Status status = book.getStatus();
+			if(status == Calendar.Status.pending){
+				book.setStatus(Calendar.Status.free);
+				bookingList.remove(bookingID);
+				return true;
+			}
+			return false;
+		} else {
+			return false;
 		}
-		return false;
-	}*/
+	}
 	
 	public LinkedHashMap<LocalDate,LinkedHashMap<LocalTime,Booking>> getHistory() {
 		LocalDate oldDate = currentDate.minusDays(7);
@@ -201,7 +216,11 @@ public class Calendar {
 	}
 	
 	public Booking getBooking(String ID) {
-		return bookingList.get(ID);
+		if(bookingList.containsKey(ID)) {
+			return bookingList.get(ID);
+		} else {
+			return null;
+		}
 	}
 	
 	public Boolean containsBooking(String ID) {

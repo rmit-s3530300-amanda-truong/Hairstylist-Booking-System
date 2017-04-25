@@ -6,6 +6,7 @@ import java.util.HashMap;
 import Business.Employee.Service;
 
 public class Booking {
+	// Booking ID is the date and time concatenated
 	private String ID;
 	// String is the ID of the employee which will be performing the service
 	private HashMap<Service, String> services;
@@ -14,16 +15,17 @@ public class Booking {
 	private Calendar.Status status;
 	private String customerID;
 	
-	public Booking() {
+	public Booking(String id) {
 		status = Calendar.Status.unavailable;
+		this.ID = id;
 	}
 	
-	public Booking(Calendar.Status stat) {
+	public Booking(Calendar.Status stat, String id) {
 		status = stat;
+		this.ID = id;
 	}
 	
-	public void addDetails(String ID, HashMap<Service, String> service, LocalDate bookingDate, LocalTime bookingTime, String customerID) {
-		this.ID = ID;
+	public void addDetails(HashMap<Service, String> service, LocalDate bookingDate, LocalTime bookingTime, String customerID) {
 		this.services = service;
 		this.bookingDate = bookingDate;
 		this.bookingTime = bookingTime;

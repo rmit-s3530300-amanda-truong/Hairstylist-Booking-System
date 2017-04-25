@@ -23,7 +23,8 @@ public class BookingTest {
 
 	@Before
 	public void setUp() throws Exception {
-		book = new Booking(); 
+		book = new Booking("0"); 
+		
 		expected_ID = "0";
 		expected_service = new HashMap<Service, String>();
 		expected_service.put(Service.femaleCut, "000");
@@ -31,7 +32,7 @@ public class BookingTest {
 		expected_time = LocalTime.of(12,00);
 		expected_customerID = "a";
 		
-		book.addDetails(expected_ID, expected_service, expected_date, expected_time, expected_customerID);
+		book.addDetails(expected_service, expected_date, expected_time, expected_customerID);
 	}
 	
 	@Test
