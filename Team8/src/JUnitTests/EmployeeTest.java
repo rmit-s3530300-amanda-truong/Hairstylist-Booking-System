@@ -2,6 +2,7 @@ package JUnitTests;
 
 import static org.junit.Assert.*;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -61,17 +62,18 @@ public class EmployeeTest {
 		LocalDate date = LocalDate.of(2017, 10, 30);
 		LocalTime start_time = LocalTime.of(3, 00);
 		LocalTime end_time = LocalTime.of(5, 15);
-		e.addAvailability(date, start_time, end_time);
-		HashMap<LocalDate, ArrayList<LocalTime>>availability_1 = e.getAvailability();
+		DayOfWeek day = date.getDayOfWeek();
+		e.addAvailability(day, start_time, end_time);
+		HashMap<DayOfWeek, ArrayList<LocalTime>>availability_1 = e.getAvailability();
 		String actual_availability = null;
 		
-		for(Entry<LocalDate, ArrayList<LocalTime>> x : availability_1.entrySet()) {
+		for(Entry<DayOfWeek, ArrayList<LocalTime>> x : availability_1.entrySet()) {
 			actual_availability = x.getKey().toString();
 			for(int i=0; i<x.getValue().size();i++){
 				actual_availability = actual_availability + ", "+x.getValue().get(i).toString();
 			}
 		}
-		String expected_availability = "2017-10-30, 03:00, 03:15, 03:30, 03:45, 04:00, 04:15, 04:30, 04:45, 05:00";
+		String expected_availability = "MONDAY, 03:00, 03:15, 03:30, 03:45, 04:00, 04:15, 04:30, 04:45, 05:00";
 		
 		assertEquals(expected_availability, actual_availability);
 	}
@@ -81,14 +83,15 @@ public class EmployeeTest {
 		LocalDate date = LocalDate.of(2017, 10, 30);
 		LocalTime start_time = LocalTime.of(3, 00);
 		LocalTime end_time = LocalTime.of(3, 30);
-		e.addAvailability(date, start_time, end_time);
-		HashMap<LocalDate, ArrayList<LocalTime>> actual_availability = e.getAvailability();
+		DayOfWeek day = date.getDayOfWeek();
+		e.addAvailability(day, start_time, end_time);
+		HashMap<DayOfWeek, ArrayList<LocalTime>> actual_availability = e.getAvailability();
 		
-		HashMap<LocalDate, ArrayList<LocalTime>> expected_availability = new HashMap<LocalDate, ArrayList<LocalTime>>();
+		HashMap<DayOfWeek, ArrayList<LocalTime>> expected_availability = new HashMap<DayOfWeek, ArrayList<LocalTime>>();
 		ArrayList<LocalTime> time = new ArrayList<LocalTime>();
 		time.add(LocalTime.of(3, 00));
 		time.add(LocalTime.of(3, 15));
-		expected_availability.put(LocalDate.of(2017, 10, 30), time);
+		expected_availability.put(day, time);
 		
 		assertEquals(expected_availability, actual_availability);
 	}
