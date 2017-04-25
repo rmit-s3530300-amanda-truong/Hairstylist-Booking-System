@@ -16,3 +16,17 @@
 	-fx-background-size: 1400 714;
     -fx-background-repeat: no-repeat;
 }
+#content_cp{
+	-fx-background-image: url("application-img/content_cp.jpg");
+	-fx-background-size: 1400 714;
+    -fx-background-repeat: no-repeat;
+}
+#content_bp{
+	-fx-background-image: url("application-img/content_bp.jpg");
+	-fx-background-size: 1400 714;
+    -fx-background-repeat: no-repeat;
+}
+.button{
+	-fx-border-radius: 0;
+	-fx-background-radius: 0;
+}
