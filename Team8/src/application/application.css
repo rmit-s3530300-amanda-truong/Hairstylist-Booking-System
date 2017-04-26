@@ -1,7 +1,7 @@
 #button{
 	-fx-background-color: #aa9144;
-	-fx-border-radius: 20;
-	-fx-background-radius: 20;
+	-fx-border-radius: 60;
+	-fx-background-radius: 60;
 	}
 #menuPane{
 	-fx-background-color: #212121;
@@ -23,6 +23,11 @@
 }
 #content_bp{
 	-fx-background-image: url("application-img/content_bp.jpg");
+	-fx-background-size: 1400 714;
+    -fx-background-repeat: no-repeat;
+}
+#content_addEmp{
+	-fx-background-image: url("application-img/content.jpg");
 	-fx-background-size: 1400 714;
     -fx-background-repeat: no-repeat;
 }
