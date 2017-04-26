@@ -34,7 +34,7 @@ public class Calendar {
 			for(int i = 8; i<17 ;i++) {
 				LocalTime localtime = LocalTime.of(i, 00);
 				for(int y = 0 ; y<4 ;y++){
-					String id = date.toString()+"-"+localtime.toString();
+					String id = date.toString()+"/"+localtime.toString();
 					nested_info.put(localtime, new Booking(id));
 					localtime = localtime.plusMinutes(15);
 				}
@@ -47,7 +47,7 @@ public class Calendar {
 			for(int i = 8; i<17 ;i++) {
 				LocalTime localtime = LocalTime.of(i, 00);
 				for(int y = 0 ; y<4 ;y++){
-					String id = date.toString()+"-"+localtime.toString();
+					String id = date.toString()+"/"+localtime.toString();
 					nested_info.put(localtime, new Booking(id));
 					localtime = localtime.plusMinutes(15);
 				}

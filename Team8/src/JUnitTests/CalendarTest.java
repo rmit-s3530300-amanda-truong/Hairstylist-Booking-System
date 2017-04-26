@@ -28,7 +28,7 @@ public class CalendarTest {
 			for(int i = 8; i<17 ;i++) {
 				LocalTime localtime = LocalTime.of(i, 00);
 				for(int y = 0 ; y<4 ;y++){
-					String id=localdate.toString()+"-"+localtime.toString();
+					String id=localdate.toString()+"/"+localtime.toString();
 					nested_info.put(localtime, new Booking(Calendar.Status.free, id));
 					localtime = localtime.plusMinutes(15);
 					counter++;
@@ -45,7 +45,7 @@ public class CalendarTest {
 
 	@Test
 	public void testGetBookingPendingList() {
-		String expected_output = "ID: 2017-01-16-10:00, Status: pending, Date: 2017-01-15, Start Time: 10:00, End Time: 10:30, Customer: 000, Service|Employee: femaleCut|01,  \n";
+		String expected_output = "ID: 2017-01-16/10:00, Status: pending, Date: 2017-01-15, Start Time: 10:00, End Time: 10:30, Customer: 000, Service|Employee: femaleCut|01,  \n";
 		String actual_output;
 		
 		LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>> info = c1.getCalendarInfo();
@@ -68,7 +68,7 @@ public class CalendarTest {
 	
 	@Test
 	public void testGetBookingSummary() {
-		String expected_output = "ID: 2017-01-16-10:00, Status: pending, Date: 2017-01-15, Start Time: 10:00, End Time: 10:30, Customer: 000, Service|Employee: femaleCut|01,  \n";
+		String expected_output = "ID: 2017-01-16/10:00, Status: pending, Date: 2017-01-15, Start Time: 10:00, End Time: 10:30, Customer: 000, Service|Employee: femaleCut|01,  \n";
 		String actual_output;
 		
 		LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>> info = c1.getCalendarInfo();
