@@ -22,6 +22,7 @@ public class Main extends Application {
 		comp.retrieveDatabaseInfo(customerDb, companyDb,availDb);
 		comp.getCalendar().updateCalendar(comp.getEmployeeList());
 		menu = new Menu(comp, customerDb, companyDb, availDb);
+		
 	}
 	
 	@Override
@@ -31,6 +32,10 @@ public class Main extends Application {
 			AnchorPane root = loader.load();
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			
+			mainController controller = loader.getController();
+			controller.initiate(menu);
+			
 			primaryStage.setScene(scene);
 			primaryStage.show();
 			primaryStage.setTitle("Team 8 Appoinment Booking Program");

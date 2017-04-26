@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="788.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.mainController">
+<AnchorPane prefHeight="788.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.CustomerPController">
    <children>
       <Pane id="content_cp" layoutY="74.0" prefHeight="714.0" prefWidth="1400.0">
          <children>
@@ -20,14 +20,14 @@
                   <Font name="Lato Bold" size="39.0" />
                </font>
             </Label>
-            <JFXButton fx:id="cust_nBooking" contentDisplay="GRAPHIC_ONLY" layoutX="222.0" layoutY="192.0" prefHeight="150.0" prefWidth="472.0" ripplerFill="WHITE" />
-            <JFXButton fx:id="cust_vCalendar" contentDisplay="GRAPHIC_ONLY" layoutX="222.0" layoutY="355.0" prefHeight="150.0" prefWidth="472.0" ripplerFill="WHITE" />
-            <JFXButton fx:id="cust_uBooking" contentDisplay="GRAPHIC_ONLY" layoutX="706.0" layoutY="192.0" prefHeight="150.0" prefWidth="472.0" ripplerFill="WHITE" />
-            <JFXButton fx:id="cust_vHistory" contentDisplay="GRAPHIC_ONLY" layoutX="706.0" layoutY="355.0" prefHeight="150.0" prefWidth="472.0" ripplerFill="WHITE" />
+            <JFXButton fx:id="cust_nBooking" contentDisplay="GRAPHIC_ONLY" layoutX="222.0" layoutY="192.0" onAction="#newBooking" prefHeight="150.0" prefWidth="472.0" ripplerFill="WHITE" />
+            <JFXButton fx:id="cust_vCalendar" contentDisplay="GRAPHIC_ONLY" layoutX="222.0" layoutY="355.0" onAction="#viewCalendar" prefHeight="150.0" prefWidth="472.0" ripplerFill="WHITE" />
+            <JFXButton fx:id="cust_uBooking" contentDisplay="GRAPHIC_ONLY" layoutX="706.0" layoutY="192.0" onAction="#upcomingBooking" prefHeight="150.0" prefWidth="472.0" ripplerFill="WHITE" />
+            <JFXButton fx:id="cust_vHistory" contentDisplay="GRAPHIC_ONLY" layoutX="706.0" layoutY="355.0" onAction="#viewHistory" prefHeight="150.0" prefWidth="472.0" ripplerFill="WHITE" />
          </children></Pane>
       <Pane id="menuPane" prefHeight="75.0" prefWidth="1400.0">
          <children>
-            <JFXButton id="button" fx:id="gotoLogout" layoutX="1199.0" layoutY="21.0" prefHeight="35.0" prefWidth="125.0" stylesheets="@application.css" text="LOGOUT" textFill="WHITE">
+            <JFXButton id="button" fx:id="gotoLogout" layoutX="1199.0" layoutY="21.0" onAction="#goToLogout" prefHeight="35.0" prefWidth="125.0" stylesheets="@application.css" text="LOGOUT" textFill="WHITE">
                <font>
                   <Font name="Helvetica-Normal" size="16.0" />
                </font>
