@@ -30,3 +30,9 @@
 	-fx-border-radius: 0;
 	-fx-background-radius: 0;
 }
+
+.combo-box{
+	-fx-text-fill: white;
+	-fx-inner-text-fill: white;
+    -fx-font: 16px "System";
+}

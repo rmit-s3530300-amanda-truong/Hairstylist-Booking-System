@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="788.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.mainController">
+<AnchorPane fx:id="rootPane" prefHeight="788.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.loginController">
    <children>
       <Pane id="content" layoutY="74.0" prefHeight="714.0" prefWidth="1400.0">
          <children>
@@ -38,15 +38,20 @@
                <font>
                   <Font size="16.0" />
                </font></JFXPasswordField>
-            <JFXButton id="button" fx:id="loginAction" layoutX="529.0" layoutY="483.0" prefHeight="60.0" prefWidth="250.0" style="-fx-background-radius: 60;" stylesheets="@application.css" text="LOGIN" textFill="WHITE">
+            <JFXButton id="button" fx:id="loginAction" layoutX="529.0" layoutY="483.0" onAction="#login" prefHeight="60.0" prefWidth="250.0" style="-fx-background-radius: 60;" stylesheets="@application.css" text="LOGIN" textFill="WHITE">
                <font>
                   <Font name="Lato Black" size="20.0" />
                </font>
             </JFXButton>
+            <Label fx:id="invalid_id_password" layoutX="529.0" layoutY="437.0" textFill="RED">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
          </children></Pane>
       <Pane id="menuPane" prefHeight="75.0" prefWidth="1400.0">
          <children>
-            <JFXButton id="button" fx:id="gotoRegister" layoutX="1199.0" layoutY="19.0" prefHeight="38.0" prefWidth="125.0" stylesheets="@application.css" text="REGISTER" textFill="WHITE">
+            <JFXButton id="button" fx:id="gotoRegister" layoutX="1199.0" layoutY="19.0" onAction="#goToRegister" prefHeight="38.0" prefWidth="125.0" stylesheets="@application.css" text="REGISTER" textFill="WHITE">
                <font>
                   <Font name="Helvetica-Normal" size="16.0" />
                </font>

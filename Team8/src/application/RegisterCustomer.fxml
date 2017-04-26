@@ -10,7 +10,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="788.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.mainController">
+<AnchorPane fx:id="rootPane" prefHeight="788.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.RegisterController">
    <children>
       <Pane id="content" layoutY="74.0" prefHeight="714.0" prefWidth="1400.0">
          <children>
@@ -30,7 +30,57 @@
                   <Font size="16.0" />
                </font>
             </Label>
+            <Label layoutX="393.0" layoutY="211.0" text="USERNAME" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="749.0" layoutY="128.0" text="LAST NAME" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="750.0" layoutY="297.0" text="CONFIRM PASSWORD" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="392.0" layoutY="409.0" text="MOBILE" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="750.0" layoutY="409.0" text="ADDRESS LINE " textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="392.0" layoutY="503.0" text="SUBURB" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="627.0" layoutY="503.0" text="POST CODE" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="855.0" layoutY="503.0" text="STATE" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
             <JFXTextField fx:id="rc_fname" focusColor="#aa9144" layoutX="392.0" layoutY="151.0" prefHeight="38.0" prefWidth="256.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </JFXTextField>
+            <JFXTextField fx:id="rc_lname" focusColor="#aa9144" layoutX="750.0" layoutY="151.0" prefHeight="38.0" prefWidth="256.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </JFXTextField>
+            <JFXTextField fx:id="rc_username" focusColor="#aa9144" layoutX="393.0" layoutY="234.0" prefHeight="38.0" prefWidth="256.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -39,87 +89,42 @@
                <font>
                   <Font size="16.0" />
                </font></JFXPasswordField>
-            <JFXButton id="button" fx:id="registerAction" layoutX="571.0" layoutY="615.0" prefHeight="60.0" prefWidth="250.0" style="-fx-background-radius: 60;" stylesheets="@application.css" text="REGISTER" textFill="WHITE">
-               <font>
-                  <Font name="Lato Black" size="20.0" />
-               </font>
-            </JFXButton>
-            <Label layoutX="393.0" layoutY="211.0" text="USERNAME" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <JFXTextField fx:id="rc_username" focusColor="#aa9144" layoutX="393.0" layoutY="234.0" prefHeight="38.0" prefWidth="256.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </JFXTextField>
-            <Label layoutX="749.0" layoutY="128.0" text="LAST NAME" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <JFXTextField fx:id="rc_lname" focusColor="#aa9144" layoutX="750.0" layoutY="151.0" prefHeight="38.0" prefWidth="256.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </JFXTextField>
-            <Label layoutX="750.0" layoutY="297.0" text="CONFIRM PASSWORD" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
             <JFXPasswordField fx:id="rc_confirmpass" focusColor="#aa9144" layoutX="750.0" layoutY="322.0" prefHeight="38.0" prefWidth="256.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </JFXPasswordField>
-            <Label layoutX="392.0" layoutY="409.0" text="ADDRESS LINE 1" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <JFXTextField fx:id="rc_addressl1" focusColor="#aa9144" layoutX="392.0" layoutY="432.0" prefHeight="38.0" prefWidth="256.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
+            <JFXTextField fx:id="rc_mobile" focusColor="#aa9144" layoutX="392.0" layoutY="432.0" prefHeight="38.0" prefWidth="256.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </JFXTextField>
-            <Label layoutX="750.0" layoutY="409.0" text="ADDRESS LINE 2" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <JFXTextField fx:id="rc_addressl2" focusColor="#aa9144" layoutX="750.0" layoutY="432.0" prefHeight="38.0" prefWidth="256.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
+            <JFXTextField fx:id="rc_address" focusColor="#aa9144" layoutX="750.0" layoutY="432.0" prefHeight="38.0" prefWidth="256.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </JFXTextField>
-            <Label layoutX="392.0" layoutY="503.0" text="SUBURB" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
             <JFXTextField fx:id="rc_suburb" focusColor="#aa9144" layoutX="392.0" layoutY="526.0" prefHeight="38.0" prefWidth="152.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </JFXTextField>
-            <Label layoutX="627.0" layoutY="503.0" text="POST CODE" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
             <JFXTextField fx:id="rc_postcode" focusColor="#aa9144" layoutX="626.0" layoutY="526.0" prefHeight="38.0" prefWidth="152.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </JFXTextField>
-            <Label layoutX="855.0" layoutY="503.0" text="STATE" textFill="WHITE">
+            <JFXComboBox id="comboBox" fx:id="rc_state" focusColor="#aa9144" layoutX="855.0" layoutY="526.0" prefHeight="38.0" prefWidth="152.0" unFocusColor="WHITE" />
+            <JFXButton id="button" fx:id="registerAction" layoutX="571.0" layoutY="615.0" onAction="#register" prefHeight="60.0" prefWidth="250.0" style="-fx-background-radius: 60;" stylesheets="@application.css" text="REGISTER" textFill="WHITE">
                <font>
-                  <Font size="16.0" />
+                  <Font name="Lato Black" size="20.0" />
+               </font>
+            </JFXButton>
+            <Label fx:id="invalid" layoutX="583.0" layoutY="580.0" textFill="RED">
+               <font>
+                  <Font size="14.0" />
                </font>
             </Label>
-            <JFXComboBox fx:id="rc_state" focusColor="#aa9144" layoutX="855.0" layoutY="526.0" prefHeight="38.0" prefWidth="152.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE" />
          </children></Pane>
       <Pane id="menuPane" prefHeight="75.0" prefWidth="1400.0">
          <children>
@@ -128,7 +133,7 @@
                   <Font name="Helvetica-Normal" size="16.0" />
                </font>
             </JFXButton>
-            <JFXButton id="button" fx:id="gotoLogin" layoutX="1034.0" layoutY="19.0" prefHeight="38.0" prefWidth="125.0" stylesheets="@application.css" text="LOGIN" textFill="WHITE">
+            <JFXButton id="button" fx:id="gotoLogin" layoutX="1034.0" layoutY="19.0" onAction="#goToLogin" prefHeight="38.0" prefWidth="125.0" stylesheets="@application.css" text="LOGIN" textFill="WHITE">
                <font>
                   <Font name="Helvetica-Normal" size="16.0" />
                </font>
