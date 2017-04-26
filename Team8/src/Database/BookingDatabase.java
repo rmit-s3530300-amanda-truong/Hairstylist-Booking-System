@@ -62,7 +62,6 @@ public class BookingDatabase {
 				{
 					stmt = conn.createStatement();
 					String sql = "CREATE TABLE IF NOT EXISTS BOOKING ("
-							+ "bookingID text NOT NULL,"
 							+ "custUsername text NOT NULL	,"
 							+ "service text NOT NULL		,"
 							+ "employeeID text NOT NULL		,"
@@ -83,7 +82,7 @@ public class BookingDatabase {
 	}
 	
 	// add booking to a record
-	public void addBooking(String bookingID, String custUsername, String service, String employeeID, String date, String time, String status)
+	public void addBooking(String custUsername, String service, String employeeID, String date, String time, String status)
 	{		
 		try
 		{
@@ -91,14 +90,13 @@ public class BookingDatabase {
 			{
 				getConnection();
 			}
-			prep = conn.prepareStatement("INSERT INTO BOOKING values(?,?,?,?,?,?);");
-			prep.setString(1, bookingID);
-			prep.setString(2, custUsername);
-			prep.setString(3, service);
-			prep.setString(4, employeeID);
-			prep.setString(5, date);
-			prep.setString(6, time);
-			prep.setString(7, status);
+			prep = conn.prepareStatement("INSERT INTO BOOKING values(?,?,?,?,?);");
+			prep.setString(1, custUsername);
+			prep.setString(2, service);
+			prep.setString(3, employeeID);
+			prep.setString(4, date);
+			prep.setString(5, time);
+			prep.setString(6, status);
 			prep.execute();
 			prep.close();
 			conn.close();
@@ -123,15 +121,15 @@ public class BookingDatabase {
 			result = stmt.executeQuery("SELECT * FROM BOOKING");
 			while (result.next())
 			{
+				//2017-01-16/10:00 is the format for bookingID
 				ArrayList<String> info = new ArrayList<String>();
-				String bookingID = result.getString("bookingID");
 				String customerUsername = result.getString("customerUsername");
 				String employeeID = result.getString("employeeID");
 				String service = result.getString("service");
 				String date = result.getString("date");
 				String time = result.getString("time");
 				String status = result.getString("status");
-				String key = customerUsername + ":" + bookingID;
+				String key = customerUsername + ":" + date + ":" + time;
 /*				String startTimeStr = result.getString("startTime");
 				String endTimeStr = result.getString("endTime");*/
 				info.add(employeeID);
@@ -172,10 +170,6 @@ public class BookingDatabase {
 			{
 				colName = "customerUsername";
 			}
-			else if(col.equals("bookingID"))
-			{
-				colName = "bookingID";
-			}
 			else if(col.equals("service"))
 			{
 				colName = "service";
@@ -214,4 +208,6 @@ public class BookingDatabase {
 		}
 		return checkExists;
 	}
+	
+	//add test booking into database
 }
