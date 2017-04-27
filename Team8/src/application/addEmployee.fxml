@@ -28,79 +28,79 @@
       </Pane>
       <Pane id="content_addEmp" layoutY="74.0" prefHeight="714.0" prefWidth="1400.0">
          <children>
-            <Rectangle arcHeight="40.0" arcWidth="40.0" height="625.0" layoutX="346.0" layoutY="71.0" opacity="0.6" stroke="BLACK" strokeType="INSIDE" width="721.0" />
-            <Label layoutX="400.0" layoutY="174.0" text="FIRST NAME" textFill="WHITE">
+            <Rectangle arcHeight="40.0" arcWidth="40.0" height="566.0" layoutX="346.0" layoutY="94.0" opacity="0.6" stroke="BLACK" strokeType="INSIDE" width="720.0" />
+            <Label layoutX="400.0" layoutY="233.0" text="FIRST NAME" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="404.0" layoutY="111.0" text="USERNAME" textFill="#a9a3a3">
+            <Label layoutX="404.0" layoutY="170.0" text="USERNAME" textFill="#a9a3a3">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="768.0" layoutY="170.0" text="LAST NAME" textFill="WHITE">
+            <Label layoutX="768.0" layoutY="229.0" text="LAST NAME" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="402.0" layoutY="261.0" text="MOBILE" textFill="WHITE">
+            <Label layoutX="402.0" layoutY="320.0" text="MOBILE" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="770.0" layoutY="261.0" text="ADDRESS LINE " textFill="WHITE">
+            <Label layoutX="770.0" layoutY="320.0" text="ADDRESS LINE " textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="404.0" layoutY="379.0" text="SUBURB" textFill="WHITE">
+            <Label layoutX="404.0" layoutY="438.0" text="SUBURB" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="628.0" layoutY="379.0" text="POST CODE" textFill="WHITE">
+            <Label layoutX="628.0" layoutY="438.0" text="POST CODE" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="858.0" layoutY="378.0" text="STATE" textFill="WHITE">
+            <Label layoutX="858.0" layoutY="437.0" text="STATE" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="re_fname" focusColor="#aa9144" layoutX="402.0" layoutY="194.0" prefHeight="38.0" prefWidth="198.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
+            <JFXTextField fx:id="re_fname" focusColor="#aa9144" layoutX="402.0" layoutY="253.0" prefHeight="38.0" prefWidth="198.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </JFXTextField>
-            <JFXTextField fx:id="re_lname" focusColor="#aa9144" layoutX="769.0" layoutY="194.0" prefHeight="38.0" prefWidth="195.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
+            <JFXTextField fx:id="re_lname" focusColor="#aa9144" layoutX="769.0" layoutY="253.0" prefHeight="38.0" prefWidth="195.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </JFXTextField>
-            <JFXTextField fx:id="re_mobile" focusColor="#aa9144" layoutX="402.0" layoutY="285.0" prefHeight="38.0" prefWidth="202.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
+            <JFXTextField fx:id="re_mobile" focusColor="#aa9144" layoutX="402.0" layoutY="344.0" prefHeight="38.0" prefWidth="202.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </JFXTextField>
-            <JFXTextField fx:id="re_address" focusColor="#aa9144" layoutX="769.0" layoutY="285.0" prefHeight="38.0" prefWidth="256.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
+            <JFXTextField fx:id="re_address" focusColor="#aa9144" layoutX="769.0" layoutY="344.0" prefHeight="38.0" prefWidth="256.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </JFXTextField>
-            <JFXTextField fx:id="re_suburb" focusColor="#aa9144" layoutX="402.0" layoutY="402.0" prefHeight="38.0" prefWidth="145.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
+            <JFXTextField fx:id="re_suburb" focusColor="#aa9144" layoutX="402.0" layoutY="461.0" prefHeight="38.0" prefWidth="145.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </JFXTextField>
-            <JFXTextField fx:id="re_postcode" focusColor="#aa9144" layoutX="626.0" layoutY="402.0" prefHeight="38.0" prefWidth="145.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
+            <JFXTextField fx:id="re_postcode" focusColor="#aa9144" layoutX="626.0" layoutY="461.0" prefHeight="38.0" prefWidth="145.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </JFXTextField>
-            <JFXComboBox fx:id="re_state" focusColor="#aa9144" layoutX="855.0" layoutY="403.0" prefHeight="37.0" prefWidth="146.0" unFocusColor="WHITE" />
-            <JFXButton id="button" fx:id="addEmployee" layoutX="588.0" layoutY="623.0" onAction="#addEmp" prefHeight="54.0" prefWidth="258.0" style="-fx-background-radius: 60;" stylesheets="@application.css" text="ADD EMPLOYEE" textFill="WHITE">
+            <JFXComboBox fx:id="re_state" focusColor="#aa9144" layoutX="855.0" layoutY="462.0" prefHeight="37.0" prefWidth="146.0" unFocusColor="WHITE" />
+            <JFXButton id="button" fx:id="addEmployee" layoutX="588.0" layoutY="580.0" onAction="#addEmp" prefHeight="54.0" prefWidth="258.0" style="-fx-background-radius: 60;" stylesheets="@application.css" text="ADD EMPLOYEE" textFill="WHITE">
                <font>
                   <Font name="Lato Black" size="18.0" />
                </font>
@@ -110,7 +110,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label layoutX="559.0" layoutY="11.0" text="ADD NEW EMPLOYEE" textFill="WHITE">
+            <Label layoutX="523.0" layoutY="41.0" text="ADD NEW EMPLOYEE" textFill="WHITE">
                <font>
                   <Font name="Lato Black" size="33.0" />
                </font>
