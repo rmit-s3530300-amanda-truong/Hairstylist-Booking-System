@@ -20,6 +20,7 @@ public class Calendar {
 	
 	private LocalDate currentDate;
 	private LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>> calendar;
+	// bookingList, String is the ID of the booking
 	private LinkedHashMap<String, Booking> bookingList;
 	
 	public Calendar(LocalDate date) {
@@ -28,13 +29,14 @@ public class Calendar {
 		calendar = new LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>>();
 		
 		// Constructing calendar with a previous week of unavailable time slots
-		LinkedHashMap<LocalTime, Booking> nested_info = new LinkedHashMap<LocalTime, Booking>();
 		LocalDate lastWeekDate = date.minusDays(7);
+		
 		for(int x = 0;x<7;x++){
-			for(int i = 8; i<17 ;i++) {
+			LinkedHashMap<LocalTime, Booking> nested_info = new LinkedHashMap<LocalTime, Booking>();
+			for(int i = 8; i<16 ;i++) {
 				LocalTime localtime = LocalTime.of(i, 00);
 				for(int y = 0 ; y<4 ;y++){
-					String id = date.toString()+"/"+localtime.toString();
+					String id = lastWeekDate.toString()+"/"+localtime.toString();
 					nested_info.put(localtime, new Booking(id));
 					localtime = localtime.plusMinutes(15);
 				}
@@ -42,9 +44,11 @@ public class Calendar {
 			}
 			lastWeekDate = lastWeekDate.plusDays(1);
 		}
+		
 		// Constructing calendar with 2 weeks of unavailable time slots
 		for(int x = 0;x<14;x++){
-			for(int i = 8; i<17 ;i++) {
+			LinkedHashMap<LocalTime, Booking> nested_info = new LinkedHashMap<LocalTime, Booking>();
+			for(int i = 8; i<16 ;i++) {
 				LocalTime localtime = LocalTime.of(i, 00);
 				for(int y = 0 ; y<4 ;y++){
 					String id = date.toString()+"/"+localtime.toString();
@@ -78,20 +82,13 @@ public class Calendar {
 			}
 		}
 		for(Entry<String,Booking> entry : list.entrySet()) {
-			String service_string="";
 			Booking book = entry.getValue();
-			LocalTime time = book.getTime();
-			HashMap<Service,String> services = book.getServices();
-			int time_block=0;
-			for(Entry<Service,String> x : services.entrySet()) {
-				service_string = service_string + x.getKey() + "|" + x.getValue() + ", ";
-				time_block+=x.getKey().getTime();
-			}
-			for(int i=0; i<time_block;i++) {
-				time = time.plusMinutes(15);
-			}
+			LocalTime start_time = book.getStartTime();
+			LocalTime end_time = book.getEndTime();
+			Service service = book.getServices();
+			String emp_id = book.getEmployee().getID();
 			
-			output = output + String.format("ID: %s, Status: %s, Date: %s, Start Time: %s, End Time: %s, Customer: %s, Service|Employee: %s \n",book.getID(), book.getStatus().toString(), book.getDate(), book.getTime(), time.toString(), book.getCustomerID(), service_string);
+			output = output + String.format("Booking ID: %s, Status: %s, Date: %s, Start Time: %s, End Time: %s, Customer: %s, Service: %s, Employee: %s \n",book.getID(), book.getStatus().toString(), book.getDate(), start_time, end_time, book.getCustomerID(), service, emp_id);
 		}
 		return output;
 	}
@@ -102,7 +99,6 @@ public class Calendar {
 			HashMap<DayOfWeek, ArrayList<LocalTime>> availability = emp.getAvailability();
 			LocalDate date = currentDate;
 			DayOfWeek day = currentDate.getDayOfWeek();
-			int counter=0;
 			for(int i = 0; i <14; i++) {
 				if(availability.containsKey(day)) {
 					ArrayList<LocalTime> available_times = availability.get(day);
@@ -145,18 +141,34 @@ public class Calendar {
 		return calendar;
 	}
 	
-	// TODO: Needs Testing
 	// returns false when cannot book
-	public Boolean requestBooking(LocalDate date, LocalTime time) {
-		Booking book = calendar.get(date).get(time);
-		if(book.getStatus() == Status.free ) {
-			book.setStatus(Status.pending);
-			calendar.get(date).put(time, book);
-			bookingList.put(book.getID(),book);
+	public Boolean requestBooking(LocalDate date, LocalTime start_time, LocalTime end_time, Employee emp, Service service, String customer_id) {
+		Boolean isBooked = false;
+		ArrayList<Booking> booking_list = new ArrayList<Booking>();
+		ArrayList<LocalTime> times_list = new ArrayList<LocalTime>();
+		LocalTime current_time = start_time;
+		
+		//collecting the times and date
+		while(!current_time.equals(end_time.plusMinutes(15))) {
+			Booking book = calendar.get(date).get(current_time);
+			booking_list.add(book);
+			times_list.add(current_time);
+			if(book.getStatus() == Status.unavailable || book.getStatus() == Status.booked) {
+				isBooked = true;
+			}
+			current_time = current_time.plusMinutes(15);
+		}
+		
+		if(!isBooked) {
+			for(int i=0; i < booking_list.size(); i++) {
+				Booking book = booking_list.get(i);
+				book.addDetails(date, start_time, end_time, service, emp, customer_id);
+				calendar.get(date).put(times_list.get(i), book);
+				bookingList.put(book.getID(),book);
+			}
 			return true;
 		}
 		return false;
-		
 	}
 	
 	public Boolean acceptBooking(String bookingID) {
@@ -164,12 +176,29 @@ public class Calendar {
 		if(book != null) {
 			Status status = book.getStatus();
 			if(status == Calendar.Status.pending){
-				book.setStatus(Calendar.Status.booked);
-				return true;
+				LocalDate date = book.getDate();
+				LocalTime start_time = book.getStartTime();
+				LocalTime end_time = book.getEndTime();
+				Employee emp = book.getEmployee();
+				// can only accept booking if employee is free at the times given
+				if(emp.isFree(date, start_time, end_time)) {
+					book.getEmployee().addBooking(date, start_time, end_time);
+					addBookingToCalendar(date, start_time, end_time);
+					return true;	
+				}
 			}
-			return false;
-		} else {
-			return false;
+		}
+		return false;
+	}
+	
+	public void addBookingToCalendar(LocalDate date, LocalTime start_time, LocalTime end_time) {
+		LocalTime current_time = start_time;
+		while(!current_time.equals(end_time.plusMinutes(15))) {
+			Booking book = calendar.get(date).get(current_time);
+			book.setStatus(Status.booked);
+			calendar.get(date).put(current_time, book);
+			bookingList.put(book.getID(),book);
+			current_time = current_time.plusMinutes(15);
 		}
 	}
 	
@@ -239,20 +268,13 @@ public class Calendar {
 			}
 		}
 		for(Entry<String,Booking> entry : list.entrySet()) {
-			String service_string="";
 			Booking book = entry.getValue();
-			LocalTime time = book.getTime();
-			HashMap<Service,String> services = book.getServices();
-			int time_block=0;
-			for(Entry<Service,String> x : services.entrySet()) {
-				service_string = service_string + x.getKey() + "|" + x.getValue() + ", ";
-				time_block+=x.getKey().getTime();
-			}
-			for(int i=0; i<time_block;i++) {
-				time = time.plusMinutes(15);
-			}
+			LocalTime start_time = book.getStartTime();
+			LocalTime end_time = book.getEndTime();
+			Service service = book.getServices();
+			String emp_id = book.getEmployee().getID();
 			
-			output = output + String.format("ID: %s, Status: %s, Date: %s, Start Time: %s, End Time: %s, Customer: %s, Service|Employee: %s \n",book.getID(), book.getStatus().toString(), book.getDate(), book.getTime(), time.toString(), book.getCustomerID(), service_string);
+			output = output + String.format("Booking ID: %s, Status: %s, Date: %s, Start Time: %s, End Time: %s, Customer: %s, Service: %s, Employee: %s \n",book.getID(), book.getStatus().toString(), book.getDate(), start_time, end_time, book.getCustomerID(), service, emp_id);
 		}
 		return output;
 	}

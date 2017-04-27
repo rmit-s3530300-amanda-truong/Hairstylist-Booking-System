@@ -1,17 +1,18 @@
 package Calendar;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.HashMap;
 
+import Business.Employee;
 import Business.Employee.Service;
 
 public class Booking {
 	// Booking ID is the date and time concatenated
 	private String ID;
-	// String is the ID of the employee which will be performing the service
-	private HashMap<Service, String> services;
+	private Employee emp;
+	private Service service;
 	private LocalDate bookingDate;
-	private LocalTime bookingTime;
+	private LocalTime start_time;
+	private LocalTime end_time;
 	private Calendar.Status status;
 	private String customerID;
 	
@@ -25,10 +26,12 @@ public class Booking {
 		this.ID = id;
 	}
 	
-	public void addDetails(HashMap<Service, String> service, LocalDate bookingDate, LocalTime bookingTime, String customerID) {
-		this.services = service;
+	public void addDetails(LocalDate bookingDate, LocalTime start_time, LocalTime end_time, Service service, Employee emp, String customerID) {
+		this.service = service;
+		this.emp = emp;
 		this.bookingDate = bookingDate;
-		this.bookingTime = bookingTime;
+		this.start_time = start_time;
+		this.end_time = end_time;
 		this.customerID = customerID;
 		this.status = Calendar.Status.pending;
 	}
@@ -37,8 +40,12 @@ public class Booking {
 		return bookingDate;
 	}
 	
-	public LocalTime getTime() {
-		return bookingTime;
+	public LocalTime getStartTime() {
+		return start_time;
+	}
+	
+	public LocalTime getEndTime() {
+		return end_time;
 	}
 	
 	public Calendar.Status getStatus() {
@@ -53,8 +60,12 @@ public class Booking {
 		return customerID;
 	}
 	
-	public HashMap<Service, String> getServices() {
-		return services;
+	public Service getServices() {
+		return service;
+	}
+	
+	public Employee getEmployee() {
+		return emp;
 	}
 	
 	public String getID() {

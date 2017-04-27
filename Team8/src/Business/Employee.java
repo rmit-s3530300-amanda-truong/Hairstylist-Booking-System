@@ -10,6 +10,7 @@ public class Employee {
 	private String firstName;
 	private String lastName;
 	private HashMap<DayOfWeek, ArrayList<LocalTime>> availability;
+	private HashMap<LocalDate, ArrayList<LocalTime>> bookings;
 	private ArrayList<Service> serviceType;
 	
 	// 1 block equals to 15 minutes so 2 blocks is 30minutes etc
@@ -42,6 +43,7 @@ public class Employee {
 		this.serviceType = (ArrayList<Service>) serviceType.clone(); 
 		// availability = new HashMap<LocalDate, ArrayList<LocalTime>>();
 		availability = new HashMap<DayOfWeek, ArrayList<LocalTime>>();
+		bookings =  new HashMap<LocalDate, ArrayList<LocalTime>>();
 	}
 	
 	public ArrayList<Service> getService() {
@@ -56,6 +58,34 @@ public class Employee {
 			time = time.plusMinutes(15);
 		}
 		availability.put(day,times);
+	}
+	
+	public void addBooking(LocalDate date, LocalTime start_time, LocalTime end_time) {
+		ArrayList<LocalTime> times = new ArrayList<LocalTime>();
+		LocalTime current_time = start_time;
+		while(!current_time.equals(end_time.plusMinutes(15))) {
+			times.add(current_time);
+			current_time = current_time.plusMinutes(15); 
+		}
+		bookings.put(date, times);
+	}
+	
+	public Boolean isFree(LocalDate date, LocalTime start_time, LocalTime end_time) {
+		ArrayList<LocalTime> times = bookings.get(date);
+		LocalTime current_time;
+		if(times != null) {
+			current_time = times.get(0);
+		} else {
+			return true;
+		}
+		
+		while(!current_time.equals(end_time)) {
+			if(times.contains(current_time)) {
+				return false;
+			}
+			current_time = current_time.plusMinutes(15);
+		}
+		return true;
 	}
 	
 	public HashMap<DayOfWeek,ArrayList<LocalTime>> getAvailability() {
