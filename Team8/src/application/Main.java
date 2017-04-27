@@ -2,14 +2,15 @@ package application;
 	
 import Business.Company;
 import Database.AvailabilityDatabase;
+import Database.BookingDatabase;
 import Database.CompanyDatabase;
 import Database.CustomerDatabase;
 import Menu.Menu;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 public class Main extends Application {
 	private Menu menu;
@@ -18,8 +19,9 @@ public class Main extends Application {
 		CustomerDatabase customerDb = new CustomerDatabase();
 		CompanyDatabase companyDb = new CompanyDatabase();
 		AvailabilityDatabase availDb = new AvailabilityDatabase();
+		BookingDatabase bookingDb = new BookingDatabase();
 		Company comp = new Company();
-		comp.retrieveDatabaseInfo(customerDb, companyDb,availDb);
+		comp.retrieveDatabaseInfo(customerDb, companyDb, availDb, bookingDb);
 		comp.getCalendar().updateCalendar(comp.getEmployeeList());
 		menu = new Menu(comp, customerDb, companyDb, availDb);
 		

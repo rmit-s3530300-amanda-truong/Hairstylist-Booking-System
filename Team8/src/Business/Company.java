@@ -7,8 +7,11 @@ import java.util.*;
 import java.util.Map.Entry;
 
 import Business.Employee.Service;
+import Calendar.Booking;
 import Calendar.Calendar;
+import Calendar.Calendar.Status;
 import Database.AvailabilityDatabase;
+import Database.BookingDatabase;
 import Database.CompanyDatabase;
 import Database.CustomerDatabase;
 
@@ -52,16 +55,19 @@ public class Company {
 		return output;
 	}
 	
-	public void retrieveDatabaseInfo(CustomerDatabase customerDb, CompanyDatabase companyDb, AvailabilityDatabase availDb) {
+	public void retrieveDatabaseInfo(CustomerDatabase customerDb, CompanyDatabase companyDb, AvailabilityDatabase availDb, BookingDatabase bookingDb) {
 		HashMap<String, HashMap<String,String>> empValues;
 		HashMap<String, HashMap<String,String>> custValues;
 		HashMap<String, ArrayList<String>> availValues;
+		HashMap<String, ArrayList<String>> bookValues;
 		empValues = companyDb.storeEmpValues();
 		setEmployeeList(empValues);
 		custValues = customerDb.storeCustomerValues();
 		setCustList(custValues);
 		availValues = availDb.storeAvailValues();
 		setAvailList(availValues);
+		bookValues = bookingDb.storeBookingValues();
+		setBookingList(bookValues);
 	}
 	
 	public HashMap<DayOfWeek, ArrayList<LocalTime>> setAvailList(HashMap<String, ArrayList<String>> list)
@@ -85,14 +91,15 @@ public class Company {
 			
 			String[] startTimeList = startTimeStr.split(":");
 			String[] endTimeList = endTimeStr.split(":");
-			int dayInt = Integer.parseInt(dayStr);
+			DayOfWeek day = DayOfWeek.valueOf(dayStr.toUpperCase());
+			// int dayInt = day.getValue();
 			int startHourInt = Integer.parseInt(startTimeList[0]);
 			int startMinInt = Integer.parseInt(startTimeList[1]);
 			int endHourInt = Integer.parseInt(endTimeList[0]);
 			int endMinInt = Integer.parseInt(endTimeList[1]);
 			LocalTime startTime = LocalTime.of(startHourInt, startMinInt);
 			LocalTime endTime = LocalTime.of(endHourInt, endMinInt);
-			DayOfWeek day = DayOfWeek.of(dayInt);
+			// DayOfWeek day = DayOfWeek.of(dayInt);
 			Employee emp = getEmployee(employeeID);
 			emp.addAvailability(day,startTime,endTime);
 			timeMap = emp.getAvailability();
@@ -109,6 +116,39 @@ public class Company {
 			String gender = x.getValue().get("gender");
 			custList.put(username, new Customer(username,fname,lname, gender));
 		}
+		this.custList = custList;
+	}
+	
+	public ArrayList<Booking> setBookingList(HashMap<String, ArrayList<String>> map){
+		ArrayList<Booking> bookList = new ArrayList<Booking>();
+		HashMap<String, ArrayList<String>> storedBooking = map;
+		String bookingID;
+		String customerUsername;
+		String employeeID;
+		String serviceStr;
+		Service service;
+		String date;
+		String time;
+		Status status = null;
+		for(Entry<String, ArrayList<String>> x : storedBooking.entrySet()){
+			ArrayList<String> infoList = x.getValue();
+			bookingID = x.getKey();
+			customerUsername = infoList.get(0);
+			date = infoList.get(1);
+			time = infoList.get(2);
+			employeeID = infoList.get(3);
+			serviceStr = infoList.get(4);
+			status = getStatus(serviceStr);
+			service = getService(serviceStr);
+			String[] timeList = time.split("-");
+			String startTime = timeList[0];
+			String endTime = timeList[1];
+			Booking booking = new Booking(status, bookingID);
+			Employee emp = getEmployee(employeeID);
+			booking.addDetails(LocalDate.parse(date), LocalTime.parse(startTime), LocalTime.parse(endTime), service, emp, customerUsername);
+			bookList.add(booking);
+		}
+		return bookList;
 	}
 	
 	public void addEmployee(Employee employee) {
@@ -182,5 +222,30 @@ public class Company {
 		} else {
 			return null;
 		}
+	}
+	
+	public Status getStatus(String s)
+	{
+		if(s.equals(Status.pending.toString()))
+		{
+			return Status.pending;
+		}
+		else if(s.equals(Status.booked.toString()))
+		{
+			 return Status.booked;
+		}
+		else if(s.equals(Status.free.toString()))
+		{
+			return Status.free;
+		}
+		else if(s.equals(Status.unavailable.toString()))
+		{
+			return Status.unavailable;
+		}
+		else
+		{
+			return null;
+		}
+			
 	}
 }
