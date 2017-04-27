@@ -21,10 +21,10 @@ public class Calendar {
 	private LocalDate currentDate;
 	private LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>> calendar;
 	// bookingList, String is the ID of the booking
-	private LinkedHashMap<String, Booking> bookingList;
+	private ArrayList<Booking> bookingList;
 	
 	public Calendar(LocalDate date) {
-		bookingList = new LinkedHashMap<String, Booking>();
+		bookingList = new ArrayList<Booking>();
 		currentDate = date;
 		calendar = new LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>>();
 		
@@ -65,7 +65,7 @@ public class Calendar {
 			for(Entry<LocalTime, Booking> y : x.getValue().entrySet()) {
 				Booking book = y.getValue();
 				if(book.getStatus() == Status.pending || book.getStatus() == Status.booked) {
-					bookingList.put(book.getCustomerID(), book);
+					bookingList.add(book);
 				}
 			}
 		}
@@ -149,12 +149,19 @@ public class Calendar {
 		LocalTime current_time = start_time;
 		
 		//collecting the times and date
-		while(!current_time.equals(end_time.plusMinutes(15))) {
+		while(!current_time.equals(end_time)) {
 			Booking book = calendar.get(date).get(current_time);
 			booking_list.add(book);
 			times_list.add(current_time);
 			if(book.getStatus() == Status.unavailable || book.getStatus() == Status.booked) {
 				isBooked = true;
+			}
+			//Check if the same customer placed pending if they did reject the request
+			else if(book.getStatus() == Status.pending) {
+				String existing_cust_id = book.getCustomerID();
+				if(existing_cust_id.equals(customer_id)) {
+					return false;
+				}
 			}
 			current_time = current_time.plusMinutes(15);
 		}
@@ -164,7 +171,7 @@ public class Calendar {
 				Booking book = booking_list.get(i);
 				book.addDetails(date, start_time, end_time, service, emp, customer_id);
 				calendar.get(date).put(times_list.get(i), book);
-				bookingList.put(book.getID(),book);
+				bookingList.add(book);
 			}
 			return true;
 		}
@@ -193,11 +200,11 @@ public class Calendar {
 	
 	public void addBookingToCalendar(LocalDate date, LocalTime start_time, LocalTime end_time) {
 		LocalTime current_time = start_time;
-		while(!current_time.equals(end_time.plusMinutes(15))) {
+		while(!current_time.equals(end_time)) {
 			Booking book = calendar.get(date).get(current_time);
 			book.setStatus(Status.booked);
 			calendar.get(date).put(current_time, book);
-			bookingList.put(book.getID(),book);
+			bookingList.add(book);
 			current_time = current_time.plusMinutes(15);
 		}
 	}
@@ -240,35 +247,44 @@ public class Calendar {
 		return futureInfo;
 	}
 	
-	public HashMap<String, Booking> getPendingBooking() {
+	public ArrayList<Booking> getPendingBooking() {
+		Collections.sort(bookingList, new Comparator<Booking>() {
+			@Override
+			public int compare(Booking arg0, Booking arg1) {
+				return arg0.getID().compareTo(arg1.getID());
+			}
+		});
 		return bookingList;
 	}
 	
 	public Booking getBooking(String ID) {
-		if(bookingList.containsKey(ID)) {
-			return bookingList.get(ID);
-		} else {
-			return null;
+		for(Booking booking : bookingList) {
+			if(booking.getID().equals(ID)) {
+				return booking;
+			}
 		}
+		return null;
 	}
 	
 	public Boolean containsBooking(String ID) {
-		return bookingList.containsKey(ID);
+		for(Booking booking : bookingList) {
+			if(booking.getID().equals(ID)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public String getBookingPendingString() {
-		HashMap<String, Booking> list = new HashMap<String, Booking>();
+		ArrayList<Booking> list = new ArrayList<Booking>();
 		String output = "";
-		for(Entry<LocalDate, LinkedHashMap<LocalTime, Booking>> x : calendar.entrySet()) {
-			for(Entry<LocalTime, Booking> y : x.getValue().entrySet()) {
-				Booking book = y.getValue();
-				if(book.getStatus() == Status.pending) {
-					list.put(book.getCustomerID(), book);
-				}
+		for(Booking book : bookingList) {
+			if(book.getStatus() == Status.pending) {
+				list.add(book);
 			}
 		}
-		for(Entry<String,Booking> entry : list.entrySet()) {
-			Booking book = entry.getValue();
+		
+		for(Booking book : list) {
 			LocalTime start_time = book.getStartTime();
 			LocalTime end_time = book.getEndTime();
 			Service service = book.getServices();
