@@ -18,6 +18,7 @@ public class AvailabilityDatabase {
 	
 	public AvailabilityDatabase() {
 		this.initialise();
+		this.addTest();
 	}
 	
 	//get initial connection and create the table
@@ -189,7 +190,7 @@ public class AvailabilityDatabase {
 			}
 			return checkExists;
 		}
-	
+		
 	//delete records if availability exists for employee already
 	public void deleteAvail(String id, String day)
 	{
@@ -204,6 +205,49 @@ public class AvailabilityDatabase {
 					"' AND day = '" + day + "'";
 			stmt.execute(sql);
 			stmt.close();
+			conn.close();
+		}
+		catch(Exception e)
+		{
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+	}
+	
+	public void addTest()
+	{
+		try
+		{
+			//making sure no duplicates are added when program restarts
+			if((!checkValueExists("employeeID","e1") && !checkValueExists("day","Monday")) || (!checkValueExists("employeeID","e1")
+					&& !checkValueExists("day","Tuesday")) || (!checkValueExists("employeeID","e2") && !checkValueExists("day","Wednesday")))
+			{
+				if(conn.isClosed())
+				{
+					getConnection();
+				}
+				prep = conn.prepareStatement("INSERT INTO AVAILABILITY values(?,?,?,?);");
+				prep.setString(1,"e1");
+				prep.setString(2,"Monday");
+				prep.setString(3,"08:15");
+				prep.setString(4,"10:15");
+				prep.execute();
+				prep.close();
+				PreparedStatement prep2 = conn.prepareStatement("INSERT INTO AVAILABILITY values(?,?,?,?);");
+				prep2.setString(1,"e1");
+				prep2.setString(2,"Tuesday");
+				prep2.setString(3,"09:15");
+				prep2.setString(4,"12:15");
+				prep2.execute();
+				prep2.close();
+				PreparedStatement prep3 = conn.prepareStatement("INSERT INTO AVAILABILITY values(?,?,?,?);");
+				prep3.setString(1,"e2");
+				prep3.setString(2,"Wednesday");
+				prep3.setString(3,"13:00");
+				prep3.setString(4,"15:00");
+				prep3.execute();
+				prep3.close();
+			}
 			conn.close();
 		}
 		catch(Exception e)

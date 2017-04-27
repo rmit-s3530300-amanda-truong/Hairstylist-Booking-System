@@ -77,16 +77,16 @@ public class AvailabilityDatabaseTest {
 		Boolean expected = true;
 		Boolean actual = false;
 		String employeeID = "e1";
-		String date = "2017-04-12";
-		String startTime = "12:00";
-		String endTime = "15:00";
-		availDb.addAvailabilityInfo(employeeID, date, startTime, endTime);
+		String day = "Thursday";
+		String startTime = "14:00";
+		String endTime = "16:00";
+		availDb.addAvailabilityInfo(employeeID, day, startTime, endTime);
 		
 		actual = availDb.checkValueExists("employeeID", employeeID);
 		assertEquals(expected,actual);
 		actual = false;
 		
-		actual = availDb.checkValueExists("date", date);
+		actual = availDb.checkValueExists("day", day);
 		assertEquals(expected,actual);
 		actual = false;
 		
@@ -100,17 +100,17 @@ public class AvailabilityDatabaseTest {
 	}
 	
 	@Test
-	public void testdeleteAvailability()
+	public void testdeleteAvailability() throws SQLException
 	{
 		Boolean expected = false;
 		Boolean actual = true;
 		String employeeID = "e1";
-		String date = "2017-04-12";
+		String day = "Thursday";
 		String startTime = "12:00";
 		String endTime = "15:00";
-		availDb.addAvailabilityInfo(employeeID, date, startTime, endTime);
-		availDb.deleteAvail(employeeID, date);
-		actual = availDb.checkValueExists("employeeID", employeeID);
+		availDb.addAvailabilityInfo(employeeID, day, startTime, endTime);
+		availDb.deleteAvail(employeeID, day);
+		actual = availDb.checkValueExists(day, "Thursday");
 		assertEquals(expected,actual);
 	}
 	
@@ -121,30 +121,30 @@ public class AvailabilityDatabaseTest {
 		Boolean actual2 = false;
 		Boolean expected = true;
 		String employeeID = "e1";
-		String date = "2017-04-12";
+		String day = "Thursday";
 		String startTime = "12:00";
 		String endTime = "15:00";
-		availDb.addAvailabilityInfo(employeeID, date, startTime, endTime);
+		availDb.addAvailabilityInfo(employeeID, day, startTime, endTime);
 		HashMap<String, ArrayList<String>> expectedMap = new HashMap<String,ArrayList<String>>();
 		ArrayList<String> list = new ArrayList<String>();
-		list.add(date);
+		list.add(day);
 		list.add(startTime);
 		list.add(endTime);
-		String key = employeeID + ":" + date;
+		String key = employeeID + ":" + day;
 		expectedMap.put(key, list);
 		
 		HashMap<String, ArrayList<String>> actualMap = new HashMap<String,ArrayList<String>>();
 		actualMap = availDb.storeAvailValues();
 		
-		for (String keyCheck : expectedMap.keySet())
+		for (String keyCheck : actualMap.keySet())
         {
-            if (actualMap.containsKey(keyCheck)) {
+            if (expectedMap.containsKey(keyCheck)) {
                 actual = true;
             }
         } 
-		for (String valCheck : actualMap.keySet())
+		for (String valCheck : expectedMap.keySet())
         {
-            if (expectedMap.get(valCheck).equals(actualMap.get(valCheck))) {
+            if (actualMap.get(valCheck).equals(expectedMap.get(valCheck))) {
                 actual2 = true;
             }
         } 
@@ -156,10 +156,10 @@ public class AvailabilityDatabaseTest {
 	public void testcheckValueExists()
 	{
 		String employeeID = "e1";
-		String date = "2017-04-12";
+		String day = "Monday";
 		String startTime = "12:00";
 		String endTime = "15:00";
-		availDb.addAvailabilityInfo(employeeID, date, startTime, endTime);
+		availDb.addAvailabilityInfo(employeeID, day, startTime, endTime);
 		
 		Boolean actual = false;
 		Boolean expected = true;
@@ -173,10 +173,10 @@ public class AvailabilityDatabaseTest {
 	public void testcheckValueExists2()
 	{
 		String employeeID = "e1";
-		String date = "2017-04-12";
+		String day = "Monday";
 		String startTime = "12:00";
 		String endTime = "15:00";
-		availDb.addAvailabilityInfo(employeeID, date, startTime, endTime);
+		availDb.addAvailabilityInfo(employeeID, day, startTime, endTime);
 		
 		Boolean actual = true;
 		Boolean expected = false;
@@ -190,15 +190,15 @@ public class AvailabilityDatabaseTest {
 	public void testcheckValueExists3()
 	{
 		String employeeID = "e1";
-		String date = "2017-04-12";
+		String day = "Monday";
 		String startTime = "12:00";
 		String endTime = "15:00";
-		availDb.addAvailabilityInfo(employeeID, date, startTime, endTime);
+		availDb.addAvailabilityInfo(employeeID, day, startTime, endTime);
 		
 		Boolean actual = false;
 		Boolean expected = true;
-		String col = "date";
-		String value = "2017-04-12";
+		String col = "day";
+		String value = "Monday";
 		actual = availDb.checkValueExists(col, value);
 		assertEquals(expected,actual);
 		
@@ -215,6 +215,49 @@ public class AvailabilityDatabaseTest {
 		String value3= "15:00";
 		actual = availDb.checkValueExists(col3, value3);
 		assertEquals(expected,actual);
+	}
+	
+	@Test
+	public void testAddTest()	
+	{
+		Boolean actual = false;
+		Boolean actual2 = false;
+		Boolean actual3 = false;
+		Boolean expected = true;
+		availDb.addTest();	
+		actual = availDb.checkValueExists("employeeID", "e1");
+		actual2 = availDb.checkValueExists("employeeID", "e2");
+		assertEquals(expected,actual);
+		assertEquals(expected,actual2);
+		actual = false;
+		actual2 = false;
+		
+		actual = availDb.checkValueExists("day","Monday");
+		actual2 = availDb.checkValueExists("day","Tuesday");
+		actual3 = availDb.checkValueExists("day","Wednesday");
+		assertEquals(expected,actual);
+		assertEquals(expected,actual2);
+		assertEquals(expected,actual3);
+		actual = false;
+		actual2 = false;
+		actual3 = false;
+		
+		actual = availDb.checkValueExists("startTime","08:15");
+		actual2 = availDb.checkValueExists("startTime","09:15");		
+		actual3 = availDb.checkValueExists("startTime","13:00");		
+		assertEquals(expected,actual);
+		assertEquals(expected,actual2);
+		assertEquals(expected,actual3);
+		actual = false;
+		actual2 = false;
+		actual3 = false;
+		
+		actual = availDb.checkValueExists("endTime","10:15");
+		actual2 = availDb.checkValueExists("endTime","12:15");
+		actual3 = availDb.checkValueExists("endTime","15:00");
+		assertEquals(expected,actual);
+		assertEquals(expected,actual2);
+		assertEquals(expected,actual3);
 	}
 	
 	@After
