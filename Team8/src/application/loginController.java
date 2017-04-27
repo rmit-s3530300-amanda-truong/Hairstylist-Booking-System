@@ -40,20 +40,17 @@ public class loginController {
     }
 
     @FXML
-    void login(ActionEvent event) throws IOException{
+    void login(ActionEvent event){
     	String username = l_username.getText();
     	String password = l_password.getText();
     	
     	if(menu.authenticate(username, password).equals("customer")){
-    		AnchorPane pane = FXMLLoader.load(getClass().getResource("CustomerPortal.fxml"));
-	    	rootPane.getChildren().setAll(pane);
+    		goToCustomerPortal(username);
     	}
     	else if (menu.authenticate(username, password).equals("business")){
-    		AnchorPane pane = FXMLLoader.load(getClass().getResource("BusinessPortal.fxml"));
-	    	rootPane.getChildren().setAll(pane);
+    		goToBusinessPortal(username);
     	}
 		else{
-			//when user input is wrong
 			invalid_id_password.setText("Invalid username or password. Please try again");
 		}
     }
@@ -67,5 +64,35 @@ public class loginController {
     	RegisterController controller = register.getController();
 		controller.initiate(menu);
     }
+	
+    //loads customer portal scene
+	void goToCustomerPortal(String username){
+		try {
+			AnchorPane pane;
+	    	FXMLLoader custPortal = new FXMLLoader(getClass().getResource("CustomerPortal.fxml"));
+	    	pane = custPortal.load();
+	    	rootPane.getChildren().setAll(pane);
+	    	CustomerPController controller = custPortal.getController();
+			controller.initiate(menu);
+		} 
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//loads business portal scene
+	void goToBusinessPortal(String username){
+		try {
+			AnchorPane pane;
+	    	FXMLLoader bussPortal = new FXMLLoader(getClass().getResource("BusinessPortal.fxml"));
+	    	pane = bussPortal.load();
+	    	rootPane.getChildren().setAll(pane);
+	    	BusinessPController controller = bussPortal.getController();
+			controller.initiate(menu);
+		} 
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 }

@@ -48,6 +48,12 @@ public class BusinessPController {
 	
 	@FXML
 	void addEmployee(ActionEvent event) throws IOException{
+		AnchorPane pane;
+    	FXMLLoader addEmp = new FXMLLoader(getClass().getResource("addEmployee.fxml"));
+    	pane = addEmp.load();
+    	rootPane.getChildren().setAll(pane);
+    	AddEmpController controller = addEmp.getController();
+		controller.initiate(menu);
 	}
 	
 	@FXML

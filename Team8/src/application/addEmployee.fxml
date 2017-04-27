@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="788.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AddEmpController">
+<AnchorPane fx:id="rootPane" prefHeight="788.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AddEmpController">
    <children>
       <Pane id="menuPane" prefHeight="75.0" prefWidth="1400.0">
          <children>
@@ -116,7 +116,7 @@
                </font>
             </Label>
             <Pane prefHeight="714.0" prefWidth="82.0" style="-fx-background-color: #1d1c1c;" />
-            <Label fx:id="username" layoutX="504.0" layoutY="110.0" prefHeight="24.0" prefWidth="75.0" text="e5" textFill="WHITE">
+            <Label fx:id="username" layoutX="504.0" layoutY="110.0" prefHeight="24.0" prefWidth="75.0" textFill="WHITE">
                <font>
                   <Font name="Lato Heavy" size="19.0" />
                </font>

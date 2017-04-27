@@ -96,6 +96,7 @@ public class RegisterController {
 		
 		//checking firstname
 		if(menu.validName(fname)){
+			invalid.setText("");
 			fNameValid = true;
 		}
 		else{
@@ -104,6 +105,7 @@ public class RegisterController {
 		
 		//checking lastname
 		if(menu.validName(lname)){
+			invalid.setText("");
 			lNameValid = true;
 		}
 		else{
@@ -112,6 +114,7 @@ public class RegisterController {
 		
 		//checking username
 		if(menu.validUname(username) && menu.uniqueUname(username)){
+			invalid.setText("");
 			unValid = true;
 		}
 		else{
@@ -120,6 +123,7 @@ public class RegisterController {
 		
 		//checking password validation
 		if(menu.validPassword(password)){
+			invalid.setText("");
 			passValid = true;
 		}
 		else{
@@ -128,6 +132,7 @@ public class RegisterController {
 		
 		//checking password equals confirm password
 		if(password.equals(confirmPass)){
+			invalid.setText("");
 			passconfirm = true;
 		}
 		else{
@@ -136,6 +141,7 @@ public class RegisterController {
 		
 		//checking mobile validation
 		if(menu.validMobile(mobile)){
+			invalid.setText("");
 			mobileValid = true;
 		}
 		else{
@@ -144,6 +150,7 @@ public class RegisterController {
 		
 		//checking suburb validation
 		if(menu.validSuburb(suburb)){
+			invalid.setText("");
 			suburbValid = true;
 		}
 		else{
@@ -152,6 +159,7 @@ public class RegisterController {
 		
 		//checking postcode validation
 		if(menu.validZip(postcode)){
+			invalid.setText("");
 			zipValid = true;
 		}
 		else{
