@@ -71,7 +71,7 @@ public class CustomerPController {
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	loginController controller = login.getController();
-		controller.initiate(menu);
+		controller.initiate(menu, comp);
 	}
 	
 	public void getuName(String user){

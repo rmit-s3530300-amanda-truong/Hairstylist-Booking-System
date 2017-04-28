@@ -57,7 +57,7 @@ public class BusinessPController {
     	pane = addEmp.load();
     	rootPane.getChildren().setAll(pane);
     	AddEmpController controller = addEmp.getController();
-		controller.initiate(menu);
+		controller.initiate(menu, comp);
 	}
 	
 	@FXML
@@ -93,6 +93,6 @@ public class BusinessPController {
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	loginController controller = login.getController();
-		controller.initiate(menu);
+		controller.initiate(menu, comp);
 	}
 }

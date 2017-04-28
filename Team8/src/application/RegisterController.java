@@ -185,7 +185,7 @@ public class RegisterController {
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	loginController controller = login.getController();
-		controller.initiate(menu);
+		controller.initiate(menu, comp);
     }
 	
     void goToPortal() throws IOException{
@@ -194,6 +194,6 @@ public class RegisterController {
     	pane = customerPortal.load();
     	rootPane.getChildren().setAll(pane);
     	CustomerPController controller = customerPortal.getController();
-    	controller.initiate(menu);
+    	controller.initiate(menu, comp);
     }
 }
