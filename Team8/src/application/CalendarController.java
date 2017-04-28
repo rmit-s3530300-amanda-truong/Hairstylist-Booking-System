@@ -14,8 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
 public class CalendarController {
-	
-	private Company comp;
+
 	private Menu menu;
 	
 	@FXML
@@ -34,9 +33,8 @@ public class CalendarController {
     private void initialize(){
     }
 
-	public void initiate(Menu menu, Company comp) {
+	public void initiate(Menu menu) {
 		this.menu = menu;
-		this.comp = comp;
 	}
 	
 	@FXML
@@ -47,7 +45,7 @@ public class CalendarController {
     	pane = view_morning.load();
     	rootPane.getChildren().setAll(pane);
     	ViewMorningController controller = view_morning.getController();
-		controller.initiate(menu,comp);
+		controller.initiate(menu);
 	}
 	
 	@FXML
@@ -58,7 +56,7 @@ public class CalendarController {
     	pane = view_afternoon.load();
     	rootPane.getChildren().setAll(pane);
     	ViewAfternoonController controller = view_afternoon.getController();
-		controller.initiate(menu,comp);
+		controller.initiate(menu);
 	}
 	
 	@FXML
@@ -68,7 +66,7 @@ public class CalendarController {
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	loginController controller = login.getController();
-		controller.initiate(menu,comp);
+		controller.initiate(menu);
     }
 	
 	@FXML
@@ -78,6 +76,6 @@ public class CalendarController {
     	pane = bussPortal.load();
     	rootPane.getChildren().setAll(pane);
     	CustomerPController controller = bussPortal.getController();
-    	controller.initiate(menu, comp);
+    	controller.initiate(menu);
     }
 }

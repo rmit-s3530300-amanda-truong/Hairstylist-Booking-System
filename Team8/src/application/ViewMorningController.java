@@ -2,10 +2,13 @@ package application;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
 
 import com.jfoenix.controls.JFXButton;
 
 import Business.Company;
+import Calendar.Booking;
 import Menu.Menu;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,15 +16,13 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 public class ViewMorningController {
-	
-	private Company comp;
+
 	private Menu menu;
-	
 	@FXML
 	private AnchorPane rootPane;
-	
 	@FXML
 	private Pane displayPane;
 	@FXML
@@ -68,17 +69,61 @@ public class ViewMorningController {
 	private Label time14;
 	@FXML
 	private Label time15;
-	
 	@FXML
     private JFXButton gotoLogout;
 
 	@FXML
 	private JFXButton returnButton;
     
-	public void initiate(Menu menu, Company comp) {
+	public void initiate(Menu menu) {
 		this.menu = menu;
-		this.comp = comp;
+		//populateRectangle();
 		populateTable();
+		createRectangles();
+	}
+	
+	@FXML
+	void createRectangles()
+	{
+		int columns = 7, rows = 15 , horizontal = 95, vertical = 25;
+		LocalTime startTime = null;
+        Rectangle rect = null;
+        LocalDate current = menu.getCompany().getCalendar().getDate();
+        for(int i = 0; i < columns; i++)
+        {
+            for(int j = 0; j< rows; j++)
+            {
+                //(y,x,width,height)
+                rect = new Rectangle((220+(135*i)), 117+(30*j), horizontal, vertical);
+                ArrayList<Booking> bookingList = menu.getCompany().getBookingList();
+                for(int x=0; x<bookingList.size(); x++)
+                {
+                	Booking book = bookingList.get(x);
+                	if(current.equals(book.getDate()))
+                	{
+                		//gets the right matching date and time, doesnt draw red in the right places
+                    	startTime = LocalTime.parse("08:00");
+                		for(int y=0; y<15; y++)
+                		{
+                        	if(startTime.equals(book.getStartTime()))
+                        	{
+                        		System.out.println(current);
+                        		System.out.println(startTime);
+                        		rect.setFill(Color.RED);
+                        	}
+                        	startTime = startTime.plusMinutes(15);
+                		}
+                	}
+                	else
+                	{
+                        rect.setFill(Color.WHITE);
+                	}
+                }
+                displayPane.getChildren().add(rect);
+            	current = current.plusDays(1);
+            }
+
+        }
 	}
 	
 	@FXML
@@ -109,7 +154,7 @@ public class ViewMorningController {
 
 		LocalDate current = menu.getCompany().getCalendar().getDate();
 		day1.setText(current.toString());
-		day1.setLayoutX(210.0);
+		day1.setLayoutX(225.0);
 		day1.setLayoutY(94.0);
 		day1.setStyle("-fx-font: 16 Lato;");
 		day1.setTextFill(Color.web("#FFFFFF"));
@@ -121,31 +166,31 @@ public class ViewMorningController {
 		day2.setTextFill(Color.web("#FFFFFF"));
 		displayPane.getChildren().add(day2);
 		day3.setText(current.plusDays(2).toString());
-		day3.setLayoutX(510.0);
+		day3.setLayoutX(495.0);
 		day3.setLayoutY(94.0);
 		day3.setStyle("-fx-font: 16 Lato;");
 		day3.setTextFill(Color.web("#FFFFFF"));
 		displayPane.getChildren().add(day3);
 		day4.setText(current.plusDays(3).toString());
-		day4.setLayoutX(660.0);
+		day4.setLayoutX(630.0);
 		day4.setLayoutY(94.0);
 		day4.setStyle("-fx-font: 16 Lato;");
 		day4.setTextFill(Color.web("#FFFFFF"));
 		displayPane.getChildren().add(day4);
 		day5.setText(current.plusDays(4).toString());
-		day5.setLayoutX(810.0);
+		day5.setLayoutX(765.0);
 		day5.setLayoutY(94.0);
 		day5.setStyle("-fx-font: 16 Lato;");
 		day5.setTextFill(Color.web("#FFFFFF"));
 		displayPane.getChildren().add(day5);
 		day6.setText(current.plusDays(5).toString());
-		day6.setLayoutX(960.0);
+		day6.setLayoutX(900.0);
 		day6.setLayoutY(94.0);
 		day6.setStyle("-fx-font: 16 Lato;");
 		day6.setTextFill(Color.web("#FFFFFF"));
 		displayPane.getChildren().add(day6);
 		day7.setText(current.plusDays(6).toString());
-		day7.setLayoutX(1110.0);
+		day7.setLayoutX(1035.0);
 		day7.setLayoutY(94.0);
 		day7.setStyle("-fx-font: 16 Lato;");
 		day7.setTextFill(Color.web("#FFFFFF"));
@@ -249,7 +294,7 @@ public class ViewMorningController {
     	pane = viewCalendar.load();
     	rootPane.getChildren().setAll(pane);
     	CalendarController controller = viewCalendar.getController();
-		controller.initiate(menu, comp);
+		controller.initiate(menu);
 	}
 	
 	@FXML
@@ -259,7 +304,7 @@ public class ViewMorningController {
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	loginController controller = login.getController();
-		controller.initiate(menu,comp);
+		controller.initiate(menu);
     }
 	
 	@FXML
@@ -269,6 +314,6 @@ public class ViewMorningController {
     	pane = bussPortal.load();
     	rootPane.getChildren().setAll(pane);
     	CustomerPController controller = bussPortal.getController();
-    	controller.initiate(menu, comp);
+    	controller.initiate(menu);
 	}
 }

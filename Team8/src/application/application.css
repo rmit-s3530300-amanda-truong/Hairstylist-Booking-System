@@ -31,6 +31,11 @@
 	-fx-background-size: 1400 714;
     -fx-background-repeat: no-repeat;
 }
+#content_calendar{
+	-fx-background-image: url("application-img/content.jpg");
+	-fx-background-size: 1400 714;
+    -fx-background-repeat: no-repeat;
+}
 .button{
 	-fx-border-radius: 0;
 	-fx-background-radius: 0;

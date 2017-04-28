@@ -12,7 +12,6 @@ import javafx.scene.layout.AnchorPane;
 
 public class ViewAfternoonController {
 	
-	private Company comp;
 	private Menu menu;
 	
 	@FXML
@@ -24,9 +23,8 @@ public class ViewAfternoonController {
 	@FXML
 	private JFXButton returnButton;
     
-	public void initiate(Menu menu, Company comp) {
+	public void initiate(Menu menu) {
 		this.menu = menu;
-		this.comp = comp;
 	}
 	
 	@FXML
@@ -36,7 +34,7 @@ public class ViewAfternoonController {
     	pane = viewCalendar.load();
     	rootPane.getChildren().setAll(pane);
     	CalendarController controller = viewCalendar.getController();
-		controller.initiate(menu, comp);
+		controller.initiate(menu);
 	}
 	
 	@FXML
@@ -46,7 +44,7 @@ public class ViewAfternoonController {
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	loginController controller = login.getController();
-		controller.initiate(menu,comp);
+		controller.initiate(menu);
     }
 	
 	@FXML
@@ -56,6 +54,6 @@ public class ViewAfternoonController {
     	pane = bussPortal.load();
     	rootPane.getChildren().setAll(pane);
     	CustomerPController controller = bussPortal.getController();
-    	controller.initiate(menu, comp);
+    	controller.initiate(menu);
 	}
 }

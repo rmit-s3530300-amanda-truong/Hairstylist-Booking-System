@@ -18,12 +18,14 @@ import Database.CustomerDatabase;
 public class Company {
 	private HashMap<String, Employee> employeeList;
 	private HashMap<String, Customer> custList;
+	private ArrayList<Booking> bookingList;
 	private Calendar calendar;
 	
 	// TODO: Add in other details that company need here
 	public Company() {
 		employeeList = new HashMap<String, Employee>();
 		custList = new HashMap<String, Customer>();
+		bookingList = new ArrayList<Booking>();
 		this.calendar = new Calendar(LocalDate.now());
 	}
 	
@@ -148,7 +150,13 @@ public class Company {
 			booking.addDetails(LocalDate.parse(date), LocalTime.parse(startTime), LocalTime.parse(endTime), service, emp, customerUsername);
 			bookList.add(booking);
 		}
-		return bookList;
+		bookingList = bookList;
+		return bookingList;
+	}
+	
+	public ArrayList<Booking> getBookingList()
+	{
+		return bookingList;
 	}
 	
 	public void addEmployee(Employee employee) {
