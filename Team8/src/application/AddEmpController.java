@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
+import Business.Company;
 import Menu.Menu;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,6 +23,8 @@ public class AddEmpController {
 			("VIC", "NSW","Queensland", "WA", "SA", "Tasmania");
 	
 	private Menu menu;
+	
+	private Company comp;
 	
 	@FXML
 	private AnchorPane rootPane;
@@ -65,8 +68,9 @@ public class AddEmpController {
     	re_state.setItems(re_stateList);
     }
 
-	public void initiate(Menu menu) {
+	public void initiate(Menu menu, Company comp) {
 		this.menu = menu;
+		this.comp = comp;
 	}
 	
 	@FXML
@@ -142,7 +146,7 @@ public class AddEmpController {
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	loginController controller = login.getController();
-		controller.initiate(menu);
+		controller.initiate(menu, comp);
     }
 	
 	@FXML
@@ -152,6 +156,6 @@ public class AddEmpController {
     	pane = bussPortal.load();
     	rootPane.getChildren().setAll(pane);
     	BusinessPController controller = bussPortal.getController();
-    	controller.initiate(menu);
+    	controller.initiate(menu, comp);
     }
 }

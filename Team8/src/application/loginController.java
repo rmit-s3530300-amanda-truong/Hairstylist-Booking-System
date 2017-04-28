@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
+import Business.Company;
 import Menu.Menu;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,6 +17,8 @@ import javafx.scene.layout.AnchorPane;
 public class loginController {
 
 	private Menu menu;
+	
+	private Company comp;
 	
 	@FXML
 	private AnchorPane rootPane;
@@ -35,8 +38,9 @@ public class loginController {
     @FXML
     private Label invalid_id_password;
     
-    public void initiate(Menu menu){
+    public void initiate(Menu menu, Company comp){
     	this.menu = menu;
+    	this.comp = comp;
     }
 
     @FXML
@@ -62,7 +66,7 @@ public class loginController {
     	pane = register.load();
     	rootPane.getChildren().setAll(pane);
     	RegisterController controller = register.getController();
-		controller.initiate(menu);
+		controller.initiate(menu, comp);
     }
 	
     //loads customer portal scene
@@ -73,7 +77,7 @@ public class loginController {
 	    	pane = custPortal.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	CustomerPController controller = custPortal.getController();
-			controller.initiate(menu);
+			controller.initiate(menu, comp);
 		} 
 		catch (IOException e) {
 			e.printStackTrace();
@@ -88,7 +92,7 @@ public class loginController {
 	    	pane = bussPortal.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	BusinessPController controller = bussPortal.getController();
-			controller.initiate(menu);
+			controller.initiate(menu, comp);
 		} 
 		catch (IOException e) {
 			e.printStackTrace();

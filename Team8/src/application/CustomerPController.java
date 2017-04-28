@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.jfoenix.controls.JFXButton;
 
+import Business.Company;
 import Menu.Menu;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,6 +15,8 @@ import javafx.scene.layout.AnchorPane;
 public class CustomerPController {
 	
 	private Menu menu;
+	
+	private Company comp;
 	
 	@FXML
 	private AnchorPane rootPane;
@@ -36,8 +39,9 @@ public class CustomerPController {
     @FXML
     private JFXButton gotoLogout;
 
-	public void initiate(Menu menu) {
+	public void initiate(Menu menu, Company comp) {
 		this.menu = menu;
+		this.comp = comp;
 	}
 	
 	@FXML

@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
+import Business.Company;
 import Menu.Menu;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,6 +23,8 @@ public class RegisterController {
 			("VIC", "NSW","Queensland", "WA", "SA", "Tasmania");
 	
 	private Menu menu;
+	
+	private Company comp;
 	
 	@FXML
 	private AnchorPane rootPane;
@@ -74,8 +77,9 @@ public class RegisterController {
     	rc_state.setItems(rc_stateList);
     }
 
-	public void initiate(Menu menu) {
+	public void initiate(Menu menu, Company comp) {
 		this.menu = menu;
+		this.comp = comp;
 	}
 	
 	@FXML

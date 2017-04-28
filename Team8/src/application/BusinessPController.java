@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.jfoenix.controls.JFXButton;
 
+import Business.Company;
 import Menu.Menu;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,6 +15,8 @@ import javafx.scene.layout.AnchorPane;
 public class BusinessPController {
 	
 	private Menu menu;
+	
+	private Company comp;
 	
 	@FXML
 	private AnchorPane rootPane;
@@ -42,8 +45,9 @@ public class BusinessPController {
 	@FXML
 	private JFXButton gotoLogout;
 	
-	public void initiate(Menu menu) {
+	public void initiate(Menu menu, Company comp) {
 		this.menu = menu;
+		this.comp = comp;
 	}
 	
 	@FXML
@@ -66,6 +70,12 @@ public class BusinessPController {
 	
 	@FXML
 	void viewUpcomingBooking(ActionEvent event) throws IOException{	
+		AnchorPane pane;
+    	FXMLLoader upBooking = new FXMLLoader(getClass().getResource("UpcomingBooking.fxml"));
+    	pane = upBooking.load();
+    	rootPane.getChildren().setAll(pane);
+    	UpcomingBookingController controller = upBooking.getController();
+		controller.initiate(menu, comp);
 	}
 	
 	@FXML

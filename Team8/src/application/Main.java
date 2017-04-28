@@ -14,13 +14,14 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 	private Menu menu;
+	private Company comp;
 	
 	public Main() {
 		CustomerDatabase customerDb = new CustomerDatabase();
 		CompanyDatabase companyDb = new CompanyDatabase();
 		AvailabilityDatabase availDb = new AvailabilityDatabase();
 		BookingDatabase bookingDb = new BookingDatabase();
-		Company comp = new Company();
+		comp = new Company();
 		comp.retrieveDatabaseInfo(customerDb, companyDb, availDb, bookingDb);
 		comp.getCalendar().updateCalendar(comp.getEmployeeList());
 		menu = new Menu(comp, customerDb, companyDb, availDb);
@@ -36,11 +37,11 @@ public class Main extends Application {
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			
 			mainController controller = loader.getController();
-			controller.initiate(menu);
+			controller.initiate(menu, comp);
 			
 			primaryStage.setScene(scene);
 			primaryStage.show();
-			primaryStage.setTitle("Team 8 Appoinment Booking Program");
+			primaryStage.setTitle("Team 8 Appointment Booking Program");
 		} 
 		catch(Exception e) {
 			e.printStackTrace();

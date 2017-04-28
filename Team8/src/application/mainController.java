@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.jfoenix.controls.JFXButton;
 
+import Business.Company;
 import Menu.Menu;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,6 +14,8 @@ import javafx.scene.layout.AnchorPane;
 public class mainController {
 	
 	private Menu menu;
+	
+	private Company comp;
 	
 	@FXML
 	private AnchorPane rootPane;
@@ -30,7 +33,7 @@ public class mainController {
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	loginController controller = login.getController();
-		controller.initiate(menu);
+		controller.initiate(menu, comp);
     }
     
     @FXML
@@ -40,10 +43,11 @@ public class mainController {
     	pane = register.load();
     	rootPane.getChildren().setAll(pane);
     	RegisterController controller = register.getController();
-		controller.initiate(menu);
+		controller.initiate(menu, comp);
     }
     
-    public void initiate(Menu menu){
+    public void initiate(Menu menu, Company comp){
     	this.menu = menu;
+    	this.comp = comp;
     }
 }
