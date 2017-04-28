@@ -2,7 +2,6 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Rectangle?>
@@ -74,7 +73,6 @@
                   <Font name="Lato Heavy" size="19.0" />
                </font>
             </Label>
-            <TextArea id="text" editable="false" layoutX="299.0" layoutY="160.0" opacity="0.0" prefHeight="446.0" prefWidth="793.0" />
          </children></Pane>
    </children>
 </AnchorPane>

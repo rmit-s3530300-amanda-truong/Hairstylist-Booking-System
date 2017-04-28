@@ -15,8 +15,6 @@ public class mainController {
 	
 	private Menu menu;
 	
-	private Company comp;
-	
 	@FXML
 	private AnchorPane rootPane;
 	
@@ -33,7 +31,7 @@ public class mainController {
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	loginController controller = login.getController();
-		controller.initiate(menu, comp);
+		controller.initiate(menu);
     }
     
     @FXML
@@ -43,11 +41,10 @@ public class mainController {
     	pane = register.load();
     	rootPane.getChildren().setAll(pane);
     	RegisterController controller = register.getController();
-		controller.initiate(menu, comp);
+		controller.initiate(menu);
     }
     
-    public void initiate(Menu menu, Company comp){
+    public void initiate(Menu menu){
     	this.menu = menu;
-    	this.comp = comp;
     }
 }

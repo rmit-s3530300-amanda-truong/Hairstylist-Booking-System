@@ -16,8 +16,6 @@ public class BusinessPController {
 	
 	private Menu menu;
 	
-	private Company comp;
-	
 	@FXML
 	private AnchorPane rootPane;
 	
@@ -45,9 +43,8 @@ public class BusinessPController {
 	@FXML
 	private JFXButton gotoLogout;
 	
-	public void initiate(Menu menu, Company comp) {
+	public void initiate(Menu menu) {
 		this.menu = menu;
-		this.comp = comp;
 	}
 	
 	@FXML
@@ -57,7 +54,7 @@ public class BusinessPController {
     	pane = addEmp.load();
     	rootPane.getChildren().setAll(pane);
     	AddEmpController controller = addEmp.getController();
-		controller.initiate(menu, comp);
+		controller.initiate(menu);
 	}
 	
 	@FXML
@@ -75,7 +72,7 @@ public class BusinessPController {
     	pane = upBooking.load();
     	rootPane.getChildren().setAll(pane);
     	UpcomingBookingController controller = upBooking.getController();
-		controller.initiate(menu, comp);
+		controller.initiate(menu);
 	}
 	
 	@FXML
@@ -93,6 +90,6 @@ public class BusinessPController {
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	loginController controller = login.getController();
-		controller.initiate(menu, comp);
+		controller.initiate(menu);
 	}
 }

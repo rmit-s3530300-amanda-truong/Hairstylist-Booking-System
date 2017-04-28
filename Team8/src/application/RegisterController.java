@@ -23,9 +23,6 @@ public class RegisterController {
 			("VIC", "NSW","Queensland", "WA", "SA", "Tasmania");
 	
 	private Menu menu;
-	
-	private Company comp;
-	
 	@FXML
 	private AnchorPane rootPane;
 	
@@ -77,9 +74,8 @@ public class RegisterController {
     	rc_state.setItems(rc_stateList);
     }
 
-	public void initiate(Menu menu, Company comp) {
+	public void initiate(Menu menu) {
 		this.menu = menu;
-		this.comp = comp;
 	}
 	
 	@FXML
@@ -185,7 +181,7 @@ public class RegisterController {
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	loginController controller = login.getController();
-		controller.initiate(menu, comp);
+		controller.initiate(menu);
     }
 	
     void goToPortal() throws IOException{
@@ -194,6 +190,6 @@ public class RegisterController {
     	pane = customerPortal.load();
     	rootPane.getChildren().setAll(pane);
     	CustomerPController controller = customerPortal.getController();
-    	controller.initiate(menu, comp);
+    	controller.initiate(menu);
     }
 }

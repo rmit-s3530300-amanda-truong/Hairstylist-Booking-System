@@ -24,8 +24,6 @@ public class AddEmpController {
 	
 	private Menu menu;
 	
-	private Company comp;
-	
 	@FXML
 	private AnchorPane rootPane;
 	
@@ -68,9 +66,8 @@ public class AddEmpController {
     	re_state.setItems(re_stateList);
     }
 
-	public void initiate(Menu menu, Company comp) {
+	public void initiate(Menu menu) {
 		this.menu = menu;
-		this.comp = comp;
 	}
 	
 	@FXML
@@ -146,7 +143,7 @@ public class AddEmpController {
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	loginController controller = login.getController();
-		controller.initiate(menu, comp);
+		controller.initiate(menu);
     }
 	
 	@FXML
@@ -156,6 +153,6 @@ public class AddEmpController {
     	pane = bussPortal.load();
     	rootPane.getChildren().setAll(pane);
     	BusinessPController controller = bussPortal.getController();
-    	controller.initiate(menu, comp);
+    	controller.initiate(menu);
     }
 }
