@@ -35,6 +35,7 @@ public class UpcomingBookingController {
 		ta = new TextArea();
 		Calendar cal = comp.getCalendar();
 		ArrayList<Booking> list = cal.getFutureBooking();
+		String future;
 	}
 	
 	public String getUpcomingBooking() {
