@@ -43,6 +43,10 @@ public class Menu {
 			String cPassword, String cMobile, String cAddress){
 		customerDb.addCustInfo(cUname, cFname, cLname, cPassword, cMobile, cAddress);
 	}
+	
+	public Company getCompany() {
+		return comp;
+	}
 
 	
 //	private void businessMenu() {
