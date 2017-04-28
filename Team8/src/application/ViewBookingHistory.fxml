@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="rootPane" prefHeight="788.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AddEmpController">
+   <children>
+      <Pane id="menuPane" prefHeight="75.0" prefWidth="1400.0">
+         <children>
+            <JFXButton id="button" fx:id="gotoLogout" layoutX="1199.0" layoutY="21.0" onAction="#goToLogout" prefHeight="35.0" prefWidth="125.0" stylesheets="@application.css" text="LOGOUT" textFill="WHITE">
+               <font>
+                  <Font name="Helvetica-Normal" size="16.0" />
+               </font>
+            </JFXButton>
+            <Pane id="logo" fx:id="welcome_logo" layoutX="41.0" prefHeight="75.0" prefWidth="166.0" />
+            <Label layoutX="598.0" layoutY="24.0" text="BUSINESS PORTAL" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane id="content_addEmp" layoutY="74.0" prefHeight="714.0" prefWidth="1400.0">
+         <children>
+            <Rectangle arcHeight="40.0" arcWidth="40.0" height="566.0" layoutX="346.0" layoutY="94.0" opacity="0.6" stroke="BLACK" strokeType="INSIDE" width="720.0" />
+            <JFXButton id="button" fx:id="addEmployee" layoutX="588.0" layoutY="580.0" onAction="#addEmp" prefHeight="54.0" prefWidth="258.0" style="-fx-background-radius: 60;" stylesheets="@application.css" text="ADD EMPLOYEE" textFill="WHITE">
+               <font>
+                  <Font name="Lato Black" size="18.0" />
+               </font>
+            </JFXButton>
+            <Label fx:id="invalid" layoutX="692.0" layoutY="574.0" textFill="RED">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="523.0" layoutY="41.0" text="VIEW BOOKING HISTORY" textFill="WHITE">
+               <font>
+                  <Font name="Lato Black" size="33.0" />
+               </font>
+            </Label>
+            <Pane prefHeight="714.0" prefWidth="82.0" style="-fx-background-color: #1d1c1c;" />
+            <Label fx:id="username" layoutX="504.0" layoutY="110.0" prefHeight="24.0" prefWidth="75.0" textFill="WHITE">
+               <font>
+                  <Font name="Lato Heavy" size="19.0" />
+               </font>
+            </Label>
+         </children></Pane>
+   </children>
+</AnchorPane>
