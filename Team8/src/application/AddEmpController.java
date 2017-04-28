@@ -151,7 +151,7 @@ public class AddEmpController {
     	FXMLLoader bussPortal = new FXMLLoader(getClass().getResource("BusinessPortal.fxml"));
     	pane = bussPortal.load();
     	rootPane.getChildren().setAll(pane);
-    	CustomerPController controller = bussPortal.getController();
+    	BusinessPController controller = bussPortal.getController();
     	controller.initiate(menu);
     }
 }
