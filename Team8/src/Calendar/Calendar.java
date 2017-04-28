@@ -22,9 +22,11 @@ public class Calendar {
 	private LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>> calendar;
 	// bookingList, String is the ID of the booking
 	private ArrayList<Booking> bookingList;
+	private ArrayList<Booking> displayBookedList;
 	
 	public Calendar(LocalDate date) {
 		bookingList = new ArrayList<Booking>();
+		displayBookedList = new ArrayList<Booking>();
 		currentDate = date;
 		calendar = new LinkedHashMap<LocalDate, LinkedHashMap<LocalTime, Booking>>();
 		
@@ -37,6 +39,7 @@ public class Calendar {
 				LocalTime localtime = LocalTime.of(i, 00);
 				for(int y = 0 ; y<4 ;y++){
 					String id = lastWeekDate.toString()+"/"+localtime.toString();
+					System.out.println(id);
 					nested_info.put(localtime, new Booking(id));
 					localtime = localtime.plusMinutes(15);
 				}
@@ -151,8 +154,6 @@ public class Calendar {
 		//collecting the times and date
 		while(!current_time.equals(end_time)) {
 			Booking book = calendar.get(date).get(current_time);
-			booking_list.add(book);
-			times_list.add(current_time);
 			if(book.getStatus() == Status.unavailable || book.getStatus() == Status.booked) {
 				isBooked = true;
 			}
@@ -161,7 +162,13 @@ public class Calendar {
 				String existing_cust_id = book.getCustomerID();
 				if(existing_cust_id.equals(customer_id)) {
 					return false;
+				} else {
+					booking_list.add(book);
+					times_list.add(current_time);
 				}
+			} else {
+				booking_list.add(book);
+				times_list.add(current_time);
 			}
 			current_time = current_time.plusMinutes(15);
 		}
@@ -173,6 +180,7 @@ public class Calendar {
 				calendar.get(date).put(times_list.get(i), book);
 				bookingList.add(book);
 			}
+			displayBookedList.add(booking_list.get(0));
 			return true;
 		}
 		return false;
@@ -193,8 +201,11 @@ public class Calendar {
 					addBookingToCalendar(date, start_time, end_time);
 					return true;	
 				}
+				System.out.println("emp not free");
 			}
+			System.out.println("status not pending");
 		}
+		System.out.println("book is null");
 		return false;
 	}
 	
@@ -204,7 +215,6 @@ public class Calendar {
 			Booking book = calendar.get(date).get(current_time);
 			book.setStatus(Status.booked);
 			calendar.get(date).put(current_time, book);
-			bookingList.add(book);
 			current_time = current_time.plusMinutes(15);
 		}
 	}
@@ -266,6 +276,24 @@ public class Calendar {
 		return null;
 	}
 	
+	public ArrayList<Booking> getDisplayFutureBooking() {
+		ArrayList<Booking> future = new ArrayList<Booking>();
+		for(Booking book : displayBookedList) {
+			if(book.getStatus() == Status.booked) {
+				if(book.getDate().isEqual(currentDate) || book.getDate().isAfter(currentDate)) {
+					future.add(book);
+				}
+			}
+		}
+		Collections.sort(future, new Comparator<Booking>() {
+			@Override
+			public int compare(Booking arg0, Booking arg1) {
+				return arg0.getID().compareTo(arg1.getID());
+			}
+		});
+		return future;
+	}
+	
 	public Boolean containsBooking(String ID) {
 		for(Booking booking : bookingList) {
 			if(booking.getID().equals(ID)) {
@@ -285,6 +313,59 @@ public class Calendar {
 		}
 		
 		for(Booking book : list) {
+			LocalTime start_time = book.getStartTime();
+			LocalTime end_time = book.getEndTime();
+			Service service = book.getServices();
+			String emp_id = book.getEmployee().getID();
+			
+			output = output + String.format("Booking ID: %s, Status: %s, Date: %s, Start Time: %s, End Time: %s, Customer: %s, Service: %s, Employee: %s \n",book.getID(), book.getStatus().toString(), book.getDate(), start_time, end_time, book.getCustomerID(), service, emp_id);
+		}
+		return output;
+	}
+	
+	public String getDisplayPendingString() {
+		ArrayList<Booking> list = new ArrayList<Booking>();
+		String output = "";
+		for(Booking book : displayBookedList) {
+			if(book.getStatus() == Status.pending) {
+				list.add(book);
+			}
+		}
+		
+		for(Booking book : list) {
+			LocalTime start_time = book.getStartTime();
+			LocalTime end_time = book.getEndTime();
+			Service service = book.getServices();
+			String emp_id = book.getEmployee().getID();
+			
+			output = output + String.format("Booking ID: %s, Status: %s, Date: %s, Start Time: %s, End Time: %s, Customer: %s, Service: %s, Employee: %s \n",book.getID(), book.getStatus().toString(), book.getDate(), start_time, end_time, book.getCustomerID(), service, emp_id);
+		}
+		return output;
+	}
+	
+	public String getDisplayBookedString() {
+		ArrayList<Booking> list = new ArrayList<Booking>();
+		String output = "";
+		for(Booking book : displayBookedList) {
+			if(book.getStatus() == Status.booked) {
+				list.add(book);
+			}
+		}
+		
+		for(Booking book : list) {
+			LocalTime start_time = book.getStartTime();
+			LocalTime end_time = book.getEndTime();
+			Service service = book.getServices();
+			String emp_id = book.getEmployee().getID();
+			
+			output = output + String.format("Booking ID: %s, Status: %s, Date: %s, Start Time: %s, End Time: %s, Customer: %s, Service: %s, Employee: %s \n",book.getID(), book.getStatus().toString(), book.getDate(), start_time, end_time, book.getCustomerID(), service, emp_id);
+		}
+		return output;
+	}
+	
+	public String getBookingString() {
+		String output="";
+		for(Booking book : displayBookedList) {
 			LocalTime start_time = book.getStartTime();
 			LocalTime end_time = book.getEndTime();
 			Service service = book.getServices();

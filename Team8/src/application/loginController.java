@@ -18,8 +18,6 @@ public class loginController {
 
 	private Menu menu;
 	
-	private Company comp;
-	
 	@FXML
 	private AnchorPane rootPane;
 	
@@ -38,9 +36,8 @@ public class loginController {
     @FXML
     private Label invalid_id_password;
     
-    public void initiate(Menu menu, Company comp){
+    public void initiate(Menu menu){
     	this.menu = menu;
-    	this.comp = comp;
     }
 
     @FXML
@@ -66,7 +63,7 @@ public class loginController {
     	pane = register.load();
     	rootPane.getChildren().setAll(pane);
     	RegisterController controller = register.getController();
-		controller.initiate(menu, comp);
+		controller.initiate(menu);
     }
 	
     //loads customer portal scene
@@ -77,7 +74,7 @@ public class loginController {
 	    	pane = custPortal.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	CustomerPController controller = custPortal.getController();
-			controller.initiate(menu, comp);
+			controller.initiate(menu);
 		} 
 		catch (IOException e) {
 			e.printStackTrace();
@@ -92,7 +89,7 @@ public class loginController {
 	    	pane = bussPortal.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	BusinessPController controller = bussPortal.getController();
-			controller.initiate(menu, comp);
+			controller.initiate(menu);
 		} 
 		catch (IOException e) {
 			e.printStackTrace();

@@ -1,6 +1,13 @@
 package application;
 	
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
+
 import Business.Company;
+import Business.Employee;
+import Business.Employee.Service;
+import Calendar.Booking;
 import Database.AvailabilityDatabase;
 import Database.BookingDatabase;
 import Database.CompanyDatabase;
@@ -14,14 +21,13 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 	private Menu menu;
-	private Company comp;
 	
 	public Main() {
 		CustomerDatabase customerDb = new CustomerDatabase();
 		CompanyDatabase companyDb = new CompanyDatabase();
 		AvailabilityDatabase availDb = new AvailabilityDatabase();
 		BookingDatabase bookingDb = new BookingDatabase();
-		comp = new Company();
+		Company comp = new Company();
 		comp.retrieveDatabaseInfo(customerDb, companyDb, availDb, bookingDb);
 		comp.getCalendar().updateCalendar(comp.getEmployeeList());
 		menu = new Menu(comp, customerDb, companyDb, availDb);
@@ -37,7 +43,7 @@ public class Main extends Application {
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			
 			mainController controller = loader.getController();
-			controller.initiate(menu, comp);
+			controller.initiate(menu);
 			
 			primaryStage.setScene(scene);
 			primaryStage.show();

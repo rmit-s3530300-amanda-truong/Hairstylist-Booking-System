@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.junit.Before;
@@ -11,28 +12,35 @@ import org.junit.Test;
 
 import Calendar.Booking;
 import Calendar.Calendar;
+import Business.Employee;
 import Business.Employee.Service;
 
 public class BookingTest {
 	Booking book;
 	String expected_ID;
-	HashMap<Service, String> expected_service;
+	Service expected_service;
 	LocalDate expected_date;
-	LocalTime expected_time;
+	LocalTime expected_start_time;
+	LocalTime expected_end_time;
 	String expected_customerID;
+	Employee emp;
 
 	@Before
 	public void setUp() throws Exception {
 		book = new Booking("0"); 
 		
 		expected_ID = "0";
-		expected_service = new HashMap<Service, String>();
-		expected_service.put(Service.femaleCut, "000");
+		expected_service = Service.femaleCut;
 		expected_date = LocalDate.of(2017, 04, 01);
-		expected_time = LocalTime.of(12,00);
+		expected_start_time = LocalTime.of(12,00);
+		
+		ArrayList<Service> s = new ArrayList<Service>();
+		s.add(Service.femaleCut);
+		emp = new Employee("111", "herro", "yes", s);
+		
 		expected_customerID = "a";
 		
-		book.addDetails(expected_service, expected_date, expected_time, expected_customerID);
+		book.addDetails(expected_date, expected_start_time, expected_end_time, expected_service,  emp, "a");
 	}
 	
 	@Test
@@ -49,15 +57,17 @@ public class BookingTest {
 	@Test
 	public void testAddDetails() {
 		String actual_ID = book.getID();
-		HashMap<Service, String> actual_service = book.getServices();
+		Service actual_service = book.getServices();
 		LocalDate actual_date = book.getDate();
-		LocalTime actual_time = book.getTime();
+		LocalTime actual_s_time = book.getStartTime();
+		LocalTime actual_e_time = book.getEndTime();
 		String actual_customerID = book.getCustomerID();
 		
 		assertEquals(expected_ID, actual_ID);
 		assertEquals(expected_service, actual_service);
 		assertEquals(expected_date, actual_date);
-		assertEquals(expected_time, actual_time);
+		assertEquals(expected_start_time, actual_s_time);
+		assertEquals(expected_end_time, actual_e_time);
 		assertEquals(expected_customerID, actual_customerID);
 	}
 }

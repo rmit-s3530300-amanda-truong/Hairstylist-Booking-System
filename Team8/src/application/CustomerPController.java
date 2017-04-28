@@ -16,8 +16,6 @@ public class CustomerPController {
 	
 	private Menu menu;
 	
-	private Company comp;
-	
 	@FXML
 	private AnchorPane rootPane;
 	
@@ -39,9 +37,8 @@ public class CustomerPController {
     @FXML
     private JFXButton gotoLogout;
 
-	public void initiate(Menu menu, Company comp) {
+	public void initiate(Menu menu) {
 		this.menu = menu;
-		this.comp = comp;
 	}
 	
 	@FXML
@@ -71,7 +68,7 @@ public class CustomerPController {
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	loginController controller = login.getController();
-		controller.initiate(menu, comp);
+		controller.initiate(menu);
 	}
 	
 	public void getuName(String user){
