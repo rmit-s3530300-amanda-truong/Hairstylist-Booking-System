@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
 import Business.Company;
@@ -14,6 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
@@ -63,16 +63,17 @@ public class AddEmpController {
     @FXML
     private void initialize(){
     	re_state.setValue("VIC");
-    	re_state.setItems(re_stateList);
+    	re_state.setItems(re_stateList);   	
     }
 
 	public void initiate(Menu menu) {
 		this.menu = menu;
+		username.setText(menu.getEmpUname());
 	}
 	
 	@FXML
     void addEmp(ActionEvent event) throws IOException{
-		String uname = username.getText();
+    	String username = menu.getEmpUname();
 		String fname = re_fname.getText();
 		String lname = re_lname.getText();
 		String mobile = re_mobile.getText();
@@ -81,59 +82,78 @@ public class AddEmpController {
 		String postcode = re_postcode.getText();
 		String state = re_state.getPromptText();
 		
-		boolean unValid = false, fNameValid = false, lNameValid = false, mobileValid = false, 
-				suburbValid = false ,zipValid = false;
+		boolean fnameValid = false, lnameValid = false, mobileValid = false, suburbValid = false ,zipValid = false, addressLineValid = false;
 		
-//		//checking firstname
-//		if(menu.validName(fname)){
-//			fNameValid = true;
-//		}
-//		else{
-//			invalid.setText("First Name is invalid. Please try again");
-//		}
-//		
-//		//checking lastname
-//		if(menu.validName(lname)){
-//			lNameValid = true;
-//		}
-//		else{
-//			invalid.setText("Last Name is invalid. Please try again");
-//		}
-//		
-//		//checking mobile validation
-//		if(menu.validMobile(mobile)){
-//			mobileValid = true;
-//		}
-//		else{
-//			invalid.setText("mobile number is invalid. Please try again");
-//		}
-//		
-//		//checking suburb validation
-//		if(menu.validSuburb(suburb)){
-//			suburbValid = true;
-//		}
-//		else{
-//			invalid.setText("suburb is invalid. Please try again");
-//		}
-//		
-//		//checking postcode validation
-//		if(menu.validZip(postcode)){
-//			zipValid = true;
-//		}
-//		else{
-//			invalid.setText("postcode is invalid. Please try again");
-//		}
-//		
-//		//sending info to database
-//		if(fNameValid && lNameValid && unValid && mobileValid && suburbValid && zipValid){
-//			invalid.setText("");
-//			String fullAddress = address + "," + suburb + ", " + state + " "+ postcode;
-//			System.out.println(fname + "\n" + lname + "\n" + mobile + "\n" + fullAddress );
-//			
-			//sends data to database.
-//			menu.addNewEmployee(uname, fname, lname, mobile, fullAddress);
+		//regex patterns for user input
+		String name = "^[a-zA-Z-//s]*$";
+		String mobileNo = "^(?:\\+?(61))? ?(?:\\((?=.*\\)))?(0?[2-57-8])\\)? ?(\\d\\d(?:[- ](?=\\d{3})|(?!\\d\\d[- ]?\\d[- ]))\\d\\d[- ]?\\d[- ]?\\d{3})$";
+		String suburbName = "^([a-zA-Z](\\s?))*$";
+		String zipCode = "^[0-9]{4}$";
+		String addressLine = "^\\d+\\s[A-z]+\\s[A-z]+";
+		
+		//checking postcode
+		if(menu.validate(postcode, zipCode)){
+			zipValid = true;
+		}
+		else{
+			invalid.setText("Postcode is invalid. Please try again");
+			invalid.setAlignment(Pos.CENTER);
+		}
+		
+		//checking suburb
+		if(menu.validate(suburb, suburbName)){
+			suburbValid = true;
+		}
+		else{
+			invalid.setText("Suburb name is invalid. Please try again");
+			invalid.setAlignment(Pos.CENTER);
+		}
+		
+		//checking address
+		if(menu.validate(address, addressLine)){
+			addressLineValid = true;
+		}
+		else{
+			invalid.setText("Address Line is invalid. Please try again");
+			invalid.setAlignment(Pos.CENTER);
+		}
+		
+		//checking mobile
+		if(menu.validate(mobile, mobileNo)){
+			mobileValid = true;
+		}
+		else{
+			invalid.setText("Mobile number is invalid. Please try again");
+			invalid.setAlignment(Pos.CENTER);
+		}
+		
+		//checking lastname
+		if(menu.validate(lname, name)){
+			lnameValid = true;
+		}
+		else{
+			invalid.setText("Last Name is invalid. Please try again");
+			invalid.setAlignment(Pos.CENTER);
+		}
+		
+		//checking firstname
+		if(menu.validate(fname, name)){
+			fnameValid = true;
+		}
+		else{
+			invalid.setText("First Name is invalid. Please try again");
+			invalid.setAlignment(Pos.CENTER);
+		}
+		
+		
+		//sending info to database
+		if(fnameValid && lnameValid && mobileValid && addressLineValid && suburbValid && zipValid){
+			invalid.setText("");
+			String fullAddress = address + ", " + suburb + ", " + state + " "+ postcode;
+			String services = "femaleCut, maleCut, femaleDye, maleDye, femalePerm, malePerm, femaleWash, maleWash";
+			menu.addEmployee(username, fname, lname, mobileNo, fullAddress, services);
 			goToPortal();
-//		}
+		}
 	}
 	
 	@FXML

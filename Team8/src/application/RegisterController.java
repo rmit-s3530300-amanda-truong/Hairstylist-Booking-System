@@ -14,6 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
@@ -89,86 +90,108 @@ public class RegisterController {
 		String address = rc_address.getText();
 		String suburb = rc_suburb.getText();
 		String postcode = rc_postcode.getText();
-		String state = rc_state.getPromptText();
+		String state = rc_state.getValue();
 		
-		boolean unValid = false, fNameValid = false, lNameValid = false, passValid = false, 
-				mobileValid = false, suburbValid = false ,zipValid = false, passconfirm = false;
+		boolean unameValid = false, fnameValid = false, lnameValid = false, passValid = false, 
+				mobileValid = false, suburbValid = false ,zipValid = false, addressLineValid = false;
 		
-		//checking firstname
-		if(menu.validName(fname)){
-			invalid.setText("");
-			fNameValid = true;
-		}
-		else{
-			invalid.setText("First Name is invalid. Please try again");
-		}
+		//regex patterns for user input
+		String uname = "^(?=^.{5,}$)^[a-zA-Z][a-zA-Z0-9]*[._-]?[a-zA-Z0-9]+$";
+		String name = "^[a-zA-Z-//s]*$";
+		String pass = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=\\S+$)(?=.*[@#$%^&+=]).{6,}$";
+		String mobileNo = "^(?:\\+?(61))? ?(?:\\((?=.*\\)))?(0?[2-57-8])\\)? ?(\\d\\d(?:[- ](?=\\d{3})|(?!\\d\\d[- ]?\\d[- ]))\\d\\d[- ]?\\d[- ]?\\d{3})$";
+		String suburbName = "^([a-zA-Z](\\s?))*$";
+		String zipCode = "^[0-9]{4}$";
+		String addressLine = "^\\d+\\s[A-z]+\\s[A-z]+";
 		
-		//checking lastname
-		if(menu.validName(lname)){
-			invalid.setText("");
-			lNameValid = true;
-		}
-		else{
-			invalid.setText("Last Name is invalid. Please try again");
-		}
-		
-		//checking username
-		if(menu.validUname(username) && menu.uniqueUname(username)){
-			invalid.setText("");
-			unValid = true;
-		}
-		else{
-			invalid.setText("username is invalid or already taken. Please try again");
-		}
-		
-		//checking password validation
-		if(menu.validPassword(password)){
-			invalid.setText("");
-			passValid = true;
-		}
-		else{
-			invalid.setText("Password should contatin atleast 1 Capital, 1 symbol, 1 number");
-		}
-		
-		//checking password equals confirm password
-		if(password.equals(confirmPass)){
-			invalid.setText("");
-			passconfirm = true;
-		}
-		else{
-			invalid.setText("Password Doesn't match. Please try again");
-		}
-		
-		//checking mobile validation
-		if(menu.validMobile(mobile)){
-			invalid.setText("");
-			mobileValid = true;
-		}
-		else{
-			invalid.setText("mobile number is invalid. Please try again");
-		}
-		
-		//checking suburb validation
-		if(menu.validSuburb(suburb)){
-			invalid.setText("");
-			suburbValid = true;
-		}
-		else{
-			invalid.setText("suburb is invalid. Please try again");
-		}
-		
-		//checking postcode validation
-		if(menu.validZip(postcode)){
-			invalid.setText("");
+		//checking postcode
+		if(menu.validate(postcode, zipCode)){
 			zipValid = true;
 		}
 		else{
-			invalid.setText("postcode is invalid. Please try again");
+			invalid.setText("Postcode is invalid. Please try again");
+			invalid.setAlignment(Pos.CENTER);
+		}
+		
+		//checking suburb
+		if(menu.validate(suburb, suburbName)){
+			suburbValid = true;
+		}
+		else{
+			invalid.setText("Suburb name is invalid. Please try again");
+			invalid.setAlignment(Pos.CENTER);
+		}
+		
+		//checking address
+		if(menu.validate(address, addressLine)){
+			addressLineValid = true;
+		}
+		else{
+			invalid.setText("Address Line is invalid. Please try again");
+			invalid.setAlignment(Pos.CENTER);
+		}
+		
+		//checking mobile
+		if(menu.validate(mobile, mobileNo)){
+			mobileValid = true;
+		}
+		else{
+			invalid.setText("Mobile number is invalid. Please try again");
+			invalid.setAlignment(Pos.CENTER);
+		}
+		
+		//checking password
+		if(menu.validate(password, pass)){
+			if(password.equals(confirmPass)){
+				passValid = true;
+			}
+			else{
+				invalid.setText("Password doesn't match. Please try again");
+				invalid.setAlignment(Pos.CENTER);
+			}
+		}
+		else{
+			invalid.setText("Password must contain atleast one capital letter, atleat one symbol and atleast a number. Please try again");
+			invalid.setAlignment(Pos.CENTER_LEFT);
+		}
+		
+		//checking username input
+		if(menu.validate(username, uname)){
+			if(menu.uniqueUname(username)){
+				unameValid = true;
+			}
+			else{
+				invalid.setText("Username is already taken. Please try again");
+				invalid.setAlignment(Pos.CENTER);
+			}
+		}
+		else{
+			invalid.setText("Username is invalid. Please try again");
+			invalid.setAlignment(Pos.CENTER);
+		}
+		
+		//checking lastname
+		if(menu.validate(lname, name)){
+			lnameValid = true;
+		}
+		else{
+			invalid.setText("Last Name is invalid. Please try again");
+			invalid.setAlignment(Pos.CENTER);
+		}
+		
+		//checking firstname
+		if(menu.validate(fname, name)){
+			fnameValid = true;
+		}
+		else{
+			invalid.setText("First Name is invalid. Please try again");
+			invalid.setAlignment(Pos.CENTER);
 		}
 		
 		//sending info to database
-		if(fNameValid && lNameValid && unValid && passValid && passconfirm && mobileValid && suburbValid && zipValid){
-			String fullAddress = address + "," + suburb + ", " + state + " "+ postcode;
+		if(fnameValid && lnameValid && unameValid && passValid && mobileValid && addressLineValid && suburbValid && zipValid){
+			invalid.setText("");
+			String fullAddress = address + ", " + suburb + ", " + state + " "+ postcode;
 			menu.registerCustomer(username, fname, lname, password, mobile, fullAddress);
 			goToPortal();
 		}
