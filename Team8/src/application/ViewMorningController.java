@@ -85,44 +85,42 @@ public class ViewMorningController {
 	@FXML
 	void createRectangles()
 	{
+		ArrayList<Booking> bookingList = menu.getCompany().getCalendar().getPendingBooking();
 		int columns = 7, rows = 15 , horizontal = 95, vertical = 25;
 		LocalTime startTime = null;
         Rectangle rect = null;
         LocalDate current = menu.getCompany().getCalendar().getDate();
         for(int i = 0; i < columns; i++)
         {
-            for(int j = 0; j< rows; j++)
+        	int j = 0;
+        	LocalTime current_time = LocalTime.of(8, 00);
+            while(!current_time.equals(LocalTime.of(12, 00)))
             {
                 //(y,x,width,height)
                 rect = new Rectangle((220+(135*i)), 117+(30*j), horizontal, vertical);
-                ArrayList<Booking> bookingList = menu.getCompany().getBookingList();
+                Boolean valid = false;
                 for(int x=0; x<bookingList.size(); x++)
                 {
-                	Booking book = bookingList.get(x);
-                	if(current.equals(book.getDate()))
-                	{
-                		//gets the right matching date and time, doesnt draw red in the right places
-                    	startTime = LocalTime.parse("08:00");
-                		for(int y=0; y<15; y++)
-                		{
-                        	if(startTime.equals(book.getStartTime()))
-                        	{
-                        		System.out.println(current);
-                        		System.out.println(startTime);
-                        		rect.setFill(Color.RED);
-                        	}
-                        	startTime = startTime.plusMinutes(15);
-                		}
-                	}
-                	else
-                	{
-                        rect.setFill(Color.WHITE);
-                	}
+	                	Booking book = bookingList.get(x);
+	                	if(current.equals(book.getDate()))
+	                	{
+	                		System.out.println(current_time + " "+book.getStartTime());
+	                		if(current_time.toString().equals(book.getStartTime().toString())) {
+	                    		valid = true;
+	                    		System.out.println(valid);
+	                        }
+	            		}
+                }
+                if(valid) {
+                	rect.setFill(Color.RED);
+                } else {
+                	rect.setFill(Color.WHITE);
                 }
                 displayPane.getChildren().add(rect);
-            	current = current.plusDays(1);
-            }
-
+            	current_time = current_time.plusMinutes(15);
+            	j++;
+            } 
+            current = current.plusDays(1);
         }
 	}
 	

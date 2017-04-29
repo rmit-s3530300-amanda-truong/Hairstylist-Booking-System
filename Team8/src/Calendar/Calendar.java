@@ -73,6 +73,44 @@ public class Calendar {
 		}
 	}
 	
+	public void setBookingList(ArrayList<Booking> newBookList)
+	{
+		if(newBookList.size()>0) {
+			bookingList = newBookList;
+		}
+	}
+	
+	public void updateBookingList() {
+		if(bookingList.size() > 0)
+		{	
+		    for(int x =0; x<bookingList.size();x++) {
+		    	Booking newBook = bookingList.get(x);
+		    	LocalDate date = newBook.getDate();
+		    	LocalTime s_time = newBook.getStartTime();
+		    	LocalTime e_time = newBook.getEndTime();
+		    	Boolean canAdd = true;
+		    	if(x == 0) {
+		    		displayBookedList.add(bookingList.get(x));
+		    	} else {
+			    	for(int i =0; i<displayBookedList.size();i++) 
+			    	{
+			    		if(date.equals(displayBookedList.get(i).getDate()) && s_time.equals(displayBookedList.get(i).getStartTime()) && e_time.equals(displayBookedList.get(i).getEndTime()))
+			    		{
+			    			canAdd = false;
+			    		}
+			    	}
+		    	}
+		    	if(canAdd)
+		    	{
+		    		Boolean b =requestBooking(date,s_time,e_time, newBook.getEmployee(), newBook.getServices(), newBook.getCustomerID());
+		    		Booking book = getCalendarInfo().get(date).get(s_time);
+		    		Boolean b2 = acceptBooking(book.getID());
+		    		displayBookedList.add(newBook);
+		    	}
+		    }
+		}
+	}
+	
 	public String getBookingSummary() {
 		LinkedHashMap<String, Booking> list = new LinkedHashMap<String, Booking>();
 		String output="";
@@ -160,6 +198,7 @@ public class Calendar {
 			else if(book.getStatus() == Status.pending) {
 				String existing_cust_id = book.getCustomerID();
 				if(existing_cust_id.equals(customer_id)) {
+					System.out.println("Existing Customer");
 					return false;
 				} else {
 					booking_list.add(book);
@@ -181,6 +220,8 @@ public class Calendar {
 			}
 			displayBookedList.add(booking_list.get(0));
 			return true;
+		} else {
+			System.out.println("already booked");
 		}
 		return false;
 	}
@@ -217,7 +258,6 @@ public class Calendar {
 			current_time = current_time.plusMinutes(15);
 		}
 	}
-	
 
 	public Boolean declineBooking(String bookingID) {
 		Booking book = getBooking(bookingID);

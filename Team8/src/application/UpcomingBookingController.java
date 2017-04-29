@@ -43,13 +43,6 @@ public class UpcomingBookingController {
 	@FXML
 	public void initialize() {;
 		ta = new TextArea();
-		ta.textProperty().addListener(new ChangeListener<String>() {
-			@Override
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				System.out.println(oldValue+"-"+newValue);
-				
-			}
-		});
 	}
 	
 	public String getUpcomingBooking() {
@@ -57,7 +50,7 @@ public class UpcomingBookingController {
 		ArrayList<Booking> list = cal.getDisplayFutureBooking();
 		String future="";
 		for(Booking book : list) {
-			future = future + String.format("%-20s %-20s %-20s %10s %25s %28s\n", book.getID(), book.getDate().toString(), book.getStartTime().toString(), book.getEndTime().toString(), book.getCustomerID(), "000");
+			future = future + String.format("%-20s %-20s %-20s %10s %25s %28s\n", book.getID(), book.getDate().toString(), book.getStartTime().toString(), book.getEndTime().toString(), book.getCustomerID(), book.getEmployee().getID());
 		}
 		ta.setFont(Font.font ("Lato Heavy", 16));
 		ta.setText(future);
@@ -67,7 +60,6 @@ public class UpcomingBookingController {
 		ta.setPrefHeight(430.0);
 		ta.setPrefWidth(793.0);
 		
-		System.out.println(future);
 		rootPane.getChildren().add(ta);
 		return future;
 	}
