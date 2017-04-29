@@ -18,14 +18,12 @@ import Database.CustomerDatabase;
 public class Company {
 	private HashMap<String, Employee> employeeList;
 	private HashMap<String, Customer> custList;
-	private ArrayList<Booking> bookingList;
 	private Calendar calendar;
 	
 	// TODO: Add in other details that company need here
 	public Company() {
 		employeeList = new HashMap<String, Employee>();
 		custList = new HashMap<String, Customer>();
-		bookingList = new ArrayList<Booking>();
 		this.calendar = new Calendar(LocalDate.now());
 	}
 	
@@ -62,6 +60,7 @@ public class Company {
 		HashMap<String, HashMap<String,String>> custValues;
 		HashMap<String, ArrayList<String>> availValues;
 		HashMap<String, ArrayList<String>> bookValues;
+		ArrayList<Booking> bookList;
 		empValues = companyDb.storeEmpValues();
 		setEmployeeList(empValues);
 		custValues = customerDb.storeCustomerValues();
@@ -69,7 +68,9 @@ public class Company {
 		availValues = availDb.storeAvailValues();
 		setAvailList(availValues);
 		bookValues = bookingDb.storeBookingValues();
-		setBookingList(bookValues);
+		bookList = setBookingList(bookValues);
+		calendar.setBookingList(bookList);
+
 	}
 	
 	public HashMap<DayOfWeek, ArrayList<LocalTime>> setAvailList(HashMap<String, ArrayList<String>> list)
@@ -150,13 +151,8 @@ public class Company {
 			booking.addDetails(LocalDate.parse(date), LocalTime.parse(startTime), LocalTime.parse(endTime), service, emp, customerUsername);
 			bookList.add(booking);
 		}
-		bookingList = bookList;
-		return bookingList;
-	}
-	
-	public ArrayList<Booking> getBookingList()
-	{
-		return bookingList;
+		calendar.setBookingList(bookList);
+		return bookList;
 	}
 	
 	public void addEmployee(Employee employee) {

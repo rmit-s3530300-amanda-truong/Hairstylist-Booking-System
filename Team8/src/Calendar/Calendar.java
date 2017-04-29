@@ -73,6 +73,45 @@ public class Calendar {
 		}
 	}
 	
+	public void setBookingList(ArrayList<Booking> newBookList)
+	{
+		if(newBookList.size() > 0)
+		{	
+			bookingList = newBookList;
+	    	displayBookedList.add(newBookList.get(0));
+	    	System.out.println(newBookList.size());
+		    for(Booking newBook : newBookList) {
+		    	LocalDate date = newBook.getDate();
+		    	LocalTime s_time = newBook.getStartTime();
+		    	LocalTime e_time = newBook.getEndTime();
+		    	System.out.println(displayBookedList.size());
+		    	Boolean isFound = false;
+		    	for(int i =0; i<displayBookedList.size();i++) 
+		    	{
+		    		if(!date.equals(displayBookedList.get(i)) && !s_time.equals(displayBookedList.get(i)) && !e_time.equals(displayBookedList.get(i)))
+		    		{
+		    			isFound = true;
+		    			//System.out.println("if statement gets called");
+		    			//addBookingToCalendar(newBook);
+		    			//displayBookedList.add(newBook);
+		    		}
+		    	}
+		    	if(isFound)
+		    	{
+		    		System.out.println(date.toString());
+		    		System.out.println(s_time.toString());
+		    		System.out.println(e_time.toString());
+		    		System.out.println(newBook.getID());
+		    		requestBooking(date,s_time,e_time, newBook.getEmployee(), newBook.getServices(), newBook.getCustomerID());
+		    		Booking book = getCalendarInfo().get(date).get(s_time);
+		    		acceptBooking(book.getID());
+		    		System.out.println(book.getID());
+		    		displayBookedList.add(newBook);
+		    	}
+		    }
+		}
+	}
+	
 	public String getBookingSummary() {
 		LinkedHashMap<String, Booking> list = new LinkedHashMap<String, Booking>();
 		String output="";
@@ -218,6 +257,23 @@ public class Calendar {
 		}
 	}
 	
+/*	public void addBookingToCalendar(Booking newBook) {
+		LocalTime start_time = newBook.getStartTime();
+		LocalTime end_time = newBook.getEndTime();
+		LocalDate date = newBook.getDate();
+		String customerID = newBook.getCustomerID();
+		Service service = newBook.getServices();
+		Employee emp = newBook.getEmployee();
+		LocalTime current_time = start_time;
+		while(!current_time.equals(end_time)) {
+			Booking book = calendar.get(date).get(current_time);
+			book.addDetails(date, start_time, end_time, service, emp, customerID);
+			book.setStatus(Status.booked);
+			calendar.get(date).put(current_time, book);
+			current_time = current_time.plusMinutes(15);
+			System.out.println(calendar.get(date).get(current_time).getStatus());
+		}
+	}*/
 
 	public Boolean declineBooking(String bookingID) {
 		Booking book = getBooking(bookingID);
