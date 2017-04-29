@@ -295,7 +295,7 @@ public class BookingDatabase {
 				prep2.setString(3,"femaleCut");
 				prep2.setString(4,"e2");
 				prep2.setString(5,"2017-05-03");
-				prep2.setString(6,"13:00-13:15");
+				prep2.setString(6,"13:00-13:30");
 				prep2.setString(7,"booked");
 				prep2.execute();
 				prep2.close();
@@ -305,7 +305,7 @@ public class BookingDatabase {
 				prep3.setString(3,"femaleCut");
 				prep3.setString(4,"e2");
 				prep3.setString(5,"2017-05-03");
-				prep3.setString(6,"13:15-13:30");
+				prep3.setString(6,"13:00-13:30");
 				prep3.setString(7,"booked");
 				prep3.execute();
 				prep3.close();
