@@ -3,7 +3,9 @@ package Business;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import Business.Employee.Service;
@@ -14,10 +16,12 @@ import Database.AvailabilityDatabase;
 import Database.BookingDatabase;
 import Database.CompanyDatabase;
 import Database.CustomerDatabase;
+import Database.ServicesDatabase;
 
 public class Company {
 	private HashMap<String, Employee> employeeList;
 	private HashMap<String, Customer> custList;
+	private HashMap<String, String> serviceTime;
 	private Calendar calendar;
 	
 	// TODO: Add in other details that company need here
@@ -55,7 +59,7 @@ public class Company {
 		return output;
 	}
 	
-	public void retrieveDatabaseInfo(CustomerDatabase customerDb, CompanyDatabase companyDb, AvailabilityDatabase availDb, BookingDatabase bookingDb) {
+	public void retrieveDatabaseInfo(CustomerDatabase customerDb, CompanyDatabase companyDb, AvailabilityDatabase availDb, BookingDatabase bookingDb, ServicesDatabase servDb) {
 		HashMap<String, HashMap<String,String>> empValues;
 		HashMap<String, HashMap<String,String>> custValues;
 		HashMap<String, ArrayList<String>> availValues;
@@ -69,8 +73,8 @@ public class Company {
 		setAvailList(availValues);
 		bookValues = bookingDb.storeBookingValues();
 		bookList = setBookingList(bookValues);
-		calendar.setBookingList(bookList);
-
+		calendar.setBookingList(bookList); 
+		serviceTime = servDb.storeServiceValues();
 	}
 	
 	public HashMap<DayOfWeek, ArrayList<LocalTime>> setAvailList(HashMap<String, ArrayList<String>> list)

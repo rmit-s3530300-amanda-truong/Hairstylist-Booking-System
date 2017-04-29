@@ -142,33 +142,33 @@ public class BookingDatabaseTest {
 		Boolean actual = false;
 		Boolean actual2 = false;
 		Boolean expected = true;
-		String bookingID = "2017-05-04/08:15";
+		String bookingID = "2017-05-02/09:15";
 		String customerUsername = "jbrown";
 		String service = "maleCut";
 		String employeeID = "e1";
-		String date = "2017-05-04";
-		String startTime = "08:15";
-		String endTime = "08:30";
+		String date = "2017-05-02";
+		String startTime = "09:15";
+		String endTime = "09:30";
 		String time = startTime + "-" + endTime;
 		String status = "booked";
 		
-		String bookingID2 = "2017-05-03/09:15";
+		String bookingID2 = "2017-05-03/13:00";
 		String customerUsername2 = "rgeorge";
 		String service2 = "femaleCut";
 		String employeeID2 = "e1";
 		String date2 = "2017-05-03";
-		String startTime2 = "09:15";
-		String endTime2 = "09:30";
+		String startTime2 = "13:00";
+		String endTime2 = "13:30";
 		String time2 = startTime + "-" + endTime;
 		String status2 = "booked";
 		
-		String bookingID3 = "2017-05-03/09:30";
+		String bookingID3 = "2017-05-03/13:15";
 		String customerUsername3 = "rgeorge";
 		String service3 = "femaleCut";
 		String employeeID3 = "e1";
 		String date3 = "2017-05-03";
-		String startTime3 = "09:30";
-		String endTime3 = "09:45";
+		String startTime3 = "13:00";
+		String endTime3 = "13:15";
 		String time3 = startTime + "-" + endTime;
 		String status3 = "booked";
 		
@@ -309,9 +309,9 @@ public class BookingDatabaseTest {
 		
 		bookingDb.addTest();
 		
-		actual = bookingDb.checkValueExists("bookingID", "2017-05-04/08:15");
-		actual2 = bookingDb.checkValueExists("bookingID", "2017-05-03/09:15");
-		actual3 = bookingDb.checkValueExists("bookingID", "2017-05-03/09:30");
+		actual = bookingDb.checkValueExists("bookingID", "2017-05-02/09:15");
+		actual2 = bookingDb.checkValueExists("bookingID", "2017-05-03/13:00");
+		actual3 = bookingDb.checkValueExists("bookingID", "2017-05-03/13:15");
 		assertEquals(expected,actual);
 		assertEquals(expected,actual2);
 		assertEquals(expected,actual3);
@@ -340,7 +340,7 @@ public class BookingDatabaseTest {
 		assertEquals(expected,actual);
 		actual = false;
 		
-		actual = bookingDb.checkValueExists("date","2017-05-04");
+		actual = bookingDb.checkValueExists("date","2017-05-02");
 		actual2 = bookingDb.checkValueExists("date","2017-05-03");		
 		actual3 = bookingDb.checkValueExists("date","2017-05-03");		
 		assertEquals(expected,actual);
@@ -350,15 +350,12 @@ public class BookingDatabaseTest {
 		actual2 = false;
 		actual3 = false;
 		
-		actual = bookingDb.checkValueExists("time","08:15-08:30");
-		actual2 = bookingDb.checkValueExists("time","09:15-09:30");
-		actual3 = bookingDb.checkValueExists("time","09:30-09:45");
+		actual = bookingDb.checkValueExists("time","09:15-09:30");
+		actual2 = bookingDb.checkValueExists("time","13:00-13:30");
 		assertEquals(expected,actual);
 		assertEquals(expected,actual2);
-		assertEquals(expected,actual3);
 		actual = false;
 		actual2 = false;
-		actual3 = false;
 		
 		actual = bookingDb.checkValueExists("status", "booked");
 		assertEquals(expected,actual);

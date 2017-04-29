@@ -111,37 +111,6 @@ public class BookingDatabase {
 		}
 	}
 	
-	// displaying the values in customer table
-	public ResultSet displayTable()
-	{
-		try
-		{
-			if(conn.isClosed())
-			{
-				getConnection();
-			}
-			
-			stmt = conn.createStatement();
-			result = stmt.executeQuery("SELECT * FROM BOOKING");
-			while (result.next())
-			{
-				System.out.println(result.getString("bookingID") + " " + result.getString("service") 
-				+ " " + result.getString("custUsername") + " " + result.getString("employeeID") 
-				+ " " + result.getString("date") + " " + result.getString("time") 
-				+ result.getString("status"));
-			}
-			stmt.close();
-			result.close();
-			conn.close();;
-		}
-		catch(Exception e)
-		{
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
-		}
-		return result;
-	}
-	
 	public HashMap<String, ArrayList<String>> storeBookingValues()
 	{
 		HashMap<String, ArrayList<String>> bookingMap = new HashMap<String, ArrayList<String>>();

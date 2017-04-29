@@ -12,6 +12,7 @@ import Database.AvailabilityDatabase;
 import Database.BookingDatabase;
 import Database.CompanyDatabase;
 import Database.CustomerDatabase;
+import Database.ServicesDatabase;
 import Menu.Menu;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -27,9 +28,11 @@ public class Main extends Application {
 		CompanyDatabase companyDb = new CompanyDatabase();
 		AvailabilityDatabase availDb = new AvailabilityDatabase();
 		BookingDatabase bookingDb = new BookingDatabase();
+		ServicesDatabase servDb = new ServicesDatabase();
 		Company comp = new Company();
-		comp.retrieveDatabaseInfo(customerDb, companyDb, availDb, bookingDb);
+		comp.retrieveDatabaseInfo(customerDb, companyDb, availDb, bookingDb, servDb);
 		comp.getCalendar().updateCalendar(comp.getEmployeeList());
+		servDb.displayTable();
 		menu = new Menu(comp, customerDb, companyDb, availDb);
 		
 	}
