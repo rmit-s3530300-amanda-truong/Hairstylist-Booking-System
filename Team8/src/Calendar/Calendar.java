@@ -75,37 +75,36 @@ public class Calendar {
 	
 	public void setBookingList(ArrayList<Booking> newBookList)
 	{
-		if(newBookList.size() > 0)
-		{	
+		if(newBookList.size()>0) {
 			bookingList = newBookList;
-	    	displayBookedList.add(newBookList.get(0));
-	    	System.out.println(newBookList.size());
-		    for(Booking newBook : newBookList) {
+		}
+	}
+	
+	public void updateBookingList() {
+		if(bookingList.size() > 0)
+		{	
+		    for(int x =0; x<bookingList.size();x++) {
+		    	Booking newBook = bookingList.get(x);
 		    	LocalDate date = newBook.getDate();
 		    	LocalTime s_time = newBook.getStartTime();
 		    	LocalTime e_time = newBook.getEndTime();
-		    	System.out.println(displayBookedList.size());
-		    	Boolean isFound = false;
-		    	for(int i =0; i<displayBookedList.size();i++) 
-		    	{
-		    		if(!date.equals(displayBookedList.get(i)) && !s_time.equals(displayBookedList.get(i)) && !e_time.equals(displayBookedList.get(i)))
-		    		{
-		    			isFound = true;
-		    			//System.out.println("if statement gets called");
-		    			//addBookingToCalendar(newBook);
-		    			//displayBookedList.add(newBook);
-		    		}
+		    	Boolean canAdd = true;
+		    	if(x == 0) {
+		    		displayBookedList.add(bookingList.get(x));
+		    	} else {
+			    	for(int i =0; i<displayBookedList.size();i++) 
+			    	{
+			    		if(date.equals(displayBookedList.get(i).getDate()) && s_time.equals(displayBookedList.get(i).getStartTime()) && e_time.equals(displayBookedList.get(i).getEndTime()))
+			    		{
+			    			canAdd = false;
+			    		}
+			    	}
 		    	}
-		    	if(isFound)
+		    	if(canAdd)
 		    	{
-		    		System.out.println(date.toString());
-		    		System.out.println(s_time.toString());
-		    		System.out.println(e_time.toString());
-		    		System.out.println(newBook.getID());
-		    		requestBooking(date,s_time,e_time, newBook.getEmployee(), newBook.getServices(), newBook.getCustomerID());
+		    		Boolean b =requestBooking(date,s_time,e_time, newBook.getEmployee(), newBook.getServices(), newBook.getCustomerID());
 		    		Booking book = getCalendarInfo().get(date).get(s_time);
-		    		acceptBooking(book.getID());
-		    		System.out.println(book.getID());
+		    		Boolean b2 = acceptBooking(book.getID());
 		    		displayBookedList.add(newBook);
 		    	}
 		    }
@@ -154,6 +153,7 @@ public class Calendar {
 				day = date.getDayOfWeek();
 			}
 		}
+		updateBookingList();
 	}
 	
 	public Boolean isBooked(LocalDate date, LocalTime time) {
@@ -199,6 +199,7 @@ public class Calendar {
 			else if(book.getStatus() == Status.pending) {
 				String existing_cust_id = book.getCustomerID();
 				if(existing_cust_id.equals(customer_id)) {
+					System.out.println("Existing Customer");
 					return false;
 				} else {
 					booking_list.add(book);
@@ -220,6 +221,8 @@ public class Calendar {
 			}
 			displayBookedList.add(booking_list.get(0));
 			return true;
+		} else {
+			System.out.println("already booked");
 		}
 		return false;
 	}
@@ -256,24 +259,6 @@ public class Calendar {
 			current_time = current_time.plusMinutes(15);
 		}
 	}
-	
-/*	public void addBookingToCalendar(Booking newBook) {
-		LocalTime start_time = newBook.getStartTime();
-		LocalTime end_time = newBook.getEndTime();
-		LocalDate date = newBook.getDate();
-		String customerID = newBook.getCustomerID();
-		Service service = newBook.getServices();
-		Employee emp = newBook.getEmployee();
-		LocalTime current_time = start_time;
-		while(!current_time.equals(end_time)) {
-			Booking book = calendar.get(date).get(current_time);
-			book.addDetails(date, start_time, end_time, service, emp, customerID);
-			book.setStatus(Status.booked);
-			calendar.get(date).put(current_time, book);
-			current_time = current_time.plusMinutes(15);
-			System.out.println(calendar.get(date).get(current_time).getStatus());
-		}
-	}*/
 
 	public Boolean declineBooking(String bookingID) {
 		Booking book = getBooking(bookingID);
