@@ -188,7 +188,6 @@ public class RegisterController {
 			invalid.setAlignment(Pos.CENTER);
 		}
 		
-		
 		//sending info to database
 		if(fnameValid && lnameValid && unameValid && passValid && mobileValid && addressLineValid && suburbValid && zipValid){
 			invalid.setText("");
