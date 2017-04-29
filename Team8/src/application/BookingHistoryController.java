@@ -22,7 +22,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
-public class UpcomingBookingController {
+public class BookingHistoryController {
 	
 	private Menu menu;
 	
@@ -52,9 +52,9 @@ public class UpcomingBookingController {
 		});
 	}
 	
-	public String getUpcomingBooking() {
+	public String getPastBooking() {
 		Calendar cal = comp.getCalendar();
-		ArrayList<Booking> list = cal.getDisplayFutureBooking();
+		ArrayList<Booking> list = cal.getDisplayPastBooking();
 		String future="";
 		for(Booking book : list) {
 			future = future + String.format("%-20s %-20s %-20s %10s %25s %28s\n", book.getID(), book.getDate().toString(), book.getStartTime().toString(), book.getEndTime().toString(), book.getCustomerID(), "000");
@@ -67,7 +67,6 @@ public class UpcomingBookingController {
 		ta.setPrefHeight(430.0);
 		ta.setPrefWidth(793.0);
 		
-		System.out.println(future);
 		rootPane.getChildren().add(ta);
 		return future;
 	}
@@ -75,7 +74,7 @@ public class UpcomingBookingController {
 	public void initiate(Menu menu) {
 		this.menu = menu;
 		comp = menu.getCompany();
-		getUpcomingBooking();
+		getPastBooking();
 	}
 	
 	@FXML

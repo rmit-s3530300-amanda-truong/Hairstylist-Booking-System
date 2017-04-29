@@ -87,6 +87,12 @@ public class BusinessPController {
 	
 	@FXML
 	void viewHistory(ActionEvent event) throws IOException{	
+		AnchorPane pane;
+    	FXMLLoader pastBooking = new FXMLLoader(getClass().getResource("ViewBookingHistory.fxml"));
+    	pane = pastBooking.load();
+    	rootPane.getChildren().setAll(pane);
+    	BookingHistoryController controller = pastBooking.getController();
+		controller.initiate(menu);
 	}
 	
 	@FXML

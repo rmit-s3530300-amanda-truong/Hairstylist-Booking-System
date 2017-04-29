@@ -7,13 +7,13 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootPane" prefHeight="788.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.BookingHistoryController">
+<AnchorPane fx:id="rootPane" prefHeight="788.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.UpcomingBookingController">
    <children>
       <Pane id="menuPane" prefHeight="75.0" prefWidth="1400.0">
          <children>
             <JFXButton id="button" fx:id="gotoLogout" layoutX="1199.0" layoutY="21.0" onAction="#goToLogout" prefHeight="35.0" prefWidth="125.0" stylesheets="@application.css" text="LOGOUT" textFill="WHITE">
                <font>
-                  <Font name="Helvetica-Normal" size="16.0" />
+                  <Font name="Lato Black" size="16.0" />
                </font>
             </JFXButton>
             <Pane id="logo" fx:id="welcome_logo" layoutX="41.0" prefHeight="75.0" prefWidth="166.0" />
@@ -62,7 +62,7 @@
                   <Font name="Lato Black" size="18.0" />
                </font>
             </JFXButton>
-            <Label layoutX="506.0" layoutY="45.0" text="VIEW PAST BOOKING" textFill="WHITE">
+            <Label layoutX="506.0" layoutY="45.0" text="VIEW BOOKING HISTORY" textFill="WHITE">
                <font>
                   <Font name="Lato Black" size="33.0" />
                </font>

@@ -39,7 +39,6 @@ public class Calendar {
 				LocalTime localtime = LocalTime.of(i, 00);
 				for(int y = 0 ; y<4 ;y++){
 					String id = lastWeekDate.toString()+"/"+localtime.toString();
-					System.out.println(id);
 					nested_info.put(localtime, new Booking(id));
 					localtime = localtime.plusMinutes(15);
 				}
@@ -292,6 +291,24 @@ public class Calendar {
 			}
 		});
 		return future;
+	}
+	
+	public ArrayList<Booking> getDisplayPastBooking() {
+		ArrayList<Booking> past = new ArrayList<Booking>();
+		for(Booking book : displayBookedList) {
+			if(book.getStatus() == Status.booked) {
+				if(book.getDate().isBefore(currentDate)) {
+					past.add(book);
+				}
+			}
+		}
+		Collections.sort(past, new Comparator<Booking>() {
+			@Override
+			public int compare(Booking arg0, Booking arg1) {
+				return arg0.getID().compareTo(arg1.getID());
+			}
+		});
+		return past;
 	}
 	
 	public Boolean containsBooking(String ID) {
