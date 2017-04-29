@@ -59,6 +59,12 @@ public class BusinessPController {
 	
 	@FXML
 	void addAvaiTimes(ActionEvent event) throws IOException{
+		AnchorPane pane;
+    	FXMLLoader addAvail = new FXMLLoader(getClass().getResource("addAvailTime.fxml"));
+    	pane = addAvail.load();
+    	rootPane.getChildren().setAll(pane);
+    	AddAvailTimeController controller = addAvail.getController();
+		controller.initiate(menu);
 	}
 	
 	@FXML

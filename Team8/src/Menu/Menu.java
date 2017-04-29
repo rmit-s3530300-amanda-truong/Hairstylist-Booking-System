@@ -142,100 +142,16 @@ public class Menu {
 //		}
 //	}
 	
-//	private void addEmployeeAvailability() {
-//		Boolean startTimeValid = false;
-//		Boolean endTimeValid = false;
-//		Boolean idValid = false;
-//		Boolean validDay = false;
-//		Boolean bothTimeValid = false;
-//		
-//		String id = "";
-//		LocalTime startTime = null;
-//		LocalTime endTime = null;
-//		DayOfWeek days = null;
-//		
-//		while(!idValid)
-//		{	
-//			System.out.print("Enter Employee ID: ");
-//			id = input.nextLine();
-//			idValid = idValid(id);
-//		}
-//		
-//		while(!validDay) {
-//			System.out.println("Enter Weekday (Monday - Friday): ");
-//			String dayString = input.nextLine();
-//			int day_int = 0;
-//			if(dayString.equals("mon")) {
-//				day_int = 1;
-//				validDay = true;
-//			}
-//			else if (dayString.equals("tues")) {
-//				day_int = 2;
-//				validDay = true;
-//			}
-//			else if(dayString.equals("wed")) {
-//				day_int = 3;
-//				validDay = true;
-//			}
-//			else if(dayString.equals("thurs")) {
-//				day_int = 4;
-//				validDay = true;
-//			}
-//			else if(dayString.equals("fri")) {
-//				day_int = 5;
-//				validDay = true;
-//			}
-//			else {
-//				System.out.println("Wrong");
-//			}
-//			if(validDay){
-//				days = DayOfWeek.of(day_int);
-//			}
-//		}
-//		
-//		while(!bothTimeValid)
-//		{
-//			String[] startTime_split = null;
-//			while(!startTimeValid)
-//			{
-//				System.out.print("Enter Start Time (08:00-16:00): ");
-//				String startTime_string = input.nextLine();
-//				if(validTime(startTime_string))
-//				{
-//					startTime_split = startTime_string.split(":");
-//					startTime = LocalTime.of(Integer.parseInt(startTime_split[0]), Integer.parseInt(startTime_split[1]));
-//					//add to calendar
-//					startTimeValid = true;
-//				}
-//			}
-//			
-//			while(!endTimeValid)
-//			{
-//				System.out.print("Enter End Time (08:00-16:00): ");
-//				String endTime_string = input.nextLine();
-//				if(validTime(endTime_string))
-//				{
-//					String[] endTime_split = endTime_string.split(":");
-//					Boolean status = validEndTime(endTime_split, startTime_split);
-//					if(status) {
-//						endTime = LocalTime.of(Integer.parseInt(endTime_split[0]), Integer.parseInt(endTime_split[1]));
-//						endTimeValid = status;
-//						bothTimeValid = status;
-//					}
-//				}
-//			}
-//		}
-//		updateEmpAvailability(days, startTime, endTime, id);
-//		Boolean checkId = availDb.checkValueExists("employeeID",id);
-//		Boolean checkDate = availDb.checkValueExists("date",days.toString());
-//		if(checkId && checkDate)
-//		{
-//			availDb.deleteAvail(id, days.toString());
-//		}
-//		availDb.addAvailabilityInfo(id, Integer.toString(days.getValue()), startTime.toString(), endTime.toString());
-//		System.out.println("Available Time Has Been Added");
-////		businessMenu();
-//	}
+	public void addEmployeeAvailability(String username, DayOfWeek day, LocalTime startTime, LocalTime endTime) {
+		
+		//updateEmpAvailability(day, startTime, endTime, username);
+		Boolean checkId = availDb.checkValueExists("employeeID",username);
+		Boolean checkDate = availDb.checkValueExists("date",day.toString());
+		if(checkId && checkDate){
+			availDb.deleteAvail(username, day.toString());
+		}
+		availDb.addAvailabilityInfo(username, day.toString(), startTime.toString(), endTime.toString());
+	}
 	
 	public void updateEmpAvailability(DayOfWeek day, LocalTime startTime, LocalTime endTime, String id) {
 		HashMap<String, Employee> employeeList = comp.getEmployeeList();
@@ -248,108 +164,98 @@ public class Menu {
 	}
 	
 	public boolean idValid(String id) {
-		if(companyDb.checkValueExists("username",id))
-		{
+		if(companyDb.checkValueExists("username",id)){
 			return true;
 		}
-		else
-		{
-			System.out.println("Error: Invalid employee ID");
+		else{
 			return false;
 		}
 	}
 	
-	public boolean validEndTime(String[] endTime_split, String[] startTime_split) {
-		if(Integer.parseInt(startTime_split[0]) == Integer.parseInt(endTime_split[0]))
-		{
-			if(Integer.parseInt(startTime_split[1]) < Integer.parseInt(endTime_split[1]))
-			{
+	public boolean validEndTime(String sHour, String eHour, String sMinute, String eMinute){
+		if(Integer.parseInt(sHour) == Integer.parseInt(eHour)){
+			if(Integer.parseInt(sMinute) < Integer.parseInt(eMinute)){
 				return true;
 			}
-			else
-			{
-				System.out.println("Error: End time must be later than start time");
+			else{
 				return false;
 			}
 		}
-		else if(Integer.parseInt(startTime_split[0]) > Integer.parseInt(endTime_split[0]))
-		{
-			System.out.println("Error: End time must be later than start time");
+		else if(Integer.parseInt(sHour) > Integer.parseInt(eHour)){
 			return false;
 		}
-		else
-		{
+		else{
 			return true;
 		}
 	}
 	
-	public Boolean validMonth(String monthString){
-		try
-		{
-			int month = Integer.parseInt(monthString);
-			if(month > 0 && month <= 12){
-				int current_month = comp.getCalendar().getDate().getMonthValue();
-				if(month-current_month <= 1 && month-current_month >= 0) 
-				{
-					return true;
-				} 
-				else 
-				{
-					System.out.println("Error: Must be within a month.");
-					return false;
-				}
-			}
-			else
-			{
-				System.out.println("Error: Must be a valid month");
-				return false;
-			}
-		}
-		catch(NumberFormatException e)
-		{
-			System.out.println("Error: Input must be a number");
-			return false;
-		}
-	}
-	
-	public Boolean validDay(String dayString, int month) {
-		try
-		{
-			int day = Integer.parseInt(dayString);
-			int current_day = comp.getCalendar().getDate().getDayOfMonth();
-			int current_month = comp.getCalendar().getDate().getMonthValue();
-			YearMonth yearMonthObject = YearMonth.of(2017, month);
-			int daysInMonth = yearMonthObject.lengthOfMonth();
-			if(day > 0 && day <= daysInMonth) {
-				if(month == current_month)
-				{
-					if(day > current_day)
-					{
-						return true;
-					}
-					else
-					{
-						System.out.println("Error: Can only add availabilty for future dates");
-						return false;
-					}
-				}
-				return true;
-			} else {
-				System.out.println("Error: Must be a valid day");
-				return false;
-			}
-		}
-		catch(DateTimeException e)
-		{
-			System.out.println("Error: Must be a valid day");
-			return false;
-		}
-		catch(NumberFormatException e)
-		{
-			System.out.println("Error: Input must be a number");
-			return false;
-		}
-	}
+//	public Boolean validMonth(String monthString){
+//		try
+//		{
+//			int month = Integer.parseInt(monthString);
+//			if(month > 0 && month <= 12){
+//				int current_month = comp.getCalendar().getDate().getMonthValue();
+//				if(month-current_month <= 1 && month-current_month >= 0) 
+//				{
+//					return true;
+//				} 
+//				else 
+//				{
+//					System.out.println("Error: Must be within a month.");
+//					return false;
+//				}
+//			}
+//			else
+//			{
+//				System.out.println("Error: Must be a valid month");
+//				return false;
+//			}
+//		}
+//		catch(NumberFormatException e)
+//		{
+//			System.out.println("Error: Input must be a number");
+//			return false;
+//		}
+//	}
+//	
+//	public Boolean validDay(String dayString, int month) {
+//		try
+//		{
+//			int day = Integer.parseInt(dayString);
+//			int current_day = comp.getCalendar().getDate().getDayOfMonth();
+//			int current_month = comp.getCalendar().getDate().getMonthValue();
+//			YearMonth yearMonthObject = YearMonth.of(2017, month);
+//			int daysInMonth = yearMonthObject.lengthOfMonth();
+//			if(day > 0 && day <= daysInMonth) {
+//				if(month == current_month)
+//				{
+//					if(day > current_day)
+//					{
+//						return true;
+//					}
+//					else
+//					{
+//						System.out.println("Error: Can only add availabilty for future dates");
+//						return false;
+//					}
+//				}
+//				return true;
+//			} else {
+//				System.out.println("Error: Must be a valid day");
+//				return false;
+//			}
+//		}
+//		catch(DateTimeException e)
+//		{
+//			System.out.println("Error: Must be a valid day");
+//			return false;
+//		}
+//		catch(NumberFormatException e)
+//		{
+//			System.out.println("Error: Input must be a number");
+//			return false;
+//		}
+//	}
 	
 	public String getEmpUname(){
 		int uname = companyDb.checkEmployees() + 1;
@@ -389,19 +295,4 @@ public class Menu {
 		}
 	}
 	
-	//error checking for valid start time
-	public boolean validTime(String time)
-	{
-		Matcher matcher;
-		Pattern timePattern = Pattern.compile("^([0][8-9]|[1][0-6])[:]([0|3][0]|[1|4][5])$");
-		matcher = timePattern.matcher(time);
-		Boolean timeValid = matcher.find();
-		if(time.isEmpty() || !timeValid) {
-			System.out.println("Error: start time entered incorrectly.");
-			return false;
-		} 
-		else{
-			return true;
-		}
-	}
 }
