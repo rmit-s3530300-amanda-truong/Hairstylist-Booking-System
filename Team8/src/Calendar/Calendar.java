@@ -153,7 +153,6 @@ public class Calendar {
 				day = date.getDayOfWeek();
 			}
 		}
-		updateBookingList();
 	}
 	
 	public Boolean isBooked(LocalDate date, LocalTime time) {
