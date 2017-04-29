@@ -20,13 +20,13 @@ public class Menu {
 	private Company comp;
 	private CustomerDatabase customerDb;
 	private CompanyDatabase companyDb;
-	//private AvailabilityDatabase availDb;
+	private AvailabilityDatabase availDb;
 	
 	public Menu(Company company, CustomerDatabase customerDb, CompanyDatabase companyDb, AvailabilityDatabase availDb){
 		comp = company;
 		this.companyDb = companyDb;
 		this.customerDb = customerDb;
-		//this.availDb = availDb;
+		this.availDb = availDb;
 	}
 		
 	public String authenticate(String uName, String pass){
@@ -350,123 +350,27 @@ public class Menu {
 			return false;
 		}
 	}
+	
+	public String getEmpUname(){
+		int uname = companyDb.checkEmployees() + 1;
+		String username = "e" + uname;
+		return username;
+	}
+	
+	public void addEmployee(String username, String fname, String lname, String mobile, String address, String service){
+		String password = null;
+		String company = "ABC";
+		String status = "employee";
+		companyDb.addBusInfo(username, company, fname, lname, password, mobile, address, service, status);
+	}
 
-//	private void addNewEmployee() {
-//		String bFname = null, bLname = null, bMobile = null,
-//				bAddress = null, bService = null, bNumber = null, bStreet = null,
-//				bSuburb = null, bZip = null, bState = null;
-//		boolean fNameValid = false, lNameValid = false, 
-//				mobileValid = false, suburbValid = false,zipValid = false;
-//		
-//		//generating username based on number of employees in database
-//		int uname = companyDb.checkEmployees() + 1;
-//		String bUserName = "e" + uname;
-//		System.out.println("This employee will be registered as: " + bUserName);	
-//		
-//		//getting first name
-//		while(!fNameValid){
-//			System.out.print("Please enter employee first name: ");
-//			bFname = input.nextLine();
-//			if(validName(bFname)){
-//				fNameValid = true;
-//			}
-//		}
-//		
-//		//getting last name
-//		while(!lNameValid){
-//			System.out.print("Please enter employee last name: ");
-//			bLname = input.nextLine();
-//			if(validName(bLname)){
-//				lNameValid = true;
-//			}
-//		}
-//		
-//		//getting mobile
-//		while(!mobileValid){
-//			System.out.print("Please enter employee Mobile number: ");
-//			bMobile = input.nextLine();
-//			if(validMobile(bMobile)){
-//				mobileValid = true;
-//			}
-//		}
-//				
-//		//getting street number
-////		while(!streetNumberValid) {
-////			System.out.println("Please enter Employee address.");
-////			System.out.print("Please enter street number: ");
-////			bNumber = input.nextLine();
-////			if(validStreetNumber(bNumber)){
-////				streetNumberValid = true;
-////			}
-////		}
-////		
-////		//getting street name
-////		while(!streetValid){
-////			System.out.print("Please enter street name: ");
-////			bStreet = input.nextLine();
-////			if(validStreetName(bStreet)){
-////				streetValid = true;
-////			}
-////		}
-//		
-//		//getting suburb name
-//		while(!suburbValid){
-//			System.out.print("Please enter suburb name: ");
-//			bSuburb = input.nextLine();
-//			if(validSuburb(bSuburb)){
-//				suburbValid = true;
-//			}
-//		}
-//		
-//		//getting zip code
-//		while(!zipValid) {
-//			System.out.print("Please enter zip code: ");
-//			bZip = input.nextLine();
-//			if(validZip(bZip)){
-//				zipValid = true;
-//			}				
-//		}
-//		
-////		//getting valid state name
-////		while(!stateValid) {
-////			System.out.print("Please enter State: ");
-////			bState = input.nextLine();
-////			if(validState(bState)){
-////				stateValid = true;
-////			}
-////		}
-//		
-//		//joining the address from user input
-//		bAddress = bNumber+ " " + bStreet + "," + bSuburb + ", " + bState + " "+ bZip;
-//		bService = "femaleCut, maleCut, femaleDye, maleDye, femalePerm, malePerm, femaleWash, maleWash";
-//		
-//		//sends user input to the arraylist of services
-//		ArrayList<Service> services = new ArrayList<Service>();
-//		services.add(Employee.Service.femaleCut);
-//		services.add(Employee.Service.maleCut);
-//		services.add(Employee.Service.femaleDye);
-//		services.add(Employee.Service.maleDye);
-//		services.add(Employee.Service.femalePerm);
-//		services.add(Employee.Service.malePerm);
-//		services.add(Employee.Service.femaleWash);
-//		services.add(Employee.Service.maleWash);
-//		Employee e1 = new Employee(bUserName, bFname, bLname, services);
-//		comp.addEmployee(e1);
-//		
-//		//sends user input to database
-//		companyDb.addBusInfo(bUserName, "ABC", bFname, bLname, null, bMobile, bAddress, bService, "employee");
-//		System.out.println("\nEmployee Successfully registered..");
-////		businessMenu();
-//	}
-				
-	//error checking for valid username
-	public boolean validUname(String uName){
+	//validates the user input against regexs
+	public boolean validate(String check, String regex){
 		Matcher matcher;
-		Pattern uNamePattern = Pattern.compile("^(?=^.{5,}$)^[a-zA-Z][a-zA-Z0-9]*[._-]?[a-zA-Z0-9]+$");
-		matcher = uNamePattern.matcher(uName);
-		Boolean uNameValid = matcher.find();
-		if(uName.isEmpty() || !uNameValid) {
-			System.out.println("Error: username entered incorrectly.");
+		Pattern pattern = Pattern.compile(regex);
+		matcher = pattern.matcher(check);
+		Boolean valid = matcher.find();
+		if(check.isEmpty() || !valid) {
 			return false;
 		} 
 		else{
@@ -480,86 +384,6 @@ public class Menu {
 			System.out.println("This username is already taken, please enter another: ");
 			return false;
 		}
-		else{
-			return true;
-		}
-	}
-	
-	//error checking for valid first name
-	public boolean validName(String name){
-		Matcher matcher;
-		Pattern namePattern = Pattern.compile("^[a-zA-Z-//s]*$");
-		matcher = namePattern.matcher(name);
-		Boolean firstNameValid = matcher.find();
-		if(name.isEmpty() || !firstNameValid) {
-			System.out.println("Error: Name entered incorrectly.");
-			return false;
-		} 
-		else{
-			return true;
-		}
-	}
-	
-	//error checking for valid password
-	public boolean validPassword(String password){
-		Matcher matcher;
-		Pattern passwordPattern = Pattern.compile("^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=\\S+$)(?=.*[@#$%^&+=]).{6,}$");
-		matcher = passwordPattern.matcher(password);
-		Boolean passwordValid = matcher.find();
-		if(password.isEmpty()) {
-			System.out.println("Error: Password cannot be null.");
-			return false;
-		}
-		else if (!passwordValid){
-			System.out.println("Error: Password must contain atleast a number, capital letters, atleast one unique "
-					+ "symbol and must be atleast 6 characters long.");
-			return false;
-		}
-		else{
-			return true;
-		}
-	}
-	
-	//error checking for mobile number
-	public boolean validMobile(String mobile){
-		Matcher matcher;
-		Pattern namePattern = Pattern.compile("^(?:\\+?(61))? ?(?:\\((?=.*\\)))?(0?[2-57-8])\\)? ?(\\d\\d(?:[- ](?=\\d{3})|(?!\\d\\d[- ]?\\d[- ]))\\d\\d[- ]?\\d[- ]?\\d{3})$");
-		matcher = namePattern.matcher(mobile);
-		Boolean mobileValid = matcher.find();
-		if(mobile.isEmpty() || !mobileValid) {
-			System.out.println("Error: Mobile number entered incorrectly.");
-			return false;
-		} 
-		else{
-			return true;
-		}
-	}
-	
-	//error checking for valid suburb
-	public boolean validSuburb(String suburb) {
-		Matcher matcher;
-		Pattern namePattern = Pattern.compile("^([a-zA-Z](\\s?))*$");
-		matcher = namePattern.matcher(suburb);
-		Boolean suburbValid = matcher.find();
-		if(suburb.isEmpty() || !suburbValid) {
-			System.out.println("Error: Suburb entered incorrectly.");
-			return false;
-		} 
-		else{
-			return true;
-		}
-	}
-	
-	//error checking for valid zip code
-	public boolean validZip(String zip){
-		Matcher matcher;
-		Pattern namePattern = Pattern.compile("^[0-9]{4}$");
-		matcher = namePattern.matcher(zip);
-		Boolean zipValid = matcher.find();
-		if(zip.isEmpty() || !zipValid) {
-			System.out.println("Error: zip code entered incorrectly.");
-			return false;
-		} 
 		else{
 			return true;
 		}
