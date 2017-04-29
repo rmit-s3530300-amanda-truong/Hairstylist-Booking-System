@@ -43,13 +43,6 @@ public class UpcomingBookingController {
 	@FXML
 	public void initialize() {;
 		ta = new TextArea();
-		ta.textProperty().addListener(new ChangeListener<String>() {
-			@Override
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				System.out.println(oldValue+"-"+newValue);
-				
-			}
-		});
 	}
 	
 	public String getUpcomingBooking() {
@@ -67,7 +60,6 @@ public class UpcomingBookingController {
 		ta.setPrefHeight(430.0);
 		ta.setPrefWidth(793.0);
 		
-		System.out.println(future);
 		rootPane.getChildren().add(ta);
 		return future;
 	}
