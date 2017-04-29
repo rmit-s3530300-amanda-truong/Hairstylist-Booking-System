@@ -57,7 +57,7 @@ public class UpcomingBookingController {
 		ArrayList<Booking> list = cal.getDisplayFutureBooking();
 		String future="";
 		for(Booking book : list) {
-			future = future + String.format("%-20s %-20s %-20s %10s %25s %28s\n", book.getID(), book.getDate().toString(), book.getStartTime().toString(), book.getEndTime().toString(), book.getCustomerID(), "000");
+			future = future + String.format("%-20s %-20s %-20s %10s %25s %28s\n", book.getID(), book.getDate().toString(), book.getStartTime().toString(), book.getEndTime().toString(), book.getCustomerID(), book.getEmployee().getID());
 		}
 		ta.setFont(Font.font ("Lato Heavy", 16));
 		ta.setText(future);
