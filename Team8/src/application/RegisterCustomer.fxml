@@ -120,7 +120,7 @@
                   <Font name="Lato Black" size="20.0" />
                </font>
             </JFXButton>
-            <Label fx:id="invalid" layoutX="583.0" layoutY="580.0" textFill="RED">
+            <Label fx:id="invalid" layoutX="357.0" layoutY="580.0" prefHeight="20.0" prefWidth="686.0" textFill="RED">
                <font>
                   <Font size="14.0" />
                </font>
