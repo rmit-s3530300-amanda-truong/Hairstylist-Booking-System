@@ -103,4 +103,8 @@ public class Employee {
 	public String getLastName() {
 		return lastName;
 	}
+	
+	public HashMap<LocalDate, ArrayList<LocalTime>> getBookings() {
+		return bookings;
+	}
 }

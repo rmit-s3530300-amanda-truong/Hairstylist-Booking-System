@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="rootPane" prefHeight="788.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MakeBooking1Controller">
+   <children>
+      <Pane id="menuPane" prefHeight="75.0" prefWidth="1400.0">
+         <children>
+            <JFXButton id="button" fx:id="gotoLogout" layoutX="1199.0" layoutY="21.0" onAction="#goToLogout" prefHeight="35.0" prefWidth="125.0" stylesheets="@application.css" text="LOGOUT" textFill="WHITE">
+               <font>
+                  <Font name="Helvetica-Normal" size="16.0" />
+               </font>
+            </JFXButton>
+            <Pane id="logo" fx:id="welcome_logo" layoutX="41.0" prefHeight="75.0" prefWidth="166.0" />
+            <Label layoutX="598.0" layoutY="24.0" text="BUSINESS PORTAL" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane id="content_addEmp" fx:id="contents" layoutY="74.0" prefHeight="714.0" prefWidth="1400.0">
+         <children>
+            <Rectangle arcHeight="40.0" arcWidth="40.0" height="566.0" layoutX="310.0" layoutY="99.0" opacity="0.6" stroke="BLACK" strokeType="INSIDE" width="720.0" />
+            <Label layoutX="554.0" layoutY="319.0" text="CUSTOMER USERNAME" textFill="WHITE">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+            <JFXTextField fx:id="username" focusColor="#aa9144" layoutX="571.0" layoutY="363.0" prefHeight="38.0" prefWidth="198.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </JFXTextField>
+            <JFXButton id="button" fx:id="next" layoutX="708.0" layoutY="584.0" onAction="#next" prefHeight="54.0" prefWidth="258.0" style="-fx-background-radius: 60;" stylesheets="@application.css" text="NEXT" textFill="WHITE">
+               <font>
+                  <Font name="Lato Black" size="18.0" />
+               </font>
+            </JFXButton>
+            <Label layoutX="550.0" layoutY="36.0" text="MAKE BOOKING" textFill="WHITE">
+               <font>
+                  <Font name="Lato Black" size="33.0" />
+               </font>
+            </Label>
+            <Pane prefHeight="714.0" prefWidth="82.0" style="-fx-background-color: #1d1c1c;" />
+            <JFXButton id="button" fx:id="returnButton" layoutX="379.0" layoutY="584.0" onAction="#Home" prefHeight="54.0" prefWidth="258.0" style="-fx-background-radius: 60;" stylesheets="@application.css" text="RETURN" textFill="WHITE">
+               <font>
+                  <Font name="Lato Black" size="18.0" />
+               </font>
+            </JFXButton>
+            <Label id="invalid" fx:id="invalid" layoutX="591.0" layoutY="437.0" prefHeight="17.0" prefWidth="157.0" textFill="RED" >
+            	<font>
+                  <Font size="16.0" />
+            	</font>
+            </Label>
+         </children></Pane>
+   </children>
+</AnchorPane>

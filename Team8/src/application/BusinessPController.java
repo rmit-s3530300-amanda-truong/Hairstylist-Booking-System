@@ -69,6 +69,12 @@ public class BusinessPController {
 	
 	@FXML
 	void makeBooking(ActionEvent event) throws IOException{
+		AnchorPane pane;
+    	FXMLLoader makeBook = new FXMLLoader(getClass().getResource("MakeBooking1.fxml"));
+    	pane = makeBook.load();
+    	rootPane.getChildren().setAll(pane);
+    	MakeBooking1Controller controller = makeBook.getController();
+		controller.initiate(menu);
 	}
 	
 	@FXML
