@@ -39,10 +39,10 @@ public class BookingManagementSystem extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("../application/welcome.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/Welcome.fxml"));
 			AnchorPane root = loader.load();
 			Scene scene = new Scene(root);
-			scene.getStylesheets().add(getClass().getResource("../application/application.css").toExternalForm());
+			scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
 			
 			WelcomeController controller = loader.getController();
 			controller.initiate(menu);
