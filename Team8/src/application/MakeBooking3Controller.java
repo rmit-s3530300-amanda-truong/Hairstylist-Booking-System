@@ -6,25 +6,19 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXTextField;
-import com.sun.prism.paint.Color;
+import com.jfoenix.controls.JFXRadioButton;
 
 import Business.Company;
-import Business.Customer;
 import Business.Employee;
 import Business.Employee.Service;
 import Menu.Menu;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
@@ -72,8 +66,8 @@ public class MakeBooking3Controller {
 			}
 		}
 		if(avail_list.size() > 0) {
-			ArrayList<RadioButton> buttons = new ArrayList<RadioButton>();
-			RadioButton b1 = new RadioButton();
+			ArrayList<JFXRadioButton> buttons = new ArrayList<JFXRadioButton>();
+			JFXRadioButton b1 = new JFXRadioButton();
 			b1.setText("ANY");
 			b1.setStyle("-fx-text-fill: white");
 			b1.setFont(Font.font(16));
@@ -82,7 +76,7 @@ public class MakeBooking3Controller {
 			rootPane.getChildren().add(b1);
 			counter++;
 			for(Employee emp : avail_list) {
-				RadioButton b = new RadioButton();
+				JFXRadioButton b = new JFXRadioButton();
 				b.setUserData(emp);
 				b.setText(emp.getFirstName()+" "+emp.getLastName());
 				b.setStyle("-fx-text-fill: white");
@@ -99,7 +93,7 @@ public class MakeBooking3Controller {
 				counter++;
 			}
 			
-			for(RadioButton button : buttons) {
+			for(JFXRadioButton button : buttons) {
 				button.setToggleGroup(group);
 			}
 			buttons.get(0).setSelected(true);

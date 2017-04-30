@@ -6,28 +6,20 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map.Entry;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXTextField;
-import com.sun.prism.paint.Color;
+import com.jfoenix.controls.JFXRadioButton;
 
-import Business.Company;
-import Business.Customer;
 import Business.Employee;
 import Business.Employee.Service;
 import Menu.Menu;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
@@ -35,8 +27,6 @@ import javafx.scene.text.Font;
 
 public class MakeBooking6Controller {
 	private Menu menu;
-	
-	private Company comp;
 	
 	private String cust_id;
 	
@@ -67,11 +57,7 @@ public class MakeBooking6Controller {
 		this.date = date;
 		
 		int counter = 0;
-		int length = 0;
-		Boolean check = false;
-		comp = menu.getCompany();
 		
-		ArrayList<LocalTime> week = new ArrayList<LocalTime>();
 		HashMap<DayOfWeek, ArrayList<LocalTime>> avail = employee.getAvailability();
 		DayOfWeek day = date.getDayOfWeek();
 		
@@ -79,18 +65,42 @@ public class MakeBooking6Controller {
 		
 		ArrayList<LocalTime> avail_times = new ArrayList<LocalTime>();
 		
+		int service_time_taken = service.getTime();
+		
+		ArrayList<LocalTime> unavail = new ArrayList<LocalTime>();
+		
+		for(int i =1;i<=service_time_taken;i++) {
+			if(avail.get(day).size()-1 >= i) {
+				unavail.add(avail.get(day).get(avail.get(day).size()-i));
+				System.out.println(avail.get(day).get(avail.get(day).size()-i));
+			}
+		}
+		
+		Boolean contains = false;
+		
 		if(avail.get(day)!= null){
 			if(select.equals("morning")) {
 				for(LocalTime time : avail.get(day)) {
-					if(!time.equals(avail.get(day).get(avail.size()-1))) {
+					for(LocalTime t1 : unavail) {
+						if(t1.equals(time)) {
+							contains = true;
+						}
+					}
+					if(!contains) {
 						if(time.isBefore(LocalTime.of(12, 00))) {
 							avail_times.add(time);
 						}
 					}
-				}	
+				}
+					
 			} else {
 				for(LocalTime time : avail.get(day)) {
-					if(!time.equals(avail.get(day).get(avail.get(day).size()-1))) {
+					for(LocalTime t1 : unavail) {
+						if(t1.equals(time)) {
+							contains = true;
+						}
+					}
+					if(!contains) {
 						if(time.isAfter(LocalTime.of(11, 45)) && time.isBefore(LocalTime.of(16, 00) )) {
 							avail_times.add(time);
 						}
@@ -109,9 +119,9 @@ public class MakeBooking6Controller {
 		}
 		
 		if(avail_times.size() > 0) {
-			ArrayList<RadioButton> buttons = new ArrayList<RadioButton>();
+			ArrayList<JFXRadioButton> buttons = new ArrayList<JFXRadioButton>();
 			for(LocalTime time : avail_times) {
-				RadioButton b = new RadioButton();
+				JFXRadioButton b = new JFXRadioButton();
 				b.setUserData(time);
 				b.setText(time.toString());
 				b.setStyle("-fx-text-fill: white");
@@ -127,7 +137,7 @@ public class MakeBooking6Controller {
 				buttons.add(b);
 				counter++;
 			}
-			for(RadioButton button : buttons) {
+			for(JFXRadioButton button : buttons) {
 				button.setToggleGroup(group);
 			}
 			buttons.get(0).setSelected(true);

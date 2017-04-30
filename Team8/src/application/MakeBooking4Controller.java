@@ -6,28 +6,21 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map.Entry;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXTextField;
-import com.sun.prism.paint.Color;
+import com.jfoenix.controls.JFXRadioButton;
 
 import Business.Company;
-import Business.Customer;
 import Business.Employee;
 import Business.Employee.Service;
 import Menu.Menu;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
@@ -85,9 +78,9 @@ public class MakeBooking4Controller {
 		}
 		
 		if(week.size() > 0) {
-			ArrayList<RadioButton> buttons = new ArrayList<RadioButton>();
+			ArrayList<JFXRadioButton> buttons = new ArrayList<JFXRadioButton>();
 			for(LocalDate date : week) {
-				RadioButton b = new RadioButton();
+				JFXRadioButton b = new JFXRadioButton();
 				b.setUserData(date);
 				b.setText(date.toString());
 				b.setStyle("-fx-text-fill: white");
@@ -103,7 +96,7 @@ public class MakeBooking4Controller {
 				buttons.add(b);
 				counter++;
 			}
-			for(RadioButton button : buttons) {
+			for(JFXRadioButton button : buttons) {
 				button.setToggleGroup(group);
 			}
 			buttons.get(0).setSelected(true);

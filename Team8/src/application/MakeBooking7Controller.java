@@ -1,34 +1,20 @@
 package application;
 
 import java.io.IOException;
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map.Entry;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXTextField;
-import com.sun.prism.paint.Color;
 
 import Business.Company;
-import Business.Customer;
 import Business.Employee;
 import Business.Employee.Service;
 import Menu.Menu;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
@@ -110,8 +96,6 @@ public class MakeBooking7Controller {
 	
 	@FXML
 	void accept(ActionEvent event) throws IOException {
-		
-		
 		comp.getCalendar().requestBooking(date, time, end_time, employee, service, cust_id);
 		String bID = comp.getCalendar().getCalendarInfo().get(date).get(time).getID();
 		

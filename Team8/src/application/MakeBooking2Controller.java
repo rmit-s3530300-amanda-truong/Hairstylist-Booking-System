@@ -1,35 +1,25 @@
 package application;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXRadioButton;
 
 import Business.Company;
-import Business.Customer;
 import Business.Employee;
 import Business.Employee.Service;
 import Menu.Menu;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 
 public class MakeBooking2Controller {
 	private Menu menu;
-	
-	private Company comp;
 	
 	private String cust_id;
 	
@@ -44,28 +34,28 @@ public class MakeBooking2Controller {
     private JFXButton gotoLogout;
 	
 	@FXML
-	private RadioButton femaleCut;
+	private JFXRadioButton femaleCut;
 	
 	@FXML
-	private RadioButton maleCut;
+	private JFXRadioButton maleCut;
 	
 	@FXML
-	private RadioButton femaleWash;
+	private JFXRadioButton femaleWash;
 	
 	@FXML
-	private RadioButton maleWash;
+	private JFXRadioButton maleWash;
 	
 	@FXML
-	private RadioButton femaleDye;
+	private JFXRadioButton femaleDye;
 	
 	@FXML
-	private RadioButton maleDye;
+	private JFXRadioButton maleDye;
 	
 	@FXML
-	private RadioButton femalePerm;
+	private JFXRadioButton femalePerm;
 	
 	@FXML
-	private RadioButton malePerm;
+	private JFXRadioButton malePerm;
 
 	public void initiate(Menu menu, String cust_id) {
 		this.menu = menu;
