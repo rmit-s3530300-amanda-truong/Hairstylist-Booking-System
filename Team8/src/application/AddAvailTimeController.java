@@ -95,8 +95,8 @@ public class AddAvailTimeController {
     	boolean idValid = false, dayValid = false, startTimeValid = false, endTimeValid = false;
     	
     	//regex patterns for user input
-    	String shour = "0?(8|9|10|11|12|13|14|15)";
-    	String ehour = "0?(9|10|11|12|13|14|15|16)";
+    	String shour = "08|09|10|11|12|13|14|15";
+    	String ehour = "09|10|11|12|13|14|15|16";
     	String minute = "00|15|30|45";
     	
     	//checking username
