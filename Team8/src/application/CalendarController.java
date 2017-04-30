@@ -76,7 +76,6 @@ public class CalendarController {
 	
 	@FXML
 	void goToPortal() throws IOException{
-<<<<<<< HEAD
 		if(portal.equals("business")) {
 			AnchorPane pane;
 	    	FXMLLoader bussPortal = new FXMLLoader(getClass().getResource("BusinessPortal.fxml"));
@@ -92,13 +91,11 @@ public class CalendarController {
 	    	CustomerPController controller = cusPortal.getController();
 	    	controller.initiate(menu, cust_id);
 		}
-=======
     	AnchorPane pane;
     	FXMLLoader bussPortal = new FXMLLoader(getClass().getResource("BusinessPortal.fxml"));
     	pane = bussPortal.load();
     	rootPane.getChildren().setAll(pane);
     	BusinessPController controller = bussPortal.getController();
     	controller.initiate(menu);
->>>>>>> branch 'master' of https://github.com/rmit-s3530300-amanda-truong/SEPT.git
     }
 }
