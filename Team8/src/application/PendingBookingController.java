@@ -76,7 +76,8 @@ public class PendingBookingController {
 		for(Booking book : list) {
 			pending = pending + String.format("%-20s %-20s %-20s %10s %25s %28s\n", book.getID(), book.getDate().toString(), book.getStartTime().toString(), book.getEndTime().toString(), book.getCustomerID(), book.getEmployee().getID());
 		}
-		ta.setFont(Font.font ("Lato Heavy", 16));
+		ta.setFont(Font.font ("Lato Bold", 16));
+		ta.setStyle("-fx-text-fill: white");
 		ta.setText(pending);
 		ta.setEditable(false);
 		ta.setLayoutX(299.0);
@@ -154,25 +155,6 @@ public class PendingBookingController {
 			System.out.println("invalid");
 			invalid.setStyle("-fx-text-fill: red; -fx-font-size: 16;");
 			invalid.setText("Invalid Booking ID");
-		}
-	}
-	
-	@FXML
-	void Home(ActionEvent event) throws IOException {
-		if(id==null) {
-			AnchorPane pane;
-	    	FXMLLoader bussPortal = new FXMLLoader(getClass().getResource("BusinessPortal.fxml"));
-	    	pane = bussPortal.load();
-	    	rootPane.getChildren().setAll(pane);
-	    	BusinessPController controller = bussPortal.getController();
-	    	controller.initiate(menu);
-		} else {
-			AnchorPane pane;
-	    	FXMLLoader cusPortal = new FXMLLoader(getClass().getResource("CustomerPortal.fxml"));
-	    	pane = cusPortal.load();
-	    	rootPane.getChildren().setAll(pane);
-	    	CustomerPController controller = cusPortal.getController();
-	    	controller.initiate(menu, id);
 		}
 	}
 	
