@@ -35,7 +35,7 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="536.0" layoutY="402.0" text="START TIME" textFill="WHITE">
+            <Label layoutX="504.0" layoutY="404.0" text="START TIME" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -45,22 +45,22 @@
                   <Font size="16.0" />
                </font>
             </JFXTextField>
-            <JFXTextField fx:id="startHour" focusColor="#aa9144" layoutX="536.0" layoutY="427.0" prefHeight="38.0" prefWidth="44.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
+            <JFXTextField fx:id="startHour" focusColor="#aa9144" layoutX="504.0" layoutY="429.0" prefHeight="38.0" prefWidth="44.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </JFXTextField>
-            <JFXTextField fx:id="startMinute" focusColor="#aa9144" layoutX="602.0" layoutY="427.0" prefHeight="38.0" prefWidth="44.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
+            <JFXTextField fx:id="startMinute" focusColor="#aa9144" layoutX="570.0" layoutY="429.0" prefHeight="38.0" prefWidth="44.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </JFXTextField>
-            <JFXTextField fx:id="endHour" focusColor="#aa9144" layoutX="753.0" layoutY="427.0" prefHeight="38.0" prefWidth="44.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
+            <JFXTextField fx:id="endHour" focusColor="#aa9144" layoutX="787.0" layoutY="429.0" prefHeight="38.0" prefWidth="44.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </JFXTextField>
-            <JFXTextField fx:id="endMinute" focusColor="#aa9144" layoutX="819.0" layoutY="427.0" prefHeight="38.0" prefWidth="44.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
+            <JFXTextField fx:id="endMinute" focusColor="#aa9144" layoutX="853.0" layoutY="429.0" prefHeight="38.0" prefWidth="44.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -70,12 +70,12 @@
                   <Font name="Lato Black" size="18.0" />
                </font>
             </JFXButton>
-            <Label fx:id="invalid" layoutX="462.0" layoutY="544.0" prefHeight="20.0" prefWidth="482.0" textAlignment="CENTER" textFill="RED">
+            <Label fx:id="invalidstarthour" layoutX="468.0" layoutY="492.0" prefHeight="20.0" prefWidth="473.0" textAlignment="CENTER" textFill="RED">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label layoutX="514.0" layoutY="41.0" text="ADD AVAILABLE TIMES" textFill="WHITE">
+            <Label layoutX="517.0" layoutY="41.0" text="ADD AVAILABLE TIMES" textFill="WHITE">
                <font>
                   <Font name="Lato Black" size="33.0" />
                </font>
@@ -84,17 +84,17 @@
              <children>
                   <JFXButton id="home" contentDisplay="GRAPHIC_ONLY" layoutX="8.0" layoutY="16.0" onAction="#goToPortal" ripplerFill="#1d1c1c00" />
                </children></Pane>
-            <Label layoutX="589.0" layoutY="434.0" text=":" textFill="WHITE">
+            <Label layoutX="557.0" layoutY="436.0" text=":" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="753.0" layoutY="402.0" text="END TIME" textFill="WHITE">
+            <Label layoutX="787.0" layoutY="404.0" text="END TIME" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="806.0" layoutY="434.0" text=":" textFill="WHITE">
+            <Label layoutX="840.0" layoutY="436.0" text=":" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -127,6 +127,21 @@
                   <Font size="16.0" />
                </font>
             </JFXRadioButton>
+            <Label fx:id="invalidusername" layoutX="505.0" layoutY="209.0" prefHeight="20.0" prefWidth="284.0" textAlignment="CENTER" textFill="RED">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="invalidday" layoutX="508.0" layoutY="347.0" prefHeight="20.0" prefWidth="424.0" textAlignment="CENTER" textFill="RED">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="invalidendhour" layoutX="468.0" layoutY="518.0" prefHeight="20.0" prefWidth="473.0" textAlignment="CENTER" textFill="RED">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
          </children></Pane>
    </children>
 </AnchorPane>

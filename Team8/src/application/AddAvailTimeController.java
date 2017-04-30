@@ -46,9 +46,6 @@ public class AddAvailTimeController {
     private JFXButton addAvailability;
 
     @FXML
-    private Label invalid;
-
-    @FXML
     private JFXRadioButton mon;
 
     @FXML
@@ -65,6 +62,18 @@ public class AddAvailTimeController {
 
     @FXML
     private JFXRadioButton fri;
+    
+    @FXML
+    private Label invalidusername;
+
+    @FXML
+    private Label invalidday;
+    
+    @FXML
+    private Label invalidstarthour;
+
+    @FXML
+    private Label invalidendhour;
     
     public void initiate(Menu menu) {
 		this.menu = menu;
@@ -84,16 +93,18 @@ public class AddAvailTimeController {
     	boolean idValid = false, dayValid = false, startTimeValid = false, endTimeValid = false;
     	
     	//regex patterns for user input
-    	String hour = "0?(8|9|10|11|12|13|14|15|16)";
-    	String minute = "[0-5][0-9]";
+    	String shour = "0?(8|9|10|11|12|13|14|15)";
+    	String ehour = "0?(9|10|11|12|13|14|15|16)";
+    	String minute = "00|15|30|45";
     	
     	//checking username
     	if(menu.idValid(username)){
     		idValid = true;
+    		invalidusername.setText("");
     	}
     	else{
-    		invalid.setText("Employee username is invalid. Please try again");
-			invalid.setAlignment(Pos.CENTER);
+    		invalidusername.setText("Invalid username.");
+			invalidusername.setAlignment(Pos.CENTER_LEFT);
     	}
     	
     	//checking day
@@ -114,53 +125,55 @@ public class AddAvailTimeController {
         		day = DayOfWeek.of(5);
         	}
         	dayValid = true;
+        	invalidday.setText("");
     	}
     	else{
-    		invalid.setText("Please select a day");
-			invalid.setAlignment(Pos.CENTER);
+    		invalidday.setText("Please select a day.");
+			invalidday.setAlignment(Pos.CENTER_LEFT);
     	}
     	
     	//checking start time
-    	if(menu.validate(sHour, hour)){
+    	if(menu.validate(sHour, shour)){
 			if(menu.validate(sMinute, minute)){
 				startTime = LocalTime.of(Integer.parseInt(sHour), Integer.parseInt(sMinute));
 				startTimeValid = true;
+				invalidstarthour.setText("");
 			}
 			else{
-				invalid.setText("Start time is invalid. Please try again");
-				invalid.setAlignment(Pos.CENTER);
+				invalidstarthour.setText("Invalid Start time. Choose between 15 minute interval.");
+				invalidstarthour.setAlignment(Pos.CENTER);
 			}
 		}
 		else{
-			invalid.setText("Start time is invalid. Please try again");
-			invalid.setAlignment(Pos.CENTER);
+			invalidstarthour.setText("Invalid Start time. Choose between 08:00 to 15:00.");
+			invalidstarthour.setAlignment(Pos.CENTER);
 		}
     	
     	//checking end time
-    	if(menu.validate(eHour, hour)){
+    	if(menu.validate(eHour, ehour)){
 			if(menu.validate(eMinute, minute)){
 				if(menu.validEndTime(sHour, eHour, sMinute, eMinute)){
 					endTime = LocalTime.of(Integer.parseInt(eHour), Integer.parseInt(eMinute));
 					endTimeValid = true;
+					invalidendhour.setText("");
 				}
 				else{
-					invalid.setText("End time is invalid. Please try again");
-					invalid.setAlignment(Pos.CENTER);
+					invalidendhour.setText("Invalid End time. Must be atleast 1 hour more than Start time.");
+					invalidendhour.setAlignment(Pos.CENTER);
 				}
 			}
 			else{
-				invalid.setText("End time is invalid. Please try again");
-				invalid.setAlignment(Pos.CENTER);
+				invalidendhour.setText("Invalid End time. Choose between 15 minute interval.");
+				invalidendhour.setAlignment(Pos.CENTER);
 			}
 		}
 		else{
-			invalid.setText("End time is invalid. Please try again");
-			invalid.setAlignment(Pos.CENTER);
+			invalidendhour.setText("Invalid End time. Choose between 09:00 to 16:00");
+			invalidendhour.setAlignment(Pos.CENTER);
 		}
     	
     	//sending user input to database
     	if(idValid && dayValid && startTimeValid && endTimeValid){
-    		invalid.setText("");
     		menu.addEmployeeAvailability(username, day, startTime, endTime);
     		goToPortal();
     	}
