@@ -75,6 +75,7 @@ public class Calendar {
 		}
 	}
 	
+	// Called to retrieve information from database and populates ArrayList<Booking> bookingList
 	public void setBookingList(ArrayList<Booking> newBookList)
 	{
 		if(newBookList.size()>0) {
@@ -87,6 +88,7 @@ public class Calendar {
 		}
 	}
 	
+	// Helper method for setBookingList
 	public void updateBookingList() {
 		if(bookingList.size() > 0)
 		{	
@@ -117,6 +119,7 @@ public class Calendar {
 		}
 	}
 	
+	// Gets the String concatenation of all pending/booked bookings
 	public String getBookingSummary() {
 		LinkedHashMap<String, Booking> list = new LinkedHashMap<String, Booking>();
 		String output="";
@@ -139,6 +142,7 @@ public class Calendar {
 		return output;
 	}
 	
+	// Called after database populates employeeList and updates the calendar with the employee availability
 	public void updateCalendar(HashMap<String, Employee> employeeList) {
 		for(Entry<String, Employee> value : employeeList.entrySet()) {
 			Employee emp = value.getValue();
@@ -161,6 +165,7 @@ public class Calendar {
 		}
 	}
 	
+	// Checks if the booking is booked
 	public Boolean isBooked(LocalDate date, LocalTime time) {
 		Status status = calendar.get(date).get(time).getStatus();
 		if(status == Status.booked) {
@@ -221,6 +226,7 @@ public class Calendar {
 			current_time = current_time.plusMinutes(15);
 		}
 		
+		// if booking is not booked
 		if(!isBooked) {
 			for(int i=0; i < booking_list.size(); i++) {
 				Booking book = booking_list.get(i);
@@ -288,12 +294,16 @@ public class Calendar {
 					book.setStatus(Calendar.Status.free);
 					book.addDetails(null, null, null, null, null, "");
 					calendar.get(date).put(current_time, book);
+					
+					// Finding the times to remove from BookingLIst
 					for(int i=0;i<bookingList.size();i++) {
 						Booking book1 = bookingList.get(i);
 						if(book.getID().equals(bookingID)) {
 							bookingList.remove(book1);
 						}
 					}
+					
+					// Finding the times to remove from displayBookedList
 					for(int i=0;i<displayBookedList.size();i++) {
 						Booking book2 = displayBookedList.get(i);
 						if(book.getID().equals(bookingID)) {

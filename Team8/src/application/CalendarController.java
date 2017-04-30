@@ -39,6 +39,7 @@ public class CalendarController {
 		this.cust_id = cust_id;
 	}
 	
+	//load the calendar for morning times
 	@FXML
     void clickMorning(ActionEvent event) throws IOException
 	{
@@ -50,6 +51,7 @@ public class CalendarController {
 		controller.initiate(menu, cust_id, portal);
 	}
 	
+	//load the calendar for afternoon times
 	@FXML
 	void clickAfternoon(ActionEvent event) throws IOException
 	{
