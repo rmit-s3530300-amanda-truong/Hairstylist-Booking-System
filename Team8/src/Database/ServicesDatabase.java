@@ -81,7 +81,7 @@ public class ServicesDatabase {
 		}
 	}
 	
-	// displaying the values in customer table
+	// displaying the values in service table
 	public ResultSet displayTable()
 	{
 		try
@@ -190,10 +190,6 @@ public class ServicesDatabase {
 		{
 			//making sure no duplicates are added when program restarts
 			if(check == false)
-					
-/*					!checkValueExists("maleCut","1") || !checkValueExists("femaleCut","2") || !checkValueExists("maleDye","3")
-					|| !checkValueExists("femaleDye","4") || !checkValueExists("malePerm","3") || !checkValueExists("femalePerm","4")
-					|| !checkValueExists("maleWash","1") || !checkValueExists("femaleWash","1"))*/ 
 			{
 				if(conn.isClosed())
 				{

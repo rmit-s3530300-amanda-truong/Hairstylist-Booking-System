@@ -144,55 +144,55 @@ public class AvailabilityDatabase {
 	}
 	
 	//check if value exists in table
-		public Boolean checkValueExists(String col, String value)
+	public Boolean checkValueExists(String col, String value)
+	{
+		Boolean checkExists = null;
+		String colName = null;
+		try
 		{
-			Boolean checkExists = null;
-			String colName = null;
-			try
+			if(conn.isClosed())
 			{
-				if(conn.isClosed())
-				{
-					getConnection();
-				}
-				if(col.equals("employeeID"))
-				{
-					colName = "employeeID";
-				}
-				else if(col.equals("day"))
-				{
-					colName = "day";
-				}
-				else if(col.equals("startTime"))
-				{
-					colName = "startTime";
-				}
-				else if(col.equals("endTime"))
-				{
-					colName = "endTime";
-				}
-				prep = conn.prepareStatement("SELECT * FROM AVAILABILITY WHERE "+colName+" = ?;");
-				prep.setString(1, value);
-				result = prep.executeQuery();
-				if(result.next())
-				{
-					checkExists = true;
-				}
-				else
-				{
-					checkExists = false;
-				}
-				prep.close();
-				result.close();
-				conn.close();
+				getConnection();
 			}
-			catch(Exception e)
+			if(col.equals("employeeID"))
 			{
-				LOGGER.info(e.getClass().getName() + ": " + e.getMessage());
-				System.err.println(e.getClass().getName() + ": " + e.getMessage());
-				System.exit(0);
+				colName = "employeeID";
 			}
-			return checkExists;
+			else if(col.equals("day"))
+			{
+				colName = "day";
+			}
+			else if(col.equals("startTime"))
+			{
+				colName = "startTime";
+			}
+			else if(col.equals("endTime"))
+			{
+				colName = "endTime";
+			}
+			prep = conn.prepareStatement("SELECT * FROM AVAILABILITY WHERE "+colName+" = ?;");
+			prep.setString(1, value);
+			result = prep.executeQuery();
+			if(result.next())
+			{
+				checkExists = true;
+			}
+			else
+			{
+				checkExists = false;
+			}
+			prep.close();
+			result.close();
+			conn.close();
 		}
+		catch(Exception e)
+		{
+			LOGGER.info(e.getClass().getName() + ": " + e.getMessage());
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+		return checkExists;
+	}
 		
 	//delete records if availability exists for employee already
 	public void deleteAvail(String id, String day)

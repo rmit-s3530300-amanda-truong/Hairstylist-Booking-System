@@ -105,6 +105,7 @@ public class ViewAfternoonController {
 		createRectangles();
 	}
 	
+	//creates rectangles to populate the calendar and colours according to booked, unavailable or not
 	@FXML
 	void createRectangles()
 	{
@@ -115,14 +116,16 @@ public class ViewAfternoonController {
         LocalDate current = menu.getCompany().getCalendar().getDate();
         for(int i = 0; i < columns; i++)
         {
+        	//only creating rectangles for afternoon times 12:00 - 16:00
         	int j = 0;
         	LocalTime current_time = LocalTime.of(12, 00);
             while(!current_time.equals(LocalTime.of(16, 00)))
             {
-                //(y,x,width,height)
+            	//(y,x,width,height) = parameters for rectangle
                 rect = new Rectangle((220+(135*i)), 117+(30*j), horizontal, vertical);
                 Boolean valid = false;
                 Boolean availableCheck = false;
+                //checking if employee is available at time slot, if yes colour green, if not grey
                 for(Entry<String, Employee> x : empList.entrySet()) {
         			String ID = x.getKey();
         			HashMap<DayOfWeek,ArrayList<LocalTime>> availList = menu.getCompany().getEmployee(ID).getAvailability();
@@ -142,6 +145,7 @@ public class ViewAfternoonController {
         				}
         			}
         		}
+                //checking if there is booking at time slot, if yes colour red
                 for(int x=0; x<bookingList.size(); x++)
                 {
 	                	Booking book = bookingList.get(x);
@@ -171,6 +175,7 @@ public class ViewAfternoonController {
         }
 	}
 	
+	//create the time and day labels 
 	@FXML
 	void populateTable()
 	{	
