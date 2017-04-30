@@ -190,20 +190,21 @@ public class Calendar {
 		
 		//collecting the times and date
 		while(!current_time.equals(end_time)) {
+			System.out.println("checking: "+current_time);
 			Booking book = calendar.get(date).get(current_time);
 			if(book.getStatus() == Status.unavailable || book.getStatus() == Status.booked) {
 				isBooked = true;
 			}
 			//Check if the same customer placed pending if they did reject the request
 			else if(book.getStatus() == Status.pending) {
-				/*String existing_cust_id = book.getCustomerID();
+				String existing_cust_id = book.getCustomerID();
 				if(existing_cust_id.equals(customer_id)) {
 					System.out.println("Existing Customer");
 					return false;
-				} else {*/
+				} else {
 					booking_list.add(book);
 					times_list.add(current_time);
-				//}
+				}
 			} else {
 				booking_list.add(book);
 				times_list.add(current_time);
@@ -270,8 +271,27 @@ public class Calendar {
 		if(book != null) {
 			Status status = book.getStatus();
 			if(status == Calendar.Status.pending){
-				book.setStatus(Calendar.Status.free);
-				bookingList.remove(bookingID);
+				LocalTime current_time = book.getStartTime();
+				LocalTime end_time = book.getEndTime();
+				LocalDate date = book.getDate();
+				while(!current_time.equals(end_time)) {
+					book.setStatus(Calendar.Status.free);
+					book.addDetails(null, null, null, null, null, "");
+					calendar.get(date).put(current_time, book);
+					for(int i=0;i<bookingList.size();i++) {
+						Booking book1 = bookingList.get(i);
+						if(book.getID().equals(bookingID)) {
+							bookingList.remove(book1);
+						}
+					}
+					for(int i=0;i<displayBookedList.size();i++) {
+						Booking book2 = displayBookedList.get(i);
+						if(book.getID().equals(bookingID)) {
+							displayBookedList.remove(book2);
+						}
+					}
+					current_time = current_time.plusMinutes(15);
+				}
 				return true;
 			}
 			return false;

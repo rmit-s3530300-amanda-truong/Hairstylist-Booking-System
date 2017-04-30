@@ -118,38 +118,43 @@ public class PendingBookingController {
 			invalid.setStyle("-fx-text-fill: red; -fx-font-size: 16;");
 			invalid.setText("Invalid Booking ID");
 		}
+		Boolean exist = false;
 		for(Booking b : list) {
 			String current = b.getID();
 			if(current.equals(id)) {
-				System.out.println("valid "+status);
-				invalid.setText("");
-				if(status) {
-					Boolean s1 = menu.getCompany().getCalendar().acceptBooking(id);
-					if(s1){
-						invalid.setStyle("-fx-text-fill: green; -fx-font-size: 16;");
-						invalid.setText("Successfully Accepted");
+				if(!exist) {
+					System.out.println("valid "+status);
+					invalid.setText("");
+					if(status) {
+						Boolean s1 = menu.getCompany().getCalendar().acceptBooking(id);
+						if(s1){
+							invalid.setStyle("-fx-text-fill: green; -fx-font-size: 16;");
+							invalid.setText("Successfully Accepted");
+							exist = true;
+						} else {
+							invalid.setStyle("-fx-text-fill: red; -fx-font-size: 16;");
+							invalid.setText("Invalid Booking ID");
+						}
 					} else {
-						invalid.setStyle("-fx-text-fill: red; -fx-font-size: 16;");
-						invalid.setText("Invalid Booking ID");
+						Boolean s2 = menu.getCompany().getCalendar().declineBooking(id);
+						if(s2) {
+							invalid.setStyle("-fx-text-fill: green; -fx-font-size: 16;");
+							invalid.setText("Successfully Declined");
+							exist = true;
+						} else {
+							invalid.setStyle("-fx-text-fill: red; -fx-font-size: 16;");
+							invalid.setText("Invalid Booking ID");
+						}
+						
 					}
-				} else {
-					Boolean s2 = menu.getCompany().getCalendar().declineBooking(id);
-					if(s2) {
-						invalid.setStyle("-fx-text-fill: green; -fx-font-size: 16;");
-						invalid.setText("Successfully Declined");	
-					} else {
-						invalid.setStyle("-fx-text-fill: red; -fx-font-size: 16;");
-						invalid.setText("Invalid Booking ID");
-					}
-					
 				}
-			} else {
-				System.out.println("invalid");
-				invalid.setStyle("-fx-text-fill: red; -fx-font-size: 16;");
-				invalid.setText("Invalid Booking ID");
 			}
+		} 
+		if(!exist) {
+			System.out.println("invalid");
+			invalid.setStyle("-fx-text-fill: red; -fx-font-size: 16;");
+			invalid.setText("Invalid Booking ID");
 		}
-		
 	}
 	
 	@FXML
