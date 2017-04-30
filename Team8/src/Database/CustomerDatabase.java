@@ -283,4 +283,28 @@ public class CustomerDatabase{
 		}
 		return checkExists;
 	}
+	
+	public String getName(String username){
+		String fullname = null;
+		try{
+			if(conn.isClosed()){
+				getConnection();
+			}
+			prep = conn.prepareStatement("SELECT fname,lname FROM CUSTINFO WHERE username = ?;");
+			prep.setString(1, username);
+			result = prep.executeQuery();
+			
+			fullname = result.getString("fname") + " " + result.getString("lname"); 
+					
+			prep.close();
+			result.close();
+			conn.close();
+		}
+		catch(Exception e)
+		{
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+		return fullname;
+	}
 }

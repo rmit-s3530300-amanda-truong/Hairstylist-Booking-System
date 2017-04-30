@@ -5,6 +5,7 @@ import java.io.IOException;
 import com.jfoenix.controls.JFXButton;
 
 import Business.Company;
+import Database.CustomerDatabase;
 import Menu.Menu;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,6 +14,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
 public class CustomerPController {
+	
+	CustomerDatabase db1 = new CustomerDatabase();
 	
 	private Menu menu;
 	
@@ -42,7 +45,8 @@ public class CustomerPController {
 	public void initiate(Menu menu, String username) {
 		this.menu = menu;
 		cust_id = username;
-		cust_name.setText(username);
+		String fullname = db1.getName(cust_id);
+		cust_name.setText(fullname.toUpperCase());
 	}
 	
 	@FXML
