@@ -29,27 +29,27 @@
       <Pane id="content_addEmp" layoutY="74.0" prefHeight="714.0" prefWidth="1400.0">
          <children>
             <Rectangle arcHeight="40.0" arcWidth="40.0" height="566.0" layoutX="346.0" layoutY="94.0" opacity="0.6" stroke="BLACK" strokeType="INSIDE" width="720.0" />
-            <Label layoutX="400.0" layoutY="233.0" text="FIRST NAME" textFill="WHITE">
+            <Label layoutX="400.0" layoutY="189.0" text="FIRST NAME" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="404.0" layoutY="170.0" text="USERNAME" textFill="#a9a3a3">
+            <Label layoutX="399.0" layoutY="130.0" text="USERNAME" textFill="#a9a3a3">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="768.0" layoutY="229.0" text="LAST NAME" textFill="WHITE">
+            <Label layoutX="768.0" layoutY="185.0" text="LAST NAME" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="402.0" layoutY="320.0" text="MOBILE" textFill="WHITE">
+            <Label layoutX="401.0" layoutY="306.0" text="MOBILE" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="770.0" layoutY="320.0" text="ADDRESS LINE " textFill="WHITE">
+            <Label layoutX="770.0" layoutY="306.0" text="ADDRESS LINE " textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -69,22 +69,22 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="re_fname" focusColor="#aa9144" layoutX="402.0" layoutY="253.0" prefHeight="38.0" prefWidth="198.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
+            <JFXTextField fx:id="re_fname" focusColor="#aa9144" layoutX="402.0" layoutY="209.0" prefHeight="38.0" prefWidth="198.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </JFXTextField>
-            <JFXTextField fx:id="re_lname" focusColor="#aa9144" layoutX="769.0" layoutY="253.0" prefHeight="38.0" prefWidth="195.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
+            <JFXTextField fx:id="re_lname" focusColor="#aa9144" layoutX="769.0" layoutY="209.0" prefHeight="38.0" prefWidth="195.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </JFXTextField>
-            <JFXTextField fx:id="re_mobile" focusColor="#aa9144" layoutX="402.0" layoutY="344.0" prefHeight="38.0" prefWidth="202.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
+            <JFXTextField fx:id="re_mobile" focusColor="#aa9144" layoutX="401.0" layoutY="330.0" prefHeight="38.0" prefWidth="202.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </JFXTextField>
-            <JFXTextField fx:id="re_address" focusColor="#aa9144" layoutX="769.0" layoutY="344.0" prefHeight="38.0" prefWidth="256.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
+            <JFXTextField fx:id="re_address" focusColor="#aa9144" layoutX="769.0" layoutY="330.0" prefHeight="38.0" prefWidth="256.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -105,12 +105,7 @@
                   <Font name="Lato Black" size="18.0" />
                </font>
             </JFXButton>
-            <Label fx:id="invalid" layoutX="351.0" layoutY="544.0" prefHeight="20.0" prefWidth="713.0" textAlignment="CENTER" textFill="RED">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <Label layoutX="523.0" layoutY="41.0" text="ADD NEW EMPLOYEE" textFill="WHITE">
+            <Label layoutX="529.0" layoutY="41.0" text="ADD A NEW EMPLOYEE" textFill="WHITE">
                <font>
                   <Font name="Lato Black" size="33.0" />
                </font>
@@ -119,9 +114,39 @@
                <children>
                   <JFXButton id="home" contentDisplay="GRAPHIC_ONLY" layoutX="8.0" layoutY="16.0" onAction="#goToPortal" ripplerFill="#1d1c1c00" />
                </children></Pane>
-            <Label fx:id="username" layoutX="501.0" layoutY="171.0" prefHeight="24.0" prefWidth="75.0" textFill="WHITE">
+            <Label fx:id="username" layoutX="499.0" layoutY="130.0" prefHeight="24.0" prefWidth="75.0" textFill="WHITE">
                <font>
                   <Font name="Lato Heavy" size="19.0" />
+               </font>
+            </Label>
+            <Label fx:id="invalidfname" layoutX="400.0" layoutY="249.0" prefHeight="20.0" prefWidth="258.0" textAlignment="CENTER" textFill="RED">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="invalidlname" layoutX="768.0" layoutY="249.0" prefHeight="20.0" prefWidth="258.0" textAlignment="CENTER" textFill="RED">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="invalidmobile" layoutX="400.0" layoutY="370.0" prefHeight="20.0" prefWidth="258.0" textAlignment="CENTER" textFill="RED">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="invalidaddressline" layoutX="768.0" layoutY="370.0" prefHeight="20.0" prefWidth="258.0" textAlignment="CENTER" textFill="RED">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="invalidsuburb" layoutX="401.0" layoutY="502.0" prefHeight="20.0" prefWidth="215.0" textAlignment="CENTER" textFill="RED">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="invalidpostcode" layoutX="625.0" layoutY="502.0" prefHeight="20.0" prefWidth="258.0" textAlignment="CENTER" textFill="RED">
+               <font>
+                  <Font size="14.0" />
                </font>
             </Label>
          </children></Pane>
