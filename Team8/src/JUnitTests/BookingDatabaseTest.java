@@ -117,7 +117,7 @@ public class BookingDatabaseTest {
 	}
 	
 	@Test
-	public void testdeleteAvailability()
+	public void testDeleteBooking()
 	{
 		Boolean expected = false;
 		Boolean actual = true;

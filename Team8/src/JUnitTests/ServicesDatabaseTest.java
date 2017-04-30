@@ -123,41 +123,6 @@ public class ServicesDatabaseTest {
 		assertEquals(expected,actual2);
 	}
 	
-	/*@Test
-	public void testAddTest()	
-	{
-		Boolean actual = false;
-		Boolean actual2 = false;
-		Boolean expected = true;
-		actual = servDb.checkValueExists("maleCut", "1");
-		actual2 = servDb.checkValueExists("femaleCut", "2");
-		assertEquals(expected,actual);
-		assertEquals(expected,actual2);
-		actual = false;
-		actual2 = false;
-		
-		actual = servDb.checkValueExists("maleWash","1");
-		actual2 = servDb.checkValueExists("femaleWash","1");
-		assertEquals(expected,actual);
-		assertEquals(expected,actual2);
-		actual = false;
-		actual2 = false;
-		
-		actual = servDb.checkValueExists("malePerm","3");
-		actual2 = servDb.checkValueExists("femalePerm","4");			
-		assertEquals(expected,actual);
-		assertEquals(expected,actual2);
-		actual = false;
-		actual2 = false;
-		
-		actual = servDb.checkValueExists("maleDye","3");
-		actual2 = servDb.checkValueExists("femaleDye","4");
-		assertEquals(expected,actual);
-		assertEquals(expected,actual2);
-		actual = false;
-		actual2 = false;
-	}*/
-	
 	@After
 	public void tearDown() throws SQLException
 	{
