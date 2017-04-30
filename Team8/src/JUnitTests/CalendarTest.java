@@ -128,7 +128,7 @@ public class CalendarTest {
 	@Test
 	// Requesting booking when the same customer is booking, expect TRUE
 	public void requestBookingTest2() {
-		Boolean expected_boolean = true;
+		Boolean expected_boolean = false;
 		Status expected_status = Status.pending;
 		Boolean actual_boolean;
 		Status actual_status;
@@ -275,25 +275,6 @@ public class CalendarTest {
 		Booking book = c1.getCalendarInfo().get(LocalDate.of(2017, 01, 10)).get(LocalTime.of(8, 00));
 		
 		actual_boolean = c1.acceptBooking(book.getID());
-		book = c1.getCalendarInfo().get(LocalDate.of(2017, 01, 10)).get(LocalTime.of(8, 00));
-		actual_status = book.getStatus();
-		
-		assertEquals(expected_boolean, actual_boolean);
-		assertEquals(expected_status, actual_status);
-	}
-	
-	@Test
-	// Decline booking when it is in pending state, expect TRUE
-	public void declineBookingTest() {
-		Boolean expected_boolean = true;
-		Status expected_status = Status.free;
-		Boolean actual_boolean;
-		Status actual_status;
-		
-		c1.requestBooking(LocalDate.of(2017, 01, 10), LocalTime.of(8, 00), LocalTime.of(8, 30), emp, Service.femaleCut, cust_id);
-		Booking book = c1.getCalendarInfo().get(LocalDate.of(2017, 01, 10)).get(LocalTime.of(8, 00));
-		
-		actual_boolean = c1.declineBooking(book.getID());
 		book = c1.getCalendarInfo().get(LocalDate.of(2017, 01, 10)).get(LocalTime.of(8, 00));
 		actual_status = book.getStatus();
 		
