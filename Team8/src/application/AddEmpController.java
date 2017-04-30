@@ -1,6 +1,7 @@
 package application;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -18,6 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
 public class AddEmpController {
+	private Logger LOGGER = Logger.getLogger("InfoLogging");
 	
 	ObservableList<String> re_stateList = FXCollections.observableArrayList
 			("VIC", "NSW","Queensland", "WA", "SA", "Tasmania");
@@ -109,59 +111,71 @@ public class AddEmpController {
 		//checking postcode
 		if(menu.validate(postcode, zipCode)){
 			zipValid = true;
+			LOGGER.info(postcode);
 			invalidpostcode.setText("");
 		}
 		else{
+			LOGGER.info("Invalid Postcode");
 			invalidpostcode.setText("Invalid Postcode.");
 			invalidpostcode.setAlignment(Pos.CENTER_LEFT);
 		}
 		
 		//checking suburb
 		if(menu.validate(suburb, suburbName)){
+			LOGGER.info(suburb);
 			suburbValid = true;
 			invalidsuburb.setText("");
 		}
 		else{
+			LOGGER.info("Invalid Suburb");
 			invalidsuburb.setText("Invalid Suburb.");
 			invalidsuburb.setAlignment(Pos.CENTER_LEFT);
 		}
 		
 		//checking address
 		if(menu.validate(address, addressLine)){
+			LOGGER.info(address);
 			addressLineValid = true;
 			invalidaddressline.setText("");
 		}
 		else{
+			LOGGER.info("Invalid Address");
 			invalidaddressline.setText("Invalid Address. eg. 1 Smith st");
 			invalidaddressline.setAlignment(Pos.CENTER_LEFT);
 		}
 		
 		//checking mobile
 		if(menu.validate(mobile, mobileNo)){
+			LOGGER.info(mobile);
 			mobileValid = true;
 			invalidmobile.setText("");
 		}
 		else{
+			LOGGER.info("Invalid Mobile Number");
 			invalidmobile.setText("Invalid Mobile Number.");
 			invalidmobile.setAlignment(Pos.CENTER_LEFT);
 		}
 		
 		//checking lastname
 		if(menu.validate(lname, name)){
+			LOGGER.info(lname);
 			lnameValid = true;
 			invalidlname.setText("");
 		}
 		else{
+			LOGGER.info("Invalid Last Name");
 			invalidlname.setText("Invalid Last Name.");
 			invalidlname.setAlignment(Pos.CENTER_LEFT);
 		}
 		
 		//checking firstname
 		if(menu.validate(fname, name)){
+			LOGGER.info(fname);
 			fnameValid = true;
 			invalidfname.setText("");
 		}
 		else{
+			LOGGER.info("Invalid First Name");
 			invalidfname.setText("nvalid First Name.");
 			invalidfname.setAlignment(Pos.CENTER_LEFT);
 		}
@@ -184,6 +198,7 @@ public class AddEmpController {
     	rootPane.getChildren().setAll(pane);
     	LoginController controller = login.getController();
 		controller.initiate(menu);
+		LOGGER.info("Logout");
     }
 	
 	@FXML
@@ -194,5 +209,6 @@ public class AddEmpController {
     	rootPane.getChildren().setAll(pane);
     	BusinessPController controller = bussPortal.getController();
     	controller.initiate(menu);
+    	LOGGER.info("Go to portal");
     }
 }

@@ -350,29 +350,4 @@ public class CompanyDatabase{
 		}
 		return counter;
 	}
-	
-	public String getName(String username) {
-		String fullname = null;
-		try{
-			if(conn.isClosed()){
-				getConnection();
-			}
-			prep = conn.prepareStatement("SELECT fname,lname FROM COMPANY WHERE username = ?;");
-			prep.setString(1, username);
-			result = prep.executeQuery();
-			
-			fullname = result.getString("fname") + " " + result.getString("lname"); 
-					
-			prep.close();
-			result.close();
-			conn.close();
-		}
-		catch(Exception e)
-		{
-			LOGGER.info(e.getClass().getName() + ": " + e.getMessage());
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
-		}
-		return fullname;
-	}
 }
