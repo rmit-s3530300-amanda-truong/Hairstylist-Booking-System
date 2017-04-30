@@ -61,7 +61,12 @@ public class CustomerPController {
 	
 	@FXML
 	void viewCalendar(ActionEvent event) throws IOException{
-		
+		AnchorPane pane;
+		FXMLLoader viewCalendar = new FXMLLoader(getClass().getResource("ViewCalendar.fxml"));
+		pane = viewCalendar.load();
+		rootPane.getChildren().setAll(pane);
+		CalendarController controller = viewCalendar.getController();
+		controller.initiate(menu, cust_id, "customer");
 	}
 	
 	@FXML
