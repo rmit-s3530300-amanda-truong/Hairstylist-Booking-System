@@ -67,7 +67,31 @@ public class RegisterController {
     private JFXButton gotoLogin;
     
     @FXML
-    private Label invalid;
+    private Label invalid_fn;
+    
+    @FXML
+    private Label invalid_ln;
+    
+    @FXML
+    private Label invalid_add;
+    
+    @FXML
+    private Label invalid_num;
+    
+    @FXML
+    private Label invalid_pass;
+    
+    @FXML
+    private Label invalid_pass2;
+    
+    @FXML
+    private Label invalid_pc;
+    
+    @FXML
+    private Label invalid_sub;
+    
+    @FXML
+    private Label invalid_un;
     
     @FXML
     private void initialize(){
@@ -107,90 +131,99 @@ public class RegisterController {
 		//checking postcode
 		if(menu.validate(postcode, zipCode)){
 			zipValid = true;
+			invalid_pc.setText("");
 		}
 		else{
-			invalid.setText("Postcode is invalid. Please try again");
-			invalid.setAlignment(Pos.CENTER);
+			invalid_pc.setText("Invalid Postcode.");
+			invalid_pc.setAlignment(Pos.CENTER);
 		}
 		
 		//checking suburb
 		if(menu.validate(suburb, suburbName)){
 			suburbValid = true;
+			invalid_sub.setText("");
 		}
 		else{
-			invalid.setText("Suburb name is invalid. Please try again");
-			invalid.setAlignment(Pos.CENTER);
+			invalid_sub.setText("Invalid Suburb.");
+			invalid_sub.setAlignment(Pos.CENTER);
 		}
 		
 		//checking address
 		if(menu.validate(address, addressLine)){
 			addressLineValid = true;
+			invalid_add.setText("");
 		}
 		else{
-			invalid.setText("Address Line is invalid. Please try again");
-			invalid.setAlignment(Pos.CENTER);
+			invalid_add.setText("Invalid Address. eg. 1 Smith st");
+			invalid_add.setAlignment(Pos.CENTER);
 		}
 		
 		//checking mobile
 		if(menu.validate(mobile, mobileNo)){
 			mobileValid = true;
+			invalid_num.setText("");
 		}
 		else{
-			invalid.setText("Mobile number is invalid. Please try again");
-			invalid.setAlignment(Pos.CENTER);
+			invalid_num.setText("Invalid Number");
+			invalid_num.setAlignment(Pos.CENTER);
 		}
 		
 		//checking password
 		if(menu.validate(password, pass)){
 			if(password.equals(confirmPass)){
 				passValid = true;
+				invalid_pass.setText("");
+				invalid_pass2.setText("");
 			}
 			else{
-				invalid.setText("Password doesn't match. Please try again");
-				invalid.setAlignment(Pos.CENTER);
+				invalid_pass.setText("");
+				invalid_pass2.setText("Password doesn't match.");
+				invalid_pass2.setAlignment(Pos.CENTER);
 			}
 		}
 		else{
-			invalid.setText("Password must contain atleast one capital letter, atleat one symbol and atleast a number. Please try again");
-			invalid.setAlignment(Pos.CENTER_LEFT);
+			invalid_pass2.setText("");
+			invalid_pass.setText("Invalid. Must be at least 6 characters and contain at least one uppercase, number and symbol.");
+			invalid_pass.setAlignment(Pos.CENTER_LEFT);
 		}
 		
 		//checking username input
 		if(menu.validate(username, uname)){
 			if(menu.uniqueUname(username)){
 				unameValid = true;
+				invalid_un.setText("");
 			}
 			else{
-				invalid.setText("Username is already taken. Please try again");
-				invalid.setAlignment(Pos.CENTER);
+				invalid_un.setText("Username is already taken.");
+				invalid_un.setAlignment(Pos.CENTER);
 			}
 		}
 		else{
-			invalid.setText("Username is invalid. Please try again");
-			invalid.setAlignment(Pos.CENTER);
+			invalid_un.setText("Invalid Username. Must contain least 5 characters.");
 		}
 		
 		//checking lastname
 		if(menu.validate(lname, name)){
 			lnameValid = true;
+			invalid_ln.setText("");
 		}
 		else{
-			invalid.setText("Last Name is invalid. Please try again");
-			invalid.setAlignment(Pos.CENTER);
+			invalid_ln.setText("Invalid Last Name");
+			invalid_ln.setAlignment(Pos.CENTER);
 		}
 		
 		//checking firstname
 		if(menu.validate(fname, name)){
 			fnameValid = true;
+			invalid_fn.setText("");
 		}
 		else{
-			invalid.setText("First Name is invalid. Please try again");
-			invalid.setAlignment(Pos.CENTER);
+			invalid_fn.setText("Invalid First Name");
+			invalid_fn.setAlignment(Pos.CENTER);
 		}
 		
 		//sending info to database
 		if(fnameValid && lnameValid && unameValid && passValid && mobileValid && addressLineValid && suburbValid && zipValid){
-			invalid.setText("");
 			String fullAddress = address + ", " + suburb + ", " + state + " "+ postcode;
 			menu.registerCustomer(username, fname, lname, password, mobile, fullAddress);
 			goToPortal();

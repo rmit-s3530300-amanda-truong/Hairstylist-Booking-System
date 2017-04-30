@@ -120,7 +120,47 @@
                   <Font name="Lato Black" size="20.0" />
                </font>
             </JFXButton>
-            <Label fx:id="invalid" layoutX="357.0" layoutY="580.0" prefHeight="20.0" prefWidth="686.0" textFill="RED">
+            <Label fx:id="invalid_fn" layoutX="391.0" layoutY="189.0" prefHeight="20.0" prefWidth="236.0" textFill="RED">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="invalid_ln" layoutX="760.0" layoutY="189.0" prefHeight="20.0" prefWidth="236.0" textFill="RED">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="invalid_un" layoutX="402.0" layoutY="277.0" prefHeight="20.0" prefWidth="415.0" textFill="RED">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="invalid_pass" layoutX="391.0" layoutY="360.0" prefHeight="48.0" prefWidth="622.0" textFill="RED">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="invalid_pass2" layoutX="759.0" layoutY="364.0" prefHeight="20.0" prefWidth="236.0" textFill="RED">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="invalid_num" layoutX="391.0" layoutY="477.0" prefHeight="20.0" prefWidth="236.0" textFill="RED">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="invalid_add" layoutX="750.0" layoutY="477.0" prefHeight="20.0" prefWidth="256.0" textFill="RED">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="invalid_sub" layoutX="392.0" layoutY="571.0" prefHeight="20.0" prefWidth="180.0" textFill="RED">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="invalid_pc" layoutX="627.0" layoutY="571.0" prefHeight="20.0" prefWidth="180.0" textFill="RED">
                <font>
                   <Font size="14.0" />
                </font>
