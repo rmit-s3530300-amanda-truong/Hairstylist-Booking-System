@@ -126,9 +126,9 @@ public class CalendarTest {
 	}
 	
 	@Test
-	// Requesting booking when the same customer is booking, expect FALSE
+	// Requesting booking when the same customer is booking, expect TRUE
 	public void requestBookingTest2() {
-		Boolean expected_boolean = false;
+		Boolean expected_boolean = true;
 		Status expected_status = Status.pending;
 		Boolean actual_boolean;
 		Status actual_status;
