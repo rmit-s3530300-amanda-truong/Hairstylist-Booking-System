@@ -83,10 +83,10 @@ public class MakeBooking4Controller {
 				b.setFont(Font.font(16));
 				if(counter <4) {
 					b.setLayoutX(487.0);
-					b.setLayoutY(255.0+(counter*50));
+					b.setLayoutY(305.0+(counter*50));
 				} else {
 					b.setLayoutX(715.0);
-					b.setLayoutY(255.0+((counter-4)*50));
+					b.setLayoutY(305.0+((counter-4)*50));
 				}
 				rootPane.getChildren().add(b);
 				buttons.add(b);

@@ -75,7 +75,7 @@ public class MakeBooking3Controller {
 			b1.setStyle("-fx-text-fill: white");
 			b1.setFont(Font.font(16));
 			b1.setLayoutX(487.0);
-			b1.setLayoutY(255.0+(counter*50));
+			b1.setLayoutY(305.0+(counter*50));
 			rootPane.getChildren().add(b1);
 			counter++;
 			for(Employee emp : avail_list) {
@@ -86,10 +86,10 @@ public class MakeBooking3Controller {
 				b.setFont(Font.font(16));
 				if(counter <4) {
 					b.setLayoutX(487.0);
-					b.setLayoutY(255.0+(counter*50));
+					b.setLayoutY(305.0+(counter*50));
 				} else {
 					b.setLayoutX(715.0);
-					b.setLayoutY(255.0+((counter-4)*50));
+					b.setLayoutY(305.0+((counter-4)*50));
 				}
 				rootPane.getChildren().add(b);
 				buttons.add(b);
