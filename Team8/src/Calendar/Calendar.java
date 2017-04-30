@@ -76,7 +76,12 @@ public class Calendar {
 	public void setBookingList(ArrayList<Booking> newBookList)
 	{
 		if(newBookList.size()>0) {
-			bookingList = newBookList;
+			for(int i =0;i<newBookList.size();i++) {
+				Booking book = newBookList.get(i);
+				book.setStatus(Status.booked);
+				bookingList.add(book);
+			}
+			updateBookingList();
 		}
 	}
 	
@@ -89,23 +94,22 @@ public class Calendar {
 		    	LocalTime s_time = newBook.getStartTime();
 		    	LocalTime e_time = newBook.getEndTime();
 		    	Boolean canAdd = true;
-		    	if(x == 0) {
-		    		displayBookedList.add(bookingList.get(x));
-		    	} else {
-			    	for(int i =0; i<displayBookedList.size();i++) 
-			    	{
-			    		if(date.equals(displayBookedList.get(i).getDate()) && s_time.equals(displayBookedList.get(i).getStartTime()) && e_time.equals(displayBookedList.get(i).getEndTime()))
-			    		{
-			    			canAdd = false;
-			    		}
-			    	}
+		    	for(int i =0; i<displayBookedList.size();i++) 
+		    	{
+		    		Booking current = displayBookedList.get(i);
+		    		LocalDate date2 = current.getDate();
+		    		LocalTime s_time2 = current.getStartTime();
+		    		LocalTime e_time2 = current.getEndTime();
+		    		
+		    		if(date.equals(date2) && s_time.equals(s_time2) && e_time.equals(e_time2))
+		    		{
+		    			canAdd = false;
+		    		}
 		    	}
 		    	if(canAdd)
 		    	{
-		    		Boolean b =requestBooking(date,s_time,e_time, newBook.getEmployee(), newBook.getServices(), newBook.getCustomerID());
-		    		Booking book = getCalendarInfo().get(date).get(s_time);
-		    		Boolean b2 = acceptBooking(book.getID());
-		    		displayBookedList.add(newBook);
+	    			displayBookedList.add(newBook);
+		    		
 		    	}
 		    }
 		}
@@ -190,7 +194,6 @@ public class Calendar {
 		
 		//collecting the times and date
 		while(!current_time.equals(end_time)) {
-			System.out.println("checking: "+current_time);
 			Booking book = calendar.get(date).get(current_time);
 			if(book.getStatus() == Status.unavailable || book.getStatus() == Status.booked) {
 				isBooked = true;

@@ -8,7 +8,7 @@ import Menu.Menu;
 
 public class BookingManagementSystem {
 	public static void main(String args[]) {
-		CustomerDatabase customerDb = new CustomerDatabase();
+		/*CustomerDatabase customerDb = new CustomerDatabase();
 		CompanyDatabase companyDb = new CompanyDatabase();
 		AvailabilityDatabase availDb = new AvailabilityDatabase();
 		Company comp = new Company();
@@ -16,7 +16,7 @@ public class BookingManagementSystem {
 		comp.getCalendar().updateCalendar(comp.getEmployeeList());
 		
 		Menu m1 = new Menu(comp, customerDb, companyDb, availDb);
-		m1.mainMenu();
+		m1.mainMenu();*/
 	}
 	
 

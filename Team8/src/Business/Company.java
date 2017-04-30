@@ -73,7 +73,7 @@ public class Company {
 		setAvailList(availValues);
 		bookValues = bookingDb.storeBookingValues();
 		bookList = setBookingList(bookValues);
-		calendar.setBookingList(bookList); 
+		//calendar.setBookingList(bookList); 
 		serviceTime = servDb.storeServiceValues();
 	}
 	
