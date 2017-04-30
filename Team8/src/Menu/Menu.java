@@ -10,8 +10,10 @@ import Business.Company;
 import Business.Employee;
 import Calendar.Calendar;
 import Database.AvailabilityDatabase;
+import Database.BookingDatabase;
 import Database.CompanyDatabase;
 import Database.CustomerDatabase;
+import Database.ServicesDatabase;
 
 public class Menu {
 	
@@ -19,12 +21,16 @@ public class Menu {
 	private CustomerDatabase customerDb;
 	private CompanyDatabase companyDb;
 	private AvailabilityDatabase availDb;
+	private BookingDatabase bookDb;
+	private ServicesDatabase servDb;
 	
-	public Menu(Company company, CustomerDatabase customerDb, CompanyDatabase companyDb, AvailabilityDatabase availDb){
+	public Menu(Company company, CustomerDatabase customerDb, CompanyDatabase companyDb, AvailabilityDatabase availDb, BookingDatabase bookDb, ServicesDatabase servDb){
 		comp = company;
 		this.companyDb = companyDb;
 		this.customerDb = customerDb;
 		this.availDb = availDb;
+		this.bookDb = bookDb;
+		this.servDb = servDb;
 	}
 		
 	public String authenticate(String uName, String pass){
@@ -149,6 +155,8 @@ public class Menu {
 			availDb.deleteAvail(username, day.toString());
 		}
 		availDb.addAvailabilityInfo(username, day.toString(), startTime.toString(), endTime.toString());
+		comp.retrieveDatabaseInfo(customerDb, companyDb, availDb, bookDb, servDb);
+		comp.getCalendar().updateCalendar(comp.getEmployeeList());
 	}
 	
 	public void updateEmpAvailability(DayOfWeek day, LocalTime startTime, LocalTime endTime, String id) {
