@@ -1,13 +1,18 @@
 package application;
 
 import java.io.IOException;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map.Entry;
+
+import javax.net.ssl.SSLEngineResult.Status;
 
 import com.jfoenix.controls.JFXButton;
 
-import Business.Company;
+import Business.Employee;
 import Calendar.Booking;
 import Menu.Menu;
 import javafx.fxml.FXML;
@@ -70,6 +75,8 @@ public class ViewMorningController {
 	@FXML
 	private Label time15;
 	@FXML
+	private Label time16;
+	@FXML
     private JFXButton gotoLogout;
 
 	@FXML
@@ -77,7 +84,6 @@ public class ViewMorningController {
     
 	public void initiate(Menu menu) {
 		this.menu = menu;
-		//populateRectangle();
 		populateTable();
 		createRectangles();
 	}
@@ -86,8 +92,9 @@ public class ViewMorningController {
 	void createRectangles()
 	{
 		ArrayList<Booking> bookingList = menu.getCompany().getCalendar().getPendingBooking();
-		int columns = 7, rows = 15 , horizontal = 95, vertical = 25;
-		LocalTime startTime = null;
+		HashMap<String, Employee> empList = menu.getCompany().getEmployeeList();
+
+		int columns = 7, horizontal = 95, vertical = 25;
         Rectangle rect = null;
         LocalDate current = menu.getCompany().getCalendar().getDate();
         for(int i = 0; i < columns; i++)
@@ -99,22 +106,46 @@ public class ViewMorningController {
                 //(y,x,width,height)
                 rect = new Rectangle((220+(135*i)), 117+(30*j), horizontal, vertical);
                 Boolean valid = false;
+                Boolean availableCheck = false;
+        		for(Entry<String, Employee> x : empList.entrySet()) {
+        			String ID = x.getKey();
+        			HashMap<DayOfWeek,ArrayList<LocalTime>> availList = menu.getCompany().getEmployee(ID).getAvailability();
+        			for(Entry<DayOfWeek,ArrayList<LocalTime>> y : availList.entrySet())
+        			{
+        				DayOfWeek day = y.getKey();
+        				ArrayList<LocalTime> time = y.getValue();
+        				if(day.equals(current.getDayOfWeek()))
+        				{
+        					for(int t=0;t<time.size();t++)
+        					{
+        						if(time.get(t).equals(current_time))
+        						{
+        							availableCheck = true;
+        						}
+        					}
+        				}
+        			}
+        		}
                 for(int x=0; x<bookingList.size(); x++)
                 {
 	                	Booking book = bookingList.get(x);
 	                	if(current.equals(book.getDate()))
 	                	{
-	                		System.out.println(current_time + " "+book.getStartTime());
-	                		if(current_time.toString().equals(book.getStartTime().toString())) {
+		                	String[] id = book.getID().split("/");
+		                	String startTime = id[1];
+	                		if(current_time.toString().equals(startTime)) {
 	                    		valid = true;
-	                    		System.out.println(valid);
 	                        }
 	            		}
                 }
                 if(valid) {
                 	rect.setFill(Color.RED);
-                } else {
-                	rect.setFill(Color.WHITE);
+                }
+                else if(availableCheck){
+                	rect.setFill(Color.GREEN);
+                }
+                else {
+                	rect.setFill(Color.GREY);
                 }
                 displayPane.getChildren().add(rect);
             	current_time = current_time.plusMinutes(15);
@@ -149,6 +180,7 @@ public class ViewMorningController {
 		time13 = new Label();
 		time14 = new Label();
 		time15 = new Label();
+		time16 = new Label();
 
 		LocalDate current = menu.getCompany().getCalendar().getDate();
 		day1.setText(current.toString());
@@ -235,54 +267,60 @@ public class ViewMorningController {
 		time7.setStyle("-fx-font: 16 Lato;");
 		time7.setTextFill(Color.web("#FFFFFF"));
 		displayPane.getChildren().add(time7);
-		time8.setText("10:00-10:15");
+		time8.setText("09:45-10:00");
 		time8.setLayoutX(110.0);
 		time8.setLayoutY(330.0);
 		time8.setStyle("-fx-font: 16 Lato;");
 		time8.setTextFill(Color.web("#FFFFFF"));
 		displayPane.getChildren().add(time8);
-		time9.setText("10:15-10:30");
+		time9.setText("10:00-10:15");
 		time9.setLayoutX(110.0);
 		time9.setLayoutY(360.0);
 		time9.setStyle("-fx-font: 16 Lato;");
 		time9.setTextFill(Color.web("#FFFFFF"));
 		displayPane.getChildren().add(time9);
-		time10.setText("10:30-10:45");
+		time10.setText("10:15-10:30");
 		time10.setLayoutX(110.0);
 		time10.setLayoutY(390.0);
 		time10.setStyle("-fx-font: 16 Lato;");
 		time10.setTextFill(Color.web("#FFFFFF"));
 		displayPane.getChildren().add(time10);
-		time11.setText("10:45-11:00");
+		time11.setText("10:30-10:45");
 		time11.setLayoutX(110.0);
 		time11.setLayoutY(420.0);
 		time11.setStyle("-fx-font: 16 Lato;");
 		time11.setTextFill(Color.web("#FFFFFF"));
 		displayPane.getChildren().add(time11);
-		time12.setText("11:00-11:15");
+		time12.setText("10:45-11:00");
 		time12.setLayoutX(110.0);
 		time12.setLayoutY(450.0);
 		time12.setStyle("-fx-font: 16 Lato;");
 		time12.setTextFill(Color.web("#FFFFFF"));
 		displayPane.getChildren().add(time12);
-		time13.setText("11:15-11:30");
+		time13.setText("11:00-11:15");
 		time13.setLayoutX(110.0);
 		time13.setLayoutY(480.0);
 		time13.setStyle("-fx-font: 16 Lato;");
 		time13.setTextFill(Color.web("#FFFFFF"));
 		displayPane.getChildren().add(time13);
-		time14.setText("11:30-11:45");
+		time14.setText("11:15-11:30");
 		time14.setLayoutX(110.0);
 		time14.setLayoutY(510.0);
 		time14.setStyle("-fx-font: 16 Lato;");
 		time14.setTextFill(Color.web("#FFFFFF"));
 		displayPane.getChildren().add(time14);
-		time15.setText("11:45-12:00");
+		time15.setText("11:30-11:45");
 		time15.setLayoutX(110.0);
 		time15.setLayoutY(540.0);
 		time15.setStyle("-fx-font: 16 Lato;");
 		time15.setTextFill(Color.web("#FFFFFF"));
 		displayPane.getChildren().add(time15);
+		time16.setText("11:45-12:00");
+		time16.setLayoutX(110.0);
+		time16.setLayoutY(570.0);
+		time16.setStyle("-fx-font: 16 Lato;");
+		time16.setTextFill(Color.web("#FFFFFF"));
+		displayPane.getChildren().add(time16);
 	}
 	
 	@FXML
