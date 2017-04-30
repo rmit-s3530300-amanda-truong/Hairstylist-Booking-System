@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import com.jfoenix.controls.JFXButton;
 
-import Menu.Menu;
+import Menu.MainController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +12,7 @@ import javafx.scene.layout.AnchorPane;
 
 public class CalendarController {
 
-	private Menu menu;
+	private MainController menu;
 	
 	@FXML
 	private AnchorPane rootPane;
@@ -33,7 +33,7 @@ public class CalendarController {
     
     private String portal;
 
-	public void initiate(Menu menu, String cust_id, String portal) {
+	public void initiate(MainController menu, String cust_id, String portal) {
 		this.menu = menu;
 		this.portal = portal;
 		this.cust_id = cust_id;
@@ -67,7 +67,7 @@ public class CalendarController {
     	FXMLLoader login = new FXMLLoader(getClass().getResource("Login.fxml"));
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
-    	loginController controller = login.getController();
+    	LoginController controller = login.getController();
 		controller.initiate(menu);
     }
 	

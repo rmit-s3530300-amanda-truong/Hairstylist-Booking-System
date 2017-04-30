@@ -7,7 +7,7 @@ import com.jfoenix.controls.JFXButton;
 
 import Business.Employee;
 import Business.Employee.Service;
-import Menu.Menu;
+import Menu.MainController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +15,7 @@ import javafx.scene.layout.AnchorPane;
 
 public class MakeBooking5Controller {
 
-	private Menu menu;
+	private MainController menu;
 	
 	private String cust_id;
 	
@@ -43,7 +43,7 @@ public class MakeBooking5Controller {
     private void initialize(){
     }
 
-	public void initiate(Menu menu, String cust_id, Service service, Employee employee, LocalDate date, String portal) {
+	public void initiate(MainController menu, String cust_id, Service service, Employee employee, LocalDate date, String portal) {
 		this.menu = menu;
 		this.cust_id = cust_id;
 		this.service = service;
@@ -90,7 +90,7 @@ public class MakeBooking5Controller {
     	FXMLLoader login = new FXMLLoader(getClass().getResource("Login.fxml"));
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
-    	loginController controller = login.getController();
+    	LoginController controller = login.getController();
 		controller.initiate(menu);
     }
 	

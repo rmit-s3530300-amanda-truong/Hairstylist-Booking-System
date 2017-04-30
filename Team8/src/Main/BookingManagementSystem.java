@@ -1,13 +1,16 @@
 package Main;
 
+import java.util.logging.Logger;
+
 import Business.Company;
+
 import Database.AvailabilityDatabase;
 import Database.BookingDatabase;
 import Database.CompanyDatabase;
 import Database.CustomerDatabase;
 import Database.ServicesDatabase;
-import Menu.Menu;
-import application.mainController;
+import Menu.MainController;
+import application.WelcomeController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -15,7 +18,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class BookingManagementSystem extends Application {
-	private Menu menu;
+	private static final Logger LOGGER = Logger.getLogger("InfoLogging");
+	private MainController menu;
 	
 	public BookingManagementSystem() {
 		CustomerDatabase customerDb = new CustomerDatabase();
@@ -25,8 +29,10 @@ public class BookingManagementSystem extends Application {
 		ServicesDatabase servDb = new ServicesDatabase();
 		Company comp = new Company();
 		comp.retrieveDatabaseInfo(customerDb, companyDb, availDb, bookingDb, servDb);
+		LOGGER.info("Retrieved Database Information");
 		comp.getCalendar().updateCalendar(comp.getEmployeeList());
-		menu = new Menu(comp, customerDb, companyDb, availDb, bookingDb, servDb);
+		LOGGER.info("Updated Calendar");
+		menu = new MainController(comp, customerDb, companyDb, availDb, bookingDb, servDb);
 		
 	}
 	
@@ -38,7 +44,7 @@ public class BookingManagementSystem extends Application {
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("../application/application.css").toExternalForm());
 			
-			mainController controller = loader.getController();
+			WelcomeController controller = loader.getController();
 			controller.initiate(menu);
 			
 			primaryStage.setScene(scene);
@@ -50,7 +56,7 @@ public class BookingManagementSystem extends Application {
 		}
 	}
 	
-	public Menu getMenu() {
+	public MainController getMenu() {
 		return menu;
 	}
 	

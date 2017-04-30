@@ -12,7 +12,7 @@ import com.sun.prism.paint.Color;
 import Business.Company;
 import Calendar.Booking;
 import Calendar.Calendar;
-import Menu.Menu;
+import Menu.MainController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -30,7 +30,7 @@ public class PendingBookingController {
 	
 	final ToggleGroup group = new ToggleGroup();
 	
-	private Menu menu;
+	private MainController menu;
 	
 	private String id;
 	
@@ -89,7 +89,7 @@ public class PendingBookingController {
 		return pending;
 	}
 	
-	public void initiate(Menu menu, String cust_id) {
+	public void initiate(MainController menu, String cust_id) {
 		this.menu = menu;
 		id = cust_id;
 		comp = menu.getCompany();
@@ -164,7 +164,7 @@ public class PendingBookingController {
     	FXMLLoader login = new FXMLLoader(getClass().getResource("Login.fxml"));
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
-    	loginController controller = login.getController();
+    	LoginController controller = login.getController();
 		controller.initiate(menu);
     }
 	

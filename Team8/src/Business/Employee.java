@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.logging.Logger;
 
 import Calendar.Booking;
 
@@ -16,6 +17,7 @@ public class Employee {
 	private HashMap<DayOfWeek, ArrayList<LocalTime>> availability;
 	private HashMap<LocalDate, ArrayList<LocalTime>> bookings;
 	private ArrayList<Service> serviceType;
+	private Logger LOGGER = Logger.getLogger("InfoLogging");
 	
 	// 1 block equals to 15 minutes so 2 blocks is 30minutes etc
 	public enum Service {
@@ -45,7 +47,6 @@ public class Employee {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.serviceType = (ArrayList<Service>) serviceType.clone(); 
-		// availability = new HashMap<LocalDate, ArrayList<LocalTime>>();
 		availability = new HashMap<DayOfWeek, ArrayList<LocalTime>>();
 		bookings =  new HashMap<LocalDate, ArrayList<LocalTime>>();
 	}
@@ -87,24 +88,21 @@ public class Employee {
 		
 		if(times != null) {
 			current_time = start_time;
-			System.out.println("booked times");
-			for(LocalTime time : times) {
-				System.out.println(time.toString());
-			}
 		} else {
+			LOGGER.info("isFree: bookings is empty -> TRUE");
 			return true;
 		}
 		
 		while(!current_time.equals(end_time)) {
-			
 			for(LocalTime t : times) {
-				System.out.println("current: "+current_time+" "+t);
 				if(t.equals(current_time)){
+					LOGGER.info("isFree: time has been taken -> FALSE");
 					return false;
 				}
 			}
 			current_time = current_time.plusMinutes(15);
 		}
+		LOGGER.info("isFree: TRUE");
 		return true;
 	}
 	

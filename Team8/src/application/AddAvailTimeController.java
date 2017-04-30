@@ -8,7 +8,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
 
-import Menu.Menu;
+import Menu.MainController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,7 +19,7 @@ import javafx.scene.layout.AnchorPane;
 
 public class AddAvailTimeController {
 	
-	private Menu menu;
+	private MainController menu;
 	
 	@FXML
     private AnchorPane rootPane;
@@ -75,7 +75,7 @@ public class AddAvailTimeController {
     @FXML
     private Label invalidendhour;
     
-    public void initiate(Menu menu) {
+    public void initiate(MainController menu) {
 		this.menu = menu;
 	}
 
@@ -185,7 +185,7 @@ public class AddAvailTimeController {
     	FXMLLoader login = new FXMLLoader(getClass().getResource("Login.fxml"));
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
-    	loginController controller = login.getController();
+    	LoginController controller = login.getController();
 		controller.initiate(menu);
     }
     

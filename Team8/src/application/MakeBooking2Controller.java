@@ -7,7 +7,7 @@ import com.jfoenix.controls.JFXRadioButton;
 
 import Business.Employee;
 import Business.Employee.Service;
-import Menu.Menu;
+import Menu.MainController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -18,7 +18,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 
 public class MakeBooking2Controller {
-	private Menu menu;
+	private MainController menu;
 	
 	private String cust_id;
 	
@@ -58,7 +58,7 @@ public class MakeBooking2Controller {
 	@FXML
 	private JFXRadioButton malePerm;
 
-	public void initiate(Menu menu, String cust_id, String portal) {
+	public void initiate(MainController menu, String cust_id, String portal) {
 		this.menu = menu;
 		this.cust_id = cust_id;
 		this.portal = portal;
@@ -160,7 +160,7 @@ public class MakeBooking2Controller {
     	FXMLLoader login = new FXMLLoader(getClass().getResource("Login.fxml"));
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
-    	loginController controller = login.getController();
+    	LoginController controller = login.getController();
 		controller.initiate(menu);
     }
 	

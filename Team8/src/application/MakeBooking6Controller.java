@@ -12,7 +12,7 @@ import com.jfoenix.controls.JFXRadioButton;
 
 import Business.Employee;
 import Business.Employee.Service;
-import Menu.Menu;
+import Menu.MainController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -26,7 +26,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 
 public class MakeBooking6Controller {
-	private Menu menu;
+	private MainController menu;
 	
 	private String cust_id;
 	
@@ -51,7 +51,7 @@ public class MakeBooking6Controller {
 	@FXML
     private JFXButton gotoLogout;
 
-	public void initiate(Menu menu, String cust_id, Service service, Employee employee, LocalDate date, String select, String portal) {
+	public void initiate(MainController menu, String cust_id, Service service, Employee employee, LocalDate date, String select, String portal) {
 		this.menu = menu;
 		this.cust_id = cust_id;
 		this.service = service;
@@ -193,7 +193,7 @@ public class MakeBooking6Controller {
     	FXMLLoader login = new FXMLLoader(getClass().getResource("Login.fxml"));
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
-    	loginController controller = login.getController();
+    	LoginController controller = login.getController();
 		controller.initiate(menu);
     }
 	

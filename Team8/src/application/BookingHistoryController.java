@@ -24,7 +24,7 @@ import javafx.scene.text.Font;
 
 public class BookingHistoryController {
 	
-	private Menu menu;
+	private MainController menu;
 	
 	private Company comp;
 	
@@ -81,7 +81,7 @@ public class BookingHistoryController {
 		return future;
 	}
 	
-	public void initiate(Menu menu, String cust_id) {
+	public void initiate(MainController menu, String cust_id) {
 		id = cust_id;
 		this.menu = menu;
 		comp = menu.getCompany();
@@ -113,7 +113,7 @@ public class BookingHistoryController {
     	FXMLLoader login = new FXMLLoader(getClass().getResource("Login.fxml"));
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
-    	loginController controller = login.getController();
+    	LoginController controller = login.getController();
 		controller.initiate(menu);
     }
 	

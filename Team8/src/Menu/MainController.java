@@ -15,7 +15,7 @@ import Database.CompanyDatabase;
 import Database.CustomerDatabase;
 import Database.ServicesDatabase;
 
-public class Menu {
+public class MainController {
 	
 	private Company comp;
 	private CustomerDatabase customerDb;

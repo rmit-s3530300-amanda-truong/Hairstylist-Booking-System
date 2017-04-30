@@ -11,7 +11,7 @@ import com.jfoenix.controls.JFXTextField;
 import Business.Company;
 import Business.Employee;
 import Business.Employee.Service;
-import Menu.Menu;
+import Menu.MainController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -26,7 +26,7 @@ public class AddEmpController {
 	ObservableList<String> re_stateList = FXCollections.observableArrayList
 			("VIC", "NSW","Queensland", "WA", "SA", "Tasmania");
 	
-	private Menu menu;
+	private MainController menu;
 	Company comp = new Company();
 	
 	ArrayList<Service> serviceList = new ArrayList<Service>();
@@ -115,7 +115,7 @@ public class AddEmpController {
     	re_state.setItems(re_stateList);   	
     }
 
-	public void initiate(Menu menu) {
+	public void initiate(MainController menu) {
 		this.menu = menu;
 		username.setText(menu.getEmpUname());
 		sfcut.setUserData(Service.femaleCut);
@@ -273,7 +273,7 @@ public class AddEmpController {
     	FXMLLoader login = new FXMLLoader(getClass().getResource("Login.fxml"));
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
-    	loginController controller = login.getController();
+    	LoginController controller = login.getController();
 		controller.initiate(menu);
     }
 	

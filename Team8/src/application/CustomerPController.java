@@ -6,7 +6,7 @@ import com.jfoenix.controls.JFXButton;
 
 import Business.Company;
 import Database.CustomerDatabase;
-import Menu.Menu;
+import Menu.MainController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +17,7 @@ public class CustomerPController {
 	
 	CustomerDatabase db1 = new CustomerDatabase();
 	
-	private Menu menu;
+	private MainController menu;
 	
 	private String cust_id;
 	
@@ -42,7 +42,7 @@ public class CustomerPController {
     @FXML
     private JFXButton gotoLogout;
 
-	public void initiate(Menu menu, String username) {
+	public void initiate(MainController menu, String username) {
 		this.menu = menu;
 		cust_id = username;
 		String fullname = db1.getName(cust_id);
@@ -96,7 +96,7 @@ public class CustomerPController {
     	FXMLLoader login = new FXMLLoader(getClass().getResource("Login.fxml"));
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
-    	loginController controller = login.getController();
+    	LoginController controller = login.getController();
 		controller.initiate(menu);
 	}
 
