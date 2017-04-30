@@ -77,6 +77,11 @@ public class Menu {
 		comp.setCalendar(cal);
 	}
 	
+	public void addBooking(String id, String custUsername, String service, String empID, String date, String time, String status)
+	{
+		bookDb.addBooking(id, custUsername, service, empID, date, time, status);
+	}
+	
 	public boolean idValid(String id) {
 		if(companyDb.checkValueExists("username",id)){
 			return true;
