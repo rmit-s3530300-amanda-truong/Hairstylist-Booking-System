@@ -47,6 +47,7 @@ public class Company {
 		return custList;
 	}
 	
+	// For debugging to print out all employee availability
 	public String showEmployeeAvailability() {
 		String output="";
 		for(Entry<String, Employee> entry : employeeList.entrySet()) {
@@ -62,6 +63,7 @@ public class Company {
 		return output;
 	}
 	
+	// Get database info and populates customer, employee and calendar info
 	public void retrieveDatabaseInfo(CustomerDatabase customerDb, CompanyDatabase companyDb, AvailabilityDatabase availDb, BookingDatabase bookingDb, ServicesDatabase servDb) {
 		HashMap<String, HashMap<String,String>> empValues;
 		HashMap<String, HashMap<String,String>> custValues;
@@ -105,14 +107,12 @@ public class Company {
 			String[] startTimeList = startTimeStr.split(":");
 			String[] endTimeList = endTimeStr.split(":");
 			DayOfWeek day = DayOfWeek.valueOf(dayStr.toUpperCase());
-			// int dayInt = day.getValue();
 			int startHourInt = Integer.parseInt(startTimeList[0]);
 			int startMinInt = Integer.parseInt(startTimeList[1]);
 			int endHourInt = Integer.parseInt(endTimeList[0]);
 			int endMinInt = Integer.parseInt(endTimeList[1]);
 			LocalTime startTime = LocalTime.of(startHourInt, startMinInt);
 			LocalTime endTime = LocalTime.of(endHourInt, endMinInt);
-			// DayOfWeek day = DayOfWeek.of(dayInt);
 			Employee emp = getEmployee(employeeID);
 			emp.addAvailability(day,startTime,endTime);
 			timeMap = emp.getAvailability();
@@ -178,7 +178,6 @@ public class Company {
 		employeeList.put(ID, employee);
 	}
 	
-	// TODO: Needs Testing
 	public Employee getEmployee(String ID) {
 		LOGGER.info("getEmployee: "+ID);
 		return employeeList.get(ID);

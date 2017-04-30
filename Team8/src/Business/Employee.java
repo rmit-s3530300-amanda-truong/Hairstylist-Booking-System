@@ -65,6 +65,7 @@ public class Employee {
 		availability.put(day,times);
 	}
 	
+	// Stores booking with employee so they are booked at the given time
 	public void addBooking(LocalDate date, LocalTime start_time, LocalTime end_time) {
 		ArrayList<LocalTime> times = new ArrayList<LocalTime>();
 		LocalTime current_time = start_time;
@@ -82,6 +83,7 @@ public class Employee {
 		bookings.put(date, times);
 	}
 	
+	// Is the employee free at given time
 	public Boolean isFree(LocalDate date, LocalTime start_time, LocalTime end_time) {
 		ArrayList<LocalTime> times = bookings.get(date);
 		LocalTime current_time;
