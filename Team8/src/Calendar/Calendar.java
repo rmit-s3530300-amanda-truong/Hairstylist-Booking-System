@@ -144,7 +144,7 @@ public class Calendar {
 					ArrayList<LocalTime> available_times = availability.get(day);
 					LinkedHashMap<LocalTime, Booking> map_time = new LinkedHashMap<LocalTime, Booking>();
 					for(int x=0; x<available_times.size();x++) {
-						String id = date.toString()+available_times.get(x).toString();
+						String id = date.toString()+"/"+available_times.get(x).toString();
 						map_time.put(available_times.get(x), new Booking(Status.free,id));
 					}
 					calendar.put(date, map_time);
