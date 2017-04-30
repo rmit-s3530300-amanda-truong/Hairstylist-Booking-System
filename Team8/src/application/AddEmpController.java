@@ -1,12 +1,16 @@
 package application;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 
 import Business.Company;
+import Business.Employee;
+import Business.Employee.Service;
 import Menu.Menu;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,6 +27,9 @@ public class AddEmpController {
 			("VIC", "NSW","Queensland", "WA", "SA", "Tasmania");
 	
 	private Menu menu;
+	Company comp = new Company();
+	
+	ArrayList<Service> serviceList = new ArrayList<Service>();
 	
 	@FXML
 	private AnchorPane rootPane;
@@ -76,6 +83,33 @@ public class AddEmpController {
     private Label username;
     
     @FXML
+    private JFXCheckBox sfcut;
+
+    @FXML
+    private JFXCheckBox smcut;
+
+    @FXML
+    private JFXCheckBox sfwash;
+
+    @FXML
+    private JFXCheckBox smwash;
+
+    @FXML
+    private JFXCheckBox sfperm;
+
+    @FXML
+    private JFXCheckBox smperm;
+
+    @FXML
+    private JFXCheckBox sfdye;
+
+    @FXML
+    private JFXCheckBox smdye;
+
+    @FXML
+    private Label invalidservices;
+    
+    @FXML
     private void initialize(){
     	re_state.setValue("VIC");
     	re_state.setItems(re_stateList);   	
@@ -84,10 +118,20 @@ public class AddEmpController {
 	public void initiate(Menu menu) {
 		this.menu = menu;
 		username.setText(menu.getEmpUname());
+		sfcut.setUserData(Service.femaleCut);
+		smcut.setUserData(Service.maleCut);
+		sfwash.setUserData(Service.femaleWash);
+		smwash.setUserData(Service.maleWash);
+		sfperm.setUserData(Service.femalePerm);
+		smperm.setUserData(Service.malePerm);
+		sfdye.setUserData(Service.femaleDye);
+		smdye.setUserData(Service.maleDye);
 	}
 	
 	@FXML
     void addEmp(ActionEvent event) throws IOException{
+		serviceList.clear();
+		String services = "";
     	String username = menu.getEmpUname();
 		String fname = re_fname.getText();
 		String lname = re_lname.getText();
@@ -97,7 +141,8 @@ public class AddEmpController {
 		String postcode = re_postcode.getText();
 		String state = re_state.getPromptText();
 		
-		boolean fnameValid = false, lnameValid = false, mobileValid = false, suburbValid = false ,zipValid = false, addressLineValid = false;
+		boolean fnameValid = false, lnameValid = false, mobileValid = false, 
+				suburbValid = false ,zipValid = false, addressLineValid = false, serviceValid = false;
 		
 		//regex patterns for user input
 		String name = "^[a-zA-Z-//s]*$";
@@ -166,12 +211,58 @@ public class AddEmpController {
 			invalidfname.setAlignment(Pos.CENTER_LEFT);
 		}
 		
+		//checking services
+		if(sfcut.isSelected() || smcut.isSelected() || sfwash.isSelected() || smwash.isSelected() || sfperm.isSelected() 
+				|| smperm.isSelected() || sfdye.isSelected() || smdye.isSelected()){
+			invalidservices.setText("");
+			if(sfcut.isSelected()){
+				serviceList.add((Service) sfcut.getUserData());
+			}
+			if(smcut.isSelected()){
+				serviceList.add((Service) smcut.getUserData());
+			}
+			if(sfwash.isSelected()){
+				serviceList.add((Service) sfwash.getUserData());
+			}
+			if(smwash.isSelected()){
+				serviceList.add((Service) smwash.getUserData());
+			}
+			if(sfperm.isSelected()){
+				serviceList.add((Service) sfperm.getUserData());
+			}
+			if(smperm.isSelected()){
+				serviceList.add((Service) smperm.getUserData());
+			}
+			if(sfdye.isSelected()){
+				serviceList.add((Service) sfdye.getUserData());
+			}
+			if(smdye.isSelected()){
+				serviceList.add((Service) smdye.getUserData());
+			}
+			invalidservices.setText("");
+			serviceValid = true;
+			
+			//coverting arraylist to string
+			for(int i = 0; i < serviceList.size(); i++) {
+				Service s = serviceList.get(i);
+				if(i == serviceList.size() - 1){
+					services += s;
+				} 
+				else {
+					services += s+", ";
+				}
+			}	
+		}
+		else{
+			invalidservices.setText("Please select atleastone service.");
+			invalidservices.setAlignment(Pos.CENTER_LEFT);
+		}
 		
-		//sending info to database
-		if(fnameValid && lnameValid && mobileValid && addressLineValid && suburbValid && zipValid){
+		//sending info to database and hashmap
+		if(fnameValid && lnameValid && mobileValid && addressLineValid && suburbValid && zipValid && serviceValid){
 			String fullAddress = address + ", " + suburb + ", " + state + " "+ postcode;
-			String services = "femaleCut, maleCut, femaleDye, maleDye, femalePerm, malePerm, femaleWash, maleWash";
 			menu.addEmployee(username, fname, lname, mobile, fullAddress, services);
+			comp.addEmployee(new Employee(username, fname, lname, serviceList));
 			goToPortal();
 		}
 	}

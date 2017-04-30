@@ -118,7 +118,7 @@ public class Menu {
 		String password = null;
 		String company = "ABC";
 		String status = "employee";
-		companyDb.addBusInfo(username, company, fname, lname, password, mobile, address, service, status);
+		companyDb.addBusInfo(username, company, fname, lname, password, mobile, address, service, status);		
 	}
 
 	//validates the user input against regexs
