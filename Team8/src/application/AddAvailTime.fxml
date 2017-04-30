@@ -80,7 +80,10 @@
                   <Font name="Lato Black" size="33.0" />
                </font>
             </Label>
-            <Pane prefHeight="714.0" prefWidth="82.0" style="-fx-background-color: #1d1c1c;" />
+            <Pane prefHeight="714.0" prefWidth="82.0" style="-fx-background-color: #1d1c1c;">
+             <children>
+                  <JFXButton id="home" contentDisplay="GRAPHIC_ONLY" layoutX="8.0" layoutY="16.0" onAction="#goToPortal" ripplerFill="#1d1c1c00" />
+               </children></Pane>
             <Label layoutX="589.0" layoutY="434.0" text=":" textFill="WHITE">
                <font>
                   <Font size="16.0" />
