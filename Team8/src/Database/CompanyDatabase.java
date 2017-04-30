@@ -4,6 +4,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.HashMap;
+import java.util.logging.Logger;
 import java.sql.ResultSet;
 
 public class CompanyDatabase{
@@ -13,6 +14,7 @@ public class CompanyDatabase{
 	private static ResultSet result = null;
 	private static boolean hasData = false;
 	private static PreparedStatement prep = null;
+	private Logger LOGGER = Logger.getLogger("InfoLogging");
 	
 	public CompanyDatabase() {
 		this.initialise();
@@ -78,6 +80,7 @@ public class CompanyDatabase{
 		}
 		catch (Exception e)
 		{
+			LOGGER.info(e.getClass().getName() + ": " + e.getMessage());
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
@@ -109,6 +112,7 @@ public class CompanyDatabase{
 		}
 		catch( Exception e)
 		{
+			LOGGER.info(e.getClass().getName() + ": " + e.getMessage());
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
@@ -178,6 +182,7 @@ public class CompanyDatabase{
 		}
 		catch(Exception e)
 		{
+			LOGGER.info(e.getClass().getName() + ": " + e.getMessage());
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
@@ -215,6 +220,7 @@ public class CompanyDatabase{
 		}
 		catch(Exception e)
 		{
+			LOGGER.info(e.getClass().getName() + ": " + e.getMessage());
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
@@ -249,6 +255,7 @@ public class CompanyDatabase{
 		}
 		catch(Exception e)
 		{
+			LOGGER.info(e.getClass().getName() + ": " + e.getMessage());
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
@@ -308,6 +315,7 @@ public class CompanyDatabase{
 		}
 		catch(Exception e)
 		{
+			LOGGER.info(e.getClass().getName() + ": " + e.getMessage());
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
@@ -336,6 +344,7 @@ public class CompanyDatabase{
 		}
 		catch(Exception e)
 		{
+			LOGGER.info(e.getClass().getName() + ": " + e.getMessage());
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
@@ -360,6 +369,7 @@ public class CompanyDatabase{
 		}
 		catch(Exception e)
 		{
+			LOGGER.info(e.getClass().getName() + ": " + e.getMessage());
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}

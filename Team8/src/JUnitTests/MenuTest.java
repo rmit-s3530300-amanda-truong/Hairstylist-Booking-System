@@ -14,7 +14,7 @@ import Database.BookingDatabase;
 import Database.CompanyDatabase;
 import Database.CustomerDatabase;
 import Database.ServicesDatabase;
-import Menu.Menu;
+import Menu.MainController;
 
 public class MenuTest {
 	Company comp;
@@ -23,7 +23,7 @@ public class MenuTest {
 	AvailabilityDatabase availDb;
 	BookingDatabase bookDb;
 	ServicesDatabase servDb;
-	Menu m1;
+	MainController m1;
 	
 	String uname;
 	String name;
@@ -41,7 +41,7 @@ public class MenuTest {
 		comp = new Company();
 		bookDb = new BookingDatabase();
 		servDb = new ServicesDatabase();
-		m1 = new Menu(comp,custDb,compDb,availDb, bookDb, servDb);
+		m1 = new MainController(comp,custDb,compDb,availDb, bookDb, servDb);
 		
 		
 		uname = "^(?=^.{5,}$)^[a-zA-Z][a-zA-Z0-9]*[._-]?[a-zA-Z0-9]+$";

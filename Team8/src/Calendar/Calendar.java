@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
 import java.util.Map.Entry;
+import java.util.logging.Logger;
 
 import Business.Employee;
 import Business.Employee.Service;
@@ -23,6 +24,7 @@ public class Calendar {
 	// bookingList, String is the ID of the booking
 	private ArrayList<Booking> bookingList;
 	private ArrayList<Booking> displayBookedList;
+	private Logger LOGGER = Logger.getLogger("InfoLogging");
 	
 	public Calendar(LocalDate date) {
 		bookingList = new ArrayList<Booking>();
@@ -162,18 +164,22 @@ public class Calendar {
 	public Boolean isBooked(LocalDate date, LocalTime time) {
 		Status status = calendar.get(date).get(time).getStatus();
 		if(status == Status.booked) {
+			LOGGER.info("isBooked: TRUE");
 			return true;
 		}
 		else {
+			LOGGER.info("isBooked: FALSE");
 			return false;
 		}
 	}
 	
 	public LocalDate getDate() {
+		LOGGER.info("getDate: "+currentDate.toString());
 		return currentDate;
 	}
 	
 	public void setCurrentDate(LocalDate date) {
+		LOGGER.info(currentDate.toString()+"->"+date);
 		currentDate = date;
 	}
 	
@@ -202,7 +208,7 @@ public class Calendar {
 			else if(book.getStatus() == Status.pending) {
 				String existing_cust_id = book.getCustomerID();
 				if(existing_cust_id.equals(customer_id)) {
-					System.out.println("Existing Customer");
+					LOGGER.info("Cannot Request: Existing Booking");
 					return false;
 				} else {
 					booking_list.add(book);
@@ -225,7 +231,7 @@ public class Calendar {
 			displayBookedList.add(booking_list.get(0));
 			return true;
 		} else {
-			System.out.println("already booked");
+			LOGGER.info("Cannot Request: Time is already booked");
 		}
 		return false;
 	}
@@ -246,21 +252,22 @@ public class Calendar {
 					return true;	
 				}
 				else {
-					System.out.println("emp not free");
+					LOGGER.info("Cannot Accept: Employee is not free");
 				}
 			} else {
-				System.out.println("status not pending");	
+				LOGGER.info("Cannot Accept: The booking status is not pending");	
 			}
 			
 		}
 		else {
-			System.out.println("book is null");
+			LOGGER.info("Cannot Accept: The booking is null");
 		}
 		return false;
 	}
 	
 	public void addBookingToCalendar(LocalDate date, LocalTime start_time, LocalTime end_time) {
 		LocalTime current_time = start_time;
+		LOGGER.info("Adding Booking To Calendar: "+date.toString()+" "+start_time.toString()+""+end_time.toString());
 		while(!current_time.equals(end_time)) {
 			Booking book = calendar.get(date).get(current_time);
 			book.setStatus(Status.booked);
@@ -297,8 +304,10 @@ public class Calendar {
 				}
 				return true;
 			}
+			LOGGER.info("Cannot Decline: Booking status is not pending");
 			return false;
 		} else {
+			LOGGER.info("Cannot Decline: Booking is null");
 			return false;
 		}
 	}
@@ -325,7 +334,7 @@ public class Calendar {
 		return futureInfo;
 	}
 	
-	public ArrayList<Booking> getPendingBooking() {
+	public ArrayList<Booking> getBookingList() {
 		Collections.sort(bookingList, new Comparator<Booking>() {
 			@Override
 			public int compare(Booking arg0, Booking arg1) {
@@ -341,6 +350,7 @@ public class Calendar {
 				return booking;
 			}
 		}
+		LOGGER.info("getBooking: null");
 		return null;
 	}
 	
@@ -383,9 +393,11 @@ public class Calendar {
 	public Boolean containsBooking(String ID) {
 		for(Booking booking : bookingList) {
 			if(booking.getID().equals(ID)) {
+				LOGGER.info("containsBooking: TRUE");
 				return true;
 			}
 		}
+		LOGGER.info("containsBooking: FALSE");
 		return false;
 	}
 	

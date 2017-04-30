@@ -11,7 +11,7 @@ import com.jfoenix.controls.JFXButton;
 
 import Business.Employee;
 import Calendar.Booking;
-import Menu.Menu;
+import Menu.MainController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -22,7 +22,7 @@ import javafx.scene.shape.Rectangle;
 
 public class ViewMorningController {
 
-	private Menu menu;
+	private MainController menu;
 	@FXML
 	private AnchorPane rootPane;
 	@FXML
@@ -94,7 +94,7 @@ public class ViewMorningController {
 	
 	private String portal;
     
-	public void initiate(Menu menu, String cust_id, String portal) {
+	public void initiate(MainController menu, String cust_id, String portal) {
 		this.menu = menu;
 		this.cust_id = cust_id;
 		this.portal = portal;
@@ -105,7 +105,7 @@ public class ViewMorningController {
 	@FXML
 	void createRectangles()
 	{
-		ArrayList<Booking> bookingList = menu.getCompany().getCalendar().getPendingBooking();
+		ArrayList<Booking> bookingList = menu.getCompany().getCalendar().getBookingList();
 		HashMap<String, Employee> empList = menu.getCompany().getEmployeeList();
 
 		int columns = 7, horizontal = 95, vertical = 25;
@@ -353,7 +353,7 @@ public class ViewMorningController {
     	FXMLLoader login = new FXMLLoader(getClass().getResource("Login.fxml"));
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
-    	loginController controller = login.getController();
+    	LoginController controller = login.getController();
 		controller.initiate(menu);
     }
 	

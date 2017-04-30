@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Logger;
 
 public class AvailabilityDatabase {
 	
@@ -15,6 +16,7 @@ public class AvailabilityDatabase {
 	private static ResultSet result = null;
 	private static boolean hasData = false;
 	private static PreparedStatement prep = null;
+	private Logger LOGGER = Logger.getLogger("InfoLogging");
 	
 	public AvailabilityDatabase() {
 		this.initialise();
@@ -185,6 +187,7 @@ public class AvailabilityDatabase {
 			}
 			catch(Exception e)
 			{
+				LOGGER.info(e.getClass().getName() + ": " + e.getMessage());
 				System.err.println(e.getClass().getName() + ": " + e.getMessage());
 				System.exit(0);
 			}
@@ -209,6 +212,7 @@ public class AvailabilityDatabase {
 		}
 		catch(Exception e)
 		{
+			LOGGER.info(e.getClass().getName() + ": " + e.getMessage());
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
@@ -252,6 +256,7 @@ public class AvailabilityDatabase {
 		}
 		catch(Exception e)
 		{
+			LOGGER.info(e.getClass().getName() + ": " + e.getMessage());
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}

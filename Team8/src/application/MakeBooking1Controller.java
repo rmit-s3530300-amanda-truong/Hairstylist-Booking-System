@@ -8,7 +8,7 @@ import com.jfoenix.controls.JFXTextField;
 
 import Business.Company;
 import Business.Customer;
-import Menu.Menu;
+import Menu.MainController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
 public class MakeBooking1Controller {
-	private Menu menu;
+	private MainController menu;
 	
 	private Company comp;
 	
@@ -33,7 +33,7 @@ public class MakeBooking1Controller {
 	@FXML
 	private Label invalid;
 
-	public void initiate(Menu menu) {
+	public void initiate(MainController menu) {
 		this.menu = menu;
 		comp = menu.getCompany();
 	}
@@ -67,7 +67,7 @@ public class MakeBooking1Controller {
     	FXMLLoader login = new FXMLLoader(getClass().getResource("Login.fxml"));
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
-    	loginController controller = login.getController();
+    	LoginController controller = login.getController();
 		controller.initiate(menu);
     }
 	

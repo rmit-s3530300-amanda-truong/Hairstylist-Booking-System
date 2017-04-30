@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.HashMap;
+import java.util.logging.Logger;
 
 public class ServicesDatabase {
 	
@@ -14,6 +15,7 @@ public class ServicesDatabase {
 	private static ResultSet result = null;
 	private static boolean hasData = false;
 	private static PreparedStatement prep = null;
+	private Logger LOGGER = Logger.getLogger("InfoLogging");
 	
 	public ServicesDatabase() {
 		this.initialise();
@@ -38,6 +40,7 @@ public class ServicesDatabase {
 		}
 		catch(Exception e)
 		{
+			LOGGER.info(e.getClass().getName() + ": " + e.getMessage());
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
@@ -72,6 +75,7 @@ public class ServicesDatabase {
 		}
 		catch (Exception e)
 		{
+			LOGGER.info(e.getClass().getName() + ": " + e.getMessage());
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
@@ -99,6 +103,7 @@ public class ServicesDatabase {
 		}
 		catch(Exception e)
 		{
+			LOGGER.info(e.getClass().getName() + ": " + e.getMessage());
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
@@ -128,6 +133,7 @@ public class ServicesDatabase {
 		}
 		catch(Exception e)
 		{
+			LOGGER.info(e.getClass().getName() + ": " + e.getMessage());
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
@@ -170,6 +176,7 @@ public class ServicesDatabase {
 		}
 		catch(Exception e)
 		{
+			LOGGER.info(e.getClass().getName() + ": " + e.getMessage());
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
@@ -238,6 +245,7 @@ public class ServicesDatabase {
 		}
 		catch(Exception e)
 		{
+			LOGGER.info(e.getClass().getName() + ": " + e.getMessage());
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}

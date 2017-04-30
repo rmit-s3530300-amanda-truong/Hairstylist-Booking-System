@@ -8,7 +8,7 @@ import com.jfoenix.controls.JFXButton;
 import Business.Company;
 import Calendar.Booking;
 import Calendar.Calendar;
-import Menu.Menu;
+import Menu.MainController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,7 +19,7 @@ import javafx.scene.text.Font;
 
 public class UpcomingBookingController {
 	
-	private Menu menu;
+	private MainController menu;
 	
 	private String id;
 	
@@ -73,7 +73,7 @@ public class UpcomingBookingController {
 		return future;
 	}
 	
-	public void initiate(Menu menu, String cust_id) {
+	public void initiate(MainController menu, String cust_id) {
 		this.menu = menu;
 		id = cust_id;
 		comp = menu.getCompany();
@@ -105,7 +105,7 @@ public class UpcomingBookingController {
     	FXMLLoader login = new FXMLLoader(getClass().getResource("Login.fxml"));
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
-    	loginController controller = login.getController();
+    	LoginController controller = login.getController();
 		controller.initiate(menu);
     }
 	

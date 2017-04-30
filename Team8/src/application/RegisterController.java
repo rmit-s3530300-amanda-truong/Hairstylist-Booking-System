@@ -8,7 +8,7 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
 import Business.Company;
-import Menu.Menu;
+import Menu.MainController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,7 +23,7 @@ public class RegisterController {
 	ObservableList<String> rc_stateList = FXCollections.observableArrayList
 			("VIC", "NSW","Queensland", "WA", "SA", "Tasmania");
 	
-	private Menu menu;
+	private MainController menu;
 	@FXML
 	private AnchorPane rootPane;
 	
@@ -99,7 +99,7 @@ public class RegisterController {
     	rc_state.setItems(rc_stateList);
     }
 
-	public void initiate(Menu menu) {
+	public void initiate(MainController menu) {
 		this.menu = menu;
 	}
 	
@@ -236,7 +236,7 @@ public class RegisterController {
     	FXMLLoader login = new FXMLLoader(getClass().getResource("Login.fxml"));
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
-    	loginController controller = login.getController();
+    	LoginController controller = login.getController();
 		controller.initiate(menu);
     }
 	

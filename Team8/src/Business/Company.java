@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.logging.Logger;
 
 import Business.Employee.Service;
 import Calendar.Booking;
@@ -22,9 +23,9 @@ public class Company {
 	private HashMap<String, Employee> employeeList;
 	private HashMap<String, Customer> custList;
 	private HashMap<String, String> serviceTime;
+	private Logger LOGGER = Logger.getLogger("InfoLogging");
 	private Calendar calendar;
 	
-	// TODO: Add in other details that company need here
 	public Company() {
 		employeeList = new HashMap<String, Employee>();
 		custList = new HashMap<String, Customer>();
@@ -33,10 +34,12 @@ public class Company {
 	
 	public void addCustomer(Customer customer) {
 		String username = customer.getUsername();
+		LOGGER.info("addCustomer: "+customer.getUsername());
 		custList.put(username, customer);
 	}
 	
 	public Customer getCustomer(String username) {
+		LOGGER.info("getCustomer: "+username);
 		return custList.get(username);
 	}
 	
@@ -67,13 +70,16 @@ public class Company {
 		ArrayList<Booking> bookList;
 		empValues = companyDb.storeEmpValues();
 		setEmployeeList(empValues);
+		LOGGER.info("Set Employee List");
 		custValues = customerDb.storeCustomerValues();
 		setCustList(custValues);
+		LOGGER.info("Set Customer Values");
 		availValues = availDb.storeAvailValues();
 		setAvailList(availValues);
+		LOGGER.info("Set Available Values");
 		bookValues = bookingDb.storeBookingValues();
 		bookList = setBookingList(bookValues);
-		//calendar.setBookingList(bookList); 
+		LOGGER.info("Set Booking Values"); 
 		serviceTime = servDb.storeServiceValues();
 	}
 	
@@ -168,11 +174,13 @@ public class Company {
 	
 	public void addEmployee(Employee employee) {
 		String ID = employee.getID();
+		LOGGER.info("addEmployee: "+ID);
 		employeeList.put(ID, employee);
 	}
 	
 	// TODO: Needs Testing
 	public Employee getEmployee(String ID) {
+		LOGGER.info("getEmployee: "+ID);
 		return employeeList.get(ID);
 	}
 	
