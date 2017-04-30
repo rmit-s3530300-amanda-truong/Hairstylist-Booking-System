@@ -406,6 +406,17 @@ public class Calendar {
 		return output;
 	}
 	
+	public ArrayList<Booking> getDisplayPendingBooking() {
+		ArrayList<Booking> list = new ArrayList<Booking>();
+		
+		for(Booking book : displayBookedList) {
+			if(book.getStatus() == Status.pending) {
+				list.add(book);
+			}
+		}
+		return list;
+	}
+	
 	public String getDisplayBookedString() {
 		ArrayList<Booking> list = new ArrayList<Booking>();
 		String output = "";

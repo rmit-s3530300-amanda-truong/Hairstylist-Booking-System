@@ -32,7 +32,7 @@
                   <Font name="Lato Black" size="18.0" />
                </font>
             </JFXButton>
-            <Label layoutX="582.0" layoutY="45.0" text="CALENDAR VIEW" textFill="WHITE">
+            <Label layoutX="582.0" layoutY="45.0" text="CHOOSE TIME" textFill="WHITE">
                <font>
                   <Font name="Lato Black" size="33.0" />
                </font>

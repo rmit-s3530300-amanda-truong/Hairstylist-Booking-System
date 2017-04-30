@@ -80,10 +80,10 @@ public class BusinessPController {
 	@FXML
 	void viewUpcomingBooking(ActionEvent event) throws IOException{	
 		AnchorPane pane;
-    	FXMLLoader upBooking = new FXMLLoader(getClass().getResource("UpcomingBooking.fxml"));
-    	pane = upBooking.load();
+    	FXMLLoader Booking = new FXMLLoader(getClass().getResource("PendingBooking.fxml"));
+    	pane = Booking.load();
     	rootPane.getChildren().setAll(pane);
-    	UpcomingBookingController controller = upBooking.getController();
+    	PendingBookingController controller = Booking.getController();
 		controller.initiate(menu,null);
 	}
 	
