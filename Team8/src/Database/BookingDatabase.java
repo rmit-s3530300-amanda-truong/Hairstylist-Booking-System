@@ -272,7 +272,7 @@ public class BookingDatabase {
 				prep2.setString(4,"e2");
 				prep2.setString(5,"2017-05-03");
 				prep2.setString(6,"13:00-13:30");
-				prep2.setString(7,"booking");
+				prep2.setString(7,"booked");
 				prep2.execute();
 				prep2.close();
 				PreparedStatement prep3 = conn.prepareStatement("INSERT INTO BOOKING values(?,?,?,?,?,?,?);");
@@ -282,7 +282,7 @@ public class BookingDatabase {
 				prep3.setString(4,"e2");
 				prep3.setString(5,"2017-05-03");
 				prep3.setString(6,"13:00-13:30");
-				prep3.setString(7,"booking");
+				prep3.setString(7,"booked");
 				prep3.execute();
 				prep3.close();
 				PreparedStatement prep4 = conn.prepareStatement("INSERT INTO BOOKING values(?,?,?,?,?,?,?);");
@@ -292,7 +292,7 @@ public class BookingDatabase {
 				prep4.setString(4,"e2");
 				prep4.setString(5,"2017-04-26");
 				prep4.setString(6,"13:00-13:15");
-				prep4.setString(7,"booking");
+				prep4.setString(7,"booked");
 				prep4.execute();
 				prep4.close();
 				PreparedStatement prep5 = conn.prepareStatement("INSERT INTO BOOKING values(?,?,?,?,?,?,?);");
@@ -302,7 +302,7 @@ public class BookingDatabase {
 				prep5.setString(4,"e2");
 				prep5.setString(5,"2017-04-19");
 				prep5.setString(6,"14:00-14:15");
-				prep5.setString(7,"booking");
+				prep5.setString(7,"booked");
 				prep5.execute();
 				prep5.close();
 			}
