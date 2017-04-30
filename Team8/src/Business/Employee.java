@@ -3,7 +3,11 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+
+import Calendar.Booking;
 
 public class Employee {
 	private String ID;
@@ -63,7 +67,14 @@ public class Employee {
 	public void addBooking(LocalDate date, LocalTime start_time, LocalTime end_time) {
 		ArrayList<LocalTime> times = new ArrayList<LocalTime>();
 		LocalTime current_time = start_time;
-		while(!current_time.equals(end_time.plusMinutes(15))) {
+		if(bookings.get(date)!=null){
+			if(bookings.get(date).size() > 0) {
+				for(LocalTime t : bookings.get(date)) {
+					times.add(t);
+				}
+			}
+		}
+		while(!current_time.equals(end_time)) {
 			times.add(current_time);
 			current_time = current_time.plusMinutes(15); 
 		}
@@ -73,15 +84,24 @@ public class Employee {
 	public Boolean isFree(LocalDate date, LocalTime start_time, LocalTime end_time) {
 		ArrayList<LocalTime> times = bookings.get(date);
 		LocalTime current_time;
+		
 		if(times != null) {
-			current_time = times.get(0);
+			current_time = start_time;
+			System.out.println("booked times");
+			for(LocalTime time : times) {
+				System.out.println(time.toString());
+			}
 		} else {
 			return true;
 		}
 		
 		while(!current_time.equals(end_time)) {
-			if(times.contains(current_time)) {
-				return false;
+			
+			for(LocalTime t : times) {
+				System.out.println("current: "+current_time+" "+t);
+				if(t.equals(current_time)){
+					return false;
+				}
 			}
 			current_time = current_time.plusMinutes(15);
 		}

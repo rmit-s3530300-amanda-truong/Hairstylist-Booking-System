@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXRadioButton?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Rectangle?>
@@ -18,7 +18,7 @@
                </font>
             </JFXButton>
             <Pane id="logo" fx:id="welcome_logo" layoutX="41.0" prefHeight="75.0" prefWidth="166.0" />
-            <Label layoutX="598.0" layoutY="24.0" text="BUSINESS PORTAL" textFill="WHITE">
+            <Label layoutX="623.0" layoutY="25.0" text=" PORTAL" textFill="WHITE">
                <font>
                   <Font size="20.0" />
                </font>
@@ -54,46 +54,46 @@
                   <Font size="16.0" />
             	</font>
             </Label>
-            <RadioButton fx:id="maleWash" layoutX="715.0" layoutY="307.0" mnemonicParsing="false" text="Male Wash" textFill="WHITE">
+            <JFXRadioButton fx:id="maleWash" layoutX="715.0" layoutY="307.0" mnemonicParsing="false" text="Male Wash" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
-            </RadioButton>
-            <RadioButton fx:id="femaleCut" layoutX="487.0" layoutY="255.0" mnemonicParsing="false" text="Female Cut" textFill="WHITE">
+            </JFXRadioButton>
+            <JFXRadioButton fx:id="femaleCut" layoutX="487.0" layoutY="255.0" mnemonicParsing="false" text="Female Cut" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
-            </RadioButton>
-            <RadioButton fx:id="femaleWash" layoutX="487.0" layoutY="307.0" mnemonicParsing="false" text="Female Wash" textFill="WHITE">
+            </JFXRadioButton>
+            <JFXRadioButton fx:id="femaleWash" layoutX="487.0" layoutY="307.0" mnemonicParsing="false" text="Female Wash" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
-            </RadioButton>
-            <RadioButton fx:id="maleDye" layoutX="715.0" layoutY="366.0" mnemonicParsing="false" text="Male Dye" textFill="WHITE">
+            </JFXRadioButton>
+            <JFXRadioButton fx:id="maleDye" layoutX="715.0" layoutY="366.0" mnemonicParsing="false" text="Male Dye" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
-            </RadioButton>
-            <RadioButton fx:id="maleCut" layoutX="715.0" layoutY="255.0" mnemonicParsing="false" text="Male Cut" textFill="WHITE">
+            </JFXRadioButton>
+            <JFXRadioButton fx:id="maleCut" layoutX="715.0" layoutY="255.0" mnemonicParsing="false" text="Male Cut" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
-            </RadioButton>
-            <RadioButton fx:id="femaleDye" layoutX="487.0" layoutY="366.0" mnemonicParsing="false" text="Female Dye" textFill="WHITE">
+            </JFXRadioButton>
+            <JFXRadioButton fx:id="femaleDye" layoutX="487.0" layoutY="366.0" mnemonicParsing="false" text="Female Dye" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
-            </RadioButton>
-            <RadioButton fx:id="femalePerm" layoutX="487.0" layoutY="422.0" mnemonicParsing="false" text="Female Perm" textFill="WHITE">
+            </JFXRadioButton>
+            <JFXRadioButton fx:id="femalePerm" layoutX="487.0" layoutY="422.0" mnemonicParsing="false" text="Female Perm" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
-            </RadioButton>
-            <RadioButton fx:id="malePerm" layoutX="715.0" layoutY="422.0" mnemonicParsing="false" text="Male Perm" textFill="WHITE">
+            </JFXRadioButton>
+            <JFXRadioButton fx:id="malePerm" layoutX="715.0" layoutY="422.0" mnemonicParsing="false" text="Male Perm" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
-            </RadioButton>
+            </JFXRadioButton>
          </children></Pane>
    </children>
 </AnchorPane>

@@ -25,6 +25,8 @@ public class MakeBooking5Controller {
 	
 	private LocalDate date;
 	
+	private String portal;
+	
 	@FXML
 	private AnchorPane rootPane;
 	
@@ -41,12 +43,13 @@ public class MakeBooking5Controller {
     private void initialize(){
     }
 
-	public void initiate(Menu menu, String cust_id, Service service, Employee employee, LocalDate date) {
+	public void initiate(Menu menu, String cust_id, Service service, Employee employee, LocalDate date, String portal) {
 		this.menu = menu;
 		this.cust_id = cust_id;
 		this.service = service;
 		this.employee = employee;
 		this.date = date;
+		this.portal = portal;
 	}
 	
 	@FXML
@@ -56,7 +59,7 @@ public class MakeBooking5Controller {
     	pane = mb4.load();
     	rootPane.getChildren().setAll(pane);
     	MakeBooking4Controller controller = mb4.getController();
-    	controller.initiate(menu, cust_id, service, employee);
+    	controller.initiate(menu, cust_id, service, employee, portal);
 	}
 	
 	@FXML
@@ -67,7 +70,7 @@ public class MakeBooking5Controller {
     	pane = mb6.load();
     	rootPane.getChildren().setAll(pane);
     	MakeBooking6Controller controller = mb6.getController();
-		controller.initiate(menu, cust_id, service, employee, date, "morning");
+		controller.initiate(menu, cust_id, service, employee, date, "morning", portal);
 	}
 	
 	@FXML
@@ -78,7 +81,7 @@ public class MakeBooking5Controller {
     	pane = mb6.load();
     	rootPane.getChildren().setAll(pane);
     	MakeBooking6Controller controller = mb6.getController();
-    	controller.initiate(menu, cust_id, service, employee, date, "afternoon");
+    	controller.initiate(menu, cust_id, service, employee, date, "afternoon", portal);
 	}
 	
 	@FXML
@@ -93,11 +96,20 @@ public class MakeBooking5Controller {
 	
 	@FXML
 	void goToPortal() throws IOException{
-    	AnchorPane pane;
-    	FXMLLoader bussPortal = new FXMLLoader(getClass().getResource("BusinessPortal.fxml"));
-    	pane = bussPortal.load();
-    	rootPane.getChildren().setAll(pane);
-    	CustomerPController controller = bussPortal.getController();
-    	controller.initiate(menu);
+		if(portal.equals("business")) {
+			AnchorPane pane;
+	    	FXMLLoader bussPortal = new FXMLLoader(getClass().getResource("BusinessPortal.fxml"));
+	    	pane = bussPortal.load();
+	    	rootPane.getChildren().setAll(pane);
+	    	BusinessPController controller = bussPortal.getController();
+	    	controller.initiate(menu);
+		} else {
+			AnchorPane pane;
+	    	FXMLLoader cusPortal = new FXMLLoader(getClass().getResource("CustomerPortal.fxml"));
+	    	pane = cusPortal.load();
+	    	rootPane.getChildren().setAll(pane);
+	    	CustomerPController controller = cusPortal.getController();
+	    	controller.initiate(menu, cust_id);
+		}
     }
 }

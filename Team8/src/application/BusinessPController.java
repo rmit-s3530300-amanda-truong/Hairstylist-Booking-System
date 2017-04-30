@@ -84,7 +84,7 @@ public class BusinessPController {
     	pane = upBooking.load();
     	rootPane.getChildren().setAll(pane);
     	UpcomingBookingController controller = upBooking.getController();
-		controller.initiate(menu);
+		controller.initiate(menu,null);
 	}
 	
 	@FXML
@@ -94,7 +94,7 @@ public class BusinessPController {
 		pane = viewCalendar.load();
 		rootPane.getChildren().setAll(pane);
 		CalendarController controller = viewCalendar.getController();
-		controller.initiate(menu);
+		controller.initiate(menu, null, "business");
 	}
 	
 	@FXML
@@ -104,7 +104,7 @@ public class BusinessPController {
     	pane = pastBooking.load();
     	rootPane.getChildren().setAll(pane);
     	BookingHistoryController controller = pastBooking.getController();
-		controller.initiate(menu);
+		controller.initiate(menu,null);
 	}
 	
 	@FXML

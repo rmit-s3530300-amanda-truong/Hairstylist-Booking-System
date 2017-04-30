@@ -52,18 +52,13 @@ public class MakeBooking1Controller {
 	    	pane = m2.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	MakeBooking2Controller controller = m2.getController();
-	    	controller.initiate(menu, cust_id);
+	    	controller.initiate(menu, cust_id, "business");
 		}
 	}
 	
 	@FXML
 	void Home(ActionEvent event) throws IOException {
-		AnchorPane pane;
-    	FXMLLoader bussPortal = new FXMLLoader(getClass().getResource("BusinessPortal.fxml"));
-    	pane = bussPortal.load();
-    	rootPane.getChildren().setAll(pane);
-    	BusinessPController controller = bussPortal.getController();
-    	controller.initiate(menu);
+		goToPortal();
 	}
 	
 	@FXML

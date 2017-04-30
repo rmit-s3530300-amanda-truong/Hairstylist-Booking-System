@@ -17,7 +17,7 @@
                </font>
             </JFXButton>
             <Pane id="logo" fx:id="welcome_logo" layoutX="41.0" prefHeight="75.0" prefWidth="166.0" />
-            <Label layoutX="598.0" layoutY="24.0" text="BUSINESS PORTAL" textFill="WHITE">
+            <Label layoutX="628.0" layoutY="23.0" text="PORTAL" textFill="WHITE">
                <font>
                   <Font size="20.0" />
                </font>

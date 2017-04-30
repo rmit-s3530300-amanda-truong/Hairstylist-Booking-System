@@ -16,6 +16,8 @@ public class CustomerPController {
 	
 	private Menu menu;
 	
+	private String cust_id;
+	
 	@FXML
 	private AnchorPane rootPane;
 	
@@ -37,13 +39,20 @@ public class CustomerPController {
     @FXML
     private JFXButton gotoLogout;
 
-	public void initiate(Menu menu) {
+	public void initiate(Menu menu, String username) {
 		this.menu = menu;
+		cust_id = username;
+		cust_name.setText(username);
 	}
 	
 	@FXML
 	void newBooking(ActionEvent event) throws IOException{
-		
+		AnchorPane pane;
+    	FXMLLoader mb2 = new FXMLLoader(getClass().getResource("MakeBooking2.fxml"));
+    	pane = mb2.load();
+    	rootPane.getChildren().setAll(pane);
+    	MakeBooking2Controller controller = mb2.getController();
+		controller.initiate(menu, cust_id, "customer");
 	}
 	
 	@FXML
@@ -53,12 +62,23 @@ public class CustomerPController {
 	
 	@FXML
 	void upcomingBooking(ActionEvent event) throws IOException{
-		
+		AnchorPane pane;
+    	FXMLLoader up = new FXMLLoader(getClass().getResource("UpcomingBooking.fxml"));
+    	pane = up.load();
+    	rootPane.getChildren().setAll(pane);
+    	UpcomingBookingController controller = up.getController();
+    	System.out.println(cust_id);
+		controller.initiate(menu, cust_id);
 	}
 	
 	@FXML
 	void viewHistory(ActionEvent event) throws IOException{
-		
+		AnchorPane pane;
+    	FXMLLoader bh = new FXMLLoader(getClass().getResource("BookingHistory.fxml"));
+    	pane = bh.load();
+    	rootPane.getChildren().setAll(pane);
+    	BookingHistoryController controller = bh.getController();
+		controller.initiate(menu, cust_id);
 	}
 	
 	@FXML
@@ -69,10 +89,6 @@ public class CustomerPController {
     	rootPane.getChildren().setAll(pane);
     	loginController controller = login.getController();
 		controller.initiate(menu);
-	}
-	
-	public void getuName(String user){
-		cust_name.setText(user);
 	}
 
 }

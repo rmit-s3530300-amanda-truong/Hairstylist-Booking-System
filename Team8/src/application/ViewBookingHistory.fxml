@@ -7,7 +7,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootPane" prefHeight="788.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.BookingHistoryController">
+<AnchorPane fx:id="rootPane" prefHeight="788.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.BookingHistoryController">
    <children>
       <Pane id="menuPane" prefHeight="75.0" prefWidth="1400.0">
          <children>
@@ -17,7 +17,7 @@
                </font>
             </JFXButton>
             <Pane id="logo" fx:id="welcome_logo" layoutX="41.0" prefHeight="75.0" prefWidth="166.0" />
-            <Label layoutX="598.0" layoutY="24.0" text="BUSINESS PORTAL" textFill="WHITE">
+            <Label layoutX="628.0" layoutY="25.0" text="PORTAL" textFill="WHITE">
                <font>
                   <Font size="20.0" />
                </font>

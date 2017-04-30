@@ -213,6 +213,6 @@ public class RegisterController {
     	pane = customerPortal.load();
     	rootPane.getChildren().setAll(pane);
     	CustomerPController controller = customerPortal.getController();
-    	controller.initiate(menu);
+    	controller.initiate(menu, rc_username.getText());
     }
 }

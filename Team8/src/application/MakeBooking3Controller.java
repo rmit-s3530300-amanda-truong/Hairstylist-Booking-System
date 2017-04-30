@@ -35,6 +35,8 @@ public class MakeBooking3Controller {
 	
 	private Employee employee=null;
 	
+	private String portal;
+	
 	@FXML
 	private Label invalid;
 	
@@ -46,10 +48,11 @@ public class MakeBooking3Controller {
 	@FXML
     private JFXButton gotoLogout;
 
-	public void initiate(Menu menu, String cust_id, Service service) {
+	public void initiate(Menu menu, String cust_id, Service service, String portal) {
 		this.menu = menu;
 		this.cust_id = cust_id;
 		this.service = service;
+		this.portal = portal;
 		int counter = 0;
 		comp = menu.getCompany();
 		
@@ -127,7 +130,7 @@ public class MakeBooking3Controller {
 	    	pane = mb4.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	MakeBooking4Controller controller = mb4.getController();
-	    	controller.initiate(menu, cust_id, service, employee);
+	    	controller.initiate(menu, cust_id, service, employee, portal);
 			
 		}
 	}
@@ -139,17 +142,7 @@ public class MakeBooking3Controller {
     	pane = mb2.load();
     	rootPane.getChildren().setAll(pane);
     	MakeBooking2Controller controller = mb2.getController();
-    	controller.initiate(menu, cust_id);
-	}
-	
-	@FXML
-	void Home(ActionEvent event) throws IOException {
-		AnchorPane pane;
-    	FXMLLoader bussPortal = new FXMLLoader(getClass().getResource("BusinessPortal.fxml"));
-    	pane = bussPortal.load();
-    	rootPane.getChildren().setAll(pane);
-    	BusinessPController controller = bussPortal.getController();
-    	controller.initiate(menu);
+    	controller.initiate(menu, cust_id, portal);
 	}
 	
 	@FXML
@@ -164,11 +157,20 @@ public class MakeBooking3Controller {
 	
 	@FXML
 	void goToPortal() throws IOException{
-    	AnchorPane pane;
-    	FXMLLoader bussPortal = new FXMLLoader(getClass().getResource("BusinessPortal.fxml"));
-    	pane = bussPortal.load();
-    	rootPane.getChildren().setAll(pane);
-    	BusinessPController controller = bussPortal.getController();
-    	controller.initiate(menu);
+		if(portal.equals("business")) {
+			AnchorPane pane;
+	    	FXMLLoader bussPortal = new FXMLLoader(getClass().getResource("BusinessPortal.fxml"));
+	    	pane = bussPortal.load();
+	    	rootPane.getChildren().setAll(pane);
+	    	BusinessPController controller = bussPortal.getController();
+	    	controller.initiate(menu);
+		} else {
+			AnchorPane pane;
+	    	FXMLLoader cusPortal = new FXMLLoader(getClass().getResource("CustomerPortal.fxml"));
+	    	pane = cusPortal.load();
+	    	rootPane.getChildren().setAll(pane);
+	    	CustomerPController controller = cusPortal.getController();
+	    	controller.initiate(menu, cust_id);
+		}
     }
 }

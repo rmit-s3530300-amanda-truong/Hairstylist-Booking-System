@@ -37,6 +37,8 @@ public class MakeBooking4Controller {
 	
 	private Employee employee;
 	
+	private String portal;
+	
 	private LocalDate date = null;
 	
 	@FXML
@@ -50,11 +52,12 @@ public class MakeBooking4Controller {
 	@FXML
     private JFXButton gotoLogout;
 
-	public void initiate(Menu menu, String cust_id, Service service, Employee employee) {
+	public void initiate(Menu menu, String cust_id, Service service, Employee employee, String portal) {
 		this.menu = menu;
 		this.cust_id = cust_id;
 		this.service = service;
 		this.employee = employee;
+		this.portal = portal;
 		int counter = 0;
 		comp = menu.getCompany();
 		
@@ -68,13 +71,6 @@ public class MakeBooking4Controller {
 			}
 			current_day = current_day.plus(1);
 			current_date = current_date.plusDays(1);
-		}
-		HashMap<LocalDate, ArrayList<LocalTime>> booking = employee.getBookings();
-		for(int i =0; i<week.size();i++) {
-			LocalDate date = week.get(i);
-			if(booking.containsKey(date)) {
-				week.remove(i);
-			}
 		}
 		
 		if(week.size() > 0) {
@@ -129,7 +125,7 @@ public class MakeBooking4Controller {
 	    	pane = mb5.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	MakeBooking5Controller controller = mb5.getController();
-	    	controller.initiate(menu, cust_id, service, employee, date);
+	    	controller.initiate(menu, cust_id, service, employee, date, portal);
 			
 		}
 	}
@@ -141,17 +137,7 @@ public class MakeBooking4Controller {
     	pane = mb3.load();
     	rootPane.getChildren().setAll(pane);
     	MakeBooking3Controller controller = mb3.getController();
-    	controller.initiate(menu, cust_id, service);
-	}
-	
-	@FXML
-	void Home(ActionEvent event) throws IOException {
-		AnchorPane pane;
-    	FXMLLoader bussPortal = new FXMLLoader(getClass().getResource("BusinessPortal.fxml"));
-    	pane = bussPortal.load();
-    	rootPane.getChildren().setAll(pane);
-    	BusinessPController controller = bussPortal.getController();
-    	controller.initiate(menu);
+    	controller.initiate(menu, cust_id, service, portal);
 	}
 	
 	@FXML
@@ -166,11 +152,20 @@ public class MakeBooking4Controller {
 	
 	@FXML
 	void goToPortal() throws IOException{
-    	AnchorPane pane;
-    	FXMLLoader bussPortal = new FXMLLoader(getClass().getResource("BusinessPortal.fxml"));
-    	pane = bussPortal.load();
-    	rootPane.getChildren().setAll(pane);
-    	BusinessPController controller = bussPortal.getController();
-    	controller.initiate(menu);
+		if(portal.equals("business")) {
+			AnchorPane pane;
+	    	FXMLLoader bussPortal = new FXMLLoader(getClass().getResource("BusinessPortal.fxml"));
+	    	pane = bussPortal.load();
+	    	rootPane.getChildren().setAll(pane);
+	    	BusinessPController controller = bussPortal.getController();
+	    	controller.initiate(menu);
+		} else {
+			AnchorPane pane;
+	    	FXMLLoader cusPortal = new FXMLLoader(getClass().getResource("CustomerPortal.fxml"));
+	    	pane = cusPortal.load();
+	    	rootPane.getChildren().setAll(pane);
+	    	CustomerPController controller = cusPortal.getController();
+	    	controller.initiate(menu, cust_id);
+		}
     }
 }

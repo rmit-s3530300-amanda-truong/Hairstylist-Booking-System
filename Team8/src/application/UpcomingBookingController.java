@@ -1,19 +1,14 @@
 package application;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 
 import com.jfoenix.controls.JFXButton;
 
 import Business.Company;
-import Business.Employee.Service;
 import Calendar.Booking;
 import Calendar.Calendar;
 import Menu.Menu;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,6 +20,8 @@ import javafx.scene.text.Font;
 public class UpcomingBookingController {
 	
 	private Menu menu;
+	
+	private String id;
 	
 	private Company comp;
 	
@@ -49,8 +46,20 @@ public class UpcomingBookingController {
 		Calendar cal = comp.getCalendar();
 		ArrayList<Booking> list = cal.getDisplayFutureBooking();
 		String future="";
+		
+		System.out.println(id);
 		for(Booking book : list) {
-			future = future + String.format("%-20s %-20s %-20s %10s %25s %28s\n", book.getID(), book.getDate().toString(), book.getStartTime().toString(), book.getEndTime().toString(), book.getCustomerID(), book.getEmployee().getID());
+			System.out.println(book.getID());
+		}
+		
+		for(Booking book : list) {
+			if(id != null) {
+				if(book.getCustomerID().equals(id)) {
+					future = future + String.format("%-20s %-20s %-20s %10s %25s %28s\n", book.getID(), book.getDate().toString(), book.getStartTime().toString(), book.getEndTime().toString(), book.getCustomerID(), book.getEmployee().getID());
+				}
+			} else {
+				future = future + String.format("%-20s %-20s %-20s %10s %25s %28s\n", book.getID(), book.getDate().toString(), book.getStartTime().toString(), book.getEndTime().toString(), book.getCustomerID(), book.getEmployee().getID());
+			}
 		}
 		ta.setFont(Font.font ("Lato Heavy", 16));
 		ta.setText(future);
@@ -64,20 +73,30 @@ public class UpcomingBookingController {
 		return future;
 	}
 	
-	public void initiate(Menu menu) {
+	public void initiate(Menu menu, String cust_id) {
 		this.menu = menu;
+		id = cust_id;
 		comp = menu.getCompany();
 		getUpcomingBooking();
 	}
 	
 	@FXML
 	void Home(ActionEvent event) throws IOException {
-		AnchorPane pane;
-    	FXMLLoader bussPortal = new FXMLLoader(getClass().getResource("BusinessPortal.fxml"));
-    	pane = bussPortal.load();
-    	rootPane.getChildren().setAll(pane);
-    	BusinessPController controller = bussPortal.getController();
-    	controller.initiate(menu);
+		if(id==null) {
+			AnchorPane pane;
+	    	FXMLLoader bussPortal = new FXMLLoader(getClass().getResource("BusinessPortal.fxml"));
+	    	pane = bussPortal.load();
+	    	rootPane.getChildren().setAll(pane);
+	    	BusinessPController controller = bussPortal.getController();
+	    	controller.initiate(menu);
+		} else {
+			AnchorPane pane;
+	    	FXMLLoader cusPortal = new FXMLLoader(getClass().getResource("CustomerPortal.fxml"));
+	    	pane = cusPortal.load();
+	    	rootPane.getChildren().setAll(pane);
+	    	CustomerPController controller = cusPortal.getController();
+	    	controller.initiate(menu, id);
+		}
 	}
 	
 	@FXML
@@ -92,11 +111,20 @@ public class UpcomingBookingController {
 	
 	@FXML
 	void goToPortal() throws IOException{
-    	AnchorPane pane;
-    	FXMLLoader bussPortal = new FXMLLoader(getClass().getResource("BusinessPortal.fxml"));
-    	pane = bussPortal.load();
-    	rootPane.getChildren().setAll(pane);
-    	BusinessPController controller = bussPortal.getController();
-    	controller.initiate(menu);
-    }
+		if(id == null) {
+			AnchorPane pane;
+	    	FXMLLoader bussPortal = new FXMLLoader(getClass().getResource("BusinessPortal.fxml"));
+	    	pane = bussPortal.load();
+	    	rootPane.getChildren().setAll(pane);
+	    	BusinessPController controller = bussPortal.getController();
+	    	controller.initiate(menu);
+		} else {
+			AnchorPane pane;
+	    	FXMLLoader cusPortal = new FXMLLoader(getClass().getResource("CustomerPortal.fxml"));
+	    	pane = cusPortal.load();
+	    	rootPane.getChildren().setAll(pane);
+	    	CustomerPController controller = cusPortal.getController();
+	    	controller.initiate(menu, id);
+		}
+	}
 }

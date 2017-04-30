@@ -28,6 +28,8 @@ public class BookingHistoryController {
 	
 	private Company comp;
 	
+	private String id;
+	
 	//@FXML
 	private TextArea ta;
 	
@@ -56,8 +58,15 @@ public class BookingHistoryController {
 		Calendar cal = comp.getCalendar();
 		ArrayList<Booking> list = cal.getDisplayPastBooking();
 		String future="";
+		
 		for(Booking book : list) {
-			future = future + String.format("%-20s %-20s %-20s %10s %25s %28s\n", book.getID(), book.getDate().toString(), book.getStartTime().toString(), book.getEndTime().toString(), book.getCustomerID(), "000");
+			if(id != null) {
+				if(book.getCustomerID().equals(id)) {
+					future = future + String.format("%-20s %-20s %-20s %10s %25s %28s\n", book.getID(), book.getDate().toString(), book.getStartTime().toString(), book.getEndTime().toString(), book.getCustomerID(), book.getEmployee().getID());
+				}
+			} else {
+				future = future + String.format("%-20s %-20s %-20s %10s %25s %28s\n", book.getID(), book.getDate().toString(), book.getStartTime().toString(), book.getEndTime().toString(), book.getCustomerID(), book.getEmployee().getID());
+			}
 		}
 		ta.setFont(Font.font ("Lato Heavy", 16));
 		ta.setText(future);
@@ -71,7 +80,8 @@ public class BookingHistoryController {
 		return future;
 	}
 	
-	public void initiate(Menu menu) {
+	public void initiate(Menu menu, String cust_id) {
+		id = cust_id;
 		this.menu = menu;
 		comp = menu.getCompany();
 		getPastBooking();
@@ -79,12 +89,21 @@ public class BookingHistoryController {
 	
 	@FXML
 	void Home(ActionEvent event) throws IOException {
-		AnchorPane pane;
-    	FXMLLoader bussPortal = new FXMLLoader(getClass().getResource("BusinessPortal.fxml"));
-    	pane = bussPortal.load();
-    	rootPane.getChildren().setAll(pane);
-    	BusinessPController controller = bussPortal.getController();
-    	controller.initiate(menu);
+		if(id==null) {
+			AnchorPane pane;
+	    	FXMLLoader bussPortal = new FXMLLoader(getClass().getResource("BusinessPortal.fxml"));
+	    	pane = bussPortal.load();
+	    	rootPane.getChildren().setAll(pane);
+	    	BusinessPController controller = bussPortal.getController();
+	    	controller.initiate(menu);
+		} else {
+			AnchorPane pane;
+	    	FXMLLoader cusPortal = new FXMLLoader(getClass().getResource("CustomerPortal.fxml"));
+	    	pane = cusPortal.load();
+	    	rootPane.getChildren().setAll(pane);
+	    	CustomerPController controller = cusPortal.getController();
+	    	controller.initiate(menu, id);
+		}
 	}
 	
 	@FXML
@@ -99,11 +118,20 @@ public class BookingHistoryController {
 	
 	@FXML
 	void goToPortal() throws IOException{
-    	AnchorPane pane;
-    	FXMLLoader bussPortal = new FXMLLoader(getClass().getResource("BusinessPortal.fxml"));
-    	pane = bussPortal.load();
-    	rootPane.getChildren().setAll(pane);
-    	BusinessPController controller = bussPortal.getController();
-    	controller.initiate(menu);
+		if(id==null) {
+			AnchorPane pane;
+	    	FXMLLoader bussPortal = new FXMLLoader(getClass().getResource("BusinessPortal.fxml"));
+	    	pane = bussPortal.load();
+	    	rootPane.getChildren().setAll(pane);
+	    	BusinessPController controller = bussPortal.getController();
+	    	controller.initiate(menu);
+		} else {
+			AnchorPane pane;
+	    	FXMLLoader cusPortal = new FXMLLoader(getClass().getResource("CustomerPortal.fxml"));
+	    	pane = cusPortal.load();
+	    	rootPane.getChildren().setAll(pane);
+	    	CustomerPController controller = cusPortal.getController();
+	    	controller.initiate(menu, id);
+		}
     }
 }

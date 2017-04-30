@@ -74,7 +74,7 @@ public class loginController {
 	    	pane = custPortal.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	CustomerPController controller = custPortal.getController();
-			controller.initiate(menu);
+			controller.initiate(menu, username);
 		} 
 		catch (IOException e) {
 			e.printStackTrace();

@@ -18,7 +18,7 @@
                </font>
             </JFXButton>
             <Pane id="logo" fx:id="welcome_logo" layoutX="41.0" prefHeight="75.0" prefWidth="166.0" />
-            <Label layoutX="598.0" layoutY="24.0" text="BUSINESS PORTAL" textFill="WHITE">
+            <Label layoutX="598.0" layoutY="24.0" text="PORTAL" textFill="WHITE">
                <font>
                   <Font size="20.0" />
                </font>
@@ -54,7 +54,7 @@
                   <Font name="Lato Black" size="18.0" />
                </font>
             </JFXButton>
-            <Label id="invalid" fx:id="invalid" layoutX="591.0" layoutY="437.0" prefHeight="17.0" prefWidth="157.0" textFill="RED" >
+            <Label id="invalid" fx:id="invalid" layoutX="591.0" layoutY="437.0" prefHeight="17.0" prefWidth="157.0" textFill="RED">
             	<font>
                   <Font size="16.0" />
             	</font>

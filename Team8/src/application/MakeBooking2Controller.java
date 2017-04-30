@@ -5,7 +5,6 @@ import java.io.IOException;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXRadioButton;
 
-import Business.Company;
 import Business.Employee;
 import Business.Employee.Service;
 import Menu.Menu;
@@ -24,6 +23,8 @@ public class MakeBooking2Controller {
 	private String cust_id;
 	
 	private String services = null;
+	
+	private String portal;
 	
 	final ToggleGroup group = new ToggleGroup();
 	
@@ -57,10 +58,11 @@ public class MakeBooking2Controller {
 	@FXML
 	private JFXRadioButton malePerm;
 
-	public void initiate(Menu menu, String cust_id) {
+	public void initiate(Menu menu, String cust_id, String portal) {
 		this.menu = menu;
 		this.cust_id = cust_id;
-		comp = menu.getCompany();
+		this.portal = portal;
+		
 		femaleWash.setUserData("Female Wash");
 		femaleCut.setUserData("Female Cut");
 		femaleDye.setUserData("Female Dye");
@@ -129,28 +131,27 @@ public class MakeBooking2Controller {
     	pane = mb3.load();
     	rootPane.getChildren().setAll(pane);
     	MakeBooking3Controller controller = mb3.getController();
-    	controller.initiate(menu, cust_id, service);
+    	controller.initiate(menu, cust_id, service, portal);
 		
 		
 	}
 	@FXML
 	void back(ActionEvent event) throws IOException {
-		AnchorPane pane;
-    	FXMLLoader mb1 = new FXMLLoader(getClass().getResource("MakeBooking1.fxml"));
-    	pane = mb1.load();
-    	rootPane.getChildren().setAll(pane);
-    	MakeBooking1Controller controller = mb1.getController();
-    	controller.initiate(menu);
-	}
-	
-	@FXML
-	void Home(ActionEvent event) throws IOException {
-		AnchorPane pane;
-    	FXMLLoader bussPortal = new FXMLLoader(getClass().getResource("BusinessPortal.fxml"));
-    	pane = bussPortal.load();
-    	rootPane.getChildren().setAll(pane);
-    	BusinessPController controller = bussPortal.getController();
-    	controller.initiate(menu);
+		if(portal.equals("business")) {
+			AnchorPane pane;
+	    	FXMLLoader bussPortal = new FXMLLoader(getClass().getResource("MakeBooking1.fxml"));
+	    	pane = bussPortal.load();
+	    	rootPane.getChildren().setAll(pane);
+	    	MakeBooking1Controller controller = bussPortal.getController();
+	    	controller.initiate(menu);
+		} else {
+			AnchorPane pane;
+	    	FXMLLoader cusPortal = new FXMLLoader(getClass().getResource("CustomerPortal.fxml"));
+	    	pane = cusPortal.load();
+	    	rootPane.getChildren().setAll(pane);
+	    	CustomerPController controller = cusPortal.getController();
+	    	controller.initiate(menu, cust_id);
+		}
 	}
 	
 	@FXML
@@ -165,11 +166,20 @@ public class MakeBooking2Controller {
 	
 	@FXML
 	void goToPortal() throws IOException{
-    	AnchorPane pane;
-    	FXMLLoader bussPortal = new FXMLLoader(getClass().getResource("BusinessPortal.fxml"));
-    	pane = bussPortal.load();
-    	rootPane.getChildren().setAll(pane);
-    	BusinessPController controller = bussPortal.getController();
-    	controller.initiate(menu);
+		if(portal.equals("business")) {
+			AnchorPane pane;
+	    	FXMLLoader bussPortal = new FXMLLoader(getClass().getResource("BusinessPortal.fxml"));
+	    	pane = bussPortal.load();
+	    	rootPane.getChildren().setAll(pane);
+	    	BusinessPController controller = bussPortal.getController();
+	    	controller.initiate(menu);
+		} else {
+			AnchorPane pane;
+	    	FXMLLoader cusPortal = new FXMLLoader(getClass().getResource("CustomerPortal.fxml"));
+	    	pane = cusPortal.load();
+	    	rootPane.getChildren().setAll(pane);
+	    	CustomerPController controller = cusPortal.getController();
+	    	controller.initiate(menu, cust_id);
+		}
     }
 }
