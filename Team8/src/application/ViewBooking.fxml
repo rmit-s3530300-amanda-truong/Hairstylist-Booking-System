@@ -47,11 +47,6 @@
                   <Font name="Lato Black" size="18.0" />
                </font>
             </JFXButton>
-            <JFXButton id="button" fx:id="returnButton" layoutX="577.0" layoutY="646.0" onAction="#goToPortal" prefHeight="54.0" prefWidth="258.0" style="-fx-background-radius: 60;" stylesheets="@application.css" text="RETURN" textFill="WHITE">
-               <font>
-                  <Font name="Lato Black" size="18.0" />
-               </font>
-            </JFXButton>
          </children></Pane>
    </children>
 </AnchorPane>
