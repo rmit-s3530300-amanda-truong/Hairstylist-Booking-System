@@ -86,7 +86,7 @@ public class AddEmpController {
 		
 		//regex patterns for user input
 		String name = "^[a-zA-Z-//s]*$";
-		String mobileNo = "^(?:\\+?(61))? ?(?:\\((?=.*\\)))?(0?[2-57-8])\\)? ?(\\d\\d(?:[- ](?=\\d{3})|(?!\\d\\d[- ]?\\d[- ]))\\d\\d[- ]?\\d[- ]?\\d{3})$";
+		String mobileNo = "^(?:\\+?61|0)4 ?(?:(?:[01] ?[0-9]|2 ?[0-57-9]|3 ?[1-9]|4 ?[7-9]|5 ?[018]) ?[0-9]|3 ?0 ?[0-5])(?: ?[0-9]){5}$";
 		String suburbName = "^([a-zA-Z](\\s?))*$";
 		String zipCode = "^[0-9]{4}$";
 		String addressLine = "^\\d+\\s[A-z]+\\s[A-z]+";
@@ -151,7 +151,7 @@ public class AddEmpController {
 			invalid.setText("");
 			String fullAddress = address + ", " + suburb + ", " + state + " "+ postcode;
 			String services = "femaleCut, maleCut, femaleDye, maleDye, femalePerm, malePerm, femaleWash, maleWash";
-			menu.addEmployee(username, fname, lname, mobileNo, fullAddress, services);
+			menu.addEmployee(username, fname, lname, mobile, fullAddress, services);
 			goToPortal();
 		}
 	}

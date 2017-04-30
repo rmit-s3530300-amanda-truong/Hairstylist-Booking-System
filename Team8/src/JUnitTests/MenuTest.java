@@ -47,7 +47,7 @@ public class MenuTest {
 		uname = "^(?=^.{5,}$)^[a-zA-Z][a-zA-Z0-9]*[._-]?[a-zA-Z0-9]+$";
 		name = "^[a-zA-Z-//s]*$";
 		pass = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=\\S+$)(?=.*[@#$%^&+=]).{6,}$";
-		mobileNo = "^(?:\\+?(61))? ?(?:\\((?=.*\\)))?(0?[2-57-8])\\)? ?(\\d\\d(?:[- ](?=\\d{3})|(?!\\d\\d[- ]?\\d[- ]))\\d\\d[- ]?\\d[- ]?\\d{3})$";
+		mobileNo = "^(?:\\+?61|0)4 ?(?:(?:[01] ?[0-9]|2 ?[0-57-9]|3 ?[1-9]|4 ?[7-9]|5 ?[018]) ?[0-9]|3 ?0 ?[0-5])(?: ?[0-9]){5}$";
 		suburbName = "^([a-zA-Z](\\s?))*$";
 		zipCode = "^[0-9]{4}$";
 		addressLine = "^\\d+\\s[A-z]+\\s[A-z]+";
@@ -266,7 +266,7 @@ public class MenuTest {
 	public void testValidMobile4() {
 		String mobile = "412345678";
 		boolean check = m1.validate(mobile, mobileNo);
-		assertEquals(true,check);
+		assertEquals(false,check);
 	}
 	
 	@Test
@@ -278,7 +278,7 @@ public class MenuTest {
 	
 	@Test
 	public void testValidMobile6() {
-		String mobile = "+61 412 345 678";
+		String mobile = "+614 1234 5678";
 		boolean check = m1.validate(mobile, mobileNo);
 		assertEquals(true,check);
 	}
@@ -292,7 +292,7 @@ public class MenuTest {
 	
 	@Test
 	public void testValidMobile8() {
-		String mobile = "+61 412 345678";
+		String mobile = "+61412 345 678";
 		boolean check = m1.validate(mobile, mobileNo);
 		assertEquals(true,check);
 	}

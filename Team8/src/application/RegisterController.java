@@ -99,7 +99,7 @@ public class RegisterController {
 		String uname = "^(?=^.{5,}$)^[a-zA-Z][a-zA-Z0-9]*[._-]?[a-zA-Z0-9]+$";
 		String name = "^[a-zA-Z-//s]*$";
 		String pass = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=\\S+$)(?=.*[@#$%^&+=]).{6,}$";
-		String mobileNo = "^(?:\\+?(61))? ?(?:\\((?=.*\\)))?(0?[2-57-8])\\)? ?(\\d\\d(?:[- ](?=\\d{3})|(?!\\d\\d[- ]?\\d[- ]))\\d\\d[- ]?\\d[- ]?\\d{3})$";
+		String mobileNo = "^(?:\\+?61|0)4 ?(?:(?:[01] ?[0-9]|2 ?[0-57-9]|3 ?[1-9]|4 ?[7-9]|5 ?[018]) ?[0-9]|3 ?0 ?[0-5])(?: ?[0-9]){5}$";
 		String suburbName = "^([a-zA-Z](\\s?))*$";
 		String zipCode = "^[0-9]{4}$";
 		String addressLine = "^\\d+\\s[A-z]+\\s[A-z]+";
