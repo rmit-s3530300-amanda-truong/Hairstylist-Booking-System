@@ -24,7 +24,7 @@ public class MainController {
 	private BookingDatabase bookDb;
 	private ServicesDatabase servDb;
 	
-	public Menu(Company company, CustomerDatabase customerDb, CompanyDatabase companyDb, AvailabilityDatabase availDb, BookingDatabase bookDb, ServicesDatabase servDb){
+	public MainController(Company company, CustomerDatabase customerDb, CompanyDatabase companyDb, AvailabilityDatabase availDb, BookingDatabase bookDb, ServicesDatabase servDb){
 		comp = company;
 		this.companyDb = companyDb;
 		this.customerDb = customerDb;
