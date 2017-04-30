@@ -15,12 +15,12 @@
       <Pane id="content" layoutY="74.0" prefHeight="714.0" prefWidth="1400.0">
          <children>
             <Rectangle arcHeight="40.0" arcWidth="40.0" height="680.0" layoutX="345.0" layoutY="18.0" opacity="0.65" stroke="BLACK" strokeType="INSIDE" width="710.0" />
-            <Label layoutX="587.0" layoutY="27.0" text="REGISTER" textFill="WHITE">
+            <Label layoutX="587.0" layoutY="24.0" text="REGISTER" textFill="WHITE">
                <font>
                   <Font name="Lato Black" size="47.0" />
                </font>
             </Label>
-            <Label layoutX="391.0" layoutY="128.0" text="FIRST NAME" textFill="WHITE">
+            <Label layoutX="391.0" layoutY="109.0" text="FIRST NAME" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -30,12 +30,12 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="393.0" layoutY="211.0" text="USERNAME" textFill="WHITE">
+            <Label layoutX="393.0" layoutY="202.0" text="USERNAME" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="749.0" layoutY="128.0" text="LAST NAME" textFill="WHITE">
+            <Label layoutX="749.0" layoutY="109.0" text="LAST NAME" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -45,12 +45,12 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="392.0" layoutY="409.0" text="MOBILE" textFill="WHITE">
+            <Label layoutX="392.0" layoutY="400.0" text="MOBILE" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="750.0" layoutY="409.0" text="ADDRESS LINE " textFill="WHITE">
+            <Label layoutX="750.0" layoutY="400.0" text="ADDRESS LINE " textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -70,17 +70,17 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="rc_fname" focusColor="#aa9144" layoutX="392.0" layoutY="151.0" prefHeight="38.0" prefWidth="256.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
+            <JFXTextField fx:id="rc_fname" focusColor="#aa9144" layoutX="392.0" layoutY="132.0" prefHeight="38.0" prefWidth="256.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </JFXTextField>
-            <JFXTextField fx:id="rc_lname" focusColor="#aa9144" layoutX="750.0" layoutY="151.0" prefHeight="38.0" prefWidth="256.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
+            <JFXTextField fx:id="rc_lname" focusColor="#aa9144" layoutX="750.0" layoutY="132.0" prefHeight="38.0" prefWidth="256.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </JFXTextField>
-            <JFXTextField fx:id="rc_username" focusColor="#aa9144" layoutX="393.0" layoutY="234.0" prefHeight="38.0" prefWidth="256.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
+            <JFXTextField fx:id="rc_username" focusColor="#aa9144" layoutX="393.0" layoutY="225.0" prefHeight="38.0" prefWidth="256.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -94,12 +94,12 @@
                   <Font size="16.0" />
                </font>
             </JFXPasswordField>
-            <JFXTextField fx:id="rc_mobile" focusColor="#aa9144" layoutX="392.0" layoutY="432.0" prefHeight="38.0" prefWidth="256.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
+            <JFXTextField fx:id="rc_mobile" focusColor="#aa9144" layoutX="392.0" layoutY="423.0" prefHeight="38.0" prefWidth="256.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </JFXTextField>
-            <JFXTextField fx:id="rc_address" focusColor="#aa9144" layoutX="750.0" layoutY="432.0" prefHeight="38.0" prefWidth="256.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
+            <JFXTextField fx:id="rc_address" focusColor="#aa9144" layoutX="750.0" layoutY="423.0" prefHeight="38.0" prefWidth="256.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -115,52 +115,52 @@
                </font>
             </JFXTextField>
             <JFXComboBox id="comboBox" fx:id="rc_state" focusColor="#aa9144" layoutX="855.0" layoutY="526.0" prefHeight="38.0" prefWidth="152.0" unFocusColor="WHITE" />
-            <JFXButton id="button" fx:id="registerAction" layoutX="571.0" layoutY="615.0" onAction="#register" prefHeight="60.0" prefWidth="250.0" style="-fx-background-radius: 60;" stylesheets="@application.css" text="REGISTER" textFill="WHITE">
+            <JFXButton id="button" fx:id="registerAction" layoutX="571.0" layoutY="619.0" onAction="#register" prefHeight="60.0" prefWidth="250.0" style="-fx-background-radius: 60;" stylesheets="@application.css" text="REGISTER" textFill="WHITE">
                <font>
                   <Font name="Lato Black" size="20.0" />
                </font>
             </JFXButton>
-            <Label fx:id="invalid_fn" layoutX="391.0" layoutY="189.0" prefHeight="20.0" prefWidth="236.0" textFill="RED">
+            <Label fx:id="invalid_fn" layoutX="391.0" layoutY="173.0" prefHeight="20.0" prefWidth="343.0" textFill="RED">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label fx:id="invalid_ln" layoutX="760.0" layoutY="189.0" prefHeight="20.0" prefWidth="236.0" textFill="RED">
+            <Label fx:id="invalid_ln" layoutX="749.0" layoutY="173.0" prefHeight="20.0" prefWidth="291.0" textFill="RED">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label fx:id="invalid_un" layoutX="402.0" layoutY="277.0" prefHeight="20.0" prefWidth="415.0" textFill="RED">
+            <Label fx:id="invalid_un" layoutX="392.0" layoutY="265.0" prefHeight="9.0" prefWidth="479.0" textFill="RED">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label fx:id="invalid_pass" layoutX="391.0" layoutY="360.0" prefHeight="48.0" prefWidth="622.0" textFill="RED">
+            <Label fx:id="invalid_pass" layoutX="391.0" layoutY="362.0" prefHeight="1.0" prefWidth="622.0" textFill="RED">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label fx:id="invalid_pass2" layoutX="759.0" layoutY="364.0" prefHeight="20.0" prefWidth="236.0" textFill="RED">
+            <Label fx:id="invalid_pass2" layoutX="750.0" layoutY="363.0" prefHeight="20.0" prefWidth="302.0" textFill="RED">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label fx:id="invalid_num" layoutX="391.0" layoutY="477.0" prefHeight="20.0" prefWidth="236.0" textFill="RED">
+            <Label fx:id="invalid_num" layoutX="391.0" layoutY="462.0" prefHeight="20.0" prefWidth="315.0" textFill="RED">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label fx:id="invalid_add" layoutX="750.0" layoutY="477.0" prefHeight="20.0" prefWidth="256.0" textFill="RED">
+            <Label fx:id="invalid_add" layoutX="750.0" layoutY="462.0" prefHeight="20.0" prefWidth="302.0" textFill="RED">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label fx:id="invalid_sub" layoutX="392.0" layoutY="571.0" prefHeight="20.0" prefWidth="180.0" textFill="RED">
+            <Label fx:id="invalid_sub" layoutX="391.0" layoutY="566.0" prefHeight="20.0" prefWidth="202.0" textFill="RED">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label fx:id="invalid_pc" layoutX="627.0" layoutY="571.0" prefHeight="20.0" prefWidth="180.0" textFill="RED">
+            <Label fx:id="invalid_pc" layoutX="625.0" layoutY="566.0" prefHeight="20.0" prefWidth="227.0" textFill="RED">
                <font>
                   <Font size="14.0" />
                </font>

@@ -135,7 +135,7 @@ public class RegisterController {
 		}
 		else{
 			invalid_pc.setText("Invalid Postcode.");
-			invalid_pc.setAlignment(Pos.CENTER);
+			invalid_pc.setAlignment(Pos.CENTER_LEFT);
 		}
 		
 		//checking suburb
@@ -145,7 +145,7 @@ public class RegisterController {
 		}
 		else{
 			invalid_sub.setText("Invalid Suburb.");
-			invalid_sub.setAlignment(Pos.CENTER);
+			invalid_sub.setAlignment(Pos.CENTER_LEFT);
 		}
 		
 		//checking address
@@ -155,7 +155,7 @@ public class RegisterController {
 		}
 		else{
 			invalid_add.setText("Invalid Address. eg. 1 Smith st");
-			invalid_add.setAlignment(Pos.CENTER);
+			invalid_add.setAlignment(Pos.CENTER_LEFT);
 		}
 		
 		//checking mobile
@@ -164,8 +164,8 @@ public class RegisterController {
 			invalid_num.setText("");
 		}
 		else{
-			invalid_num.setText("Invalid Number");
-			invalid_num.setAlignment(Pos.CENTER);
+			invalid_num.setText("Invalid Mobile Number.");
+			invalid_num.setAlignment(Pos.CENTER_LEFT);
 		}
 		
 		//checking password
@@ -178,7 +178,7 @@ public class RegisterController {
 			else{
 				invalid_pass.setText("");
 				invalid_pass2.setText("Password doesn't match.");
-				invalid_pass2.setAlignment(Pos.CENTER);
+				invalid_pass2.setAlignment(Pos.CENTER_LEFT);
 			}
 		}
 		else{
@@ -195,7 +195,7 @@ public class RegisterController {
 			}
 			else{
 				invalid_un.setText("Username is already taken.");
-				invalid_un.setAlignment(Pos.CENTER);
+				invalid_un.setAlignment(Pos.CENTER_LEFT);
 			}
 		}
 		else{
@@ -208,8 +208,8 @@ public class RegisterController {
 			invalid_ln.setText("");
 		}
 		else{
-			invalid_ln.setText("Invalid Last Name");
-			invalid_ln.setAlignment(Pos.CENTER);
+			invalid_ln.setText("Invalid Last Name.");
+			invalid_ln.setAlignment(Pos.CENTER_LEFT);
 		}
 		
 		//checking firstname
@@ -218,8 +218,8 @@ public class RegisterController {
 			invalid_fn.setText("");
 		}
 		else{
-			invalid_fn.setText("Invalid First Name");
-			invalid_fn.setAlignment(Pos.CENTER);
+			invalid_fn.setText("Invalid First Name.");
+			invalid_fn.setAlignment(Pos.CENTER_LEFT);
 		}
 		
 		//sending info to database
