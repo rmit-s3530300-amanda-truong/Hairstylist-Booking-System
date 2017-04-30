@@ -10,8 +10,10 @@ import org.junit.Test;
 import Business.Company;
 import Calendar.Calendar;
 import Database.AvailabilityDatabase;
+import Database.BookingDatabase;
 import Database.CompanyDatabase;
 import Database.CustomerDatabase;
+import Database.ServicesDatabase;
 import Menu.Menu;
 
 public class MenuTest {
@@ -19,6 +21,8 @@ public class MenuTest {
 	CompanyDatabase compDb;
 	CustomerDatabase custDb;
 	AvailabilityDatabase availDb;
+	BookingDatabase bookDb;
+	ServicesDatabase servDb;
 	Menu m1;
 	
 	String uname;
@@ -35,7 +39,9 @@ public class MenuTest {
 		custDb = new CustomerDatabase();
 		availDb = new AvailabilityDatabase();
 		comp = new Company();
-		m1 = new Menu(comp,custDb,compDb,availDb);
+		bookDb = new BookingDatabase();
+		servDb = new ServicesDatabase();
+		m1 = new Menu(comp,custDb,compDb,availDb, bookDb, servDb);
 		
 		
 		uname = "^(?=^.{5,}$)^[a-zA-Z][a-zA-Z0-9]*[._-]?[a-zA-Z0-9]+$";
