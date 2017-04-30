@@ -9,7 +9,7 @@ import Database.BookingDatabase;
 import Database.CompanyDatabase;
 import Database.CustomerDatabase;
 import Database.ServicesDatabase;
-import Menu.MainController;
+import MainController.MainController;
 import application.WelcomeController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

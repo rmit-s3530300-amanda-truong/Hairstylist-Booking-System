@@ -9,7 +9,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
 
-import Menu.MainController;
+import MainController.MainController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -141,7 +141,6 @@ public class AddAvailTimeController {
     		invalidday.setText("Please select a day.");
 			invalidday.setAlignment(Pos.CENTER_LEFT);
     	}
-    	
     	//checking start time
     	if(menu.validate(sHour, shour)){
 			if(menu.validate(sMinute, minute)){

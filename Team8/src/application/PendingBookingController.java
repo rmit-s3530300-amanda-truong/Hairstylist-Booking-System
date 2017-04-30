@@ -12,7 +12,7 @@ import com.sun.prism.paint.Color;
 import Business.Company;
 import Calendar.Booking;
 import Calendar.Calendar;
-import Menu.MainController;
+import MainController.MainController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;

@@ -8,7 +8,7 @@ import com.jfoenix.controls.JFXButton;
 import Business.Company;
 import Calendar.Booking;
 import Calendar.Calendar;
-import Menu.MainController;
+import MainController.MainController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

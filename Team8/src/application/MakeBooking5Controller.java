@@ -7,7 +7,7 @@ import com.jfoenix.controls.JFXButton;
 
 import Business.Employee;
 import Business.Employee.Service;
-import Menu.MainController;
+import MainController.MainController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

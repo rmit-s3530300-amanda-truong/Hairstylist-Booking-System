@@ -14,7 +14,7 @@ import Database.BookingDatabase;
 import Database.CompanyDatabase;
 import Database.CustomerDatabase;
 import Database.ServicesDatabase;
-import Menu.MainController;
+import MainController.MainController;
 
 public class MenuTest {
 	Company comp;

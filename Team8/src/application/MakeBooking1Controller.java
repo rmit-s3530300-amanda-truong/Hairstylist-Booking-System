@@ -8,7 +8,7 @@ import com.jfoenix.controls.JFXTextField;
 
 import Business.Company;
 import Business.Customer;
-import Menu.MainController;
+import MainController.MainController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

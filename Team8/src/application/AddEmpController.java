@@ -12,7 +12,7 @@ import com.jfoenix.controls.JFXTextField;
 import Business.Company;
 import Business.Employee;
 import Business.Employee.Service;
-import Menu.MainController;
+import MainController.MainController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

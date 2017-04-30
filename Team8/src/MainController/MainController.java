@@ -1,4 +1,4 @@
-package Menu;
+package MainController;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
