@@ -91,11 +91,5 @@ public class CalendarController {
 	    	CustomerPController controller = cusPortal.getController();
 	    	controller.initiate(menu, cust_id);
 		}
-    	AnchorPane pane;
-    	FXMLLoader bussPortal = new FXMLLoader(getClass().getResource("BusinessPortal.fxml"));
-    	pane = bussPortal.load();
-    	rootPane.getChildren().setAll(pane);
-    	BusinessPController controller = bussPortal.getController();
-    	controller.initiate(menu);
     }
 }
