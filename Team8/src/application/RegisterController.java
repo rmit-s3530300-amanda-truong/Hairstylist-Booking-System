@@ -7,7 +7,6 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
-import Business.Company;
 import MainController.MainController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

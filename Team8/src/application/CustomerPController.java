@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import com.jfoenix.controls.JFXButton;
 
-import Business.Company;
 import Database.CustomerDatabase;
 import MainController.MainController;
 import javafx.event.ActionEvent;

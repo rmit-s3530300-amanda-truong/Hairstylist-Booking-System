@@ -1,13 +1,11 @@
 package application;
 
 import java.io.IOException;
-import java.time.LocalTime;
 import java.util.ArrayList;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
-import com.sun.prism.paint.Color;
 
 import Business.Company;
 import Calendar.Booking;

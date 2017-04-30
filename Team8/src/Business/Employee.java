@@ -3,12 +3,8 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.logging.Logger;
-
-import Calendar.Booking;
 
 public class Employee {
 	private String ID;
