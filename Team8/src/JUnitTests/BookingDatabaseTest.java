@@ -150,7 +150,7 @@ public class BookingDatabaseTest {
 		String startTime = "09:15";
 		String endTime = "09:30";
 		String time = startTime + "-" + endTime;
-		String status = "booked";
+		String status = "booking";
 		
 		String bookingID2 = "2017-05-03/13:00";
 		String customerUsername2 = "rgeorge";
@@ -160,7 +160,7 @@ public class BookingDatabaseTest {
 		String startTime2 = "13:00";
 		String endTime2 = "13:30";
 		String time2 = startTime + "-" + endTime;
-		String status2 = "booked";
+		String status2 = "booking";
 		
 		String bookingID3 = "2017-05-03/13:15";
 		String customerUsername3 = "rgeorge";
@@ -170,7 +170,27 @@ public class BookingDatabaseTest {
 		String startTime3 = "13:00";
 		String endTime3 = "13:15";
 		String time3 = startTime + "-" + endTime;
-		String status3 = "booked";
+		String status3 = "booking";
+		
+		String bookingID4 = "2017-04-26/13:00";
+		String customerUsername4 = "jbrown";
+		String service4 = "maleCut";
+		String employeeID4 = "e2";
+		String date4 = "2017-04-26";
+		String startTime4 = "13:00";
+		String endTime4 = "13:15";
+		String time4 = startTime + "-" + endTime;
+		String status4 = "booking";
+		
+		String bookingID5 = "2017-04-19/14:00";
+		String customerUsername5 = "jbrown";
+		String service5 = "maleCut";
+		String employeeID5 = "e2";
+		String date5 = "2017-04-19";
+		String startTime5 = "14:00";
+		String endTime5 = "14:15";
+		String time5 = startTime + "-" + endTime;
+		String status5 = "booking";
 		
 		HashMap<String, ArrayList<String>> expectedMap = new HashMap<String,ArrayList<String>>();
 		ArrayList<String> list = new ArrayList<String>();

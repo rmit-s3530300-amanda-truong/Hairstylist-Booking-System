@@ -261,14 +261,6 @@ public class CompanyDatabaseTest {
 		assertEquals(expected,actual);
 	}
 	
-	@Test
-	public void testCheckEmployees()
-	{
-		int expected = 2;
-		int actual = compDb.checkEmployees();
-		assertEquals(expected,actual);
-	}
-	
 	@After
 	public void tearDown() throws SQLException
 	{
