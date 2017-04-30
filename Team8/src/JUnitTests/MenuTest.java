@@ -21,15 +21,108 @@ public class MenuTest {
 	AvailabilityDatabase availDb;
 	Menu m1;
 	
+	String uname;
+	String name;
+	String pass;
+	String mobileNo;
+	String suburbName;
+	String zipCode;
+	String addressLine;
+	
 	@Before
 	public void setUp() throws Exception {
 		compDb = new CompanyDatabase();
 		custDb = new CustomerDatabase();
 		availDb = new AvailabilityDatabase();
-		Calendar cal = new Calendar(LocalDate.of(2017, 04, 01));
 		comp = new Company();
-		comp.setCalendar(cal);
 		m1 = new Menu(comp,custDb,compDb,availDb);
+		
+		
+		uname = "^(?=^.{5,}$)^[a-zA-Z][a-zA-Z0-9]*[._-]?[a-zA-Z0-9]+$";
+		name = "^[a-zA-Z-//s]*$";
+		pass = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=\\S+$)(?=.*[@#$%^&+=]).{6,}$";
+		mobileNo = "^(?:\\+?(61))? ?(?:\\((?=.*\\)))?(0?[2-57-8])\\)? ?(\\d\\d(?:[- ](?=\\d{3})|(?!\\d\\d[- ]?\\d[- ]))\\d\\d[- ]?\\d[- ]?\\d{3})$";
+		suburbName = "^([a-zA-Z](\\s?))*$";
+		zipCode = "^[0-9]{4}$";
+		addressLine = "^\\d+\\s[A-z]+\\s[A-z]+";
+	}
+	
+	@Test
+	public void testAuthenticate1(){
+		String username = "jbrown";
+		String password = "password";
+		String check = m1.authenticate(username, password);
+		assertEquals("customer",check);
+	}
+	
+	@Test
+	public void testAuthenticate2(){
+		String username = "abcboss";
+		String password = "password";
+		String check = m1.authenticate(username, password);
+		assertEquals("business",check);
+	}
+	
+	@Test
+	public void testAuthenticate3(){
+		String username = "abcboss";
+		String password = "pass";
+		String check = m1.authenticate(username, password);
+		assertEquals("false",check);
+	}
+	
+	@Test
+	public void testUniqueUsename1(){
+		String username = "jbrown";
+		boolean check = m1.uniqueUname(username);
+		assertEquals(false,check);
+	}
+	
+	@Test
+	public void testUniqueUsename2(){
+		String username = "j_patel";
+		boolean check = m1.uniqueUname(username);
+		assertEquals(true,check);
+	}
+	
+	@Test
+	public void testValidEndTime1(){
+		String startTimeHour = "08";
+		String startTimeMinute = "40";
+		String endTimeHour = "10";
+		String endTimeMinute = "40";
+		boolean check = m1.validEndTime(startTimeHour, endTimeHour, startTimeMinute, endTimeMinute);
+		assertEquals(true,check);
+	}
+	
+	@Test
+	public void testValidEndTime2(){
+		String startTimeHour = "08";
+		String startTimeMinute = "40";
+		String endTimeHour = "08";
+		String endTimeMinute = "40";
+		boolean check = m1.validEndTime(startTimeHour, endTimeHour, startTimeMinute, endTimeMinute);
+		assertEquals(false,check);
+	}
+	
+	@Test
+	public void testValidEndTime3(){
+		String startTimeHour = "08";
+		String startTimeMinute = "40";
+		String endTimeHour = "09";
+		String endTimeMinute = "30";
+		boolean check = m1.validEndTime(startTimeHour, endTimeHour, startTimeMinute, endTimeMinute);
+		assertEquals(false,check);
+	}
+	
+	@Test
+	public void testValidEndTime4(){
+		String startTimeHour = "09";
+		String startTimeMinute = "40";
+		String endTimeHour = "08";
+		String endTimeMinute = "40";
+		boolean check = m1.validEndTime(startTimeHour, endTimeHour, startTimeMinute, endTimeMinute);
+		assertEquals(false,check);
 	}
 	
 	@Test
@@ -37,7 +130,6 @@ public class MenuTest {
 		String username = "e1";
 		Boolean expected = true;
 		Boolean actual = m1.idValid(username);
-		
 		assertEquals(expected, actual);
 	}
 	
@@ -46,557 +138,181 @@ public class MenuTest {
 		String username = "e5";
 		Boolean expected = false;
 		Boolean actual = m1.idValid(username);
-		
 		assertEquals(expected, actual);
-	}
-	
-	@Test
-	public void testValidMonth() {
-		String month = "04";
-		Boolean expected = true;
-		Boolean actual = m1.validMonth(month);
-		
-		assertEquals(expected,actual);
-	}
-	
-	@Test
-	public void testValidMonth2() {
-		String month = "05";
-		Boolean expected = true;
-		Boolean actual = m1.validMonth(month);
-		
-		assertEquals(expected,actual);
-	}
-	
-	@Test
-	public void testValidMonthFail() {
-		String month = "03";
-		Boolean expected = false;
-		Boolean actual = m1.validMonth(month);
-		
-		assertEquals(expected,actual);
-	}
-	
-	@Test
-	public void testValidMonthFail2() {
-		String month = "06";
-		Boolean expected = false;
-		Boolean actual = m1.validMonth(month);
-		
-		assertEquals(expected,actual);
-	}
-	
-	@Test
-	public void testValidMonthFail3() {
-		String month = "13";
-		Boolean expected = false;
-		Boolean actual = m1.validMonth(month);
-		
-		assertEquals(expected,actual);
-	}
-	
-	@Test
-	public void testValidMonthFail4() {
-		String month = "0";
-		Boolean expected = false;
-		Boolean actual = m1.validMonth(month);
-		
-		assertEquals(expected,actual);
-	}
-	
-	@Test
-	public void testValidDay() {
-		String day = "10";
-		int month = 4;
-		Boolean expected = true;
-		Boolean actual = m1.validDay(day, month);
-		
-		assertEquals(expected,actual);
-	}
-	
-	@Test
-	public void testValidDay2() {
-		String day = "02";
-		int month = 4;
-		Boolean expected = true;
-		Boolean actual = m1.validDay(day, month);
-		
-		assertEquals(expected,actual);
-	}
-	
-	@Test
-	public void testValidDay3() {
-		String day = "30";
-		int month = 4;
-		Boolean expected = true;
-		Boolean actual = m1.validDay(day, month);
-		
-		assertEquals(expected,actual);
-	}
-	
-	@Test
-	public void testValidDayFail() {
-		String day = "1";
-		int month = 4;
-		Boolean expected = false;
-		Boolean actual = m1.validDay(day, month);
-		
-		assertEquals(expected,actual);
-	}
-	
-	@Test
-	public void testValidDayFail2() {
-		String day = "31";
-		int month = 4;
-		Boolean expected = false;
-		Boolean actual = m1.validDay(day, month);
-		
-		assertEquals(expected,actual);
-	}
-	
-	@Test
-	public void testValidDayFail3() {
-		String day = "0";
-		int month = 4;
-		Boolean expected = false;
-		Boolean actual = m1.validDay(day, month);
-		
-		assertEquals(expected,actual);
-	}
-	
-	@Test
-	public void testValidDayFail4() {
-		String day = "32";
-		int month = 4;
-		Boolean expected = false;
-		Boolean actual = m1.validDay(day, month);
-		
-		assertEquals(expected,actual);
-	}
-	
-	@Test
-	public void testValidDayFail5() {
-		String day = "a";
-		int month = 4;
-		Boolean expected = false;
-		Boolean actual = m1.validDay(day, month);
-		
-		assertEquals(expected,actual);
 	}
 	
 	@Test
 	public void testValidUname1() {
 		String uName = "j_snow";
-		boolean check = m1.validUname(uName);
+		boolean check = m1.validate(uName, uname);
 		assertEquals(true,check);
 	}
 	
 	@Test
 	public void testValidUname2() {
 		String uName = "jsnow";
-		boolean check = m1.validUname(uName);
+		boolean check = m1.validate(uName, uname);
 		assertEquals(true,check);
 	}
 	
 	@Test
 	public void testValidUname3() {
 		String uName = "12345";
-		boolean check = m1.validUname(uName);
+		boolean check = m1.validate(uName, uname);
 		assertEquals(false,check);
 	}
 	
 	@Test
 	public void testValidUname4() {
 		String uName = "js123";
-		boolean check = m1.validUname(uName);
+		boolean check = m1.validate(uName, uname);
 		assertEquals(true,check);
 	}
 	
 	@Test
 	public void testValidUname5() {
 		String uName = "j_snow123";
-		boolean check = m1.validUname(uName);
+		boolean check = m1.validate(uName, uname);
 		assertEquals(true,check);
 	}
 	
 	@Test
 	public void testValidPassword1() {
 		String password = "1234";
-		boolean check = m1.validPassword(password);
+		boolean check = m1.validate(password, pass);
 		assertEquals(false,check);
 	}
 	
 	@Test
 	public void testValidPassword2() {
 		String password = "abcd";
-		boolean check = m1.validPassword(password);
+		boolean check = m1.validate(password, pass);
 		assertEquals(false,check);
 	}
 	
 	@Test
 	public void testValidPassword3() {
 		String password = "abc123";
-		boolean check = m1.validPassword(password);
+		boolean check = m1.validate(password, pass);
 		assertEquals(false,check);
 	}
 	
 	@Test
 	public void testValidPassword4() {
 		String password = "aBc123";
-		boolean check = m1.validPassword(password);
+		boolean check = m1.validate(password, pass);
 		assertEquals(false,check);
 	}
 	
 	@Test
 	public void testValidPassword5() {
 		String password = "aBc1@";
-		boolean check = m1.validPassword(password);
+		boolean check = m1.validate(password, pass);
 		assertEquals(false,check);
 	}
 	
 	@Test
 	public void testValidPassword6() {
 		String password = "aBc12@";
-		boolean check = m1.validPassword(password);
+		boolean check = m1.validate(password, pass);
 		assertEquals(true,check);
 	}
 	
 	@Test
 	public void testValidFName() {
-		String name = "john";
-		boolean check = m1.validName(name);
+		String fname = "john";
+		boolean check = m1.validate(fname, name);
 		assertEquals(true,check);
 	}
 	
 	@Test
 	public void testValidMobile1() {
 		String mobile = "0412345678";
-		boolean check = m1.validMobile(mobile);
+		boolean check = m1.validate(mobile, mobileNo);
 		assertEquals(true,check);
 	}
 	
 	@Test
 	public void testValidMobile2() {
 		String mobile = "0412 345 678";
-		boolean check = m1.validMobile(mobile);
+		boolean check = m1.validate(mobile, mobileNo);
 		assertEquals(true,check);
 	}
 	
 	@Test
 	public void testValidMobile3() {
 		String mobile = "";
-		boolean check = m1.validMobile(mobile);
+		boolean check = m1.validate(mobile, mobileNo);
 		assertEquals(false,check);
 	}
 	
 	@Test
 	public void testValidMobile4() {
 		String mobile = "412345678";
-		boolean check = m1.validMobile(mobile);
+		boolean check = m1.validate(mobile, mobileNo);
 		assertEquals(true,check);
 	}
 	
 	@Test
 	public void testValidMobile5() {
 		String mobile = "+61412345678";
-		boolean check = m1.validMobile(mobile);
+		boolean check = m1.validate(mobile, mobileNo);
 		assertEquals(true,check);
 	}
 	
 	@Test
 	public void testValidMobile6() {
 		String mobile = "+61 412 345 678";
-		boolean check = m1.validMobile(mobile);
+		boolean check = m1.validate(mobile, mobileNo);
 		assertEquals(true,check);
 	}
 	
 	@Test
 	public void testValidMobile7() {
 		String mobile = "04 1234 5678";
-		boolean check = m1.validMobile(mobile);
+		boolean check = m1.validate(mobile, mobileNo);
 		assertEquals(true,check);
 	}
 	
 	@Test
 	public void testValidMobile8() {
 		String mobile = "+61 412 345678";
-		boolean check = m1.validMobile(mobile);
+		boolean check = m1.validate(mobile, mobileNo);
 		assertEquals(true,check);
 	}
 	
 	@Test
-	public void testValidStreetNumber() {
-		String number = "2";
-		boolean check = m1.validStreetNumber(number);
+	public void testValidAddressLine1() {
+		String sName = "445 Swanston Street";
+		boolean check = m1.validate(sName, addressLine);
 		assertEquals(true,check);
 	}
 	
 	@Test
-	public void testValidStreetName() {
-		String name = "collin street";
-		boolean check = m1.validStreetName(name);
-		assertEquals(true,check);
+	public void testValidAddressLine2() {
+		String sName = "445 Swanston";
+		boolean check = m1.validate(sName, addressLine);
+		assertEquals(false,check);
+	}
+	
+	@Test
+	public void testValidAddressLine3() {
+		String sName = "445";
+		boolean check = m1.validate(sName, addressLine);
+		assertEquals(false,check);
 	}
 	
 	@Test
 	public void testValidSuburb() {
 		String suburb = "melbourne";
-		boolean check = m1.validSuburb(suburb);
+		boolean check = m1.validate(suburb, suburbName);
 		assertEquals(true,check);
 	}
 	
 	@Test
 	public void testValidZip() {
 		String zip = "3000";
-		boolean check = m1.validZip(zip);
+		boolean check = m1.validate(zip, zipCode);
 		assertEquals(true,check);
-	}
-	
-	@Test
-	public void testValidState() {
-		String state = "VIC";
-		boolean check = m1.validState(state);
-		assertEquals(true,check);
-	}
-	
-	@Test
-	public void testValidOption() {
-		int option = 3;
-		boolean check = m1.validOption(option);
-		assertEquals(true,check);
-	}
-	
-	@Test
-	public void testValidLogin() {
-		String username = "jpoop";
-		boolean check = m1.validLogin(username);
-		assertEquals(true,check);
-	}
-	
-	@Test
-	public void testValidTime()
-	{
-		Boolean expected = true;
-		Boolean actual = false;
-		String startTime = "08:00";
-		actual = m1.validTime(startTime);
-		assertEquals(expected,actual);
-	}
-	
-	@Test
-	public void testValidTime2()
-	{
-		Boolean expected = false;
-		Boolean actual = true;
-		String startTime = "07:00";
-		actual = m1.validTime(startTime);
-		assertEquals(expected,actual);
-	}
-	
-	@Test
-	public void testValidTime3()
-	{
-		Boolean expected = true;
-		Boolean actual = false;
-		String startTime = "09:00";
-		actual = m1.validTime(startTime);
-		assertEquals(expected,actual);
-	}
-	
-	@Test
-	public void testValidTime4()
-	{
-		Boolean expected = true;
-		Boolean actual = false;
-		String startTime = "16:00";
-		actual = m1.validTime(startTime);
-		assertEquals(expected,actual);
-	}
-	
-	@Test
-	public void testValidTime5()
-	{
-		Boolean expected = false;
-		Boolean actual = true;
-		String startTime = "17:00";
-		actual = m1.validTime(startTime);
-		assertEquals(expected,actual);
-	}
-	
-	@Test
-	public void testValidTime6()
-	{
-		Boolean expected = true;
-		Boolean actual = false;
-		String startTime = "15:00";
-		actual = m1.validTime(startTime);
-		assertEquals(expected,actual);
-	}
-	
-	@Test
-	public void testValidTime7()
-	{
-		Boolean expected = false;
-		Boolean actual = true;
-		String startTime = "133:00";
-		actual = m1.validTime(startTime);
-		assertEquals(expected,actual);
-	}
-	@Test
-	public void testValidTime8()
-	{
-		Boolean expected = false;
-		Boolean actual = true;
-		String startTime = "0:0";
-		actual = m1.validTime(startTime);
-		assertEquals(expected,actual);
-	}
-	@Test
-	public void testValidTime9()
-	{
-		Boolean expected = false;
-		Boolean actual = true;
-		String startTime = "0:00";
-		actual = m1.validTime(startTime);
-		assertEquals(expected,actual);
-	}
-	@Test
-	public void testValidTime10()
-	{
-		Boolean expected = false;
-		Boolean actual = true;
-		String startTime = "01:0";
-		actual = m1.validTime(startTime);
-		assertEquals(expected,actual);
-	}
-	
-	@Test
-	public void testValidTime11()
-	{
-		Boolean expected = false;
-		Boolean actual = true;
-		String startTime = "08:05";
-		actual = m1.validTime(startTime);
-		assertEquals(expected,actual);
-	}
-	
-	@Test
-	public void testValidTime12()
-	{
-		Boolean expected = true;
-		Boolean actual = false;
-		String startTime = "08:15";
-		actual = m1.validTime(startTime);
-		assertEquals(expected,actual);
-	}
-	
-	@Test
-	public void testValidTime13()
-	{
-		Boolean expected = false;
-		Boolean actual = true;
-		String startTime = "08:10";
-		actual = m1.validTime(startTime);
-		assertEquals(expected,actual);
-	}
-	
-	@Test
-	public void testValidTime14()
-	{
-		Boolean expected = false;
-		Boolean actual = true;
-		String startTime = "08:14";
-		actual = m1.validTime(startTime);
-		assertEquals(expected,actual);
-	}
-	
-	@Test
-	public void testValidTime15()
-	{
-		Boolean expected = true;
-		Boolean actual = false;
-		String startTime = "08:30";
-		actual = m1.validTime(startTime);
-		assertEquals(expected,actual);
-	}
-	
-	@Test
-	public void testValidTime16()
-	{
-		Boolean expected = false;
-		Boolean actual = true;
-		String startTime = "08:35";
-		actual = m1.validTime(startTime);
-		assertEquals(expected,actual);
-	}
-	
-	@Test
-	public void testValidTime17()
-	{
-		Boolean expected = false;
-		Boolean actual = true;
-		String startTime = "08:29";
-		actual = m1.validTime(startTime);
-		assertEquals(expected,actual);
-	}
-	
-	@Test
-	public void testValidTime18()
-	{
-		Boolean expected = true;
-		Boolean actual = false;
-		String startTime = "08:45";
-		actual = m1.validTime(startTime);
-		assertEquals(expected,actual);
-	}
-	
-	@Test
-	public void testValidTime19()
-	{
-		Boolean expected = false;
-		Boolean actual = true;
-		String startTime = "08:40";
-		actual = m1.validTime(startTime);
-		assertEquals(expected,actual);
-	}
-	
-	@Test
-	public void testValidTime20()
-	{
-		Boolean expected = false;
-		Boolean actual = true;
-		String startTime = "08:46";
-		actual = m1.validTime(startTime);
-		assertEquals(expected,actual);
-	}
-	
-	@Test
-	public void testValidTime21()
-	{
-		Boolean expected = false;
-		Boolean actual = true;
-		String startTime = "28:00";
-		actual = m1.validTime(startTime);
-		assertEquals(expected,actual);
-	}
-	
-	@Test
-	public void testValidTime22()
-	{
-		Boolean expected = false;
-		Boolean actual = true;
-		String startTime = "08:50";
-		actual = m1.validTime(startTime);
-		assertEquals(expected,actual);
-	}
-	
-	@Test
-	public void testValidTime23()
-	{
-		Boolean expected = false;
-		Boolean actual = true;
-		String startTime = "asdfg";
-		actual = m1.validTime(startTime);
-		assertEquals(expected,actual);
 	}
 }
