@@ -15,7 +15,7 @@
                   <Font name="Lato Light" size="39.0" />
                </font>
             </Label>
-            <Label fx:id="owner_name" layoutX="732.0" layoutY="70.0" textFill="WHITE">
+            <Label fx:id="owner_name" layoutX="732.0" layoutY="70.0" text="OWNER" textFill="WHITE">
                <font>
                   <Font name="Lato Bold" size="39.0" />
                </font>

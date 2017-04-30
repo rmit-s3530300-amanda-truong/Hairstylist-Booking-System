@@ -17,22 +17,17 @@
                </font>
             </JFXButton>
             <Pane id="logo" fx:id="welcome_logo" layoutX="41.0" prefHeight="75.0" prefWidth="166.0" />
-            <Label layoutX="664.0" layoutY="25.0" text="PORTAL" textFill="WHITE">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
          </children>
       </Pane>
       <Pane id="content_calendar" layoutY="74.0" prefHeight="714.0" prefWidth="1400.0">
          <children>
-            <Rectangle arcHeight="40.0" arcWidth="40.0" height="566.0" layoutX="346.0" layoutY="94.0" opacity="0.6" stroke="BLACK" strokeType="INSIDE" width="720.0" />
+            <Rectangle arcHeight="40.0" arcWidth="40.0" height="566.0" layoutX="310.0" layoutY="99.0" opacity="0.6" stroke="BLACK" strokeType="INSIDE" width="720.0" />
             <JFXButton id="button" fx:id="viewMorning" layoutX="413.0" layoutY="330.0" onAction="#clickMorning" prefHeight="54.0" prefWidth="258.0" style="-fx-background-radius: 60;" stylesheets="@application.css" text="MORNING" textFill="WHITE">
                <font>
                   <Font name="Lato Black" size="18.0" />
                </font>
             </JFXButton>
-            <Label layoutX="582.0" layoutY="45.0" text="CHOOSE TIME" textFill="WHITE">
+            <Label layoutX="432.0" layoutY="36.0" text="MAKE A NEW BOOKING (STEP 4)" textFill="WHITE">
                <font>
                   <Font name="Lato Black" size="33.0" />
                </font>
@@ -48,6 +43,11 @@
                   <Font name="Lato Black" size="18.0" />
                </font>
             </JFXButton>
+            <Label layoutX="561.0" layoutY="125.0" text="SELECT DESIRED TIME" textFill="WHITE">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
          </children></Pane>
    </children>
 </AnchorPane>

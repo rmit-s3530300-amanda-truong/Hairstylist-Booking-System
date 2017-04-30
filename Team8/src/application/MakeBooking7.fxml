@@ -17,11 +17,6 @@
                </font>
             </JFXButton>
             <Pane id="logo" fx:id="welcome_logo" layoutX="41.0" prefHeight="75.0" prefWidth="166.0" />
-            <Label layoutX="628.0" layoutY="23.0" text="PORTAL" textFill="WHITE">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
          </children>
       </Pane>
       <Pane id="content_addEmp" fx:id="contents" layoutY="74.0" prefHeight="714.0" prefWidth="1400.0">
@@ -37,7 +32,7 @@
                   <Font name="Lato Black" size="18.0" />
                </font>
             </JFXButton>
-            <Label layoutX="550.0" layoutY="36.0" text="MAKE BOOKING" textFill="WHITE">
+            <Label layoutX="432.0" layoutY="36.0" text="MAKE A NEW BOOKING (STEP 5)" textFill="WHITE">
                <font>
                   <Font name="Lato Black" size="33.0" />
                </font>
