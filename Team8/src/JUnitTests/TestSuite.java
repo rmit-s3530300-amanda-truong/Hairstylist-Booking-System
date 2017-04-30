@@ -7,6 +7,7 @@ import org.junit.runners.Suite;
 
 @Suite.SuiteClasses({
 	AvailabilityDatabaseTest.class,
+	BookingDatabaseTest.class,
 	BookingTest.class,
 	CalendarTest.class,
 	CompanyDatabaseTest.class,
@@ -15,6 +16,7 @@ import org.junit.runners.Suite;
 	CustomerTest.class,
 	EmployeeTest.class,
 	MenuTest.class,
+	ServicesDatabaseTest.class
 })
 
 public class TestSuite {
