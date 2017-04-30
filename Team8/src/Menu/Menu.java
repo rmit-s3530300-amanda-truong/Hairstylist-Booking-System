@@ -56,7 +56,6 @@ public class Menu {
 	
 	public void addEmployeeAvailability(String username, DayOfWeek day, LocalTime startTime, LocalTime endTime) {
 		
-		updateEmpAvailability(day, startTime, endTime, username);
 		Boolean checkId = availDb.checkValueExists("employeeID",username);
 		Boolean checkDate = availDb.checkValueExists("day",day.toString());
 		if(checkId && checkDate){
@@ -65,6 +64,7 @@ public class Menu {
 		availDb.addAvailabilityInfo(username, day.toString(), startTime.toString(), endTime.toString());
 		comp.retrieveDatabaseInfo(customerDb, companyDb, availDb, bookDb, servDb);
 		comp.getCalendar().updateCalendar(comp.getEmployeeList());
+		updateEmpAvailability(day, startTime, endTime, username);
 	}
 	
 	public void updateEmpAvailability(DayOfWeek day, LocalTime startTime, LocalTime endTime, String id) {
@@ -87,19 +87,19 @@ public class Menu {
 	}
 	
 	public boolean validEndTime(String sHour, String eHour, String sMinute, String eMinute){
-		if(Integer.parseInt(sHour) == Integer.parseInt(eHour)){
-			return false;
-		}
-		else if(Integer.parseInt(sHour) > Integer.parseInt(eHour)){
-			return false;
-		}
-		else{
+		if((Integer.parseInt(eHour) - Integer.parseInt(sHour)) == 1){
 			if(Integer.parseInt(sMinute) <= Integer.parseInt(eMinute)){
 				return true;
 			}
 			else{
 				return false;
 			}
+		}
+		else if((Integer.parseInt(eHour) - Integer.parseInt(sHour)) > 1){
+			return true;
+		}
+		else {
+			return false;
 		}
 	}
 	

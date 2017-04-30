@@ -96,7 +96,7 @@ public class MenuTest {
 		String startTimeHour = "08";
 		String startTimeMinute = "40";
 		String endTimeHour = "10";
-		String endTimeMinute = "40";
+		String endTimeMinute = "20";
 		boolean check = m1.validEndTime(startTimeHour, endTimeHour, startTimeMinute, endTimeMinute);
 		assertEquals(true,check);
 	}
@@ -123,10 +123,20 @@ public class MenuTest {
 	
 	@Test
 	public void testValidEndTime4(){
-		String startTimeHour = "09";
+		String startTimeHour = "08";
 		String startTimeMinute = "40";
-		String endTimeHour = "08";
+		String endTimeHour = "09";
 		String endTimeMinute = "40";
+		boolean check = m1.validEndTime(startTimeHour, endTimeHour, startTimeMinute, endTimeMinute);
+		assertEquals(true,check);
+	}
+	
+	@Test
+	public void testValidEndTime5(){
+		String startTimeHour = "10";
+		String startTimeMinute = "30";
+		String endTimeHour = "08";
+		String endTimeMinute = "00";
 		boolean check = m1.validEndTime(startTimeHour, endTimeHour, startTimeMinute, endTimeMinute);
 		assertEquals(false,check);
 	}
