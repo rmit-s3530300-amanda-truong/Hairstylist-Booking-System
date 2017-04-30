@@ -28,7 +28,7 @@ public class CalendarTest {
 		ArrayList<Service> services = new ArrayList<Service>();
 		services.add(Service.femaleCut);
 		emp = new Employee("01", "John", "Snow", services);
-		cust = new Customer("000", "Margaery", "Tyrell", "female");
+		cust = new Customer("000", "Margaery", "Tyrell");
 		cust_id = cust.getUsername();
 		
 		LocalDate localdate = LocalDate.of(2017, 01, 10);
