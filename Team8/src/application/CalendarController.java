@@ -32,12 +32,14 @@ public class CalendarController {
 	@FXML
 	private JFXButton returnButton;
     
-    @FXML
-    private void initialize(){
-    }
+    private String cust_id;
+    
+    private String portal;
 
-	public void initiate(Menu menu) {
+	public void initiate(Menu menu, String cust_id, String portal) {
 		this.menu = menu;
+		this.portal = portal;
+		this.cust_id = cust_id;
 	}
 	
 	@FXML
@@ -48,7 +50,7 @@ public class CalendarController {
     	pane = view_morning.load();
     	rootPane.getChildren().setAll(pane);
     	ViewMorningController controller = view_morning.getController();
-		controller.initiate(menu);
+		controller.initiate(menu, cust_id, portal);
 	}
 	
 	@FXML
@@ -59,7 +61,7 @@ public class CalendarController {
     	pane = view_afternoon.load();
     	rootPane.getChildren().setAll(pane);
     	ViewAfternoonController controller = view_afternoon.getController();
-		controller.initiate(menu);
+		controller.initiate(menu, cust_id, portal);
 	}
 	
 	@FXML
@@ -74,11 +76,20 @@ public class CalendarController {
 	
 	@FXML
 	void goToPortal() throws IOException{
-    	AnchorPane pane;
-    	FXMLLoader bussPortal = new FXMLLoader(getClass().getResource("BusinessPortal.fxml"));
-    	pane = bussPortal.load();
-    	rootPane.getChildren().setAll(pane);
-    	CustomerPController controller = bussPortal.getController();
-    	controller.initiate(menu);
+		if(portal.equals("business")) {
+			AnchorPane pane;
+	    	FXMLLoader bussPortal = new FXMLLoader(getClass().getResource("BusinessPortal.fxml"));
+	    	pane = bussPortal.load();
+	    	rootPane.getChildren().setAll(pane);
+	    	BusinessPController controller = bussPortal.getController();
+	    	controller.initiate(menu);
+		} else {
+			AnchorPane pane;
+	    	FXMLLoader cusPortal = new FXMLLoader(getClass().getResource("CustomerPortal.fxml"));
+	    	pane = cusPortal.load();
+	    	rootPane.getChildren().setAll(pane);
+	    	CustomerPController controller = cusPortal.getController();
+	    	controller.initiate(menu, cust_id);
+		}
     }
 }

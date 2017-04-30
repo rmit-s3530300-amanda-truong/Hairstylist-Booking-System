@@ -196,14 +196,14 @@ public class Calendar {
 			}
 			//Check if the same customer placed pending if they did reject the request
 			else if(book.getStatus() == Status.pending) {
-				String existing_cust_id = book.getCustomerID();
+				/*String existing_cust_id = book.getCustomerID();
 				if(existing_cust_id.equals(customer_id)) {
 					System.out.println("Existing Customer");
 					return false;
-				} else {
+				} else {*/
 					booking_list.add(book);
 					times_list.add(current_time);
-				}
+				//}
 			} else {
 				booking_list.add(book);
 				times_list.add(current_time);
@@ -241,11 +241,17 @@ public class Calendar {
 					addBookingToCalendar(date, start_time, end_time);
 					return true;	
 				}
-				System.out.println("emp not free");
+				else {
+					System.out.println("emp not free");
+				}
+			} else {
+				System.out.println("status not pending");	
 			}
-			System.out.println("status not pending");
+			
 		}
-		System.out.println("book is null");
+		else {
+			System.out.println("book is null");
+		}
 		return false;
 	}
 	
