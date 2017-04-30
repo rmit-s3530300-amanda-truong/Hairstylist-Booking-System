@@ -37,7 +37,11 @@
                   <Font name="Lato Black" size="33.0" />
                </font>
             </Label>
-            <Pane prefHeight="714.0" prefWidth="82.0" style="-fx-background-color: #1d1c1c;" />
+            <Pane prefHeight="714.0" prefWidth="82.0" style="-fx-background-color: #1d1c1c;">
+            <children>
+                  <JFXButton id="home" contentDisplay="GRAPHIC_ONLY" layoutX="8.0" layoutY="16.0" onAction="#goToPortal" ripplerFill="#1d1c1c00" />
+               </children>
+            </Pane>
             <Rectangle fx:id="availBox" arcHeight="5.0" arcWidth="5.0" fill="#2ba85f" height="20.0" layoutX="110.0" layoutY="15.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
             <Rectangle fx:id="unavailBox" arcHeight="5.0" arcWidth="5.0" fill="#9e9e9e" height="20.0" layoutX="110.0" layoutY="40.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
             <Rectangle fx:id="bookedBox" arcHeight="5.0" arcWidth="5.0" fill="#cc2e2e" height="20.0" layoutX="110.0" layoutY="65.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />

@@ -70,7 +70,11 @@
                   <Font name="Lato Black" size="33.0" />
                </font>
             </Label>
-            <Pane prefHeight="714.0" prefWidth="82.0" style="-fx-background-color: #1d1c1c;" />
+            <Pane prefHeight="714.0" prefWidth="82.0" style="-fx-background-color: #1d1c1c;">
+            <children>
+                  <JFXButton id="home" contentDisplay="GRAPHIC_ONLY" layoutX="8.0" layoutY="16.0" onAction="#goToPortal" ripplerFill="#1d1c1c00" />
+               </children>
+            </Pane>
             <Label layoutX="464.0" layoutY="530.0" prefHeight="25.0" prefWidth="85.0" text="Booking ID:" textFill="WHITE">
                <font>
                   <Font size="16.0" />

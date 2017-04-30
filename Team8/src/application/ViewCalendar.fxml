@@ -37,7 +37,11 @@
                   <Font name="Lato Black" size="33.0" />
                </font>
             </Label>
-            <Pane prefHeight="714.0" prefWidth="82.0" style="-fx-background-color: #1d1c1c;" />
+            <Pane prefHeight="714.0" prefWidth="82.0" style="-fx-background-color: #1d1c1c;">
+            <children>
+                  <JFXButton id="home" contentDisplay="GRAPHIC_ONLY" layoutX="8.0" layoutY="16.0" onAction="#goToPortal" ripplerFill="#1d1c1c00" />
+               </children>
+            </Pane>
             <JFXButton id="button" fx:id="viewAfternoon" layoutX="757.0" layoutY="335.0" onAction="#clickAfternoon" prefHeight="54.0" prefWidth="258.0" style="-fx-background-radius: 60;" stylesheets="@application.css" text="AFTERNOON" textFill="WHITE">
                <font>
                   <Font name="Lato Black" size="18.0" />
