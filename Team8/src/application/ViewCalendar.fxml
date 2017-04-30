@@ -27,7 +27,7 @@
       <Pane id="content_calendar" layoutY="74.0" prefHeight="714.0" prefWidth="1400.0">
          <children>
             <Rectangle arcHeight="40.0" arcWidth="40.0" height="540.0" layoutX="346.0" layoutY="94.0" opacity="0.6" stroke="BLACK" strokeType="INSIDE" width="720.0" />
-            <JFXButton id="button" fx:id="viewMorning" layoutX="370.0" layoutY="335.0" onAction="#clickMorning" prefHeight="54.0" prefWidth="258.0" style="-fx-background-radius: 60;" stylesheets="@application.css" text="MORNING" textFill="WHITE">
+            <JFXButton id="button" fx:id="viewMorning" layoutX="399.0" layoutY="335.0" onAction="#clickMorning" prefHeight="54.0" prefWidth="258.0" style="-fx-background-radius: 60;" stylesheets="@application.css" text="MORNING" textFill="WHITE">
                <font>
                   <Font name="Lato Black" size="18.0" />
                </font>
@@ -38,12 +38,12 @@
                </font>
             </Label>
             <Pane prefHeight="714.0" prefWidth="82.0" style="-fx-background-color: #1d1c1c;" />
-            <JFXButton id="button" fx:id="viewAfternoon" layoutX="761.0" layoutY="335.0" onAction="#clickAfternoon" prefHeight="54.0" prefWidth="258.0" style="-fx-background-radius: 60;" stylesheets="@application.css" text="AFTERNOON" textFill="WHITE">
+            <JFXButton id="button" fx:id="viewAfternoon" layoutX="757.0" layoutY="335.0" onAction="#clickAfternoon" prefHeight="54.0" prefWidth="258.0" style="-fx-background-radius: 60;" stylesheets="@application.css" text="AFTERNOON" textFill="WHITE">
                <font>
                   <Font name="Lato Black" size="18.0" />
                </font>
             </JFXButton>
-            <JFXButton id="button" fx:id="returnButton" layoutX="563.0" layoutY="646.0" onAction="#goToPortal" prefHeight="54.0" prefWidth="258.0" style="-fx-background-radius: 60;" stylesheets="@application.css" text="RETURN" textFill="WHITE">
+            <JFXButton id="button" fx:id="returnButton" layoutX="577.0" layoutY="646.0" onAction="#goToPortal" prefHeight="54.0" prefWidth="258.0" style="-fx-background-radius: 60;" stylesheets="@application.css" text="RETURN" textFill="WHITE">
                <font>
                   <Font name="Lato Black" size="18.0" />
                </font>
