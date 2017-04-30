@@ -1,9 +1,7 @@
 package Menu;
 
-import java.time.DateTimeException;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
-import java.time.YearMonth;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -146,7 +144,7 @@ public class Menu {
 		
 		//updateEmpAvailability(day, startTime, endTime, username);
 		Boolean checkId = availDb.checkValueExists("employeeID",username);
-		Boolean checkDate = availDb.checkValueExists("date",day.toString());
+		Boolean checkDate = availDb.checkValueExists("day",day.toString());
 		if(checkId && checkDate){
 			availDb.deleteAvail(username, day.toString());
 		}
