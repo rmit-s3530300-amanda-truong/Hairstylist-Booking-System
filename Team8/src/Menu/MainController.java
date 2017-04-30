@@ -24,7 +24,7 @@ public class MainController {
 	private BookingDatabase bookDb;
 	private ServicesDatabase servDb;
 	
-	public MainController(Company company, CustomerDatabase customerDb, CompanyDatabase companyDb, AvailabilityDatabase availDb, BookingDatabase bookDb, ServicesDatabase servDb){
+	public Menu(Company company, CustomerDatabase customerDb, CompanyDatabase companyDb, AvailabilityDatabase availDb, BookingDatabase bookDb, ServicesDatabase servDb){
 		comp = company;
 		this.companyDb = companyDb;
 		this.customerDb = customerDb;
@@ -118,7 +118,7 @@ public class MainController {
 		String password = null;
 		String company = "ABC";
 		String status = "employee";
-		companyDb.addBusInfo(username, company, fname, lname, password, mobile, address, service, status);
+		companyDb.addBusInfo(username, company, fname, lname, password, mobile, address, service, status);		
 	}
 
 	//validates the user input against regexs
