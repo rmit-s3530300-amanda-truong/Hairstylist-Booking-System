@@ -78,10 +78,21 @@ public class ViewAfternoonController {
 	private AnchorPane rootPane;
 	
 	@FXML
-    private JFXButton gotoLogout;
-
+	private Label availLabel;
 	@FXML
-	private JFXButton returnButton;
+	private Label unavailLabel;
+	@FXML
+	private Label bookedLabel;
+	@FXML
+	private Rectangle availBox;
+	@FXML
+	private Rectangle unavailBox;
+	@FXML
+	private Rectangle bookedBox;
+	@FXML
+    private JFXButton gotoLogout;
+	@FXML
+	private JFXButton backButton;
 	
 	private String portal;
 	
@@ -145,13 +156,13 @@ public class ViewAfternoonController {
 	            		}
                 }
                 if(valid) {
-                	rect.setFill(Color.RED);
-                } 
+                	rect.setFill(Color.web("#cc2e2e"));
+                }
                 else if(availableCheck){
-                	rect.setFill(Color.GREEN);
+                	rect.setFill(Color.web("#2ba85f"));
                 }
                 else {
-                	rect.setFill(Color.GREY);
+                	rect.setFill(Color.web("#9e9e9e"));
                 }
                 displayPane.getChildren().add(rect);
             	current_time = current_time.plusMinutes(15);

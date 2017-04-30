@@ -46,3 +46,7 @@
 	-fx-inner-text-fill: white;
     -fx-font: 16px "System";
 }
+
+#home{
+	-fx-graphic: url("application-img/home.png");
+}

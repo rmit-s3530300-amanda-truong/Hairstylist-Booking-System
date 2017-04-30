@@ -12,15 +12,13 @@ public class CustomerTest {
 	String expected_username;
 	String expected_fname;
 	String expected_lname;
-	String expected_gender;
 	
 	@Before
 	public void setUp() throws Exception {
 		expected_username = "0";
 		expected_fname = "fname";
 		expected_lname = "lname";
-		expected_gender = "gender";
-		customer = new Customer(expected_username, expected_fname, expected_lname, expected_gender);
+		customer = new Customer(expected_username, expected_fname, expected_lname);
 	}
 	
 	@Test
@@ -40,11 +38,4 @@ public class CustomerTest {
 		String actual_lname = customer.getLastName();
 		assertEquals(expected_lname, actual_lname);
 	}
-	
-	@Test
-	public void testGetGender() {
-		String actual_gender = customer.getGender();
-		assertEquals(expected_gender, actual_gender);
-	}
-
 }
