@@ -120,8 +120,7 @@ public class Company {
 			String username = x.getKey();
 			String fname = x.getValue().get("fName");
 			String lname = x.getValue().get("lName");
-			String gender = x.getValue().get("gender");
-			custList.put(username, new Customer(username,fname,lname, gender));
+			custList.put(username, new Customer(username,fname,lname));
 		}
 		this.custList = custList;
 	}

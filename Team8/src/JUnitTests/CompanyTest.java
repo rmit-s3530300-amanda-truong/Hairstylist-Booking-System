@@ -36,7 +36,7 @@ public class CompanyTest {
 		custDb = new CustomerDatabase();
 		availDb = new AvailabilityDatabase();
 		ID = "000";
-		customer = new Customer(ID,"fname", "lname","male");
+		customer = new Customer(ID,"fname", "lname");
 		comp.addCustomer(customer);
 		custList = comp.getCustList();
 		
@@ -51,8 +51,7 @@ public class CompanyTest {
 		String expected_ID = "000";
 		String expected_fname = "fname";
 		String expected_lname = "lname";
-		String expected_gender = "male";
-		Customer customer = new Customer(expected_ID,expected_fname, expected_lname,expected_gender);
+		Customer customer = new Customer(expected_ID,expected_fname, expected_lname);
 		
 		comp.addCustomer(customer);
 		HashMap<String, Customer>custList = comp.getCustList();
@@ -74,9 +73,6 @@ public class CompanyTest {
 		
 		String actual_fname = customer.getFirstName();
 		assertEquals(expected_fname, actual_fname);
-		
-		String actual_gender = customer.getGender();
-		assertEquals(expected_gender, actual_gender);
 	}
 	
 	@Test 
@@ -101,12 +97,10 @@ public class CompanyTest {
 		HashMap<String, String> nested_info = new HashMap<String, String>();
 		String expected_fname = "fname";
 		String expected_lname = "lname";
-		String expected_gender = "male";
 		String expected_ID = "000";
 		
 		nested_info.put("fName", expected_fname);
 		nested_info.put("lName", expected_lname);
-		nested_info.put("gender", expected_gender);
 		map.put(expected_ID, nested_info);
 		
 		comp.setCustList(map);
@@ -126,9 +120,6 @@ public class CompanyTest {
 		
 		String actual_lname = customer.getLastName();
 		assertEquals(expected_lname, actual_lname);
-		
-		String actual_gender = customer.getGender();
-		assertEquals(expected_gender, actual_gender);
 	}
 	
 	@Test

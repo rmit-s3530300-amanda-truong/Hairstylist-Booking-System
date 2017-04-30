@@ -4,13 +4,11 @@ public class Customer {
 	String username;
 	String fname;
 	String lname;
-	String gender;
 	
-	public Customer(String username, String fname, String lname, String gender) {
+	public Customer(String username, String fname, String lname) {
 		this.username = username;
 		this.fname = fname;
 		this.lname = lname;
-		this.gender = gender;
 	}
 	
 	public String getUsername() {
@@ -23,9 +21,5 @@ public class Customer {
 	
 	public String getLastName() {
 		return lname;
-	}
-	
-	public String getGender() {
-		return gender;
 	}
 }

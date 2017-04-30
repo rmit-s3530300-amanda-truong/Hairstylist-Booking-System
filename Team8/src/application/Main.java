@@ -32,7 +32,6 @@ public class Main extends Application {
 		Company comp = new Company();
 		comp.retrieveDatabaseInfo(customerDb, companyDb, availDb, bookingDb, servDb);
 		comp.getCalendar().updateCalendar(comp.getEmployeeList());
-		servDb.displayTable();
 		menu = new Menu(comp, customerDb, companyDb, availDb);
 		
 	}
