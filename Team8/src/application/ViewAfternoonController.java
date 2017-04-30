@@ -347,7 +347,7 @@ public class ViewAfternoonController {
     	pane = viewCalendar.load();
     	rootPane.getChildren().setAll(pane);
     	CalendarController controller = viewCalendar.getController();
-		controller.initiate(menu);
+		controller.initiate(menu, cust_id, portal);
 	}
 	
 	@FXML
