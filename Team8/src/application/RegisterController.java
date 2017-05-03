@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
+import Business.Customer;
 import MainController.MainController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -225,6 +226,8 @@ public class RegisterController {
 		if(fnameValid && lnameValid && unameValid && passValid && mobileValid && addressLineValid && suburbValid && zipValid){
 			String fullAddress = address + ", " + suburb + ", " + state + " "+ postcode;
 			menu.registerCustomer(username, fname, lname, password, mobile, fullAddress);
+			Customer c = new Customer(username, fname, lname);
+			menu.getCompany().addCustomer(c);
 			goToPortal();
 		}
 	}
