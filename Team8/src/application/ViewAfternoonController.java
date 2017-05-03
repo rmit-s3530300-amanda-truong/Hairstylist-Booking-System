@@ -12,6 +12,7 @@ import com.jfoenix.controls.JFXButton;
 
 import Business.Employee;
 import Calendar.Booking;
+import Calendar.Calendar.Status;
 import MainController.MainController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -151,11 +152,13 @@ public class ViewAfternoonController {
 	                	Booking book = bookingList.get(x);
 	                	if(current.equals(book.getDate()))
 	                	{
-	                		String[] id = book.getID().split("/");
-	                		String startTime = id[1];
-	                		if(current_time.toString().equals(startTime)) {
-	                    		valid = true;
-	                        }
+	                		if(book.getStatus().equals(Status.booked)){
+		                		String[] id = book.getID().split("/");
+		                		String startTime = id[1];
+		                		if(current_time.toString().equals(startTime)) {
+		                    		valid = true;
+		                        }
+	                		}
 	            		}
                 }
                 if(valid) {
