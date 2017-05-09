@@ -21,43 +21,38 @@
       </Pane>
       <Pane id="content_addEmp" layoutY="74.0" prefHeight="714.0" prefWidth="1400.0">
          <children>
-            <Rectangle arcHeight="40.0" arcWidth="40.0" height="540.0" layoutX="187.0" layoutY="94.0" opacity="0.6" stroke="BLACK" strokeType="INSIDE" width="1026.0" />
-            <Label layoutX="310.0" layoutY="126.0" text="BOOKING ID" textFill="WHITE">
+            <Rectangle arcHeight="40.0" arcWidth="40.0" height="540.0" layoutX="231.0" layoutY="126.0" opacity="0.6" stroke="BLACK" strokeType="INSIDE" width="1026.0" />
+            <Label layoutX="354.0" layoutY="158.0" text="BOOKING ID" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="464.0" layoutY="126.0" text="DATE" textFill="WHITE">
+            <Label layoutX="508.0" layoutY="158.0" text="DATE" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="568.0" layoutY="126.0" text="START TIME" textFill="WHITE">
+            <Label layoutX="612.0" layoutY="158.0" text="START TIME" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="700.0" layoutY="126.0" text="END TIME" textFill="WHITE">
+            <Label layoutX="744.0" layoutY="158.0" text="END TIME" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="831.0" layoutY="126.0" text="CUSTOMER ID" textFill="WHITE">
+            <Label layoutX="875.0" layoutY="158.0" text="CUSTOMER ID" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="979.0" layoutY="126.0" text="EMPLOYEE ID" textFill="WHITE">
+            <Label layoutX="1023.0" layoutY="158.0" text="EMPLOYEE ID" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <JFXButton id="button" fx:id="return" layoutX="563.0" layoutY="646.0" onAction="#Home" prefHeight="54.0" prefWidth="258.0" style="-fx-background-radius: 60;" stylesheets="@application.css" text="RETURN" textFill="WHITE">
-               <font>
-                  <Font name="Lato Black" size="18.0" />
-               </font>
-            </JFXButton>
-            <Label layoutX="506.0" layoutY="45.0" text="VIEW UPCOMING BOOKING" textFill="WHITE">
+            <Label layoutX="506.0" layoutY="51.0" text="VIEW UPCOMING BOOKING" textFill="WHITE">
                <font>
                   <Font name="Lato Black" size="33.0" />
                </font>
