@@ -13,7 +13,6 @@ import calendar.Calendar;
 
 public class Calendar {
 	public enum Status {
-		pending,
 		booked,
 		free,
 		unavailable
@@ -68,7 +67,7 @@ public class Calendar {
 		for(Entry<LocalDate, LinkedHashMap<LocalTime, Booking>> x : calendar.entrySet()) {
 			for(Entry<LocalTime, Booking> y : x.getValue().entrySet()) {
 				Booking book = y.getValue();
-				if(book.getStatus() == Status.pending || book.getStatus() == Status.booked) {
+				if(book.getStatus() == Status.booked) {
 					bookingList.add(book);
 				}
 			}
@@ -125,7 +124,7 @@ public class Calendar {
 		String output="";
 		for(Entry<LocalDate, LinkedHashMap<LocalTime, Booking>> x : calendar.entrySet()) {
 			for(Entry<LocalTime, Booking> y : x.getValue().entrySet()) {
-				if(y.getValue().getStatus() == Status.pending || y.getValue().getStatus() == Status.booked) {
+				if(y.getValue().getStatus() == Status.booked) {
 					list.put(y.getValue().getCustomerID(), y.getValue());
 				}
 			}
@@ -209,8 +208,7 @@ public class Calendar {
 			if(book.getStatus() == Status.unavailable || book.getStatus() == Status.booked) {
 				isBooked = true;
 			}
-			//Check if the same customer placed pending if they did reject the request
-			else if(book.getStatus() == Status.pending) {
+			/*else if(book.getStatus() == Status.pending) {
 				String existing_cust_id = book.getCustomerID();
 				if(existing_cust_id.equals(customer_id)) {
 					LOGGER.info("Cannot Request: Existing Booking");
@@ -219,7 +217,7 @@ public class Calendar {
 					booking_list.add(book);
 					times_list.add(current_time);
 				}
-			} else {
+			} */else {
 				booking_list.add(book);
 				times_list.add(current_time);
 			}
@@ -246,7 +244,7 @@ public class Calendar {
 		Booking book = getBooking(bookingID);
 		if(book != null) {
 			Status status = book.getStatus();
-			if(status == Calendar.Status.pending){
+			if(status == Calendar.Status.booked){
 				LocalDate date = book.getDate();
 				LocalTime start_time = book.getStartTime();
 				LocalTime end_time = book.getEndTime();
@@ -258,10 +256,10 @@ public class Calendar {
 					return true;	
 				}
 				else {
-					LOGGER.info("Cannot Accept: Employee is not free");
+					LOGGER.info("Cannot Accept: Employee is not booked ");
 				}
 			} else {
-				LOGGER.info("Cannot Accept: The booking status is not pending");	
+				LOGGER.info("Cannot Accept: The booking status is not free");	
 			}
 			
 		}
@@ -286,7 +284,7 @@ public class Calendar {
 		Booking book = getBooking(bookingID);
 		if(book != null) {
 			Status status = book.getStatus();
-			if(status == Calendar.Status.pending){
+			if(status == Calendar.Status.booked){
 				LocalTime current_time = book.getStartTime();
 				LocalTime end_time = book.getEndTime();
 				LocalDate date = book.getDate();
@@ -314,7 +312,7 @@ public class Calendar {
 				}
 				return true;
 			}
-			LOGGER.info("Cannot Decline: Booking status is not pending");
+			LOGGER.info("Cannot Decline: Booking status is not booked");
 			return false;
 		} else {
 			LOGGER.info("Cannot Decline: Booking is null");
@@ -411,7 +409,7 @@ public class Calendar {
 		return false;
 	}
 	
-	public String getBookingPendingString() {
+	/*public String getBookingPendingString() {
 		ArrayList<Booking> list = new ArrayList<Booking>();
 		String output = "";
 		for(Booking book : bookingList) {
@@ -429,9 +427,9 @@ public class Calendar {
 			output = output + String.format("Booking ID: %s, Status: %s, Date: %s, Start Time: %s, End Time: %s, Customer: %s, Service: %s, Employee: %s \n",book.getID(), book.getStatus().toString(), book.getDate(), start_time, end_time, book.getCustomerID(), service, emp_id);
 		}
 		return output;
-	}
+	}*/
 	
-	public String getDisplayPendingString() {
+	/*public String getDisplayPendingString() {
 		ArrayList<Booking> list = new ArrayList<Booking>();
 		String output = "";
 		for(Booking book : displayBookedList) {
@@ -449,9 +447,9 @@ public class Calendar {
 			output = output + String.format("Booking ID: %s, Status: %s, Date: %s, Start Time: %s, End Time: %s, Customer: %s, Service: %s, Employee: %s \n",book.getID(), book.getStatus().toString(), book.getDate(), start_time, end_time, book.getCustomerID(), service, emp_id);
 		}
 		return output;
-	}
+	}*/
 	
-	public ArrayList<Booking> getDisplayPendingBooking() {
+	/*public ArrayList<Booking> getDisplayPendingBooking() {
 		ArrayList<Booking> list = new ArrayList<Booking>();
 		
 		for(Booking book : displayBookedList) {
@@ -460,7 +458,7 @@ public class Calendar {
 			}
 		}
 		return list;
-	}
+	}*/
 	
 	public String getDisplayBookedString() {
 		ArrayList<Booking> list = new ArrayList<Booking>();

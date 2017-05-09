@@ -42,7 +42,7 @@ public class BookingTest {
 		book.addDetails(expected_date, expected_start_time, expected_end_time, expected_service,  emp, "a");
 	}
 	
-	@Test
+/*	@Test
 	public void testSetStatus() {
 		Calendar.Status expected_status = Calendar.Status.pending;
 		book.setStatus(Calendar.Status.pending);
@@ -50,7 +50,7 @@ public class BookingTest {
 		Calendar.Status actual_status = book.getStatus();
 		
 		assertEquals(expected_status, actual_status);
-	}
+	}*/
 	
 	// Tests getters and addDetails() methods
 	@Test

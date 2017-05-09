@@ -248,11 +248,7 @@ public class Company {
 	
 	public Status getStatus(String s)
 	{
-		if(s.equals(Status.pending.toString()))
-		{
-			return Status.pending;
-		}
-		else if(s.equals(Status.booked.toString()))
+		if(s.equals(Status.booked.toString()))
 		{
 			 return Status.booked;
 		}

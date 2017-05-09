@@ -33,7 +33,7 @@ public class Booking {
 		this.start_time = start_time;
 		this.end_time = end_time;
 		this.customerID = customerID;
-		this.status = Calendar.Status.pending;
+		this.status = Calendar.Status.booked;
 	}
 	
 	public LocalDate getDate() {
