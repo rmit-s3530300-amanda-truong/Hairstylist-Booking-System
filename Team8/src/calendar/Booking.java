@@ -1,9 +1,9 @@
-package Calendar;
+package calendar;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import Business.Employee;
-import Business.Employee.Service;
+import business.Employee;
+import business.Employee.Service;
 
 public class Booking {
 	// Booking ID is the date and time concatenated

@@ -2,20 +2,19 @@ package Main;
 
 import java.util.logging.Logger;
 
-import Business.Company;
-
-import Database.AvailabilityDatabase;
-import Database.BookingDatabase;
-import Database.CompanyDatabase;
-import Database.CustomerDatabase;
-import Database.ServicesDatabase;
-import MainController.MainController;
 import application.WelcomeController;
+import business.Company;
+import database.AvailabilityDatabase;
+import database.BookingDatabase;
+import database.CompanyDatabase;
+import database.CustomerDatabase;
+import database.ServicesDatabase;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import mainController.MainController;
 
 public class BookingManagementSystem extends Application {
 	private static final Logger LOGGER = Logger.getLogger("InfoLogging");

@@ -1,4 +1,4 @@
-package MainController;
+package mainController;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
@@ -6,14 +6,14 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import Business.Company;
-import Business.Employee;
-import Calendar.Calendar;
-import Database.AvailabilityDatabase;
-import Database.BookingDatabase;
-import Database.CompanyDatabase;
-import Database.CustomerDatabase;
-import Database.ServicesDatabase;
+import business.Company;
+import business.Employee;
+import calendar.Calendar;
+import database.AvailabilityDatabase;
+import database.BookingDatabase;
+import database.CompanyDatabase;
+import database.CustomerDatabase;
+import database.ServicesDatabase;
 
 public class MainController {
 	

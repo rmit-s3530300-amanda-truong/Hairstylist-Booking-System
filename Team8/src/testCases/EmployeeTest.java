@@ -1,4 +1,4 @@
-package JUnitTests;
+package testCases;
 
 import static org.junit.Assert.*;
 
@@ -12,8 +12,8 @@ import java.util.Map.Entry;
 import org.junit.Before;
 import org.junit.Test;
 
-import Business.Employee;
-import Business.Employee.Service;
+import business.Employee;
+import business.Employee.Service;
 
 public class EmployeeTest {
 	

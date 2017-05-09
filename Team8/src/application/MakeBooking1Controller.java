@@ -6,15 +6,15 @@ import java.util.HashMap;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 
-import Business.Company;
-import Business.Customer;
-import MainController.MainController;
+import business.Company;
+import business.Customer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import mainController.MainController;
 
 public class MakeBooking1Controller {
 	private MainController menu;

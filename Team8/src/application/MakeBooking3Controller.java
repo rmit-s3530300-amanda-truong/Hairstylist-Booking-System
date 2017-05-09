@@ -8,10 +8,9 @@ import java.util.Map.Entry;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXRadioButton;
 
-import Business.Company;
-import Business.Employee;
-import Business.Employee.Service;
-import MainController.MainController;
+import business.Company;
+import business.Employee;
+import business.Employee.Service;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -23,6 +22,7 @@ import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
+import mainController.MainController;
 
 public class MakeBooking3Controller {
 	private MainController menu;

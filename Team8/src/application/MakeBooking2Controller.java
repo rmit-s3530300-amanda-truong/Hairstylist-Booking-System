@@ -5,9 +5,8 @@ import java.io.IOException;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXRadioButton;
 
-import Business.Employee;
-import Business.Employee.Service;
-import MainController.MainController;
+import business.Employee;
+import business.Employee.Service;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -16,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
+import mainController.MainController;
 
 public class MakeBooking2Controller {
 	private MainController menu;

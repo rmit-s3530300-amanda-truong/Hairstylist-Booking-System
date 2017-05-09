@@ -1,4 +1,4 @@
-package Business;
+package business;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -9,15 +9,15 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
 
-import Business.Employee.Service;
-import Calendar.Booking;
-import Calendar.Calendar;
-import Calendar.Calendar.Status;
-import Database.AvailabilityDatabase;
-import Database.BookingDatabase;
-import Database.CompanyDatabase;
-import Database.CustomerDatabase;
-import Database.ServicesDatabase;
+import business.Employee.Service;
+import calendar.Booking;
+import calendar.Calendar;
+import calendar.Calendar.Status;
+import database.AvailabilityDatabase;
+import database.BookingDatabase;
+import database.CompanyDatabase;
+import database.CustomerDatabase;
+import database.ServicesDatabase;
 
 public class Company {
 	private HashMap<String, Employee> employeeList;

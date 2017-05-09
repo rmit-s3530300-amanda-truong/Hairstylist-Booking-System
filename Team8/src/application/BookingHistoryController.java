@@ -5,10 +5,9 @@ import java.util.ArrayList;
 
 import com.jfoenix.controls.JFXButton;
 
-import Business.Company;
-import Calendar.Booking;
-import Calendar.Calendar;
-import MainController.MainController;
+import business.Company;
+import calendar.Booking;
+import calendar.Calendar;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -18,6 +17,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import mainController.MainController;
 
 public class BookingHistoryController {
 	

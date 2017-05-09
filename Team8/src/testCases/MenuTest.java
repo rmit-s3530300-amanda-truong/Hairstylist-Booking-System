@@ -1,4 +1,4 @@
-package JUnitTests;
+package testCases;
 
 import static org.junit.Assert.*;
 
@@ -7,14 +7,14 @@ import java.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 
-import Business.Company;
-import Calendar.Calendar;
-import Database.AvailabilityDatabase;
-import Database.BookingDatabase;
-import Database.CompanyDatabase;
-import Database.CustomerDatabase;
-import Database.ServicesDatabase;
-import MainController.MainController;
+import business.Company;
+import calendar.Calendar;
+import database.AvailabilityDatabase;
+import database.BookingDatabase;
+import database.CompanyDatabase;
+import database.CustomerDatabase;
+import database.ServicesDatabase;
+import mainController.MainController;
 
 public class MenuTest {
 	Company comp;

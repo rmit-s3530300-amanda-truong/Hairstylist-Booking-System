@@ -9,10 +9,9 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 import com.jfoenix.controls.JFXButton;
 
-import Business.Employee;
-import Calendar.Booking;
-import Calendar.Calendar.Status;
-import MainController.MainController;
+import business.Employee;
+import calendar.Booking;
+import calendar.Calendar.Status;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -20,6 +19,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import mainController.MainController;
 
 public class ViewMorningController {
 

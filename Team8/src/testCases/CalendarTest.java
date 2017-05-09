@@ -1,4 +1,4 @@
-package JUnitTests;
+package testCases;
 
 import static org.junit.Assert.*;
 
@@ -10,12 +10,12 @@ import java.util.LinkedHashMap;
 import org.junit.Before;
 import org.junit.Test;
 
-import Business.Customer;
-import Business.Employee;
-import Business.Employee.Service;
-import Calendar.Booking;
-import Calendar.Calendar;
-import Calendar.Calendar.Status;
+import business.Customer;
+import business.Employee;
+import business.Employee.Service;
+import calendar.Booking;
+import calendar.Calendar;
+import calendar.Calendar.Status;
 
 public class CalendarTest {
 	Calendar c1;

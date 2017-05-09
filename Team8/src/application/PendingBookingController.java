@@ -7,10 +7,9 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
 
-import Business.Company;
-import Calendar.Booking;
-import Calendar.Calendar;
-import MainController.MainController;
+import business.Company;
+import calendar.Booking;
+import calendar.Calendar;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -23,6 +22,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import mainController.MainController;
 
 public class PendingBookingController {
 	

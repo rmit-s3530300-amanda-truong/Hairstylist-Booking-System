@@ -1,4 +1,4 @@
-package Calendar;
+package calendar;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -7,9 +7,9 @@ import java.util.*;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
 
-import Business.Employee;
-import Business.Employee.Service;
-import Calendar.Calendar;
+import business.Employee;
+import business.Employee.Service;
+import calendar.Calendar;
 
 public class Calendar {
 	public enum Status {

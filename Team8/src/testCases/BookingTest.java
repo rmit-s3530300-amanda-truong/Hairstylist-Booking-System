@@ -1,4 +1,4 @@
-package JUnitTests;
+package testCases;
 
 import static org.junit.Assert.*;
 
@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
-import Calendar.Booking;
-import Calendar.Calendar;
-import Business.Employee;
-import Business.Employee.Service;
+import business.Employee;
+import business.Employee.Service;
+import calendar.Booking;
+import calendar.Calendar;
 
 public class BookingTest {
 	Booking book;

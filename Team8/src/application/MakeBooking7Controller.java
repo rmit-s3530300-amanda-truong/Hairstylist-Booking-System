@@ -7,10 +7,9 @@ import java.util.ArrayList;
 
 import com.jfoenix.controls.JFXButton;
 
-import Business.Company;
-import Business.Employee;
-import Business.Employee.Service;
-import MainController.MainController;
+import business.Company;
+import business.Employee;
+import business.Employee.Service;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
+import mainController.MainController;
 
 public class MakeBooking7Controller {
 	private MainController menu;

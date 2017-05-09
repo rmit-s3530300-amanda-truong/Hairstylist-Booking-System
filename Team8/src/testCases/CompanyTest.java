@@ -1,4 +1,4 @@
-package JUnitTests;
+package testCases;
 
 import static org.junit.Assert.*;
 
@@ -9,14 +9,14 @@ import java.util.HashMap;
 import org.junit.Before;
 import org.junit.Test;
 
-import Business.Company;
-import Business.Customer;
-import Business.Employee;
-import Business.Employee.Service;
-import Calendar.Calendar;
-import Database.AvailabilityDatabase;
-import Database.CompanyDatabase;
-import Database.CustomerDatabase;
+import business.Company;
+import business.Customer;
+import business.Employee;
+import business.Employee.Service;
+import calendar.Calendar;
+import database.AvailabilityDatabase;
+import database.CompanyDatabase;
+import database.CustomerDatabase;
 
 public class CompanyTest {
 	Company comp;

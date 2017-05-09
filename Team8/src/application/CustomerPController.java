@@ -4,13 +4,13 @@ import java.io.IOException;
 
 import com.jfoenix.controls.JFXButton;
 
-import Database.CustomerDatabase;
-import MainController.MainController;
+import database.CustomerDatabase;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import mainController.MainController;
 
 public class CustomerPController {
 	
