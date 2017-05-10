@@ -2,13 +2,13 @@ package Main;
 
 import java.util.logging.Logger;
 
-import application.WelcomeController;
 import business.Company;
 import database.AvailabilityDatabase;
 import database.BookingDatabase;
 import database.CompanyDatabase;
 import database.CustomerDatabase;
 import database.ServicesDatabase;
+import gui.welcome.WelcomeController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -38,10 +38,10 @@ public class BookingManagementSystem extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/Welcome.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/welcome/Welcome.fxml"));
 			AnchorPane root = loader.load();
 			Scene scene = new Scene(root);
-			scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
+			scene.getStylesheets().add(getClass().getResource("/gui/stylesheet.css").toExternalForm());
 			
 			WelcomeController controller = loader.getController();
 			controller.initiate(menu);
