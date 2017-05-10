@@ -352,6 +352,16 @@ public class Calendar {
 		return bookingList;
 	}
 	
+	public ArrayList<Booking> getDisplayBookedList() {
+		Collections.sort(displayBookedList, new Comparator<Booking>() {
+			@Override
+			public int compare(Booking arg0, Booking arg1) {
+				return arg0.getID().compareTo(arg1.getID());
+			}
+		});
+		return displayBookedList;
+	}
+	
 	public Booking getBooking(String ID) {
 		for(Booking booking : bookingList) {
 			if(booking.getID().equals(ID)) {

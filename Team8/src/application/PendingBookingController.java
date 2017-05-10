@@ -68,7 +68,7 @@ public class PendingBookingController {
 	
 	public String getPendingBooking() {
 		Calendar cal = comp.getCalendar();
-		list = cal.getDisplayPendingBooking();
+		list = cal.getDisplayBookedList();
 		String pending="";
 		
 		for(Booking book : list) {
