@@ -22,7 +22,6 @@ import database.ServicesDatabase;
 public class Company {
 	private HashMap<String, Employee> employeeList;
 	private HashMap<String, Customer> custList;
-	private HashMap<String, String> serviceTime;
 	private Logger LOGGER = Logger.getLogger("InfoLogging");
 	private Calendar calendar;
 	
@@ -69,6 +68,8 @@ public class Company {
 		HashMap<String, HashMap<String,String>> custValues;
 		HashMap<String, ArrayList<String>> availValues;
 		HashMap<String, ArrayList<String>> bookValues;
+		HashMap<String, String> serviceTimeDb;
+		HashMap<Service, String> serviceList;
 		ArrayList<Booking> bookList;
 		empValues = companyDb.storeEmpValues();
 		setEmployeeList(empValues);
@@ -82,7 +83,9 @@ public class Company {
 		bookValues = bookingDb.storeBookingValues();
 		bookList = setBookingList(bookValues);
 		LOGGER.info("Set Booking Values"); 
-		serviceTime = servDb.storeServiceValues();
+		serviceTimeDb = servDb.storeServiceValues();
+		serviceList = setServList(serviceTimeDb);
+		LOGGER.info("Set Service Values");
 	}
 	
 	public HashMap<DayOfWeek, ArrayList<LocalTime>> setAvailList(HashMap<String, ArrayList<String>> list)
@@ -129,6 +132,18 @@ public class Company {
 			custList.put(username, new Customer(username,fname,lname));
 		}
 		this.custList = custList;
+	}
+	
+	public HashMap<Service,String> setServList(HashMap<String,String> map) {
+		HashMap<Service,String> serviceList = new HashMap<Service, String>();
+		for(Entry<String, String> x : map.entrySet()) {
+			String[] key = x.getKey().split(":");
+			String serviceStr = key[1];
+			Service service = getService(serviceStr);
+			String time = x.getValue();
+			serviceList.put(service, time);
+		}
+		return serviceList;
 	}
 	
 	public ArrayList<Booking> setBookingList(HashMap<String, ArrayList<String>> map){

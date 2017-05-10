@@ -71,13 +71,37 @@ public class ServicesDatabaseTest {
 	}
 	
 	@Test
+	public void testAddService()
+	{
+		Boolean expected = true;
+		Boolean actual = false;
+		String busName = "bus1";
+		String service = "femaleSpecial";
+		String time = "4";
+		servDb.addServices(busName, service, time);
+		
+		actual = servDb.checkValueExists("business", busName);
+		assertEquals(expected,actual);
+		actual = false;
+		
+		actual = servDb.checkValueExists("service", service);
+		assertEquals(expected,actual);
+		actual = false;
+		
+		actual = servDb.checkValueExists("time", time);
+		assertEquals(expected,actual);
+		actual = false;
+	}
+	
+	@Test
 	public void testStoreValues()
 	{
 		Boolean actual = false;
 		Boolean actual2 = false;
 		Boolean expected = true;
+		String name = "abc";
 		String service = "maleCut";
-		String time = "1";		
+		String time = "1";
 		String service2 = "femaleCut";
 		String time2 = "2";
 		String service3 = "maleDye";
@@ -94,14 +118,14 @@ public class ServicesDatabaseTest {
 		String time8 = "1";
 		
 		HashMap<String, String> expectedMap = new HashMap<String,String>();
-		expectedMap.put(service, time);
-		expectedMap.put(service2, time2);
-		expectedMap.put(service3, time3);
-		expectedMap.put(service4, time4);
-		expectedMap.put(service5, time5);
-		expectedMap.put(service6, time6);
-		expectedMap.put(service7, time7);
-		expectedMap.put(service8, time8);
+		expectedMap.put(name + ":" + service, time);
+		expectedMap.put(name + ":" + service2, time2);
+		expectedMap.put(name + ":" + service3, time3);
+		expectedMap.put(name + ":" + service4, time4);
+		expectedMap.put(name + ":" + service5, time5);
+		expectedMap.put(name + ":" + service6, time6);
+		expectedMap.put(name + ":" + service7, time7);
+		expectedMap.put(name + ":" + service8, time8);
 		
 		HashMap<String, String> actualMap = new HashMap<String,String>();
 		actualMap = servDb.storeServiceValues();

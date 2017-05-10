@@ -65,8 +65,8 @@ public class UpcomingBookingController {
 		ta.setStyle("-fx-text-fill: white");
 		ta.setText(future);
 		ta.setEditable(false);
-		ta.setLayoutX(299.0);
-		ta.setLayoutY(230.0);
+		ta.setLayoutX(340.0);
+		ta.setLayoutY(270.0);
 		ta.setPrefHeight(430.0);
 		ta.setPrefWidth(793.0);
 		

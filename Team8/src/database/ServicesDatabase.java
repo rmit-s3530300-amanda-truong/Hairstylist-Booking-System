@@ -65,6 +65,7 @@ public class ServicesDatabase {
 				{
 					stmt = conn.createStatement();
 					String sql = "CREATE TABLE IF NOT EXISTS SERVICES ("
+							+ "business text REFERENCES COMPANY(compName) NOT NULL,"
 							+ "service text REFERENCES COMPANY(service) NOT NULL ,"	
 							+ "time text NOT NULL   );";
 					stmt.executeUpdate(sql);
@@ -76,6 +77,30 @@ public class ServicesDatabase {
 		catch (Exception e)
 		{
 			LOGGER.info(e.getClass().getName() + ": " + e.getMessage());
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+	}
+	
+	//add service and a time for a business
+	public void addServices(String busName, String service, String time)
+	{		
+		try
+		{
+			if(conn.isClosed())
+			{
+				getConnection();
+			}
+			prep = conn.prepareStatement("INSERT INTO SERVICES values(?,?,?);");
+			prep.setString(1, busName);
+			prep.setString(2, service);
+			prep.setString(3, time);
+			prep.execute();
+			prep.close();
+			conn.close();
+		}
+		catch( Exception e)
+		{
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
@@ -95,7 +120,7 @@ public class ServicesDatabase {
 			result = stmt.executeQuery("SELECT * FROM SERVICES");
 			while (result.next())
 			{
-				System.out.println(result.getString("service") + " " + result.getString("time"));
+				System.out.println(result.getString("business") + " " + result.getString("service") + " " + result.getString("time"));
 			}
 			stmt.close();
 			result.close();
@@ -123,9 +148,11 @@ public class ServicesDatabase {
 			result = stmt.executeQuery("SELECT * FROM SERVICES");
 			while (result.next())
 			{
+				String business = result.getString("business");
 				String service = result.getString("service");
 				String time = result.getString("time");
-				serviceMap.put(service, time);
+				String key = business + ":" + service;
+				serviceMap.put(key, time);
 			}
 			stmt.close();
 			result.close();
@@ -150,6 +177,10 @@ public class ServicesDatabase {
 			if(conn.isClosed())
 			{
 				getConnection();
+			}
+			if(col.equals("business"))
+			{
+				colName = "business";
 			}
 			if(col.equals("service"))
 			{
@@ -195,44 +226,52 @@ public class ServicesDatabase {
 				{
 					getConnection();
 				}
-				prep = conn.prepareStatement("INSERT INTO SERVICES values(?,?);");
-				prep.setString(1,"maleCut");
-				prep.setString(2,"1");
+				prep = conn.prepareStatement("INSERT INTO SERVICES values(?,?,?);");
+				prep.setString(1,"abc");
+				prep.setString(2,"maleCut");
+				prep.setString(3,"1");
 				prep.execute();
 				prep.close();
-				PreparedStatement prep2 = conn.prepareStatement("INSERT INTO SERVICES values(?,?);");
-				prep2.setString(1,"femaleCut");
-				prep2.setString(2,"2");
+				PreparedStatement prep2 = conn.prepareStatement("INSERT INTO SERVICES values(?,?,?);");
+				prep2.setString(1,"abc");
+				prep2.setString(2,"femaleCut");
+				prep2.setString(3,"2");
 				prep2.execute();
 				prep2.close();
-				PreparedStatement prep3 = conn.prepareStatement("INSERT INTO SERVICES values(?,?);");
-				prep3.setString(1,"maleDye");
-				prep3.setString(2,"3");
+				PreparedStatement prep3 = conn.prepareStatement("INSERT INTO SERVICES values(?,?,?);");
+				prep3.setString(1,"abc");
+				prep3.setString(2,"maleDye");
+				prep3.setString(3,"3");
 				prep3.execute();
 				prep3.close();
-				PreparedStatement prep4 = conn.prepareStatement("INSERT INTO SERVICES values(?,?);");
-				prep4.setString(1,"femaleDye");
-				prep4.setString(2,"4");
+				PreparedStatement prep4 = conn.prepareStatement("INSERT INTO SERVICES values(?,?,?);");
+				prep4.setString(1,"abc");
+				prep4.setString(2,"femaleDye");
+				prep4.setString(3,"4");
 				prep4.execute();
 				prep4.close();
-				PreparedStatement prep5 = conn.prepareStatement("INSERT INTO SERVICES values(?,?);");
-				prep5.setString(1,"malePerm");
-				prep5.setString(2,"3");
+				PreparedStatement prep5 = conn.prepareStatement("INSERT INTO SERVICES values(?,?,?);");
+				prep5.setString(1,"abc");
+				prep5.setString(2,"malePerm");
+				prep5.setString(3,"3");
 				prep5.execute();
 				prep5.close();
-				PreparedStatement prep6 = conn.prepareStatement("INSERT INTO SERVICES values(?,?);");
-				prep6.setString(1,"femalePerm");
-				prep6.setString(2,"4");
+				PreparedStatement prep6 = conn.prepareStatement("INSERT INTO SERVICES values(?,?,?);");
+				prep6.setString(1,"abc");
+				prep6.setString(2,"femalePerm");
+				prep6.setString(3,"4");
 				prep6.execute();
 				prep6.close();
-				PreparedStatement prep7 = conn.prepareStatement("INSERT INTO SERVICES values(?,?);");
-				prep7.setString(1,"maleWash");
-				prep7.setString(2,"1");
+				PreparedStatement prep7 = conn.prepareStatement("INSERT INTO SERVICES values(?,?,?);");
+				prep7.setString(1,"abc");
+				prep7.setString(2,"maleWash");
+				prep7.setString(3,"1");
 				prep7.execute();
 				prep7.close();
-				PreparedStatement prep8 = conn.prepareStatement("INSERT INTO SERVICES values(?,?);");
-				prep8.setString(1,"femaleWash");
-				prep8.setString(2,"1");
+				PreparedStatement prep8 = conn.prepareStatement("INSERT INTO SERVICES values(?,?,?);");
+				prep8.setString(1,"abc");
+				prep8.setString(2,"femaleWash");
+				prep8.setString(3,"1");
 				prep8.execute();
 				prep8.close();
 				check = true;
