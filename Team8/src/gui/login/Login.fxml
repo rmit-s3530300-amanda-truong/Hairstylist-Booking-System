@@ -56,12 +56,21 @@
                   <Font name="Helvetica-Normal" size="16.0" />
                </font>
             </JFXButton>
+            <Label fx:id="logoText" layoutX="38.0" layoutY="20.0" maxWidth="615.0" prefHeight="37.0" prefWidth="611.0" textFill="WHITE">
+               <font>
+                  <Font name="Lato Black" size="22.0" />
+               </font>
+            </Label>
+            <JFXButton id="button" fx:id="goToBusiness" layoutX="806.0" layoutY="19.0" onAction="#goToBusiness" prefHeight="38.0" prefWidth="188.0" stylesheets="@../stylesheet.css" text="CHOOSE BUSINESS" textFill="WHITE">
+               <font>
+                  <Font name="Helvetica-Normal" size="16.0" />
+               </font>
+            </JFXButton>
             <JFXButton id="button" fx:id="gotoLogin" disable="true" layoutX="1034.0" layoutY="19.0" prefHeight="38.0" prefWidth="125.0" stylesheets="@../stylesheet.css" text="LOGIN" textFill="WHITE">
                <font>
                   <Font name="Helvetica-Normal" size="16.0" />
                </font>
             </JFXButton>
-            <Pane id="logo" fx:id="welcome_logo" layoutX="41.0" prefHeight="75.0" prefWidth="166.0" />
          </children>
       </Pane>
    </children>

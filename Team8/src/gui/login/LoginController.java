@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXTextField;
 import gui.portal.BusinessPController;
 import gui.portal.CustomerPController;
 import gui.register.RegisterCustomerController;
+import gui.welcome.PreWelcomeController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -97,5 +98,15 @@ public class LoginController {
 			e.printStackTrace();
 		}
 	}
+	
+	@FXML
+    void goToBusiness(ActionEvent event) throws IOException{
+    	AnchorPane pane;
+    	FXMLLoader business = new FXMLLoader(getClass().getResource("../welcome/PreWelcome.fxml"));
+    	pane = business.load();
+    	rootPane.getChildren().setAll(pane);
+    	PreWelcomeController controller = business.getController();
+		controller.initiate(menu);
+    }
 	
 }

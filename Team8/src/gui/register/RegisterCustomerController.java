@@ -10,6 +10,7 @@ import com.jfoenix.controls.JFXTextField;
 import business.Customer;
 import gui.login.LoginController;
 import gui.portal.CustomerPController;
+import gui.welcome.PreWelcomeController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -251,5 +252,15 @@ public class RegisterCustomerController {
     	rootPane.getChildren().setAll(pane);
     	CustomerPController controller = customerPortal.getController();
     	controller.initiate(menu, rc_username.getText());
+    }
+    
+    @FXML
+    void goToBusiness(ActionEvent event) throws IOException{
+    	AnchorPane pane;
+    	FXMLLoader business = new FXMLLoader(getClass().getResource("../welcome/PreWelcome.fxml"));
+    	pane = business.load();
+    	rootPane.getChildren().setAll(pane);
+    	PreWelcomeController controller = business.getController();
+		controller.initiate(menu);
     }
 }

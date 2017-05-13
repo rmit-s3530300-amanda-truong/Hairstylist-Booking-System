@@ -48,4 +48,14 @@ public class WelcomeController {
     public void initiate(MainController menu){
     	this.menu = menu;
     }
+    
+    @FXML
+    void goToBusiness(ActionEvent event) throws IOException{
+    	AnchorPane pane;
+    	FXMLLoader business = new FXMLLoader(getClass().getResource("PreWelcome.fxml"));
+    	pane = business.load();
+    	rootPane.getChildren().setAll(pane);
+    	PreWelcomeController controller = business.getController();
+		controller.initiate(menu);
+    }
 }
