@@ -42,14 +42,21 @@
 }
 
 .combo-box{
-	-fx-text-fill: white;
-	-fx-inner-text-fill: white;
     -fx-font: 16px "System";
+}
+
+.combo-box .cell{
+    -fx-text-fill: white;
 }
 
 #home{
 	-fx-graphic: url("img/home.png");
 }
+
+#settings{
+	-fx-graphic: url("img/settings.png");
+}
+
 .text-area {
     -fx-background-color: rgba(0,0,0,0.0);
 }

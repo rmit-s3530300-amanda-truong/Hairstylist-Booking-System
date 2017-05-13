@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXRadioButton?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
@@ -45,56 +46,22 @@
                   <Font size="16.0" />
                </font>
             </JFXTextField>
-            <JFXTextField fx:id="startHour" focusColor="#aa9144" layoutX="504.0" layoutY="429.0" prefHeight="38.0" prefWidth="44.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </JFXTextField>
-            <JFXTextField fx:id="startMinute" focusColor="#aa9144" layoutX="570.0" layoutY="429.0" prefHeight="38.0" prefWidth="44.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </JFXTextField>
-            <JFXTextField fx:id="endHour" focusColor="#aa9144" layoutX="787.0" layoutY="429.0" prefHeight="38.0" prefWidth="44.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </JFXTextField>
-            <JFXTextField fx:id="endMinute" focusColor="#aa9144" layoutX="853.0" layoutY="429.0" prefHeight="38.0" prefWidth="44.0" style="-fx-text-inner-color: white;" unFocusColor="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </JFXTextField>
-            <JFXButton id="button" fx:id="addAvailability" layoutX="569.0" layoutY="580.0" onAction="#addAvail" prefHeight="54.0" prefWidth="258.0" style="-fx-background-radius: 60;" stylesheets="@../stylesheet.css" text="ADD AVAILABILITY" textFill="WHITE">
+            <JFXButton id="button" fx:id="addAvailability" layoutX="569.0" layoutY="580.0" onAction="#addAvail" prefHeight="54.0" prefWidth="258.0" ripplerFill="#aa9144" style="-fx-background-radius: 60;" stylesheets="@../stylesheet.css" text="ADD AVAILABILITY" textFill="WHITE">
                <font>
                   <Font name="Lato Black" size="18.0" />
                </font>
             </JFXButton>
-            <Label fx:id="invalidstarthour" layoutX="468.0" layoutY="492.0" prefHeight="20.0" prefWidth="473.0" textAlignment="CENTER" textFill="RED">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
             <Label layoutX="517.0" layoutY="41.0" text="ADD AVAILABLE TIMES" textFill="WHITE">
                <font>
                   <Font name="Lato Black" size="33.0" />
                </font>
             </Label>
-            <Pane prefHeight="714.0" prefWidth="82.0" style="-fx-background-color: #1d1c1c;">
-             <children>
-                  <JFXButton id="home" contentDisplay="GRAPHIC_ONLY" layoutX="8.0" layoutY="16.0" onAction="#goToPortal" ripplerFill="#1d1c1c00" />
-               </children></Pane>
-            <Label layoutX="557.0" layoutY="436.0" text=":" textFill="WHITE">
+            <Label layoutX="572.0" layoutY="436.0" text=":" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="787.0" layoutY="404.0" text="END TIME" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Label layoutX="840.0" layoutY="436.0" text=":" textFill="WHITE">
+            <Label layoutX="757.0" layoutY="404.0" text="END TIME" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -137,11 +104,24 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label fx:id="invalidendhour" layoutX="468.0" layoutY="518.0" prefHeight="20.0" prefWidth="473.0" textAlignment="CENTER" textFill="RED">
+            <Label fx:id="invalidendhour" layoutX="468.0" layoutY="477.0" prefHeight="20.0" prefWidth="473.0" textAlignment="CENTER" textFill="RED">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
+            <Pane prefHeight="714.0" prefWidth="82.0" style="-fx-background-color: #1d1c1c;">
+             <children>
+                  <JFXButton id="home" contentDisplay="GRAPHIC_ONLY" layoutX="8.0" layoutY="16.0" onAction="#goToPortal" ripplerFill="#1d1c1c00" />
+               </children></Pane>
+            <JFXComboBox fx:id="startHour" focusColor="#aa9144" layoutX="504.0" layoutY="430.0" unFocusColor="WHITE" />
+            <JFXComboBox fx:id="startMinute" focusColor="#aa9144" layoutX="585.0" layoutY="430.0" unFocusColor="WHITE" />
+            <Label layoutX="827.0" layoutY="436.0" text=":" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <JFXComboBox fx:id="endHour" focusColor="#aa9144" layoutX="759.0" layoutY="430.0" unFocusColor="WHITE" />
+            <JFXComboBox fx:id="endMinute" focusColor="#aa9144" layoutX="840.0" layoutY="430.0" unFocusColor="WHITE" />
          </children></Pane>
    </children>
 </AnchorPane>

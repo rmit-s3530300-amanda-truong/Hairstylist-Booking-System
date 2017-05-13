@@ -6,11 +6,14 @@ import java.time.LocalTime;
 import java.util.logging.Logger;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
 
 import gui.login.LoginController;
 import gui.portal.BusinessPController;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,18 +36,6 @@ public class AddAvailTimeController {
 
     @FXML
     private JFXTextField empUsername;
-
-    @FXML
-    private JFXTextField startHour;
-
-    @FXML
-    private JFXTextField startMinute;
-
-    @FXML
-    private JFXTextField endHour;
-
-    @FXML
-    private JFXTextField endMinute;
 
     @FXML
     private JFXButton addAvailability;
@@ -72,34 +63,61 @@ public class AddAvailTimeController {
 
     @FXML
     private Label invalidday;
-    
-    @FXML
-    private Label invalidstarthour;
 
     @FXML
     private Label invalidendhour;
     
+    @FXML
+    private JFXComboBox<String> empUname;
+
+    @FXML
+    private JFXComboBox<String> startHour;
+
+    @FXML
+    private JFXComboBox<String> startMinute;
+
+    @FXML
+    private JFXComboBox<String> endHour;
+
+    @FXML
+    private JFXComboBox<String> endMinute;
+
+    
     public void initiate(MainController menu) {
 		this.menu = menu;
 	}
+    
+    ObservableList<String> startHourList = FXCollections.observableArrayList
+			("08", "09","10", "11", "12", "13", "14", "15");
+    ObservableList<String> endHourList = FXCollections.observableArrayList
+			("09","10", "11", "12", "13", "14", "15", "16");
+    ObservableList<String> minuteList = FXCollections.observableArrayList
+			("00", "15", "30", "45");
 
+    @FXML
+    private void initialize(){
+    	startHour.setValue("08");
+    	startMinute.setValue("00");
+    	startHour.setItems(startHourList);
+    	endHour.setValue("16");
+    	endMinute.setValue("00");
+    	endHour.setItems(endHourList);
+    	startMinute.setItems(minuteList);
+    	endMinute.setItems(minuteList);
+    }
+    
     @FXML
     void addAvail(ActionEvent event) throws IOException {
     	DayOfWeek day = null;
     	LocalTime startTime = null;
     	LocalTime endTime = null;
     	String username = empUsername.getText();
-    	String sHour = startHour.getText();
-    	String sMinute = startMinute.getText();
-    	String eHour = endHour.getText();
-    	String eMinute = endMinute.getText();
+    	String sHour = startHour.getValue();
+    	String sMinute = startMinute.getValue();
+    	String eHour = endHour.getValue();
+    	String eMinute = endMinute.getValue();
     	
     	boolean idValid = false, dayValid = false, startTimeValid = false, endTimeValid = false;
-    	
-    	//regex patterns for user input
-    	String shour = "08|09|10|11|12|13|14|15";
-    	String ehour = "09|10|11|12|13|14|15|16";
-    	String minute = "00|15|30|45";
     	
     	//checking username
     	if(menu.idValid(username)){
@@ -143,49 +161,19 @@ public class AddAvailTimeController {
     		invalidday.setText("Please select a day.");
 			invalidday.setAlignment(Pos.CENTER_LEFT);
     	}
-    	//checking start time
-    	if(menu.validate(sHour, shour)){
-			if(menu.validate(sMinute, minute)){
-				startTime = LocalTime.of(Integer.parseInt(sHour), Integer.parseInt(sMinute));
-				LOGGER.info(sHour+" "+sMinute);
-				startTimeValid = true;
-				invalidstarthour.setText("");
-			}
-			else{
-				invalidstarthour.setText("Invalid Start time. Choose between 15 minute interval.");
-				LOGGER.info("Invalid Start time. Choose between 15 minute interval.");
-				invalidstarthour.setAlignment(Pos.CENTER);
-			}
-		}
-		else{
-			invalidstarthour.setText("Invalid Start time. Choose between 08:00 to 15:00.");
-			LOGGER.info("Invalid Start time. Choose between 08:00 to 15:00.");
-			invalidstarthour.setAlignment(Pos.CENTER);
-		}
+    	startTime = LocalTime.of(Integer.parseInt(sHour), Integer.parseInt(sMinute));
+		LOGGER.info(sHour + " " + sMinute);
+		startTimeValid = true;
     	
     	//checking end time
-    	if(menu.validate(eHour, ehour)){
-			if(menu.validate(eMinute, minute)){
-				if(menu.validEndTime(sHour, eHour, sMinute, eMinute)){
-					endTime = LocalTime.of(Integer.parseInt(eHour), Integer.parseInt(eMinute));
-					endTimeValid = true;
-					invalidendhour.setText("");
-				}
-				else{
-					invalidendhour.setText("Invalid End time. Must be atleast 1 hour more than Start time.");
-					LOGGER.info("Invalid End time. Must be atleast 1 hour more than Start time.");
-					invalidendhour.setAlignment(Pos.CENTER);
-				}
-			}
-			else{
-				invalidendhour.setText("Invalid End time. Choose between 15 minute interval.");
-				LOGGER.info("Invalid End time. Choose between 15 minute interval.");
-				invalidendhour.setAlignment(Pos.CENTER);
-			}
+		if(menu.validEndTime(sHour, eHour, sMinute, eMinute)){
+			endTime = LocalTime.of(Integer.parseInt(eHour), Integer.parseInt(eMinute));
+			endTimeValid = true;
+			invalidendhour.setText("");
 		}
 		else{
-			invalidendhour.setText("Invalid End time. Choose between 09:00 to 16:00");
-			LOGGER.info("Invalid End time. Choose between 09:00 to 16:00");
+			invalidendhour.setText("Invalid End time. Must be atleast 1 hour more than Start time.");
+			LOGGER.info("Invalid End time. Must be atleast 1 hour more than Start time.");
 			invalidendhour.setAlignment(Pos.CENTER);
 		}
     	
