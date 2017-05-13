@@ -34,8 +34,6 @@ public class PendingBookingController {
 	
 	private Company comp;
 	
-	private Boolean status;
-	
 	private ArrayList<Booking> list;
 	
 	@FXML
@@ -54,12 +52,6 @@ public class PendingBookingController {
 	
 	@FXML
 	private JFXTextField text;
-	
-	@FXML
-	private JFXRadioButton accept;
-	
-	@FXML 
-	private JFXRadioButton decline;
 	
 	@FXML
 	public void initialize() {;
@@ -92,21 +84,6 @@ public class PendingBookingController {
 		id = cust_id;
 		comp = menu.getCompany();
 		text.setStyle("-fx-text-fill: white; -fx-font-size: 16;");
-		accept.setToggleGroup(group);
-		accept.setUserData(true);
-		decline.setToggleGroup(group);
-		decline.setUserData(false);
-		accept.setSelected(true);
-		status = (Boolean) accept.getUserData();
-		group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
-			@Override
-			public void changed(ObservableValue<? extends Toggle> arg0, Toggle arg1, Toggle arg2) {
-				status = (Boolean) arg2.getUserData();
-			}
-		});
-		getPendingBooking();
-		
-		
 	}
 	
 	@FXML
@@ -122,37 +99,22 @@ public class PendingBookingController {
 			String current = b.getID();
 			if(current.equals(id)) {
 				if(!exist) {
-					System.out.println("valid "+status);
-					invalid.setText("");
-					if(status) {
-						Boolean s1 = menu.getCompany().getCalendar().acceptBooking(id);
-						if(s1){
-							invalid.setStyle("-fx-text-fill: green; -fx-font-size: 16;");
-							invalid.setText("Successfully Accepted");
-							exist = true;
-						} else {
-							invalid.setStyle("-fx-text-fill: red; -fx-font-size: 16;");
-							invalid.setText("Invalid Booking ID");
-						}
+					Boolean s2 = menu.getCompany().getCalendar().declineBooking(id);
+					if(s2) {
+						invalid.setStyle("-fx-text-fill: green; -fx-font-size: 16;");
+						invalid.setText("Successfully Cancelled");
+						exist = true;
 					} else {
-						Boolean s2 = menu.getCompany().getCalendar().declineBooking(id);
-						if(s2) {
-							invalid.setStyle("-fx-text-fill: green; -fx-font-size: 16;");
-							invalid.setText("Successfully Declined");
-							exist = true;
-						} else {
-							invalid.setStyle("-fx-text-fill: red; -fx-font-size: 16;");
-							invalid.setText("Invalid Booking ID");
-						}
-						
+						invalid.setStyle("-fx-text-fill: red; -fx-font-size: 16;");
+						invalid.setText("Invalid Booking ID");
 					}
 				}
+			} 
+			if(!exist) {
+				System.out.println("invalid");
+				invalid.setStyle("-fx-text-fill: red; -fx-font-size: 16;");
+				invalid.setText("Invalid Booking ID");
 			}
-		} 
-		if(!exist) {
-			System.out.println("invalid");
-			invalid.setStyle("-fx-text-fill: red; -fx-font-size: 16;");
-			invalid.setText("Invalid Booking ID");
 		}
 	}
 	
