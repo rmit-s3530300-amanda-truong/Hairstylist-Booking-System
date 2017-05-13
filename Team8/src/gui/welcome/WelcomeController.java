@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.jfoenix.controls.JFXButton;
 
+import Main.BookingManagementSystem;
 import gui.login.LoginController;
 import gui.register.RegisterCustomerController;
 import javafx.event.ActionEvent;
@@ -24,6 +25,8 @@ public class WelcomeController {
 
     @FXML
     private JFXButton goToRegister;
+    
+    private BookingManagementSystem bms;
 	
     @FXML
     void goToLogin(ActionEvent event) throws IOException{
@@ -32,7 +35,7 @@ public class WelcomeController {
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	LoginController controller = login.getController();
-		controller.initiate(menu);
+		controller.initiate(menu, bms);
     }
     
     @FXML
@@ -42,11 +45,12 @@ public class WelcomeController {
     	pane = register.load();
     	rootPane.getChildren().setAll(pane);
     	RegisterCustomerController controller = register.getController();
-		controller.initiate(menu);
+		controller.initiate(menu, bms);
     }
     
-    public void initiate(MainController menu){
+    public void initiate(MainController menu, BookingManagementSystem bms){
     	this.menu = menu;
+    	this.bms = bms;
     }
     
     @FXML
@@ -56,6 +60,6 @@ public class WelcomeController {
     	pane = business.load();
     	rootPane.getChildren().setAll(pane);
     	PreWelcomeController controller = business.getController();
-		controller.initiate(menu);
+		controller.initiate(menu, bms);
     }
 }

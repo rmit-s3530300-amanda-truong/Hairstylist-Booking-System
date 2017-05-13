@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
+import Main.BookingManagementSystem;
 import business.Customer;
 import gui.login.LoginController;
 import gui.portal.CustomerPController;
@@ -96,14 +97,17 @@ public class RegisterCustomerController {
     @FXML
     private Label invalid_un;
     
+    private BookingManagementSystem bms;
+    
     @FXML
     private void initialize(){
     	rc_state.setValue("VIC");
     	rc_state.setItems(rc_stateList);
     }
 
-	public void initiate(MainController menu) {
+	public void initiate(MainController menu, BookingManagementSystem bms) {
 		this.menu = menu;
+		this.bms = bms;
 	}
 	
 	@FXML
@@ -242,7 +246,7 @@ public class RegisterCustomerController {
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	LoginController controller = login.getController();
-		controller.initiate(menu);
+		controller.initiate(menu, bms);
     }
 	
     void goToPortal() throws IOException{
@@ -251,7 +255,7 @@ public class RegisterCustomerController {
     	pane = customerPortal.load();
     	rootPane.getChildren().setAll(pane);
     	CustomerPController controller = customerPortal.getController();
-    	controller.initiate(menu, rc_username.getText());
+    	controller.initiate(menu, rc_username.getText(), bms);
     }
     
     @FXML
@@ -261,6 +265,6 @@ public class RegisterCustomerController {
     	pane = business.load();
     	rootPane.getChildren().setAll(pane);
     	PreWelcomeController controller = business.getController();
-		controller.initiate(menu);
+		controller.initiate(menu, bms);
     }
 }

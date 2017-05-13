@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import com.jfoenix.controls.JFXButton;
 
+import Main.BookingManagementSystem;
 import business.Company;
 import calendar.Booking;
 import calendar.Calendar;
@@ -44,6 +45,8 @@ public class UpcomingBookingController {
 		ta = new TextArea();
 	}
 	
+	private BookingManagementSystem bms;
+	
 	public String getUpcomingBooking() {
 		Calendar cal = comp.getCalendar();
 		ArrayList<Booking> list = cal.getDisplayFutureBooking();
@@ -76,9 +79,10 @@ public class UpcomingBookingController {
 		return future;
 	}
 	
-	public void initiate(MainController menu, String cust_id) {
+	public void initiate(MainController menu, String cust_id, BookingManagementSystem bms) {
 		this.menu = menu;
 		id = cust_id;
+		this.bms = bms;
 		comp = menu.getCompany();
 		getUpcomingBooking();
 	}
@@ -90,7 +94,7 @@ public class UpcomingBookingController {
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	LoginController controller = login.getController();
-		controller.initiate(menu);
+		controller.initiate(menu, bms);
     }
 	
 	@FXML
@@ -101,14 +105,14 @@ public class UpcomingBookingController {
 	    	pane = bussPortal.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	BusinessPController controller = bussPortal.getController();
-	    	controller.initiate(menu);
+	    	controller.initiate(menu, bms);
 		} else {
 			AnchorPane pane;
 	    	FXMLLoader cusPortal = new FXMLLoader(getClass().getResource("../portal/CustomerPortal.fxml"));
 	    	pane = cusPortal.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	CustomerPController controller = cusPortal.getController();
-	    	controller.initiate(menu, id);
+	    	controller.initiate(menu, id, bms);
 		}
 	}
 }

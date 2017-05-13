@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.jfoenix.controls.JFXButton;
 
+import Main.BookingManagementSystem;
 import database.CustomerDatabase;
 import gui.booking.MakeBooking2Controller;
 import gui.booking_summary.BookingHistoryController;
@@ -45,9 +46,12 @@ public class CustomerPController {
 
     @FXML
     private JFXButton gotoLogout;
+    
+    private BookingManagementSystem bms;
 
-	public void initiate(MainController menu, String username) {
+	public void initiate(MainController menu, String username, BookingManagementSystem bms) {
 		this.menu = menu;
+		this.bms = bms;
 		cust_id = username;
 		String fullname = db1.getName(cust_id);
 		cust_name.setText(fullname.toUpperCase());
@@ -60,7 +64,7 @@ public class CustomerPController {
     	pane = mb2.load();
     	rootPane.getChildren().setAll(pane);
     	MakeBooking2Controller controller = mb2.getController();
-		controller.initiate(menu, cust_id, "customer");
+		controller.initiate(menu, cust_id, "customer", bms);
 	}
 	
 	@FXML
@@ -70,7 +74,7 @@ public class CustomerPController {
 		pane = viewCalendar.load();
 		rootPane.getChildren().setAll(pane);
 		CalendarController controller = viewCalendar.getController();
-		controller.initiate(menu, cust_id, "customer");
+		controller.initiate(menu, cust_id, "customer", bms);
 	}
 	
 	@FXML
@@ -81,7 +85,7 @@ public class CustomerPController {
     	rootPane.getChildren().setAll(pane);
     	UpcomingBookingController controller = up.getController();
     	System.out.println(cust_id);
-		controller.initiate(menu, cust_id);
+		controller.initiate(menu, cust_id, bms);
 	}
 	
 	@FXML
@@ -91,7 +95,7 @@ public class CustomerPController {
     	pane = bh.load();
     	rootPane.getChildren().setAll(pane);
     	BookingHistoryController controller = bh.getController();
-		controller.initiate(menu, cust_id);
+		controller.initiate(menu, cust_id, bms);
 	}
 	
 	@FXML
@@ -101,7 +105,7 @@ public class CustomerPController {
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	LoginController controller = login.getController();
-		controller.initiate(menu);
+		controller.initiate(menu, bms);
 	}
 
 }

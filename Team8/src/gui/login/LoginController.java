@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
+import Main.BookingManagementSystem;
 import business.Company;
 import gui.portal.BusinessPController;
 import gui.portal.CustomerPController;
@@ -40,8 +41,11 @@ public class LoginController {
     @FXML
     private Label invalid_id_password;
     
-    public void initiate(MainController menu){
+    private BookingManagementSystem bms;
+    
+    public void initiate(MainController menu, BookingManagementSystem bms){
     	this.menu = menu;
+    	this.bms = bms;
     }
 
     @FXML
@@ -67,7 +71,7 @@ public class LoginController {
     	pane = register.load();
     	rootPane.getChildren().setAll(pane);
     	RegisterCustomerController controller = register.getController();
-		controller.initiate(menu);
+		controller.initiate(menu, bms);
     }
 	
     //loads customer portal scene
@@ -78,7 +82,7 @@ public class LoginController {
 	    	pane = custPortal.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	CustomerPController controller = custPortal.getController();
-			controller.initiate(menu, username);
+			controller.initiate(menu, username, bms);
 		} 
 		catch (IOException e) {
 			e.printStackTrace();
@@ -93,7 +97,7 @@ public class LoginController {
 	    	pane = bussPortal.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	BusinessPController controller = bussPortal.getController();
-			controller.initiate(menu);
+			controller.initiate(menu, bms);
 		} 
 		catch (IOException e) {
 			e.printStackTrace();
@@ -107,7 +111,7 @@ public class LoginController {
     	pane = business.load();
     	rootPane.getChildren().setAll(pane);
     	PreWelcomeController controller = business.getController();
-		controller.initiate(menu);
+		controller.initiate(menu, bms);
     }
 	
 }

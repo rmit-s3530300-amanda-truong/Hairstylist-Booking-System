@@ -10,14 +10,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 import business.Employee;
-import business.Employee.Service;
 import calendar.Booking;
 import calendar.Calendar;
 
 public class BookingTest {
 	Booking book;
 	String expected_ID;
-	Service expected_service;
+	String expected_service;
 	LocalDate expected_date;
 	LocalTime expected_start_time;
 	LocalTime expected_end_time;
@@ -29,12 +28,12 @@ public class BookingTest {
 		book = new Booking("0"); 
 		
 		expected_ID = "0";
-		expected_service = Service.femaleCut;
+		expected_service = "femaleCut";
 		expected_date = LocalDate.of(2017, 04, 01);
 		expected_start_time = LocalTime.of(12,00);
 		
-		ArrayList<Service> s = new ArrayList<Service>();
-		s.add(Service.femaleCut);
+		ArrayList<String> s = new ArrayList<String>();
+		s.add("femaleCut");
 		emp = new Employee("111", "herro", "yes", s);
 		
 		expected_customerID = "a";
@@ -56,7 +55,7 @@ public class BookingTest {
 	@Test
 	public void testAddDetails() {
 		String actual_ID = book.getID();
-		Service actual_service = book.getServices();
+		String actual_service = book.getServices();
 		LocalDate actual_date = book.getDate();
 		LocalTime actual_s_time = book.getStartTime();
 		LocalTime actual_e_time = book.getEndTime();

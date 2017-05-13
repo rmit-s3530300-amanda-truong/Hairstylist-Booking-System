@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 import com.jfoenix.controls.JFXButton;
 
+import Main.BookingManagementSystem;
 import business.Employee;
 import calendar.Booking;
 import calendar.Calendar.Status;
@@ -97,11 +98,14 @@ public class ViewMorningController {
 	private String cust_id;
 	
 	private String portal;
+	
+	private BookingManagementSystem bms;
     
-	public void initiate(MainController menu, String cust_id, String portal) {
+	public void initiate(MainController menu, String cust_id, String portal, BookingManagementSystem bms) {
 		this.menu = menu;
 		this.cust_id = cust_id;
 		this.portal = portal;
+		this.bms = bms;
 		populateTable();
 		createRectangles();
 	}
@@ -355,7 +359,7 @@ public class ViewMorningController {
     	pane = viewCalendar.load();
     	rootPane.getChildren().setAll(pane);
     	CalendarController controller = viewCalendar.getController();
-		controller.initiate(menu, cust_id, portal);
+		controller.initiate(menu, cust_id, portal, bms);
 	}
 	
 	@FXML
@@ -365,7 +369,7 @@ public class ViewMorningController {
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	LoginController controller = login.getController();
-		controller.initiate(menu);
+		controller.initiate(menu, bms);
     }
 	
 	@FXML
@@ -376,14 +380,14 @@ public class ViewMorningController {
 	    	pane = bussPortal.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	BusinessPController controller = bussPortal.getController();
-	    	controller.initiate(menu);
+	    	controller.initiate(menu, bms);
 		} else {
 			AnchorPane pane;
 	    	FXMLLoader cusPortal = new FXMLLoader(getClass().getResource("../portal/CustomerPortal.fxml"));
 	    	pane = cusPortal.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	CustomerPController controller = cusPortal.getController();
-	    	controller.initiate(menu, cust_id);
+	    	controller.initiate(menu, cust_id, bms);
 		}
 	}
 }

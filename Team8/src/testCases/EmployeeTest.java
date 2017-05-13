@@ -13,7 +13,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import business.Employee;
-import business.Employee.Service;
 
 public class EmployeeTest {
 	
@@ -21,15 +20,15 @@ public class EmployeeTest {
 	String expected_id;
 	String expected_firstName;
 	String expected_lastName;
-	ArrayList<Employee.Service> expected_service;
+	ArrayList<String> expected_service;
 
 	@Before
 	public void setUp() throws Exception {
 		expected_id = "e0005";
 		expected_firstName = "john";
 		expected_lastName = "snow";
-		expected_service = new ArrayList<Employee.Service>();
-		expected_service.add(Service.maleWash);
+		expected_service = new ArrayList<String>();
+		expected_service.add("maleWash");
 		e = new Employee(expected_id, expected_firstName, expected_lastName, expected_service);
 	}
 	
@@ -53,7 +52,7 @@ public class EmployeeTest {
 	
 	@Test
 	public void testgetService() throws Exception {
-		ArrayList<Service> actual_service = e.getService();
+		ArrayList<String> actual_service = e.getService();
 		assertEquals(expected_service,actual_service);
 	}
 

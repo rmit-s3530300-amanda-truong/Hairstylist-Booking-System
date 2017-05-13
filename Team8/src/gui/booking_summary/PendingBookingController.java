@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
 
+import Main.BookingManagementSystem;
 import business.Company;
 import calendar.Booking;
 import calendar.Calendar;
@@ -64,6 +65,8 @@ public class PendingBookingController {
 	@FXML 
 	private JFXRadioButton decline;
 	
+	private BookingManagementSystem bms;
+	
 	@FXML
 	public void initialize() {;
 		ta = new TextArea();
@@ -90,9 +93,10 @@ public class PendingBookingController {
 		return pending;
 	}
 	
-	public void initiate(MainController menu, String cust_id) {
+	public void initiate(MainController menu, String cust_id, BookingManagementSystem bms) {
 		this.menu = menu;
 		id = cust_id;
+		this.bms = bms;
 		comp = menu.getCompany();
 		text.setStyle("-fx-text-fill: white; -fx-font-size: 16;");
 		accept.setToggleGroup(group);
@@ -166,7 +170,7 @@ public class PendingBookingController {
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	LoginController controller = login.getController();
-		controller.initiate(menu);
+		controller.initiate(menu, bms);
     }
 	
 	@FXML
@@ -177,14 +181,14 @@ public class PendingBookingController {
 	    	pane = bussPortal.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	BusinessPController controller = bussPortal.getController();
-	    	controller.initiate(menu);
+	    	controller.initiate(menu, bms);
 		} else {
 			AnchorPane pane;
 	    	FXMLLoader cusPortal = new FXMLLoader(getClass().getResource("../portal/CustomerPortal.fxml"));
 	    	pane = cusPortal.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	CustomerPController controller = cusPortal.getController();
-	    	controller.initiate(menu, id);
+	    	controller.initiate(menu, id, bms);
 		}
 	}
 }

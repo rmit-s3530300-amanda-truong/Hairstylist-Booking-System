@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import com.jfoenix.controls.JFXButton;
 
+import Main.BookingManagementSystem;
 import business.Company;
 import calendar.Booking;
 import calendar.Calendar;
@@ -40,6 +41,8 @@ public class BookingHistoryController {
 	
 	@FXML
 	private VBox textBox;
+	
+	private BookingManagementSystem bms;
 	
 	@FXML
 	public void initialize() {;
@@ -80,9 +83,10 @@ public class BookingHistoryController {
 		return future;
 	}
 	
-	public void initiate(MainController menu, String cust_id) {
+	public void initiate(MainController menu, String cust_id, BookingManagementSystem bms) {
 		id = cust_id;
 		this.menu = menu;
+		this.bms = bms;
 		comp = menu.getCompany();
 		getPastBooking();
 	}
@@ -94,7 +98,7 @@ public class BookingHistoryController {
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	LoginController controller = login.getController();
-		controller.initiate(menu);
+		controller.initiate(menu, bms);
     }
 	
 	@FXML
@@ -105,14 +109,14 @@ public class BookingHistoryController {
 	    	pane = bussPortal.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	BusinessPController controller = bussPortal.getController();
-	    	controller.initiate(menu);
+	    	controller.initiate(menu, bms);
 		} else {
 			AnchorPane pane;
 	    	FXMLLoader cusPortal = new FXMLLoader(getClass().getResource("../portal/CustomerPortal.fxml"));
 	    	pane = cusPortal.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	CustomerPController controller = cusPortal.getController();
-	    	controller.initiate(menu, id);
+	    	controller.initiate(menu, id, bms);
 		}
     }
 }

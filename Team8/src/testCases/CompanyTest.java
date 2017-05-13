@@ -12,7 +12,6 @@ import org.junit.Test;
 import business.Company;
 import business.Customer;
 import business.Employee;
-import business.Employee.Service;
 import calendar.Calendar;
 import database.AvailabilityDatabase;
 import database.CompanyDatabase;
@@ -24,7 +23,7 @@ public class CompanyTest {
 	Customer customer;
 	HashMap<String, Customer> custList;
 	Employee employee;
-	ArrayList<Service> service;
+	ArrayList<String> service;
 	CompanyDatabase compDb;
 	CustomerDatabase custDb;
 	AvailabilityDatabase availDb;
@@ -40,8 +39,8 @@ public class CompanyTest {
 		comp.addCustomer(customer);
 		custList = comp.getCustList();
 		
-		service = new ArrayList<Service>();
-		service.add(Service.femaleCut);
+		service = new ArrayList<String>();
+		service.add("femaleCut");
 		employee = new Employee("0", "fname", "lname", service);
 		comp.addEmployee(employee);
 	}
@@ -124,8 +123,8 @@ public class CompanyTest {
 	
 	@Test
 	public void testAddEmployee() {
-		ArrayList<Service> expected_service = new ArrayList<Service>();
-		expected_service.add(Service.femaleCut);
+		ArrayList<String> expected_service = new ArrayList<String>();
+		expected_service.add("femaleCut");
 		String expected_ID = "0";
 		String expected_fname = "fname";
 		String expected_lname ="lname";
@@ -149,7 +148,7 @@ public class CompanyTest {
 		String actual_lname = actual_employee.getLastName();
 		assertEquals(expected_lname, actual_lname);
 		
-		ArrayList<Service> actual_service = actual_employee.getService();
+		ArrayList<String> actual_service = actual_employee.getService();
 		assertEquals(expected_service, actual_service);
 	}
 	
@@ -179,9 +178,9 @@ public class CompanyTest {
 		String expected_lname = "lname";
 		String expected_ID = "000";
 		String expected_service_string = "femaleCut, maleCut";
-		ArrayList<Service> expected_service = new ArrayList<Service>();
-		expected_service.add(Service.femaleCut);
-		expected_service.add(Service.maleCut);
+		ArrayList<String> expected_service = new ArrayList<String>();
+		expected_service.add("femaleCut");
+		expected_service.add("maleCut");
 		
 		nested_info.put("fname", expected_fname);
 		nested_info.put("lname", expected_lname);
@@ -206,87 +205,87 @@ public class CompanyTest {
 		String actual_lname = actual_employee.getLastName();
 		assertEquals(expected_lname, actual_lname);
 		
-		ArrayList<Service> actual_service = actual_employee.getService();
+		ArrayList<String> actual_service = actual_employee.getService();
 		assertEquals(expected_service, actual_service);
 	}
 	
 	@Test
 	public void testGetServiceFemaleCut() {
-		Service expected = Service.femaleCut;
+		String expected = "femaleCut";
 		String s = "femaleCut";
-		Service actual = comp.getService(s);
+		String actual = comp.getService(s);
 		
 		assertEquals(expected, actual);	
 	}
 	
 	@Test
 	public void testGetServiceMaleCut() {
-		Service expected = Service.maleCut;
+		String expected = "maleCut";
 		String s = "maleCut";
-		Service actual = comp.getService(s);
+		String actual = comp.getService(s);
 		
 		assertEquals(expected, actual);	
 	}
 	
 	@Test
 	public void testGetServiceFemaleDye() {
-		Service expected = Service.femaleDye;
+		String expected = "femaleDye";
 		String s = "femaleDye";
-		Service actual = comp.getService(s);
+		String actual = comp.getService(s);
 		
 		assertEquals(expected, actual);	
 	}
 	
 	@Test
 	public void testGetServiceMaleDye() {
-		Service expected = Service.maleDye;
+		String expected = "maleDye";
 		String s = "maleDye";
-		Service actual = comp.getService(s);
+		String actual = comp.getService(s);
 		
 		assertEquals(expected, actual);	
 	}
 	
 	@Test
 	public void testGetServiceFemalePerm() {
-		Service expected = Service.femalePerm;
+		String expected = "femalePerm";
 		String s = "femalePerm";
-		Service actual = comp.getService(s);
+		String actual = comp.getService(s);
 		
 		assertEquals(expected, actual);	
 	}
 	
 	@Test
 	public void testGetServiceMalePerm() {
-		Service expected = Service.malePerm;
+		String expected = "malePerm";
 		String s = "malePerm";
-		Service actual = comp.getService(s);
+		String actual = comp.getService(s);
 		
 		assertEquals(expected, actual);	
 	}
 	
 	@Test
 	public void testGetServiceFemaleWash() {
-		Service expected = Service.femaleWash;
+		String expected = "femaleWash";
 		String s = "femaleWash";
-		Service actual = comp.getService(s);
+		String actual = comp.getService(s);
 		
 		assertEquals(expected, actual);	
 	}
 	
 	@Test
 	public void testGetServiceMaleWash() {
-		Service expected = Service.maleWash;
+		String expected = "maleWash";
 		String s = "maleWash";
-		Service actual = comp.getService(s);
+		String actual = comp.getService(s);
 		
 		assertEquals(expected, actual);	
 	}
 	
 	@Test
 	public void testGetServiceFail() {
-		Service expected = null;
+		String expected = null;
 		String s = "cut";
-		Service actual = comp.getService(s);
+		String actual = comp.getService(s);
 		
 		assertEquals(expected, actual);
 	}

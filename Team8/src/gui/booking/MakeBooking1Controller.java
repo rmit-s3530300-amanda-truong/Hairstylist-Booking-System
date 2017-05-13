@@ -6,6 +6,7 @@ import java.util.HashMap;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 
+import Main.BookingManagementSystem;
 import business.Company;
 import business.Customer;
 import gui.login.LoginController;
@@ -32,12 +33,15 @@ public class MakeBooking1Controller {
 	@FXML
 	private JFXTextField username;
 	
+	private BookingManagementSystem bms;
+	
 	@FXML
 	private Label invalid;
 
-	public void initiate(MainController menu) {
+	public void initiate(MainController menu, BookingManagementSystem bms) {
 		this.menu = menu;
 		comp = menu.getCompany();
+		this.bms = bms;
 	}
 	
 	@FXML
@@ -54,7 +58,7 @@ public class MakeBooking1Controller {
 	    	pane = m2.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	MakeBooking2Controller controller = m2.getController();
-	    	controller.initiate(menu, cust_id, "business");
+	    	controller.initiate(menu, cust_id, "business", bms);
 		}
 	}
 	
@@ -70,7 +74,7 @@ public class MakeBooking1Controller {
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	LoginController controller = login.getController();
-		controller.initiate(menu);
+		controller.initiate(menu, bms);
     }
 	
 	@FXML
@@ -80,6 +84,6 @@ public class MakeBooking1Controller {
     	pane = bussPortal.load();
     	rootPane.getChildren().setAll(pane);
     	BusinessPController controller = bussPortal.getController();
-    	controller.initiate(menu);
+    	controller.initiate(menu, bms);
     }
 }

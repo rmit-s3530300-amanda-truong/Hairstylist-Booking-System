@@ -68,6 +68,15 @@ public class Company {
 		return services;
 	}
 	
+	public String getService(String s) {
+		for(String serv : services) {
+			if(serv.equals(s)) {
+				return serv;
+			}
+		}
+		return null;
+	}
+	
 	public void addServiceTime(String service, int time) {
 		service_times.put(service, time);
 	}

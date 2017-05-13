@@ -1,17 +1,19 @@
 package gui.company;
 
 import java.io.IOException;
+import java.rmi.server.ServerCloneException;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
 
+import Main.BookingManagementSystem;
 import business.Company;
 import business.Employee;
-import business.Employee.Service;
 import gui.login.LoginController;
 import gui.portal.BusinessPController;
 import javafx.collections.FXCollections;
@@ -22,6 +24,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Font;
 import mainController.MainController;
 
 public class AddEmpController {
@@ -33,7 +36,9 @@ public class AddEmpController {
 	private MainController menu;
 	Company comp = new Company();
 	
-	ArrayList<Service> serviceList = new ArrayList<Service>();
+	ArrayList<String> serviceList = new ArrayList<String>();
+	
+	ArrayList<JFXCheckBox> serviceBoxes;
 	
 	@FXML
 	private AnchorPane rootPane;
@@ -86,7 +91,7 @@ public class AddEmpController {
     @FXML
     private Label username;
     
-    @FXML
+   /* @FXML
     private JFXCheckBox sfcut;
 
     @FXML
@@ -108,7 +113,7 @@ public class AddEmpController {
     private JFXCheckBox sfdye;
 
     @FXML
-    private JFXCheckBox smdye;
+    private JFXCheckBox smdye;*/
 
     @FXML
     private Label invalidservices;
@@ -119,17 +124,43 @@ public class AddEmpController {
     	re_state.setItems(re_stateList);   	
     }
 
-	public void initiate(MainController menu) {
+    private BookingManagementSystem bms;
+    
+	public void initiate(MainController menu, BookingManagementSystem bms) {
 		this.menu = menu;
 		username.setText(menu.getEmpUname());
-		sfcut.setUserData(Service.femaleCut);
+		this.bms = bms;
+		/*sfcut.setUserData(Service.femaleCut);
 		smcut.setUserData(Service.maleCut);
 		sfwash.setUserData(Service.femaleWash);
 		smwash.setUserData(Service.maleWash);
 		sfperm.setUserData(Service.femalePerm);
 		smperm.setUserData(Service.malePerm);
 		sfdye.setUserData(Service.femaleDye);
-		smdye.setUserData(Service.maleDye);
+		smdye.setUserData(Service.maleDye);*/
+		int counter = 0;
+		ArrayList<String> services_list = menu.getCompany().getService();
+		serviceBoxes = new ArrayList<JFXCheckBox>();
+		
+		if(services_list.size() > 0) {
+			for(String serv : services_list) {
+				JFXCheckBox b = new JFXCheckBox();
+				b.setUserData(serv);
+				b.setText(serv);
+				b.setStyle("-fx-text-fill: white");
+				b.setFont(Font.font(16));
+				if(counter <4) {
+					b.setLayoutX(487.0);
+					b.setLayoutY(305.0+(counter*50));
+				} else {
+					b.setLayoutX(715.0);
+					b.setLayoutY(305.0+((counter-4)*50));
+				}
+				rootPane.getChildren().add(b);
+				serviceBoxes.add(b);
+				counter++;
+			}
+		}
 	}
 	
 	@FXML
@@ -227,7 +258,7 @@ public class AddEmpController {
 			invalidfname.setAlignment(Pos.CENTER_LEFT);
 		}
 		
-		//checking services
+		/*//checking services
 		if(sfcut.isSelected() || smcut.isSelected() || sfwash.isSelected() || smwash.isSelected() || sfperm.isSelected() 
 				|| smperm.isSelected() || sfdye.isSelected() || smdye.isSelected()){
 			invalidservices.setText("");
@@ -254,13 +285,21 @@ public class AddEmpController {
 			}
 			if(smdye.isSelected()){
 				serviceList.add((Service) smdye.getUserData());
+			}*/
+		Boolean selected = false;
+		for(JFXCheckBox serv : serviceBoxes) {
+			if(serv.isSelected()) {
+				selected = true;
+				serviceList.add((String) serv.getUserData());
 			}
+		}
+		if(selected) {
 			invalidservices.setText("");
 			serviceValid = true;
 			
 			//coverting arraylist to string
 			for(int i = 0; i < serviceList.size(); i++) {
-				Service s = serviceList.get(i);
+				String s = serviceList.get(i);
 				if(i == serviceList.size() - 1){
 					services += s;
 				} 
@@ -290,7 +329,7 @@ public class AddEmpController {
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	LoginController controller = login.getController();
-		controller.initiate(menu);
+		controller.initiate(menu, bms);
 		LOGGER.info("Logout");
     }
 	
@@ -301,7 +340,7 @@ public class AddEmpController {
     	pane = bussPortal.load();
     	rootPane.getChildren().setAll(pane);
     	BusinessPController controller = bussPortal.getController();
-    	controller.initiate(menu);
+    	controller.initiate(menu, bms);
     	LOGGER.info("Go to portal");
     }
 }

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXRadioButton;
 
+import Main.BookingManagementSystem;
 import business.Employee;
 import gui.login.LoginController;
 import gui.portal.BusinessPController;
@@ -61,11 +62,14 @@ public class MakeBooking2Controller {
 	
 	@FXML
 	private JFXRadioButton malePerm;*/
+	
+	private BookingManagementSystem bms;
 
-	public void initiate(MainController menu, String cust_id, String portal) {
+	public void initiate(MainController menu, String cust_id, String portal, BookingManagementSystem bms) {
 		this.menu = menu;
 		this.cust_id = cust_id;
 		this.portal = portal;
+		this.bms = bms;
 		int counter = 0;
 		ArrayList<String> services_list = menu.getCompany().getService();
 		ArrayList<JFXRadioButton> buttons = new ArrayList<JFXRadioButton>();
@@ -163,7 +167,7 @@ public class MakeBooking2Controller {
     	pane = mb3.load();
     	rootPane.getChildren().setAll(pane);
     	MakeBooking3Controller controller = mb3.getController();
-    	controller.initiate(menu, cust_id, service, portal);
+    	controller.initiate(menu, cust_id, service, portal, bms);
 		
 		
 	}
@@ -175,14 +179,14 @@ public class MakeBooking2Controller {
 	    	pane = bussPortal.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	MakeBooking1Controller controller = bussPortal.getController();
-	    	controller.initiate(menu);
+	    	controller.initiate(menu, bms);
 		} else {
 			AnchorPane pane;
 	    	FXMLLoader cusPortal = new FXMLLoader(getClass().getResource("../portal/CustomerPortal.fxml"));
 	    	pane = cusPortal.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	CustomerPController controller = cusPortal.getController();
-	    	controller.initiate(menu, cust_id);
+	    	controller.initiate(menu, cust_id,bms);
 		}
 	}
 	
@@ -193,7 +197,7 @@ public class MakeBooking2Controller {
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	LoginController controller = login.getController();
-		controller.initiate(menu);
+		controller.initiate(menu,bms);
     }
 	
 	@FXML
@@ -204,14 +208,14 @@ public class MakeBooking2Controller {
 	    	pane = bussPortal.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	BusinessPController controller = bussPortal.getController();
-	    	controller.initiate(menu);
+	    	controller.initiate(menu, bms);
 		} else {
 			AnchorPane pane;
 	    	FXMLLoader cusPortal = new FXMLLoader(getClass().getResource("../portal/CustomerPortal.fxml"));
 	    	pane = cusPortal.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	CustomerPController controller = cusPortal.getController();
-	    	controller.initiate(menu, cust_id);
+	    	controller.initiate(menu, cust_id, bms);
 		}
     }
 }

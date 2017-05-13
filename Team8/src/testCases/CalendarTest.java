@@ -12,7 +12,6 @@ import org.junit.Test;
 
 import business.Customer;
 import business.Employee;
-import business.Employee.Service;
 import calendar.Booking;
 import calendar.Calendar;
 import calendar.Calendar.Status;
@@ -25,8 +24,8 @@ public class CalendarTest {
 
 	@Before
 	public void setUp() throws Exception {
-		ArrayList<Service> services = new ArrayList<Service>();
-		services.add(Service.femaleCut);
+		ArrayList<String> services = new ArrayList<String>();
+		services.add("femaleCut");
 		emp = new Employee("01", "John", "Snow", services);
 		cust = new Customer("000", "Margaery", "Tyrell");
 		cust_id = cust.getUsername();
@@ -78,7 +77,7 @@ public class CalendarTest {
 		nested_info = info.get(date);
 		Booking book = nested_info.get(start_time);
 		
-		book.addDetails(date, start_time, end_time, Service.femaleCut,emp, "000");
+		book.addDetails(date, start_time, end_time, "femaleCut",emp, "000");
 		nested_info.put(LocalTime.of(5, 00), book);
 		info.put(date, nested_info);
 		c1.setCalendarInfo(info);
@@ -97,7 +96,7 @@ public class CalendarTest {
 		Status actual_status;
 		
 		
-		actual_boolean = c1.requestBooking(LocalDate.of(2017, 01, 10), LocalTime.of(8, 00), LocalTime.of(8, 30), emp, Service.femaleCut, cust_id);
+		actual_boolean = c1.requestBooking(LocalDate.of(2017, 01, 10), LocalTime.of(8, 00), LocalTime.of(8, 30), emp, "femaleCut", cust_id);
 		Booking book = c1.getCalendarInfo().get(LocalDate.of(2017, 01, 10)).get(LocalTime.of(8, 00));
 		actual_status = book.getStatus();
 		
@@ -114,7 +113,7 @@ public class CalendarTest {
 		Boolean actual_boolean;
 		Status actual_status;
 		
-		actual_boolean = c1.requestBooking(LocalDate.of(2017, 01, 10), LocalTime.of(8, 00), LocalTime.of(8, 30), emp, Service.femaleCut, "002");
+		actual_boolean = c1.requestBooking(LocalDate.of(2017, 01, 10), LocalTime.of(8, 00), LocalTime.of(8, 30), emp, "femaleCut", "002");
 		Booking book = c1.getCalendarInfo().get(LocalDate.of(2017, 01, 10)).get(LocalTime.of(8, 00));
 		actual_status = book.getStatus();
 		
@@ -173,7 +172,7 @@ public class CalendarTest {
 		Booking book = c1.getCalendarInfo().get(LocalDate.of(2017, 01, 10)).get(LocalTime.of(8, 00));
 		book.setStatus(Status.unavailable);
 		
-		actual_boolean = c1.requestBooking(LocalDate.of(2017, 01, 10), LocalTime.of(8, 00), LocalTime.of(8, 30), emp, Service.femaleCut, cust_id);
+		actual_boolean = c1.requestBooking(LocalDate.of(2017, 01, 10), LocalTime.of(8, 00), LocalTime.of(8, 30), emp, "femaleCut", cust_id);
 		book = c1.getCalendarInfo().get(LocalDate.of(2017, 01, 10)).get(LocalTime.of(8, 00));
 		actual_status = book.getStatus();
 		
@@ -190,7 +189,7 @@ public class CalendarTest {
 		Boolean actual_boolean;
 		Status actual_status;
 		
-		c1.requestBooking(LocalDate.of(2017, 01, 10), LocalTime.of(8, 00), LocalTime.of(8, 30), emp, Service.femaleCut, cust_id);
+		c1.requestBooking(LocalDate.of(2017, 01, 10), LocalTime.of(8, 00), LocalTime.of(8, 30), emp, "femaleCut", cust_id);
 		Booking book = c1.getCalendarInfo().get(LocalDate.of(2017, 01, 10)).get(LocalTime.of(8, 00));
 		
 		actual_boolean = c1.acceptBooking(book.getID());
@@ -227,7 +226,7 @@ public class CalendarTest {
 		Boolean actual_boolean;
 		Status actual_status;
 		
-		c1.requestBooking(LocalDate.of(2017, 01, 10), LocalTime.of(8, 00), LocalTime.of(8, 30), emp, Service.femaleCut, cust_id);
+		c1.requestBooking(LocalDate.of(2017, 01, 10), LocalTime.of(8, 00), LocalTime.of(8, 30), emp, "femaleCut", cust_id);
 		Booking book = c1.getCalendarInfo().get(LocalDate.of(2017, 01, 10)).get(LocalTime.of(8, 00));
 		c1.acceptBooking(book.getID());
 		
@@ -268,7 +267,7 @@ public class CalendarTest {
 		Status actual_status;
 		
 		emp.addBooking(LocalDate.of(2017, 01, 10), LocalTime.of(8, 00), LocalTime.of(8, 30));
-		c1.requestBooking(LocalDate.of(2017, 01, 10), LocalTime.of(8, 00), LocalTime.of(8, 30), emp, Service.femaleCut, cust_id);
+		c1.requestBooking(LocalDate.of(2017, 01, 10), LocalTime.of(8, 00), LocalTime.of(8, 30), emp, "femaleCut", cust_id);
 		Booking book = c1.getCalendarInfo().get(LocalDate.of(2017, 01, 10)).get(LocalTime.of(8, 00));
 		
 		actual_boolean = c1.acceptBooking(book.getID());

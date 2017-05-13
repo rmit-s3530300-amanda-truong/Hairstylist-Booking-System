@@ -10,6 +10,7 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
 
+import Main.BookingManagementSystem;
 import gui.login.LoginController;
 import gui.portal.BusinessPController;
 import javafx.collections.FXCollections;
@@ -82,9 +83,11 @@ public class AddAvailTimeController {
     @FXML
     private JFXComboBox<String> endMinute;
 
+    private BookingManagementSystem bms;
     
-    public void initiate(MainController menu) {
+    public void initiate(MainController menu, BookingManagementSystem bms) {
 		this.menu = menu;
+		this.bms = bms;
 	}
     
     ObservableList<String> startHourList = FXCollections.observableArrayList
@@ -192,7 +195,7 @@ public class AddAvailTimeController {
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	LoginController controller = login.getController();
-		controller.initiate(menu);
+		controller.initiate(menu, bms);
 		LOGGER.info("Logout");
     }
     
@@ -203,7 +206,7 @@ public class AddAvailTimeController {
     	pane = bussPortal.load();
     	rootPane.getChildren().setAll(pane);
     	BusinessPController controller = bussPortal.getController();
-    	controller.initiate(menu);
+    	controller.initiate(menu, bms);
     	LOGGER.info("Go to Portal");
     }
 
