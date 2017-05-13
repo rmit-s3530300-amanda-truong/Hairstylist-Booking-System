@@ -26,6 +26,12 @@
             <JFXButton fx:id="own_addAvail" contentDisplay="GRAPHIC_ONLY" layoutX="706.0" layoutY="164.0" onAction="#addAvaiTimes" prefHeight="150.0" prefWidth="472.0" ripplerFill="WHITE" />
             <JFXButton fx:id="own_vBookings" contentDisplay="GRAPHIC_ONLY" layoutX="706.0" layoutY="326.0" onAction="#viewUpcomingBooking" prefHeight="150.0" prefWidth="472.0" ripplerFill="WHITE" />
             <JFXButton fx:id="own_vHistory" contentDisplay="GRAPHIC_ONLY" layoutX="706.0" layoutY="489.0" onAction="#viewPastBooking" prefHeight="150.0" prefWidth="472.0" ripplerFill="WHITE" />
+            <Pane prefHeight="714.0" prefWidth="82.0" style="-fx-background-color: #1d1c1c;">
+               <children>
+                  <JFXButton id="home" contentDisplay="GRAPHIC_ONLY" disable="true" layoutX="8.0" layoutY="16.0" ripplerFill="#1d1c1c00" />
+                  <JFXButton id="settings" contentDisplay="GRAPHIC_ONLY" layoutX="8.0" layoutY="93.0" ripplerFill="#1d1c1c00" />
+               </children>
+            </Pane>
          </children></Pane>
       <Pane id="menuPane" prefHeight="75.0" prefWidth="1400.0">
          <children>
@@ -34,10 +40,9 @@
                   <Font name="Helvetica-Normal" size="16.0" />
                </font>
             </JFXButton>
-            <Pane id="logo" fx:id="welcome_logo" layoutX="41.0" prefHeight="75.0" prefWidth="166.0" />
-            <Label layoutX="598.0" layoutY="24.0" text="BUSINESS PORTAL" textFill="WHITE">
+            <Label fx:id="logoText" layoutX="38.0" layoutY="20.0" maxWidth="615.0" prefHeight="37.0" prefWidth="611.0" textFill="WHITE">
                <font>
-                  <Font size="20.0" />
+                  <Font name="Lato Black" size="22.0" />
                </font>
             </Label>
          </children>
