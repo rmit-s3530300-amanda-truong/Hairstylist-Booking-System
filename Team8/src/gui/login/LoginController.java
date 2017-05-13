@@ -8,6 +8,7 @@ import com.jfoenix.controls.JFXTextField;
 
 import Main.BookingManagementSystem;
 import business.Company;
+import gui.portal.AdminPController;
 import gui.portal.BusinessPController;
 import gui.portal.CustomerPController;
 import gui.register.RegisterCustomerController;
@@ -58,6 +59,9 @@ public class LoginController {
     	}
     	else if (menu.authenticate(username, password).equals("business")){
     		goToBusinessPortal(username);
+    	}
+    	else if (username.equals("admin") && password.equals("admin")){
+    		goToAdminPortal();
     	}
 		else{
 			invalid_id_password.setText("Invalid username or password. Please try again");
@@ -113,5 +117,19 @@ public class LoginController {
     	PreWelcomeController controller = business.getController();
 		controller.initiate(menu, bms);
     }
+	
+	void goToAdminPortal(){
+		try {
+			AnchorPane pane;
+	    	FXMLLoader adminPortal = new FXMLLoader(getClass().getResource("../portal/AdminPortal.fxml"));
+	    	pane = adminPortal.load();
+	    	rootPane.getChildren().setAll(pane);
+	    	AdminPController controller = adminPortal.getController();
+			controller.initiate(menu, bms);
+		} 
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 }
