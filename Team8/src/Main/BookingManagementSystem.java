@@ -1,5 +1,6 @@
 package Main;
 
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import business.Company;
@@ -19,6 +20,7 @@ import mainController.MainController;
 public class BookingManagementSystem extends Application {
 	private static final Logger LOGGER = Logger.getLogger("InfoLogging");
 	private MainController menu;
+	private ArrayList<Company> company_list;
 	
 	public BookingManagementSystem() {
 		CustomerDatabase customerDb = new CustomerDatabase();
@@ -32,6 +34,7 @@ public class BookingManagementSystem extends Application {
 		comp.getCalendar().updateCalendar(comp.getEmployeeList());
 		LOGGER.info("Updated Calendar");
 		menu = new MainController(comp, customerDb, companyDb, availDb, bookingDb, servDb);
+		company_list = new ArrayList<Company>();
 		
 	}
 	
@@ -53,6 +56,16 @@ public class BookingManagementSystem extends Application {
 		catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	//TODO: Need a function to pull info from db and fill company_list
+	
+	public void addCompany(Company company) {
+		company_list.add(company);
+	}
+	
+	public ArrayList<Company> getCompanyList() {
+		return company_list;
 	}
 	
 	public MainController getMenu() {

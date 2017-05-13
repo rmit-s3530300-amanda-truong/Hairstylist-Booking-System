@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
+import business.Company;
 import gui.portal.BusinessPController;
 import gui.portal.CustomerPController;
 import gui.register.RegisterCustomerController;

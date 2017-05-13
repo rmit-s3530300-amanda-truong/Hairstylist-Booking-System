@@ -10,7 +10,6 @@ import com.jfoenix.controls.JFXRadioButton;
 
 import business.Company;
 import business.Employee;
-import business.Employee.Service;
 import gui.login.LoginController;
 import gui.portal.BusinessPController;
 import gui.portal.CustomerPController;
@@ -34,7 +33,7 @@ public class MakeBooking3Controller {
 	
 	private String cust_id;
 	
-	private Service service;
+	private String service;
 	
 	private Employee employee=null;
 	
@@ -51,7 +50,7 @@ public class MakeBooking3Controller {
 	@FXML
     private JFXButton gotoLogout;
 
-	public void initiate(MainController menu, String cust_id, Service service, String portal) {
+	public void initiate(MainController menu, String cust_id, String service, String portal) {
 		this.menu = menu;
 		this.cust_id = cust_id;
 		this.service = service;
@@ -64,8 +63,8 @@ public class MakeBooking3Controller {
 		HashMap<String, Employee> empList = comp.getEmployeeList();
 		for(Entry<String, Employee> entry : empList.entrySet()) {
 			Employee emp = entry.getValue();
-			ArrayList<Service> serv = emp.getService();
-			for(Service s : serv){
+			ArrayList<String> serv = emp.getService();
+			for(String s : serv){
 				if(s.equals(service)) {
 					avail_list.add(emp);
 				}

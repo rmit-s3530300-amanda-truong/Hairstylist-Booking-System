@@ -22,7 +22,7 @@ public class MakeBooking5Controller {
 	
 	private String cust_id;
 	
-	private Service service;
+	private String service;
 	
 	private Employee employee;
 	
@@ -46,7 +46,7 @@ public class MakeBooking5Controller {
     private void initialize(){
     }
 
-	public void initiate(MainController menu, String cust_id, Service service, Employee employee, LocalDate date, String portal) {
+	public void initiate(MainController menu, String cust_id, String service, Employee employee, LocalDate date, String portal) {
 		this.menu = menu;
 		this.cust_id = cust_id;
 		this.service = service;

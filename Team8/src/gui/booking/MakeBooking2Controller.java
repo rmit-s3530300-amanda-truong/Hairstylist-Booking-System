@@ -1,12 +1,12 @@
 package gui.booking;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXRadioButton;
 
 import business.Employee;
-import business.Employee.Service;
 import gui.login.LoginController;
 import gui.portal.BusinessPController;
 import gui.portal.CustomerPController;
@@ -18,6 +18,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Font;
 import mainController.MainController;
 
 public class MakeBooking2Controller {
@@ -25,7 +26,7 @@ public class MakeBooking2Controller {
 	
 	private String cust_id;
 	
-	private String services = null;
+	private String service = null;
 	
 	private String portal;
 	
@@ -37,7 +38,7 @@ public class MakeBooking2Controller {
 	@FXML
     private JFXButton gotoLogout;
 	
-	@FXML
+	/*@FXML
 	private JFXRadioButton femaleCut;
 	
 	@FXML
@@ -59,14 +60,42 @@ public class MakeBooking2Controller {
 	private JFXRadioButton femalePerm;
 	
 	@FXML
-	private JFXRadioButton malePerm;
+	private JFXRadioButton malePerm;*/
 
 	public void initiate(MainController menu, String cust_id, String portal) {
 		this.menu = menu;
 		this.cust_id = cust_id;
 		this.portal = portal;
+		int counter = 0;
+		ArrayList<String> services_list = menu.getCompany().getService();
+		ArrayList<JFXRadioButton> buttons = new ArrayList<JFXRadioButton>();
 		
-		femaleWash.setUserData("Female Wash");
+		if(services_list.size() > 0) {
+			for(String serv : services_list) {
+				JFXRadioButton b = new JFXRadioButton();
+				b.setUserData(serv);
+				b.setText(serv);
+				b.setStyle("-fx-text-fill: white");
+				b.setFont(Font.font(16));
+				if(counter <4) {
+					b.setLayoutX(487.0);
+					b.setLayoutY(305.0+(counter*50));
+				} else {
+					b.setLayoutX(715.0);
+					b.setLayoutY(305.0+((counter-4)*50));
+				}
+				rootPane.getChildren().add(b);
+				buttons.add(b);
+				counter++;
+			}
+			for(JFXRadioButton button : buttons) {
+				button.setToggleGroup(group);
+			}
+			buttons.get(0).setSelected(true);
+			service = (String)buttons.get(0).getUserData();
+		}
+		
+		/*femaleWash.setUserData("Female Wash");
 		femaleCut.setUserData("Female Cut");
 		femaleDye.setUserData("Female Dye");
 		femalePerm.setUserData("Female Perm");
@@ -85,13 +114,13 @@ public class MakeBooking2Controller {
 		malePerm.setToggleGroup(group);
 
 		femaleCut.setSelected(true);
-		services = "Female Cut";
+		services = "Female Cut";*/
 		
 		group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
 
 			@Override
 			public void changed(ObservableValue<? extends Toggle> arg0, Toggle arg1, Toggle arg2) {
-				services = arg2.getUserData().toString();
+				service = arg2.getUserData().toString();
 				
 			}
 			
@@ -100,7 +129,7 @@ public class MakeBooking2Controller {
 	
 	@FXML
 	void next(ActionEvent event) throws IOException {
-		Employee.Service service;
+		/*Employee.Service service;
 		if(services.equals("Female Cut")) {
 			service = Service.femaleCut;
 		} 
@@ -126,9 +155,9 @@ public class MakeBooking2Controller {
 			service = Service.maleWash;
 		} else {
 			service = null;
-		}
+		}*/
 		
-		System.out.println(service.toString());
+		// System.out.println(service.toString());
 		AnchorPane pane;
     	FXMLLoader mb3 = new FXMLLoader(getClass().getResource("MakeBooking3.fxml"));
     	pane = mb3.load();
