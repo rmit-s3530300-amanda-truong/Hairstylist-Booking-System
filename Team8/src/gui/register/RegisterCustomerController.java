@@ -8,6 +8,7 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
 import Main.BookingManagementSystem;
+import business.Company;
 import business.Customer;
 import gui.login.LoginController;
 import gui.portal.CustomerPController;
@@ -28,6 +29,8 @@ public class RegisterCustomerController {
 			("VIC", "NSW","Queensland", "WA", "SA", "Tasmania");
 	
 	private MainController menu;
+	private Company comp;
+	
 	@FXML
 	private AnchorPane rootPane;
 	
@@ -105,8 +108,9 @@ public class RegisterCustomerController {
     	rc_state.setItems(rc_stateList);
     }
 
-	public void initiate(MainController menu, BookingManagementSystem bms) {
-		this.menu = menu;
+	public void initiate(Company comp, BookingManagementSystem bms) {
+		this.comp = comp;
+		menu = comp.getMenu();
 		this.bms = bms;
 	}
 	
@@ -234,7 +238,7 @@ public class RegisterCustomerController {
 			String fullAddress = address + ", " + suburb + ", " + state + " "+ postcode;
 			menu.registerCustomer(username, fname, lname, password, mobile, fullAddress);
 			Customer c = new Customer(username, fname, lname);
-			menu.getCompany().addCustomer(c);
+			comp.addCustomer(c);
 			goToPortal();
 		}
 	}
@@ -246,7 +250,7 @@ public class RegisterCustomerController {
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	LoginController controller = login.getController();
-		controller.initiate(menu, bms);
+		controller.initiate(comp, bms);
     }
 	
     void goToPortal() throws IOException{
@@ -255,7 +259,7 @@ public class RegisterCustomerController {
     	pane = customerPortal.load();
     	rootPane.getChildren().setAll(pane);
     	CustomerPController controller = customerPortal.getController();
-    	controller.initiate(menu, rc_username.getText(), bms);
+    	controller.initiate(comp, rc_username.getText(), bms);
     }
     
     @FXML
@@ -265,6 +269,6 @@ public class RegisterCustomerController {
     	pane = business.load();
     	rootPane.getChildren().setAll(pane);
     	PreWelcomeController controller = business.getController();
-		controller.initiate(menu, bms);
+		controller.initiate(bms);
     }
 }

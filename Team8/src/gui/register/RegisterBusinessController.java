@@ -113,7 +113,7 @@ public class RegisterBusinessController {
     	pane = welcome.load();
     	rootPane.getChildren().setAll(pane);
     	PreWelcomeController controller = welcome.getController();
-		controller.initiate(menu, bms);
+		controller.initiate(bms);
     }
     
     @FXML

@@ -38,9 +38,9 @@ public class MakeBooking1Controller {
 	@FXML
 	private Label invalid;
 
-	public void initiate(MainController menu, BookingManagementSystem bms) {
-		this.menu = menu;
-		comp = menu.getCompany();
+	public void initiate(Company comp, BookingManagementSystem bms) {
+		this.comp = comp;
+		menu = comp.getMenu();
 		this.bms = bms;
 	}
 	
@@ -58,7 +58,7 @@ public class MakeBooking1Controller {
 	    	pane = m2.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	MakeBooking2Controller controller = m2.getController();
-	    	controller.initiate(menu, cust_id, "business", bms);
+	    	controller.initiate(comp, cust_id, "business", bms);
 		}
 	}
 	
@@ -74,7 +74,7 @@ public class MakeBooking1Controller {
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	LoginController controller = login.getController();
-		controller.initiate(menu, bms);
+		controller.initiate(comp, bms);
     }
 	
 	@FXML
@@ -84,6 +84,6 @@ public class MakeBooking1Controller {
     	pane = bussPortal.load();
     	rootPane.getChildren().setAll(pane);
     	BusinessPController controller = bussPortal.getController();
-    	controller.initiate(menu, bms);
+    	controller.initiate(comp, bms);
     }
 }

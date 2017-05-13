@@ -11,6 +11,7 @@ import java.util.Map.Entry;
 import com.jfoenix.controls.JFXButton;
 
 import Main.BookingManagementSystem;
+import business.Company;
 import business.Employee;
 import calendar.Booking;
 import calendar.Calendar.Status;
@@ -29,6 +30,7 @@ import mainController.MainController;
 public class ViewAfternoonController {
 	
 	private MainController menu;
+	private Company comp;
 	
 	@FXML
 	private Pane displayPane;
@@ -104,8 +106,9 @@ public class ViewAfternoonController {
 	
 	private BookingManagementSystem bms;
     
-	public void initiate(MainController menu, String cust_id, String portal, BookingManagementSystem bms) {
-		this.menu = menu;
+	public void initiate(Company comp, String cust_id, String portal, BookingManagementSystem bms) {
+		this.comp = comp;
+		menu = comp.getMenu();
 		this.portal = portal;
 		this.cust_id = cust_id;
 		this.bms = bms;
@@ -117,11 +120,11 @@ public class ViewAfternoonController {
 	@FXML
 	void createRectangles()
 	{
-		ArrayList<Booking> bookingList = menu.getCompany().getCalendar().getBookingList();
-		HashMap<String, Employee> empList = menu.getCompany().getEmployeeList();
+		ArrayList<Booking> bookingList = comp.getCalendar().getBookingList();
+		HashMap<String, Employee> empList = comp.getEmployeeList();
 		int columns = 7, horizontal = 95, vertical = 25;
         Rectangle rect = null;
-        LocalDate current = menu.getCompany().getCalendar().getDate();
+        LocalDate current = comp.getCalendar().getDate();
         for(int i = 0; i < columns; i++)
         {
         	//only creating rectangles for afternoon times 12:00 - 16:00
@@ -136,7 +139,7 @@ public class ViewAfternoonController {
                 //checking if employee is available at time slot, if yes colour green, if not grey
                 for(Entry<String, Employee> x : empList.entrySet()) {
         			String ID = x.getKey();
-        			HashMap<DayOfWeek,ArrayList<LocalTime>> availList = menu.getCompany().getEmployee(ID).getAvailability();
+        			HashMap<DayOfWeek,ArrayList<LocalTime>> availList = comp.getEmployee(ID).getAvailability();
         			for(Entry<DayOfWeek,ArrayList<LocalTime>> y : availList.entrySet())
         			{
         				DayOfWeek day = y.getKey();
@@ -213,7 +216,7 @@ public class ViewAfternoonController {
 		time15 = new Label();
 		time16 = new Label();
 
-		LocalDate current = menu.getCompany().getCalendar().getDate();
+		LocalDate current = comp.getCalendar().getDate();
 		day1.setText(current.toString());
 		day1.setLayoutX(225.0);
 		day1.setLayoutY(94.0);
@@ -361,7 +364,7 @@ public class ViewAfternoonController {
     	pane = viewCalendar.load();
     	rootPane.getChildren().setAll(pane);
     	CalendarController controller = viewCalendar.getController();
-		controller.initiate(menu, cust_id, portal, bms);
+		controller.initiate(comp, cust_id, portal, bms);
 	}
 	
 	@FXML
@@ -371,7 +374,7 @@ public class ViewAfternoonController {
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	LoginController controller = login.getController();
-		controller.initiate(menu, bms);
+		controller.initiate(comp, bms);
     }
 	
 	@FXML
@@ -382,14 +385,14 @@ public class ViewAfternoonController {
 	    	pane = bussPortal.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	BusinessPController controller = bussPortal.getController();
-	    	controller.initiate(menu, bms);
+	    	controller.initiate(comp, bms);
 		} else {
 			AnchorPane pane;
 	    	FXMLLoader cusPortal = new FXMLLoader(getClass().getResource("../portal/CustomerPortal.fxml"));
 	    	pane = cusPortal.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	CustomerPController controller = cusPortal.getController();
-	    	controller.initiate(menu, cust_id, bms);
+	    	controller.initiate(comp, cust_id, bms);
 		}
 	}
 }

@@ -5,6 +5,7 @@ import java.io.IOException;
 import com.jfoenix.controls.JFXButton;
 
 import Main.BookingManagementSystem;
+import business.Company;
 import gui.login.LoginController;
 import gui.register.RegisterCustomerController;
 import javafx.event.ActionEvent;
@@ -16,6 +17,7 @@ import mainController.MainController;
 public class WelcomeController {
 	
 	private MainController menu;
+	private Company comp;
 	
 	@FXML
 	private AnchorPane rootPane;
@@ -35,7 +37,7 @@ public class WelcomeController {
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	LoginController controller = login.getController();
-		controller.initiate(menu, bms);
+		controller.initiate(comp, bms);
     }
     
     @FXML
@@ -45,11 +47,12 @@ public class WelcomeController {
     	pane = register.load();
     	rootPane.getChildren().setAll(pane);
     	RegisterCustomerController controller = register.getController();
-		controller.initiate(menu, bms);
+		controller.initiate(comp, bms);
     }
     
-    public void initiate(MainController menu, BookingManagementSystem bms){
-    	this.menu = menu;
+    public void initiate(Company comp, BookingManagementSystem bms){
+    	this.comp = comp;
+    	menu = comp.getMenu();
     	this.bms = bms;
     }
     
@@ -60,6 +63,6 @@ public class WelcomeController {
     	pane = business.load();
     	rootPane.getChildren().setAll(pane);
     	PreWelcomeController controller = business.getController();
-		controller.initiate(menu, bms);
+		controller.initiate(bms);
     }
 }

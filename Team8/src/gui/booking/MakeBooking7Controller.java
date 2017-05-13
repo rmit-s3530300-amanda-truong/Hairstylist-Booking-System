@@ -54,15 +54,16 @@ public class MakeBooking7Controller {
 	
 	private BookingManagementSystem bms;
 
-	public void initiate(MainController menu, String cust_id, String service, Employee employee, LocalDate date, LocalTime time, String portal, BookingManagementSystem bms) {
-		this.menu = menu;
+	public void initiate(Company comp, String cust_id, String service, Employee employee, LocalDate date, LocalTime time, String portal, BookingManagementSystem bms) {
+		this.comp = comp;
+		menu = comp.getMenu();
 		this.cust_id = cust_id;
 		this.service = service;
 		this.employee = employee;
 		this.date = date;
 		this.time = time;
 		this.portal = portal;
-		this.comp = menu.getCompany();
+		this.comp = comp;
 		this.bms = bms;
 		
 		Label id_label = new Label();
@@ -71,7 +72,7 @@ public class MakeBooking7Controller {
 		Label date_label = new Label();
 		Label time_label = new Label();
 		
-		int time_taken = menu.getCompany().getServiceTime(service);
+		int time_taken = comp.getServiceTime(service);
 		System.out.println(time_taken);
 		end_time = time;
 		for(int i = 0; i<time_taken;i++) {
@@ -124,7 +125,7 @@ public class MakeBooking7Controller {
     	pane = mb5.load();
     	rootPane.getChildren().setAll(pane);
     	MakeBooking5Controller controller = mb5.getController();
-    	controller.initiate(menu, cust_id, service, employee, date, portal, bms);
+    	controller.initiate(comp, cust_id, service, employee, date, portal, bms);
 	}
 	
 	@FXML
@@ -134,7 +135,7 @@ public class MakeBooking7Controller {
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	LoginController controller = login.getController();
-		controller.initiate(menu, bms);
+		controller.initiate(comp, bms);
     }
 	
 	@FXML
@@ -145,14 +146,14 @@ public class MakeBooking7Controller {
 	    	pane = bussPortal.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	BusinessPController controller = bussPortal.getController();
-	    	controller.initiate(menu, bms);
+	    	controller.initiate(comp, bms);
 		} else {
 			AnchorPane pane;
 	    	FXMLLoader cusPortal = new FXMLLoader(getClass().getResource("../portal/CustomerPortal.fxml"));
 	    	pane = cusPortal.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	CustomerPController controller = cusPortal.getController();
-	    	controller.initiate(menu, cust_id, bms);
+	    	controller.initiate(comp, cust_id, bms);
 		}
     }
 }

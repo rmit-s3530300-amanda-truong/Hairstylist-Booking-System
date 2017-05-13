@@ -93,11 +93,11 @@ public class PendingBookingController {
 		return pending;
 	}
 	
-	public void initiate(MainController menu, String cust_id, BookingManagementSystem bms) {
-		this.menu = menu;
+	public void initiate(Company comp, String cust_id, BookingManagementSystem bms) {
 		id = cust_id;
 		this.bms = bms;
-		comp = menu.getCompany();
+		this.comp = comp;
+		menu = comp.getMenu();
 		text.setStyle("-fx-text-fill: white; -fx-font-size: 16;");
 		accept.setToggleGroup(group);
 		accept.setUserData(true);
@@ -112,8 +112,6 @@ public class PendingBookingController {
 			}
 		});
 		getPendingBooking();
-		
-		
 	}
 	
 	@FXML
@@ -132,7 +130,7 @@ public class PendingBookingController {
 					System.out.println("valid "+status);
 					invalid.setText("");
 					if(status) {
-						Boolean s1 = menu.getCompany().getCalendar().acceptBooking(id);
+						Boolean s1 = comp.getCalendar().acceptBooking(id);
 						if(s1){
 							invalid.setStyle("-fx-text-fill: green; -fx-font-size: 16;");
 							invalid.setText("Successfully Accepted");
@@ -142,7 +140,7 @@ public class PendingBookingController {
 							invalid.setText("Invalid Booking ID");
 						}
 					} else {
-						Boolean s2 = menu.getCompany().getCalendar().declineBooking(id);
+						Boolean s2 = comp.getCalendar().declineBooking(id);
 						if(s2) {
 							invalid.setStyle("-fx-text-fill: green; -fx-font-size: 16;");
 							invalid.setText("Successfully Declined");
@@ -170,7 +168,7 @@ public class PendingBookingController {
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	LoginController controller = login.getController();
-		controller.initiate(menu, bms);
+		controller.initiate(comp, bms);
     }
 	
 	@FXML
@@ -181,14 +179,14 @@ public class PendingBookingController {
 	    	pane = bussPortal.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	BusinessPController controller = bussPortal.getController();
-	    	controller.initiate(menu, bms);
+	    	controller.initiate(comp, bms);
 		} else {
 			AnchorPane pane;
 	    	FXMLLoader cusPortal = new FXMLLoader(getClass().getResource("../portal/CustomerPortal.fxml"));
 	    	pane = cusPortal.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	CustomerPController controller = cusPortal.getController();
-	    	controller.initiate(menu, id, bms);
+	    	controller.initiate(comp, id, bms);
 		}
 	}
 }

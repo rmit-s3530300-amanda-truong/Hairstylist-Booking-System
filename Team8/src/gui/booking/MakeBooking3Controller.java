@@ -53,14 +53,14 @@ public class MakeBooking3Controller {
 	
 	private BookingManagementSystem bms;
 
-	public void initiate(MainController menu, String cust_id, String service, String portal, BookingManagementSystem bms) {
-		this.menu = menu;
+	public void initiate(Company comp, String cust_id, String service, String portal, BookingManagementSystem bms) {
+		this.comp = comp;
+		menu = comp.getMenu();
 		this.cust_id = cust_id;
 		this.service = service;
 		this.portal = portal;
 		this.bms = bms;
 		int counter = 0;
-		comp = menu.getCompany();
 		
 		ArrayList<Employee> avail_list = new ArrayList<Employee>();
 		
@@ -136,7 +136,7 @@ public class MakeBooking3Controller {
 	    	pane = mb4.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	MakeBooking4Controller controller = mb4.getController();
-	    	controller.initiate(menu, cust_id, service, employee, portal, bms);
+	    	controller.initiate(comp, cust_id, service, employee, portal, bms);
 			
 		}
 	}
@@ -148,7 +148,7 @@ public class MakeBooking3Controller {
     	pane = mb2.load();
     	rootPane.getChildren().setAll(pane);
     	MakeBooking2Controller controller = mb2.getController();
-    	controller.initiate(menu, cust_id, portal, bms);
+    	controller.initiate(comp, cust_id, portal, bms);
 	}
 	
 	@FXML
@@ -158,7 +158,7 @@ public class MakeBooking3Controller {
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	LoginController controller = login.getController();
-		controller.initiate(menu, bms);
+		controller.initiate(comp, bms);
     }
 	
 	@FXML
@@ -169,14 +169,14 @@ public class MakeBooking3Controller {
 	    	pane = bussPortal.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	BusinessPController controller = bussPortal.getController();
-	    	controller.initiate(menu,bms);
+	    	controller.initiate(comp,bms);
 		} else {
 			AnchorPane pane;
 	    	FXMLLoader cusPortal = new FXMLLoader(getClass().getResource("../portal/CustomerPortal.fxml"));
 	    	pane = cusPortal.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	CustomerPController controller = cusPortal.getController();
-	    	controller.initiate(menu, cust_id,bms);
+	    	controller.initiate(comp, cust_id,bms);
 		}
     }
 }
