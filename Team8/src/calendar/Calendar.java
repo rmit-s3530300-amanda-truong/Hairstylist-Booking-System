@@ -8,7 +8,6 @@ import java.util.Map.Entry;
 import java.util.logging.Logger;
 
 import business.Employee;
-import business.Employee.Service;
 import calendar.Calendar;
 
 public class Calendar {
@@ -133,7 +132,7 @@ public class Calendar {
 			Booking book = entry.getValue();
 			LocalTime start_time = book.getStartTime();
 			LocalTime end_time = book.getEndTime();
-			Service service = book.getServices();
+			String service = book.getServices();
 			String emp_id = book.getEmployee().getID();
 			
 			output = output + String.format("Booking ID: %s, Status: %s, Date: %s, Start Time: %s, End Time: %s, Customer: %s, Service: %s, Employee: %s \n",book.getID(), book.getStatus().toString(), book.getDate(), start_time, end_time, book.getCustomerID(), service, emp_id);
@@ -196,7 +195,7 @@ public class Calendar {
 	}
 	
 	// returns false when cannot book
-	public Boolean requestBooking(LocalDate date, LocalTime start_time, LocalTime end_time, Employee emp, Service service, String customer_id) {
+	public Boolean requestBooking(LocalDate date, LocalTime start_time, LocalTime end_time, Employee emp, String service, String customer_id) {
 		Boolean isBooked = false;
 		ArrayList<Booking> booking_list = new ArrayList<Booking>();
 		ArrayList<LocalTime> times_list = new ArrayList<LocalTime>();
@@ -482,7 +481,7 @@ public class Calendar {
 		for(Booking book : list) {
 			LocalTime start_time = book.getStartTime();
 			LocalTime end_time = book.getEndTime();
-			Service service = book.getServices();
+			String service = book.getServices();
 			String emp_id = book.getEmployee().getID();
 			
 			output = output + String.format("Booking ID: %s, Status: %s, Date: %s, Start Time: %s, End Time: %s, Customer: %s, Service: %s, Employee: %s \n",book.getID(), book.getStatus().toString(), book.getDate(), start_time, end_time, book.getCustomerID(), service, emp_id);
@@ -495,7 +494,7 @@ public class Calendar {
 		for(Booking book : displayBookedList) {
 			LocalTime start_time = book.getStartTime();
 			LocalTime end_time = book.getEndTime();
-			Service service = book.getServices();
+			String service = book.getServices();
 			String emp_id = book.getEmployee().getID();
 			
 			output = output + String.format("Booking ID: %s, Status: %s, Date: %s, Start Time: %s, End Time: %s, Customer: %s, Service: %s, Employee: %s \n",book.getID(), book.getStatus().toString(), book.getDate(), start_time, end_time, book.getCustomerID(), service, emp_id);

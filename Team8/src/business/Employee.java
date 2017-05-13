@@ -12,11 +12,11 @@ public class Employee {
 	private String lastName;
 	private HashMap<DayOfWeek, ArrayList<LocalTime>> availability;
 	private HashMap<LocalDate, ArrayList<LocalTime>> bookings;
-	private ArrayList<Service> serviceType;
+	private ArrayList<String> serviceType;
 	private Logger LOGGER = Logger.getLogger("InfoLogging");
 	
 	// 1 block equals to 15 minutes so 2 blocks is 30minutes etc
-	public enum Service {
+	/*public enum Service {
 		femaleCut(2),
 		maleCut(1),
 		femaleDye(4),
@@ -35,19 +35,19 @@ public class Employee {
 		public int getTime() {
 			return time;
 		}
-	}
+	}*/
 	
 	@SuppressWarnings("unchecked")
-	public Employee(String ID, String firstName, String lastName, ArrayList<Service> serviceType){
+	public Employee(String ID, String firstName, String lastName, ArrayList<String> serviceType){
 		this.ID = ID;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.serviceType = (ArrayList<Service>) serviceType.clone(); 
+		this.serviceType = (ArrayList<String>) serviceType.clone(); 
 		availability = new HashMap<DayOfWeek, ArrayList<LocalTime>>();
 		bookings =  new HashMap<LocalDate, ArrayList<LocalTime>>();
 	}
 	
-	public ArrayList<Service> getService() {
+	public ArrayList<String> getService() {
 		return serviceType;
 	}
 	

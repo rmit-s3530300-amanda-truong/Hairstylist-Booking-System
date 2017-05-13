@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
 
-import business.Employee.Service;
 import calendar.Booking;
 import calendar.Calendar;
 import calendar.Calendar.Status;
@@ -24,11 +23,18 @@ public class Company {
 	private HashMap<String, Customer> custList;
 	private Logger LOGGER = Logger.getLogger("InfoLogging");
 	private Calendar calendar;
+	private ArrayList<String> services;
+	// String is service name, int is time taken
+	private HashMap<String, Integer> service_times; 
+	private LocalTime start_time;
+	private LocalTime end_time;
 	
 	public Company() {
 		employeeList = new HashMap<String, Employee>();
 		custList = new HashMap<String, Customer>();
 		this.calendar = new Calendar(LocalDate.now());
+		services = new ArrayList<String>();
+		service_times = new HashMap<String, Integer>();
 	}
 	
 	public void addCustomer(Customer customer) {
@@ -44,6 +50,34 @@ public class Company {
 	
 	public HashMap<String, Customer> getCustList() {
 		return custList;
+	}
+	
+	public void setStartTime(LocalTime time) {
+		start_time = time;
+	}
+	
+	public void setEndTime(LocalTime time) {
+		end_time = time;
+	}
+	
+	public void addService(String service) {
+		services.add(service);
+	}
+	
+	public ArrayList<String> getService() {
+		return services;
+	}
+	
+	public void addServiceTime(String service, int time) {
+		service_times.put(service, time);
+	}
+	
+	public HashMap<String, Integer> getServiceTime() {
+		return service_times;
+	}
+	
+	public int getServiceTime(String service) {
+		return service_times.get(service);
 	}
 	
 	// For debugging to print out all employee availability
@@ -69,7 +103,7 @@ public class Company {
 		HashMap<String, ArrayList<String>> availValues;
 		HashMap<String, ArrayList<String>> bookValues;
 		HashMap<String, String> serviceTimeDb;
-		HashMap<Service, String> serviceList;
+		//HashMap<Service, String> serviceList;
 		ArrayList<Booking> bookList;
 		empValues = companyDb.storeEmpValues();
 		setEmployeeList(empValues);
@@ -84,7 +118,7 @@ public class Company {
 		bookList = setBookingList(bookValues);
 		LOGGER.info("Set Booking Values"); 
 		serviceTimeDb = servDb.storeServiceValues();
-		serviceList = setServList(serviceTimeDb);
+		//serviceList = setServList(serviceTimeDb);
 		LOGGER.info("Set Service Values");
 	}
 	
@@ -134,7 +168,7 @@ public class Company {
 		this.custList = custList;
 	}
 	
-	public HashMap<Service,String> setServList(HashMap<String,String> map) {
+	/*public HashMap<String,String> setServList(HashMap<String,String> map) {
 		HashMap<Service,String> serviceList = new HashMap<Service, String>();
 		for(Entry<String, String> x : map.entrySet()) {
 			String[] key = x.getKey().split(":");
@@ -144,7 +178,7 @@ public class Company {
 			serviceList.put(service, time);
 		}
 		return serviceList;
-	}
+	}*/
 	
 	public ArrayList<Booking> setBookingList(HashMap<String, ArrayList<String>> map){
 		ArrayList<Booking> bookList = new ArrayList<Booking>();
@@ -154,7 +188,7 @@ public class Company {
 		String employeeID;
 		String statusStr;
 		String serviceStr;
-		Service service;
+		String service;
 		String dateStr;
 		String timeStr;
 		LocalDate date;
@@ -171,7 +205,7 @@ public class Company {
 			serviceStr = infoList.get(4);
 			statusStr = infoList.get(5);
 			status = getStatus(statusStr);
-			service = getService(serviceStr);
+			service = serviceStr;
 			String[] timeList = timeStr.split("-");
 			String startTimeStr = timeList[0];
 			String endTimeStr = timeList[1];
@@ -213,14 +247,14 @@ public class Company {
 	public void setEmployeeList(HashMap<String, HashMap<String, String>> map) {
 		HashMap<String, Employee> employList = new HashMap<String, Employee>();
 		for(Entry<String, HashMap<String,String>> x : map.entrySet()) {
-			ArrayList<Service> service_arraylist = new ArrayList<Service>();
+			ArrayList<String> service_arraylist = new ArrayList<String>();
 			String username = x.getKey();
 			String fname = x.getValue().get("fname");
 			String lname = x.getValue().get("lname");
 			String service_list = x.getValue().get("service");
 			String[] services = service_list.split(", ");
 			for(int i=0;i<services.length;i++) {
-				Service type = getService(services[i]);
+				String type = services[i];
 				if(type != null) {
 					service_arraylist.add(type);
 				}
@@ -232,7 +266,7 @@ public class Company {
 	
 	// Helper method for setEmployeeList
 	// Compares string to service enum and returns the service enum if they equal
-	public Service getService(String s) {
+	/*public Service getService(String s) {
 		if(s.equals(Service.femaleCut.toString())){
 			return Service.femaleCut;
 		}
@@ -259,7 +293,7 @@ public class Company {
 		} else {
 			return null;
 		}
-	}
+	}*/
 	
 	public Status getStatus(String s)
 	{
