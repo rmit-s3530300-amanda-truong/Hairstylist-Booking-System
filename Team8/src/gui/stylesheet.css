@@ -26,6 +26,11 @@
 	-fx-background-size: 1400 714;
     -fx-background-repeat: no-repeat;
 }
+#content_ap{
+	-fx-background-image: url("img/content_ap.png");
+	-fx-background-size: 1400 714;
+    -fx-background-repeat: no-repeat;
+}
 #content_addEmp{
 	-fx-background-image: url("img/content.jpg");
 	-fx-background-size: 1400 714;
