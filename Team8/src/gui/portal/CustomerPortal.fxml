@@ -8,8 +8,9 @@
 
 <AnchorPane fx:id="rootPane" prefHeight="788.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.portal.CustomerPController">
    <children>
-      <Pane id="content_cp" layoutY="74.0" prefHeight="714.0" prefWidth="1400.0">
+      <Pane id="content" layoutY="74.0" prefHeight="714.0" prefWidth="1400.0">
          <children>
+            <Pane id="content_cp" layoutY="1.0" prefHeight="714.0" prefWidth="1400.0" />
             <Label layoutX="470.0" layoutY="76.0" text="WELCOME," textFill="WHITE">
                <font>
                   <Font name="Lato Light" size="39.0" />
@@ -32,13 +33,12 @@
                   <Font name="Helvetica-Normal" size="16.0" />
                </font>
             </JFXButton>
-            <Pane id="logo" fx:id="welcome_logo" layoutX="41.0" prefHeight="75.0" prefWidth="166.0" />
-            <Label layoutX="598.0" layoutY="24.0" text="CUSTOMER PORTAL" textFill="WHITE">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
          </children>
       </Pane>
+      <Label fx:id="logoText" layoutX="38.0" layoutY="20.0" maxWidth="615.0" prefHeight="37.0" prefWidth="611.0" textFill="WHITE">
+         <font>
+            <Font name="Lato Black" size="22.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

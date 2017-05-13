@@ -17,12 +17,12 @@
     -fx-background-repeat: no-repeat;
 }
 #content_cp{
-	-fx-background-image: url("img/content_cp.jpg");
+	-fx-background-image: url("img/content_cp.png");
 	-fx-background-size: 1400 714;
     -fx-background-repeat: no-repeat;
 }
 #content_bp{
-	-fx-background-image: url("img/content_bp.jpg");
+	-fx-background-image: url("img/content_bp.png");
 	-fx-background-size: 1400 714;
     -fx-background-repeat: no-repeat;
 }
