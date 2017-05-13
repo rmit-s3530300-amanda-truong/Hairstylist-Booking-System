@@ -54,7 +54,8 @@ public class MakeBooking4Controller {
 	@FXML
     private JFXButton gotoLogout;
 
-	public void initiate(MainController menu, String cust_id, String service, Employee employee, String portal) {
+	public void initiate(MainController menu, String cust_id, String
+			service, Employee employee, String portal) {
 		this.menu = menu;
 		this.cust_id = cust_id;
 		this.service = service;
