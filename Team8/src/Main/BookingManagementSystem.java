@@ -1,6 +1,8 @@
 package Main;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map.Entry;
 import java.util.logging.Logger;
 
 import business.Company;
@@ -23,19 +25,8 @@ public class BookingManagementSystem extends Application {
 	private ArrayList<Company> company_list;
 	
 	public BookingManagementSystem() {
-		CustomerDatabase customerDb = new CustomerDatabase();
-		CompanyDatabase companyDb = new CompanyDatabase();
-		AvailabilityDatabase availDb = new AvailabilityDatabase();
-		BookingDatabase bookingDb = new BookingDatabase();
-		ServicesDatabase servDb = new ServicesDatabase();
-		Company comp = new Company();
-		comp.retrieveDatabaseInfo(customerDb, companyDb, availDb, bookingDb, servDb);
-		LOGGER.info("Retrieved Database Information");
-		comp.getCalendar().updateCalendar(comp.getEmployeeList());
-		LOGGER.info("Updated Calendar");
-		menu = new MainController(comp, customerDb, companyDb, availDb, bookingDb, servDb);
 		company_list = new ArrayList<Company>();
-		
+		createCompanyList();
 	}
 	
 	@Override
@@ -47,7 +38,7 @@ public class BookingManagementSystem extends Application {
 			scene.getStylesheets().add(getClass().getResource("/gui/stylesheet.css").toExternalForm());
 			
 			PreWelcomeController controller = loader.getController();
-			controller.initiate(menu, this);
+			controller.initiate(this);
 			
 			primaryStage.setScene(scene);
 			primaryStage.show();
@@ -59,6 +50,48 @@ public class BookingManagementSystem extends Application {
 	}
 	
 	//TODO: Need a function to pull info from db and fill company_list
+	public void createCompanyList()
+	{
+		HashMap<String, HashMap<String,String>> busValues;
+		CustomerDatabase customerDb = new CustomerDatabase();
+		CompanyDatabase companyDb = new CompanyDatabase();
+		AvailabilityDatabase availDb = new AvailabilityDatabase();
+		BookingDatabase bookingDb = new BookingDatabase();
+		ServicesDatabase servDb = new ServicesDatabase();
+		
+		String compName = null;
+		String username = null;
+		String password = null;
+		String owner_fname = null;
+		String owner_lname = null;
+		String mobile = null;
+		String address = null;
+		String service = null;
+		String busHours = null;
+		
+		busValues = companyDb.storeBusValues();
+		LOGGER.info("Set Business List");
+		for(Entry<String, HashMap<String,String>> entry: busValues.entrySet())
+		{
+			HashMap<String, String> busInfo = entry.getValue();
+			compName = entry.getKey();
+			username = busInfo.get("username");
+			password = busInfo.get("password");
+			owner_fname = busInfo.get("fname");
+			owner_lname = busInfo.get("lname");
+			mobile = busInfo.get("mobile");
+			address = busInfo.get("address");
+			service = busInfo.get("service");
+			busHours = busInfo.get("busHours");
+			Company comp = new Company(compName, username, password, owner_fname, owner_lname, mobile, address, service, busHours);
+			addCompany(comp);
+			comp.retrieveDatabaseInfo(customerDb, companyDb, availDb, bookingDb, servDb);
+			LOGGER.info("Retrieved Database Information");
+			comp.getCalendar().updateCalendar(comp.getEmployeeList());
+			LOGGER.info("Updated Calendar");
+		}
+		LOGGER.info("Set Business Values");
+	}
 	
 	public void addCompany(Company company) {
 		company_list.add(company);

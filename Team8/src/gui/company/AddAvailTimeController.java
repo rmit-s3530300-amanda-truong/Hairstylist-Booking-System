@@ -11,6 +11,7 @@ import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
 
 import Main.BookingManagementSystem;
+import business.Company;
 import gui.login.LoginController;
 import gui.portal.BusinessPController;
 import javafx.collections.FXCollections;
@@ -28,6 +29,7 @@ public class AddAvailTimeController {
 	private Logger LOGGER = Logger.getLogger("InfoLogging");
 	
 	private MainController menu;
+	private Company comp;
 	
 	@FXML
     private AnchorPane rootPane;
@@ -85,8 +87,9 @@ public class AddAvailTimeController {
 
     private BookingManagementSystem bms;
     
-    public void initiate(MainController menu, BookingManagementSystem bms) {
-		this.menu = menu;
+    public void initiate(Company comp, BookingManagementSystem bms) {
+		this.comp = comp;
+    	menu = comp.getMenu();
 		this.bms = bms;
 	}
     
@@ -195,7 +198,7 @@ public class AddAvailTimeController {
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	LoginController controller = login.getController();
-		controller.initiate(menu, bms);
+		controller.initiate(comp, bms);
 		LOGGER.info("Logout");
     }
     
@@ -206,7 +209,7 @@ public class AddAvailTimeController {
     	pane = bussPortal.load();
     	rootPane.getChildren().setAll(pane);
     	BusinessPController controller = bussPortal.getController();
-    	controller.initiate(menu, bms);
+    	controller.initiate(comp, bms);
     	LOGGER.info("Go to Portal");
     }
 

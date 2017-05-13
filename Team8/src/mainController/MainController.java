@@ -24,8 +24,7 @@ public class MainController {
 	private BookingDatabase bookDb;
 	private ServicesDatabase servDb;
 	
-	public MainController(Company company, CustomerDatabase customerDb, CompanyDatabase companyDb, AvailabilityDatabase availDb, BookingDatabase bookDb, ServicesDatabase servDb){
-		comp = company;
+	public MainController(CustomerDatabase customerDb, CompanyDatabase companyDb, AvailabilityDatabase availDb, BookingDatabase bookDb, ServicesDatabase servDb){
 		this.companyDb = companyDb;
 		this.customerDb = customerDb;
 		this.availDb = availDb;
@@ -83,7 +82,7 @@ public class MainController {
 	}
 	
 	public boolean idValid(String id) {
-		if(companyDb.checkValueExists("username",id)){
+		if(companyDb.checkValueExists("username",id,"COMPANY")){
 			return true;
 		}
 		else{

@@ -17,6 +17,7 @@ import database.BookingDatabase;
 import database.CompanyDatabase;
 import database.CustomerDatabase;
 import database.ServicesDatabase;
+import mainController.MainController;
 
 public class Company {
 	private HashMap<String, Employee> employeeList;
@@ -29,14 +30,40 @@ public class Company {
 	private LocalTime start_time;
 	private LocalTime end_time;
 	
-	public Company() {
+	private MainController menu;
+	
+	private String compName;
+	private String username;
+	private String password;
+	private String owner_fname;
+	private String owner_lname;
+	private String mobile;
+	private String address;
+	private String service;
+	private String busHours;
+	
+	public Company(String compName, String username, String password, String fname, String lname, String mobile, String address, String service, String busHours) {
 		employeeList = new HashMap<String, Employee>();
 		custList = new HashMap<String, Customer>();
 		this.calendar = new Calendar(LocalDate.now());
 		services = new ArrayList<String>();
 		service_times = new HashMap<String, Integer>();
+		
+		this.compName = compName;
+		this.username = username;
+		owner_fname = fname;
+		owner_lname = lname;
+		this.mobile = mobile;
+		this.address = address;
+		this.service = service;
+		this.busHours = busHours;
 	}
 	
+	public String getName()
+	{
+		return compName;
+	}
+		
 	public void addCustomer(Customer customer) {
 		String username = customer.getUsername();
 		LOGGER.info("addCustomer: "+customer.getUsername());
@@ -112,7 +139,7 @@ public class Company {
 		HashMap<String, ArrayList<String>> availValues;
 		HashMap<String, ArrayList<String>> bookValues;
 		HashMap<String, String> serviceTimeDb;
-		//HashMap<Service, String> serviceList;
+		HashMap<String, String> serviceList;
 		ArrayList<Booking> bookList;
 		empValues = companyDb.storeEmpValues();
 		setEmployeeList(empValues);
@@ -127,8 +154,14 @@ public class Company {
 		bookList = setBookingList(bookValues);
 		LOGGER.info("Set Booking Values"); 
 		serviceTimeDb = servDb.storeServiceValues();
-		//serviceList = setServList(serviceTimeDb);
+		serviceList = setServList(serviceTimeDb);
 		LOGGER.info("Set Service Values");
+		menu = new MainController(customerDb, companyDb, availDb, bookingDb, servDb);
+	}
+	
+	public MainController getMenu()
+	{
+		return menu;
 	}
 	
 	public HashMap<DayOfWeek, ArrayList<LocalTime>> setAvailList(HashMap<String, ArrayList<String>> list)
@@ -177,17 +210,22 @@ public class Company {
 		this.custList = custList;
 	}
 	
-	/*public HashMap<String,String> setServList(HashMap<String,String> map) {
-		HashMap<Service,String> serviceList = new HashMap<Service, String>();
+	public HashMap<String,String> setServList(HashMap<String,String> map) {
+		HashMap<String,String> serviceList = new HashMap<String, String>();
 		for(Entry<String, String> x : map.entrySet()) {
 			String[] key = x.getKey().split(":");
-			String serviceStr = key[1];
-			Service service = getService(serviceStr);
-			String time = x.getValue();
-			serviceList.put(service, time);
+			if(key[0].equals(compName))
+			{
+				String service = key[1];
+				String time = x.getValue();
+				serviceList.put(service, time);
+				services.add(service);
+				addServiceTime(service,Integer.parseInt(time));
+			}
 		}
+
 		return serviceList;
-	}*/
+	}
 	
 	public ArrayList<Booking> setBookingList(HashMap<String, ArrayList<String>> map){
 		ArrayList<Booking> bookList = new ArrayList<Booking>();

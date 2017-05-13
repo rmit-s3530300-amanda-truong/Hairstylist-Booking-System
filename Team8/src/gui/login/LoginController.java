@@ -23,6 +23,7 @@ import mainController.MainController;
 public class LoginController {
 
 	private MainController menu;
+	private Company comp;
 	
 	@FXML
 	private AnchorPane rootPane;
@@ -44,8 +45,9 @@ public class LoginController {
     
     private BookingManagementSystem bms;
     
-    public void initiate(MainController menu, BookingManagementSystem bms){
-    	this.menu = menu;
+    public void initiate(Company comp, BookingManagementSystem bms){
+    	this.comp = comp;
+    	menu = comp.getMenu();
     	this.bms = bms;
     }
 
@@ -75,7 +77,7 @@ public class LoginController {
     	pane = register.load();
     	rootPane.getChildren().setAll(pane);
     	RegisterCustomerController controller = register.getController();
-		controller.initiate(menu, bms);
+		controller.initiate(comp, bms);
     }
 	
     //loads customer portal scene
@@ -86,7 +88,7 @@ public class LoginController {
 	    	pane = custPortal.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	CustomerPController controller = custPortal.getController();
-			controller.initiate(menu, username, bms);
+			controller.initiate(comp, username, bms);
 		} 
 		catch (IOException e) {
 			e.printStackTrace();
@@ -101,7 +103,7 @@ public class LoginController {
 	    	pane = bussPortal.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	BusinessPController controller = bussPortal.getController();
-			controller.initiate(menu, bms);
+			controller.initiate(comp, bms);
 		} 
 		catch (IOException e) {
 			e.printStackTrace();
@@ -115,7 +117,7 @@ public class LoginController {
     	pane = business.load();
     	rootPane.getChildren().setAll(pane);
     	PreWelcomeController controller = business.getController();
-		controller.initiate(menu, bms);
+		controller.initiate(bms);
     }
 	
 	void goToAdminPortal(){

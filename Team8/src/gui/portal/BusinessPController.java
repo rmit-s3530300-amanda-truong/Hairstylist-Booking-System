@@ -5,6 +5,7 @@ import java.io.IOException;
 import com.jfoenix.controls.JFXButton;
 
 import Main.BookingManagementSystem;
+import business.Company;
 import gui.booking.MakeBooking1Controller;
 import gui.booking_summary.BookingHistoryController;
 import gui.booking_summary.UpcomingBookingController;
@@ -22,6 +23,7 @@ import mainController.MainController;
 public class BusinessPController {
 	
 	private MainController menu;
+	private Company comp;
 	
 	@FXML
 	private AnchorPane rootPane;
@@ -52,8 +54,9 @@ public class BusinessPController {
 	
 	private BookingManagementSystem bms;
 	
-	public void initiate(MainController menu, BookingManagementSystem bms) {
-		this.menu = menu;
+	public void initiate(Company comp, BookingManagementSystem bms) {
+		this.comp = comp;
+		menu = comp.getMenu();
 		this.bms = bms;
 	}
 	
@@ -64,7 +67,7 @@ public class BusinessPController {
     	pane = addEmp.load();
     	rootPane.getChildren().setAll(pane);
     	AddEmpController controller = addEmp.getController();
-		controller.initiate(menu, bms);
+		controller.initiate(comp, bms);
 	}
 	
 	@FXML
@@ -74,7 +77,7 @@ public class BusinessPController {
     	pane = addAvail.load();
     	rootPane.getChildren().setAll(pane);
     	AddAvailTimeController controller = addAvail.getController();
-		controller.initiate(menu, bms);
+		controller.initiate(comp, bms);
 		
 	}
 	
@@ -85,7 +88,7 @@ public class BusinessPController {
     	pane = makeBook.load();
     	rootPane.getChildren().setAll(pane);
     	MakeBooking1Controller controller = makeBook.getController();
-		controller.initiate(menu, bms);
+		controller.initiate(comp, bms);
 	}
 	
 	@FXML
@@ -95,7 +98,7 @@ public class BusinessPController {
     	pane = upcomingBooking.load();
     	rootPane.getChildren().setAll(pane);
     	UpcomingBookingController controller = upcomingBooking.getController();
-		controller.initiate(menu,null, bms);
+		controller.initiate(comp,null, bms);
 	}
 	
 	@FXML
@@ -105,7 +108,7 @@ public class BusinessPController {
 		pane = viewCalendar.load();
 		rootPane.getChildren().setAll(pane);
 		CalendarController controller = viewCalendar.getController();
-		controller.initiate(menu, null, "business", bms);
+		controller.initiate(comp, null, "business", bms);
 	}
 	
 	@FXML
@@ -115,7 +118,7 @@ public class BusinessPController {
     	pane = pastBooking.load();
     	rootPane.getChildren().setAll(pane);
     	BookingHistoryController controller = pastBooking.getController();
-		controller.initiate(menu,null, bms);
+		controller.initiate(comp,null, bms);
 	}
 	
 	@FXML
@@ -125,6 +128,6 @@ public class BusinessPController {
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	LoginController controller = login.getController();
-		controller.initiate(menu, bms);
+		controller.initiate(comp, bms);
 	}
 }

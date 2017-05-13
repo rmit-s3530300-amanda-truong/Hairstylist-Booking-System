@@ -13,6 +13,7 @@ public class CompanyDatabase{
 	private static Statement stmt = null;
 	private static ResultSet result = null;
 	private static boolean hasData = false;
+	private static boolean bus_hasData = false;
 	private static PreparedStatement prep = null;
 	private Logger LOGGER = Logger.getLogger("InfoLogging");
 	
@@ -25,6 +26,7 @@ public class CompanyDatabase{
 	public Connection initialise()
 	{
 		Connection connInit = getConnection();
+		createBusinessTable();
 		createCompanyTable();
 		return connInit;
 	}
@@ -86,6 +88,79 @@ public class CompanyDatabase{
 		}
 	}
 	
+	private void createBusinessTable()
+	{
+		try
+		{
+			if(conn.isClosed())
+			{
+				getConnection();
+			}		
+			if(!bus_hasData)
+			{
+				bus_hasData = true;
+				stmt = conn.createStatement();
+				//checking if there is already a table created in the database
+				result = stmt.executeQuery("SELECT name FROM sqlite_master WHERE type= 'table' AND name='user'");
+				if(!result.next())
+				{
+					stmt = conn.createStatement();
+					String sql = "CREATE TABLE IF NOT EXISTS BUSINESS ("
+							+ "username text NOT NULL	,"
+							+ "compName text			,"
+							+ "fname text 				,"
+							+ "lname text 				,"
+							+ "password text NOT NULL	,"
+							+ "mobile text 				,"
+							+ "address text		     	,"
+							+ "service text				,"
+							+ "busHours text);";
+					stmt.executeUpdate(sql);
+					stmt.close();
+					conn.close();
+				}
+			}
+		}
+		catch (Exception e)
+		{
+			LOGGER.info(e.getClass().getName() + ": " + e.getMessage());
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+	}
+	
+	// add business owner or employee info to a record
+	public void addBusiness(String username, String cname, String bFname, String bLname, String pw,
+			String mobile, String address, String service, String busHours)
+	{		
+		try
+		{
+			if(conn.isClosed())
+			{
+				getConnection();
+			}
+			prep = conn.prepareStatement("INSERT INTO COMPANY values(?,?,?,?,?,?,?,?,?);");
+			prep.setString(1, username);
+			prep.setString(2, cname);
+			prep.setString(3, bFname);
+			prep.setString(4, bLname);
+			prep.setString(5, pw);
+			prep.setString(6, mobile);
+			prep.setString(7, address);
+			prep.setString(8, service);
+			prep.setString(9, busHours);
+			prep.execute();
+			prep.close();
+			conn.close();
+		}
+		catch( Exception e)
+		{
+			LOGGER.info(e.getClass().getName() + ": " + e.getMessage());
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+	}
+	
 	// add business owner or employee info to a record
 	public void addBusInfo(String username, String cname, String bFname, String bLname, String pw,
 			String mobile, String address, String service, String busStatus)
@@ -119,7 +194,7 @@ public class CompanyDatabase{
 	}
 	
 	//check if value exists in table
-	public Boolean checkValueExists(String col, String value)
+	public Boolean checkValueExists(String col, String value, String tableName)
 	{
 		Boolean checkExists = null;
 		String colName = null;
@@ -165,7 +240,11 @@ public class CompanyDatabase{
 			{
 				colName = "busStatus";
 			}
-			prep = conn.prepareStatement("SELECT * FROM COMPANY WHERE "+colName+" = ?;");
+			else if(col.equals("busHours"))
+			{
+				colName = "busHours";
+			}
+			prep = conn.prepareStatement("SELECT * FROM " + tableName + " WHERE " + colName + " = ?;");
 			prep.setString(1, value);
 			result = prep.executeQuery();
 			if(result.next())
@@ -227,6 +306,52 @@ public class CompanyDatabase{
 		return empValues;
 	}
 	
+	public HashMap<String, HashMap<String,String>> storeBusValues()
+	{
+		HashMap<String, HashMap<String,String>> busValues = new HashMap<String, HashMap<String,String>>();
+		try
+		{
+			if(conn.isClosed())
+			{
+				getConnection();
+			}
+			stmt = conn.createStatement();
+			result = stmt.executeQuery("SELECT * FROM BUSINESS");
+			while (result.next())
+			{
+				HashMap<String,String> busInfo = new HashMap<String,String>();
+				String id = result.getString("username");
+				String compName = result.getString("compName");
+				String fName = result.getString("fname");
+				String lName = result.getString("lname");
+				String password = result.getString("password");
+				String mobile = result.getString("mobile");
+				String address = result.getString("address");
+				String service = result.getString("service");
+				String busHours = result.getString("busHours");
+				busInfo.put("username", id);
+				busInfo.put("password", password);
+				busInfo.put("fname", fName);
+				busInfo.put("lname", lName);
+				busInfo.put("mobile", mobile);
+				busInfo.put("address", address);
+				busInfo.put("service", service);
+				busInfo.put("busHours", busHours);
+				busValues.put(compName, busInfo);
+			}
+			stmt.close();
+			result.close();
+			conn.close();
+		}
+		catch(Exception e)
+		{
+			LOGGER.info(e.getClass().getName() + ": " + e.getMessage());
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+		return busValues;
+	}
+	
 	//check if user is authenticated
 	public Boolean checkLogin(String username, String password)
 	{
@@ -267,8 +392,8 @@ public class CompanyDatabase{
 		try
 		{
 			//making sure no duplicates are added when program restarts
-			if(!checkValueExists("username","abcboss") || !checkValueExists("username","e1")
-					|| !checkValueExists("username","e2"))
+			if(!checkValueExists("username","abcboss","COMPANY") || !checkValueExists("username","e1","COMPANY")
+					|| !checkValueExists("username","e2","COMPANY"))
 			{
 				if(conn.isClosed())
 				{
@@ -294,7 +419,7 @@ public class CompanyDatabase{
 				prep2.setString(5,null);
 				prep2.setString(6,"0400123000");
 				prep2.setString(7,"1 Hair Street, Hairy, 2000");
-				prep2.setString(8,"femaleCut, maleCut, femaleDye");
+				prep2.setString(8,"Female Cut, Male Cut, Female Dye");
 				prep2.setString(9,"employee");
 				prep2.execute();
 				prep2.close();
@@ -306,10 +431,42 @@ public class CompanyDatabase{
 				prep3.setString(5,null);
 				prep3.setString(6,"0469899898");
 				prep3.setString(7,"1 ChoppaChoppa Street, Choparoo, 3333");
-				prep3.setString(8,"femaleCut");
+				prep3.setString(8,"Female Cut");
 				prep3.setString(9,"employee");
 				prep3.execute();
 				prep3.close();
+			}
+			conn.close();
+			if(!checkValueExists("compName","ABC","BUSINESS"))
+			{
+				if(conn.isClosed())
+				{
+					getConnection();
+				}
+				prep = conn.prepareStatement("INSERT INTO BUSINESS values(?,?,?,?,?,?,?,?,?);");
+				prep.setString(1,"abcboss");
+				prep.setString(2,"ABC");
+				prep.setString(3,"John");
+				prep.setString(4,"Bishop");
+				prep.setString(5,"password");
+				prep.setString(6,"0430202101");
+				prep.setString(7,"1 Bossy Street, Bossville, 3000");
+				prep.setString(8,"Female Cut, Male Cut, Female Dye, Male Dye, Female Perm, Male Perm, Female Wash, Male Wash");
+				prep.setString(9,"Monday-Friday=08:00,16:00");
+				prep.execute();
+				prep.close();
+				/*PreparedStatement prep2 = conn.prepareStatement("INSERT INTO COMPANY values(?,?,?,?,?,?,?,?,?);");
+				prep2.setString(1,"e1");
+				prep2.setString(2,"ABC");
+				prep2.setString(3,"Bob");
+				prep2.setString(4,"Lee");
+				prep2.setString(5,null);
+				prep2.setString(6,"0400123000");
+				prep2.setString(7,"1 Hair Street, Hairy, 2000");
+				prep2.setString(8,"femaleCut, maleCut, femaleDye");
+				prep2.setString(9,"employee");
+				prep2.execute();
+				prep2.close();*/
 			}
 			conn.close();
 		}

@@ -34,7 +34,7 @@ public class AddEmpController {
 			("VIC", "NSW","Queensland", "WA", "SA", "Tasmania");
 	
 	private MainController menu;
-	Company comp = new Company();
+	private Company comp;
 	
 	ArrayList<String> serviceList = new ArrayList<String>();
 	
@@ -126,10 +126,11 @@ public class AddEmpController {
 
     private BookingManagementSystem bms;
     
-	public void initiate(MainController menu, BookingManagementSystem bms) {
-		this.menu = menu;
-		username.setText(menu.getEmpUname());
+	public void initiate(Company comp, BookingManagementSystem bms) {
+		this.comp = comp;
+		menu = comp.getMenu();
 		this.bms = bms;
+		username.setText(menu.getEmpUname());
 		/*sfcut.setUserData(Service.femaleCut);
 		smcut.setUserData(Service.maleCut);
 		sfwash.setUserData(Service.femaleWash);
@@ -139,7 +140,7 @@ public class AddEmpController {
 		sfdye.setUserData(Service.femaleDye);
 		smdye.setUserData(Service.maleDye);*/
 		int counter = 0;
-		ArrayList<String> services_list = menu.getCompany().getService();
+		ArrayList<String> services_list = comp.getService();
 		serviceBoxes = new ArrayList<JFXCheckBox>();
 		
 		if(services_list.size() > 0) {
@@ -289,6 +290,7 @@ public class AddEmpController {
 		Boolean selected = false;
 		for(JFXCheckBox serv : serviceBoxes) {
 			if(serv.isSelected()) {
+				System.out.println("ajsdflkasjdflksjdlfkj");
 				selected = true;
 				serviceList.add((String) serv.getUserData());
 			}
@@ -309,7 +311,7 @@ public class AddEmpController {
 			}	
 		}
 		else{
-			invalidservices.setText("Please select atleastone service.");
+			invalidservices.setText("Please select at least one service.");
 			invalidservices.setAlignment(Pos.CENTER_LEFT);
 		}
 		
@@ -329,7 +331,7 @@ public class AddEmpController {
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	LoginController controller = login.getController();
-		controller.initiate(menu, bms);
+		controller.initiate(comp, bms);
 		LOGGER.info("Logout");
     }
 	
@@ -340,7 +342,7 @@ public class AddEmpController {
     	pane = bussPortal.load();
     	rootPane.getChildren().setAll(pane);
     	BusinessPController controller = bussPortal.getController();
-    	controller.initiate(menu, bms);
+    	controller.initiate(comp, bms);
     	LOGGER.info("Go to portal");
     }
 }

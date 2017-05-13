@@ -83,11 +83,11 @@ public class BookingHistoryController {
 		return future;
 	}
 	
-	public void initiate(MainController menu, String cust_id, BookingManagementSystem bms) {
+	public void initiate(Company comp, String cust_id, BookingManagementSystem bms) {
 		id = cust_id;
-		this.menu = menu;
+		this.comp = comp;
+		menu = comp.getMenu();
 		this.bms = bms;
-		comp = menu.getCompany();
 		getPastBooking();
 	}
 	
@@ -98,7 +98,7 @@ public class BookingHistoryController {
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	LoginController controller = login.getController();
-		controller.initiate(menu, bms);
+		controller.initiate(comp, bms);
     }
 	
 	@FXML
@@ -109,14 +109,14 @@ public class BookingHistoryController {
 	    	pane = bussPortal.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	BusinessPController controller = bussPortal.getController();
-	    	controller.initiate(menu, bms);
+	    	controller.initiate(comp, bms);
 		} else {
 			AnchorPane pane;
 	    	FXMLLoader cusPortal = new FXMLLoader(getClass().getResource("../portal/CustomerPortal.fxml"));
 	    	pane = cusPortal.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	CustomerPController controller = cusPortal.getController();
-	    	controller.initiate(menu, id, bms);
+	    	controller.initiate(comp, id, bms);
 		}
     }
 }

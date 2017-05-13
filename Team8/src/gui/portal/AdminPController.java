@@ -51,6 +51,6 @@ public class AdminPController {
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	PreWelcomeController controller = login.getController();
-		controller.initiate(menu, bms);
+		controller.initiate(bms);
 	}
 }

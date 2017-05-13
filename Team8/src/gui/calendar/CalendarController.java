@@ -5,6 +5,7 @@ import java.io.IOException;
 import com.jfoenix.controls.JFXButton;
 
 import Main.BookingManagementSystem;
+import business.Company;
 import gui.login.LoginController;
 import gui.portal.BusinessPController;
 import gui.portal.CustomerPController;
@@ -17,6 +18,7 @@ import mainController.MainController;
 public class CalendarController {
 
 	private MainController menu;
+	private Company comp;
 	
 	@FXML
 	private AnchorPane rootPane;
@@ -39,8 +41,9 @@ public class CalendarController {
     
     private BookingManagementSystem bms;
 
-	public void initiate(MainController menu, String cust_id, String portal, BookingManagementSystem bms) {
-		this.menu = menu;
+	public void initiate(Company comp, String cust_id, String portal, BookingManagementSystem bms) {
+		this.comp = comp;
+		menu = comp.getMenu();
 		this.portal = portal;
 		this.cust_id = cust_id;
 		this.bms = bms;
@@ -55,7 +58,7 @@ public class CalendarController {
     	pane = view_morning.load();
     	rootPane.getChildren().setAll(pane);
     	ViewMorningController controller = view_morning.getController();
-		controller.initiate(menu, cust_id, portal, bms);
+		controller.initiate(comp, cust_id, portal, bms);
 	}
 	
 	//load the calendar for afternoon times
@@ -67,7 +70,7 @@ public class CalendarController {
     	pane = view_afternoon.load();
     	rootPane.getChildren().setAll(pane);
     	ViewAfternoonController controller = view_afternoon.getController();
-		controller.initiate(menu, cust_id, portal,bms);
+		controller.initiate(comp, cust_id, portal,bms);
 	}
 	
 	@FXML
@@ -77,7 +80,7 @@ public class CalendarController {
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	LoginController controller = login.getController();
-		controller.initiate(menu, bms);
+		controller.initiate(comp, bms);
     }
 	
 	@FXML
@@ -88,14 +91,14 @@ public class CalendarController {
 	    	pane = bussPortal.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	BusinessPController controller = bussPortal.getController();
-	    	controller.initiate(menu, bms);
+	    	controller.initiate(comp, bms);
 		} else {
 			AnchorPane pane;
 	    	FXMLLoader cusPortal = new FXMLLoader(getClass().getResource("../portal/CustomerPortal.fxml"));
 	    	pane = cusPortal.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	CustomerPController controller = cusPortal.getController();
-	    	controller.initiate(menu, cust_id, bms);
+	    	controller.initiate(comp, cust_id, bms);
 		}
     }
 }

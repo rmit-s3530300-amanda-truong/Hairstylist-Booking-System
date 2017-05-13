@@ -5,6 +5,7 @@ import java.io.IOException;
 import com.jfoenix.controls.JFXButton;
 
 import Main.BookingManagementSystem;
+import business.Company;
 import database.CustomerDatabase;
 import gui.booking.MakeBooking2Controller;
 import gui.booking_summary.BookingHistoryController;
@@ -23,7 +24,7 @@ public class CustomerPController {
 	CustomerDatabase db1 = new CustomerDatabase();
 	
 	private MainController menu;
-	
+	private Company comp;
 	private String cust_id;
 	
 	@FXML
@@ -49,8 +50,9 @@ public class CustomerPController {
     
     private BookingManagementSystem bms;
 
-	public void initiate(MainController menu, String username, BookingManagementSystem bms) {
-		this.menu = menu;
+	public void initiate(Company comp, String username, BookingManagementSystem bms) {
+		this.comp = comp;
+		menu = comp.getMenu();
 		this.bms = bms;
 		cust_id = username;
 		String fullname = db1.getName(cust_id);
@@ -64,7 +66,7 @@ public class CustomerPController {
     	pane = mb2.load();
     	rootPane.getChildren().setAll(pane);
     	MakeBooking2Controller controller = mb2.getController();
-		controller.initiate(menu, cust_id, "customer", bms);
+		controller.initiate(comp, cust_id, "customer", bms);
 	}
 	
 	@FXML
@@ -74,7 +76,7 @@ public class CustomerPController {
 		pane = viewCalendar.load();
 		rootPane.getChildren().setAll(pane);
 		CalendarController controller = viewCalendar.getController();
-		controller.initiate(menu, cust_id, "customer", bms);
+		controller.initiate(comp, cust_id, "customer", bms);
 	}
 	
 	@FXML
@@ -85,7 +87,7 @@ public class CustomerPController {
     	rootPane.getChildren().setAll(pane);
     	UpcomingBookingController controller = up.getController();
     	System.out.println(cust_id);
-		controller.initiate(menu, cust_id, bms);
+		controller.initiate(comp, cust_id, bms);
 	}
 	
 	@FXML
@@ -95,7 +97,7 @@ public class CustomerPController {
     	pane = bh.load();
     	rootPane.getChildren().setAll(pane);
     	BookingHistoryController controller = bh.getController();
-		controller.initiate(menu, cust_id, bms);
+		controller.initiate(comp, cust_id, bms);
 	}
 	
 	@FXML
@@ -105,7 +107,7 @@ public class CustomerPController {
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	LoginController controller = login.getController();
-		controller.initiate(menu, bms);
+		controller.initiate(comp, bms);
 	}
 
 }
