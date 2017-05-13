@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="rootPane" prefHeight="788.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.booking.MakeBooking5Controller">
+   <children>
+      <Pane id="menuPane" prefHeight="75.0" prefWidth="1400.0">
+         <children>
+            <JFXButton id="button" fx:id="gotoLogout" layoutX="1199.0" layoutY="21.0" onAction="#goToLogout" prefHeight="35.0" prefWidth="125.0" stylesheets="@../stylesheet.css" text="LOGOUT" textFill="WHITE">
+               <font>
+                  <Font name="Helvetica-Normal" size="16.0" />
+               </font>
+            </JFXButton>
+            <Pane id="logo" fx:id="welcome_logo" layoutX="41.0" prefHeight="75.0" prefWidth="166.0" />
+         </children>
+      </Pane>
+      <Pane id="content_calendar" layoutY="74.0" prefHeight="714.0" prefWidth="1400.0">
+         <children>
+            <Rectangle arcHeight="40.0" arcWidth="40.0" height="566.0" layoutX="310.0" layoutY="99.0" opacity="0.6" stroke="BLACK" strokeType="INSIDE" width="720.0" />
+            <JFXButton id="button" fx:id="viewMorning" layoutX="381.0" layoutY="330.0" onAction="#clickMorning" prefHeight="54.0" prefWidth="258.0" style="-fx-background-radius: 60;" stylesheets="@../stylesheet.css" text="MORNING" textFill="WHITE">
+               <font>
+                  <Font name="Lato Black" size="18.0" />
+               </font>
+            </JFXButton>
+            <Label layoutX="416.0" layoutY="35.0" text="MAKE A NEW BOOKING (STEP 4/5)" textFill="WHITE">
+               <font>
+                  <Font name="Lato Black" size="33.0" />
+               </font>
+            </Label>
+            <Pane prefHeight="714.0" prefWidth="82.0" style="-fx-background-color: #1d1c1c;">
+            <children>
+                  <JFXButton id="home" contentDisplay="GRAPHIC_ONLY" layoutX="8.0" layoutY="16.0" onAction="#goToPortal" ripplerFill="#1d1c1c00" />
+               </children>
+            </Pane>
+            <JFXButton id="button" fx:id="viewAfternoon" layoutX="725.0" layoutY="330.0" onAction="#clickAfternoon" prefHeight="54.0" prefWidth="258.0" style="-fx-background-radius: 60;" stylesheets="@../stylesheet.css" text="AFTERNOON" textFill="WHITE">
+               <font>
+                  <Font name="Lato Black" size="18.0" />
+               </font>
+            </JFXButton>
+            <JFXButton id="button" fx:id="backButton" layoutX="541.0" layoutY="580.0" onAction="#back" prefHeight="54.0" prefWidth="258.0" style="-fx-background-radius: 60;" stylesheets="@../stylesheet.css" text="BACK" textFill="WHITE">
+               <font>
+                  <Font name="Lato Black" size="18.0" />
+               </font>
+            </JFXButton>
+            <Label layoutX="578.0" layoutY="125.0" text="SELECT DESIRED TIME" textFill="WHITE">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+         </children></Pane>
+   </children>
+</AnchorPane>

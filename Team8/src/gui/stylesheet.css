@@ -1,0 +1,67 @@
+#button{
+	-fx-background-color: #aa9144;
+	-fx-border-radius: 60;
+	-fx-background-radius: 60;
+	}
+#menuPane{
+	-fx-background-color: #212121;
+}
+#logo{
+	-fx-background-image: url("img/logo.png");
+	-fx-background-size: 166 75;
+    -fx-background-repeat: no-repeat;
+}
+#content{
+	-fx-background-image: url("img/content.jpg");
+	-fx-background-size: 1400 714;
+    -fx-background-repeat: no-repeat;
+}
+#content_cp{
+	-fx-background-image: url("img/content_cp.jpg");
+	-fx-background-size: 1400 714;
+    -fx-background-repeat: no-repeat;
+}
+#content_bp{
+	-fx-background-image: url("img/content_bp.jpg");
+	-fx-background-size: 1400 714;
+    -fx-background-repeat: no-repeat;
+}
+#content_addEmp{
+	-fx-background-image: url("img/content.jpg");
+	-fx-background-size: 1400 714;
+    -fx-background-repeat: no-repeat;
+}
+#content_calendar{
+	-fx-background-image: url("img/content.jpg");
+	-fx-background-size: 1400 714;
+    -fx-background-repeat: no-repeat;
+}
+.button{
+	-fx-border-radius: 0;
+	-fx-background-radius: 0;
+}
+
+.combo-box{
+	-fx-text-fill: white;
+	-fx-inner-text-fill: white;
+    -fx-font: 16px "System";
+}
+
+#home{
+	-fx-graphic: url("img/home.png");
+}
+.text-area {
+    -fx-background-color: rgba(0,0,0,0.0);
+}
+
+.text-area .scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.text-area .scroll-pane .viewport{
+    -fx-background-color: transparent;
+}
+
+.text-area .scroll-pane .content{
+    -fx-background-color: transparent;
+}
