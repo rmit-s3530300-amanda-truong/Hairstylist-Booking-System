@@ -47,7 +47,7 @@ public class BookingManagementSystem extends Application {
 			scene.getStylesheets().add(getClass().getResource("/gui/stylesheet.css").toExternalForm());
 			
 			PreWelcomeController controller = loader.getController();
-			controller.initiate(menu);
+			controller.initiate(menu, this);
 			
 			primaryStage.setScene(scene);
 			primaryStage.show();
