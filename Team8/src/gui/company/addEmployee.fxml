@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
@@ -150,46 +149,6 @@
                <children>
                   <JFXButton id="home" contentDisplay="GRAPHIC_ONLY" layoutX="8.0" layoutY="16.0" onAction="#goToPortal" ripplerFill="#1d1c1c00" />
                </children></Pane>
-            <JFXCheckBox fx:id="sfcut" checkedColor="#aa9144" layoutX="383.0" layoutY="473.0" text="FEMALE CUT" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </JFXCheckBox>
-            <JFXCheckBox fx:id="smcut" checkedColor="#aa9144" layoutX="383.0" layoutY="508.0" text="MALE CUT" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </JFXCheckBox>
-            <JFXCheckBox fx:id="sfwash" checkedColor="#aa9144" layoutX="537.0" layoutY="473.0" text="FEMALE WASH" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </JFXCheckBox>
-            <JFXCheckBox fx:id="smwash" checkedColor="#aa9144" layoutX="537.0" layoutY="508.0" text="MALE WASH" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </JFXCheckBox>
-            <JFXCheckBox fx:id="sfperm" checkedColor="#aa9144" layoutX="705.0" layoutY="473.0" text="FEMALE PERM" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </JFXCheckBox>
-            <JFXCheckBox fx:id="smperm" checkedColor="#aa9144" layoutX="705.0" layoutY="508.0" text="MALE PERM" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </JFXCheckBox>
-            <JFXCheckBox fx:id="sfdye" checkedColor="#aa9144" layoutX="888.0" layoutY="473.0" text="FEMALE DYE" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </JFXCheckBox>
-            <JFXCheckBox fx:id="smdye" checkedColor="#aa9144" layoutX="888.0" layoutY="508.0" text="MALE DYE" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </JFXCheckBox>
             <Label fx:id="invalidservices" layoutX="393.0" layoutY="532.0" prefHeight="20.0" prefWidth="215.0" textAlignment="CENTER" textFill="RED">
                <font>
                   <Font size="14.0" />

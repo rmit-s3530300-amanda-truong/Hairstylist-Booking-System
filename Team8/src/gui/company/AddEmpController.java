@@ -151,11 +151,11 @@ public class AddEmpController {
 				b.setStyle("-fx-text-fill: white");
 				b.setFont(Font.font(16));
 				if(counter <4) {
-					b.setLayoutX(487.0);
-					b.setLayoutY(305.0+(counter*50));
+					b.setLayoutX(383+(counter*153));
+					b.setLayoutY(553);
 				} else {
-					b.setLayoutX(715.0);
-					b.setLayoutY(305.0+((counter-4)*50));
+					b.setLayoutX(383+((counter-4)*153));
+					b.setLayoutY(588);
 				}
 				rootPane.getChildren().add(b);
 				serviceBoxes.add(b);
@@ -290,7 +290,6 @@ public class AddEmpController {
 		Boolean selected = false;
 		for(JFXCheckBox serv : serviceBoxes) {
 			if(serv.isSelected()) {
-				System.out.println("ajsdflkasjdflksjdlfkj");
 				selected = true;
 				serviceList.add((String) serv.getUserData());
 			}

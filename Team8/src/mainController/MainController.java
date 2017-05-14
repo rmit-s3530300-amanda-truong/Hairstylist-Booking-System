@@ -24,12 +24,13 @@ public class MainController {
 	private BookingDatabase bookDb;
 	private ServicesDatabase servDb;
 	
-	public MainController(CustomerDatabase customerDb, CompanyDatabase companyDb, AvailabilityDatabase availDb, BookingDatabase bookDb, ServicesDatabase servDb){
+	public MainController(Company company, CustomerDatabase customerDb, CompanyDatabase companyDb, AvailabilityDatabase availDb, BookingDatabase bookDb, ServicesDatabase servDb){
 		this.companyDb = companyDb;
 		this.customerDb = customerDb;
 		this.availDb = availDb;
 		this.bookDb = bookDb;
 		this.servDb = servDb;
+		comp = company;
 	}
 		
 	public String authenticate(String uName, String pass){

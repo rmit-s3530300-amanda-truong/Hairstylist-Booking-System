@@ -156,7 +156,7 @@ public class Company {
 		serviceTimeDb = servDb.storeServiceValues();
 		serviceList = setServList(serviceTimeDb);
 		LOGGER.info("Set Service Values");
-		menu = new MainController(customerDb, companyDb, availDb, bookingDb, servDb);
+		menu = new MainController(this, customerDb, companyDb, availDb, bookingDb, servDb);
 	}
 	
 	public MainController getMenu()
@@ -212,6 +212,9 @@ public class Company {
 	
 	public HashMap<String,String> setServList(HashMap<String,String> map) {
 		HashMap<String,String> serviceList = new HashMap<String, String>();
+		if(!services.isEmpty()) {
+			services.clear();
+		}
 		for(Entry<String, String> x : map.entrySet()) {
 			String[] key = x.getKey().split(":");
 			if(key[0].equals(compName))
@@ -223,7 +226,6 @@ public class Company {
 				addServiceTime(service,Integer.parseInt(time));
 			}
 		}
-
 		return serviceList;
 	}
 	

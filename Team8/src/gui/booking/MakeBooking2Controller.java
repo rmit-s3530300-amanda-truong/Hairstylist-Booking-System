@@ -76,6 +76,7 @@ public class MakeBooking2Controller {
 		int counter = 0;
 		ArrayList<String> services_list = comp.getService();
 		ArrayList<JFXRadioButton> buttons = new ArrayList<JFXRadioButton>();
+		System.out.println(services_list.size());
 		if(services_list.size() > 0) {
 			for(String serv : services_list) {
 				JFXRadioButton b = new JFXRadioButton();
