@@ -43,7 +43,7 @@ public class PreWelcomeController {
 	public void initiate(BookingManagementSystem bms){
 		this.bms = bms;
 		ArrayList<Company> company_list = bms.getCompanyList();
-		ArrayList<JFXButton> buttons = new ArrayList<JFXButton>();
+		ArrayList<JFXRadioButton> buttons = new ArrayList<JFXRadioButton>();
 		
 		group = new ToggleGroup();
 		s1.setPrefSize(120, 120);
@@ -56,17 +56,27 @@ public class PreWelcomeController {
 				b.setUserData(comp);
 				b.setText(comp.getName());
 				b.setStyle("-fx-text-fill: white");
-				b.setFont(Font.font(16));
-				b.setLayoutX(640);
-				//b.setLayoutY(184+(counter*20));
-				b.setLayoutY(194+(counter*20));
-				b.setToggleGroup(group);
-				//b.setOnAction(e ->company = (Company) e.getSource());
+				b.setFont(Font.font(18));
+				b.setLayoutX(620.0);
+				b.setLayoutY(250.0+(counter*20));
 				rootPane.getChildren().add(b);
-				//buttons.add(b);
+				buttons.add(b);
 				counter++;
 			}
+			for(JFXRadioButton button : buttons) {
+				button.setToggleGroup(group);
+			}
+			buttons.get(0).setSelected(true);
+			company = (Company) buttons.get(0).getUserData();		
 		}
+		group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Toggle> arg0, Toggle arg1, Toggle arg2) {
+				company = (Company) arg2.getUserData();
+			}
+			
+		});
     }
 	
 	@FXML
@@ -77,17 +87,15 @@ public class PreWelcomeController {
     	rootPane.getChildren().setAll(pane);
     	LoginController controller = login.getController();
     	
-    	JFXRadioButton selectedRadioButton = (JFXRadioButton) group.getSelectedToggle();
-    	if(selectedRadioButton == null)
+    	if(company == null)
     	{
     		//put an error dialog
     		System.out.println("error");
     	}
     	else
     	{
-    		company = (Company) selectedRadioButton.getUserData();
+    		controller.initiate(company, bms);
     	}
-		controller.initiate(company, bms);
     }
 	
 	@FXML
