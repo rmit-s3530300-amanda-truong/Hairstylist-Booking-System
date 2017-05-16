@@ -68,7 +68,7 @@ public class BookingManagementSystem extends Application {
 		String address = null;
 		String service = null;
 		String busHours = null;
-		
+		Boolean startup = true;
 		busValues = companyDb.storeBusValues();
 		LOGGER.info("Set Business List");
 		for(Entry<String, HashMap<String,String>> entry: busValues.entrySet())
@@ -85,10 +85,14 @@ public class BookingManagementSystem extends Application {
 			busHours = busInfo.get("busHours");
 			Company comp = new Company(compName, username, password, owner_fname, owner_lname, mobile, address, service, busHours);
 			addCompany(comp);
-			comp.retrieveDatabaseInfo(customerDb, companyDb, availDb, bookingDb, servDb);
-			LOGGER.info("Retrieved Database Information");
-			comp.getCalendar().updateCalendar(comp.getEmployeeList());
-			LOGGER.info("Updated Calendar");
+			if(startup == true)
+			{
+				comp.retrieveDatabaseInfo(customerDb, companyDb, availDb, bookingDb, servDb);
+				LOGGER.info("Retrieved Database Information");
+				comp.getCalendar().updateCalendar(comp.getEmployeeList());
+				LOGGER.info("Updated Calendar");
+				startup = false;
+			}
 		}
 		LOGGER.info("Set Business Values");
 	}

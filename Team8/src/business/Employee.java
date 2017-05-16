@@ -10,6 +10,7 @@ public class Employee {
 	private String ID;
 	private String firstName;
 	private String lastName;
+	private String compName;
 	private HashMap<DayOfWeek, ArrayList<LocalTime>> availability;
 	private HashMap<LocalDate, ArrayList<LocalTime>> bookings;
 	private ArrayList<String> serviceType;
@@ -38,8 +39,9 @@ public class Employee {
 	}*/
 	
 	@SuppressWarnings("unchecked")
-	public Employee(String ID, String firstName, String lastName, ArrayList<String> serviceType){
+	public Employee(String ID, String compName, String firstName, String lastName, ArrayList<String> serviceType){
 		this.ID = ID;
+		this.compName = compName;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.serviceType = (ArrayList<String>) serviceType.clone(); 
@@ -118,6 +120,11 @@ public class Employee {
 
 	public String getLastName() {
 		return lastName;
+	}
+	
+	public String getCompName()
+	{
+		return compName;
 	}
 	
 	public HashMap<LocalDate, ArrayList<LocalTime>> getBookings() {

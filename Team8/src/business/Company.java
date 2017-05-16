@@ -51,6 +51,7 @@ public class Company {
 		
 		this.compName = compName;
 		this.username = username;
+		this.password = password;
 		owner_fname = fname;
 		owner_lname = lname;
 		this.mobile = mobile;
@@ -64,6 +65,21 @@ public class Company {
 		return compName;
 	}
 		
+	public String getUsername()
+	{
+		return username;
+	}
+	
+	public String getPassword()
+	{
+		return password;
+	}
+	
+	public String getBusinessHours()
+	{
+		return busHours;
+	}
+	
 	public void addCustomer(Customer customer) {
 		String username = customer.getUsername();
 		LOGGER.info("addCustomer: "+customer.getUsername());
@@ -103,7 +119,7 @@ public class Company {
 		}
 		return null;
 	}
-	
+
 	public void addServiceTime(String service, int time) {
 		service_times.put(service, time);
 	}
@@ -171,6 +187,7 @@ public class Company {
 		String dayStr;
 		String startTimeStr;
 		String endTimeStr;
+		String compName;
 		String key;
 		
 		for(Map.Entry<String, ArrayList<String>> x: list.entrySet())
@@ -180,9 +197,9 @@ public class Company {
 			startTimeStr = infoList.get(1);
 			endTimeStr = infoList.get(2);
 			String[] keyList = key.split(":");
-			dayStr = keyList[1];
 			employeeID = keyList[0];
-			
+			dayStr = keyList[1];
+			compName = keyList[2];
 			String[] startTimeList = startTimeStr.split(":");
 			String[] endTimeList = endTimeStr.split(":");
 			DayOfWeek day = DayOfWeek.valueOf(dayStr.toUpperCase());
@@ -192,9 +209,17 @@ public class Company {
 			int endMinInt = Integer.parseInt(endTimeList[1]);
 			LocalTime startTime = LocalTime.of(startHourInt, startMinInt);
 			LocalTime endTime = LocalTime.of(endHourInt, endMinInt);
-			Employee emp = getEmployee(employeeID);
-			emp.addAvailability(day,startTime,endTime);
-			timeMap = emp.getAvailability();
+			if(this.compName.equals(compName))
+			{
+				HashMap<String, Employee> empList = getEmployeeList();
+				for(Entry<String, Employee> entry: empList.entrySet())
+				{
+					Employee emp  = entry.getValue();
+				}
+				Employee emp = getEmployee(employeeID);
+				emp.addAvailability(day,startTime,endTime);
+				timeMap = emp.getAvailability();
+			}
 		}
 		return timeMap;
 	}
@@ -203,9 +228,13 @@ public class Company {
 		HashMap<String, Customer> custList = new HashMap<String, Customer>();
 		for(Entry<String, HashMap<String,String>> x : map.entrySet()) {
 			String username = x.getKey();
+			String compName = x.getValue().get("compName");
 			String fname = x.getValue().get("fName");
 			String lname = x.getValue().get("lName");
-			custList.put(username, new Customer(username,fname,lname));
+			if(this.compName.equals(compName))
+			{
+				custList.put(username, new Customer(username, compName, fname,lname));
+			}
 		}
 		this.custList = custList;
 	}
@@ -233,6 +262,7 @@ public class Company {
 		ArrayList<Booking> bookList = new ArrayList<Booking>();
 		HashMap<String, ArrayList<String>> storedBooking = map;
 		String bookingID;
+		String compName;
 		String customerUsername;
 		String employeeID;
 		String statusStr;
@@ -247,12 +277,13 @@ public class Company {
 		for(Entry<String, ArrayList<String>> x : storedBooking.entrySet()){
 			ArrayList<String> infoList = x.getValue();
 			bookingID = x.getKey();
-			customerUsername = infoList.get(0);
-			dateStr = infoList.get(1);
-			timeStr = infoList.get(2);
-			employeeID = infoList.get(3);
-			serviceStr = infoList.get(4);
-			statusStr = infoList.get(5);
+			compName = infoList.get(0);
+			customerUsername = infoList.get(1);
+			dateStr = infoList.get(2);
+			timeStr = infoList.get(3);
+			employeeID = infoList.get(4);
+			serviceStr = infoList.get(5);
+			statusStr = infoList.get(6);
 			status = getStatus(statusStr);
 			service = serviceStr;
 			String[] timeList = timeStr.split("-");
@@ -261,12 +292,15 @@ public class Company {
 			date = LocalDate.parse(dateStr);
 			startTime = LocalTime.parse(startTimeStr);
 			endTime = LocalTime.parse(endTimeStr);
-			Booking booking = new Booking(status, bookingID);
-			Employee emp = getEmployee(employeeID);
-			booking.addDetails(date, startTime, endTime, service, emp, customerUsername);
-			bookList.add(booking);
+			if(this.compName.equals(compName))
+			{
+				Booking booking = new Booking(status, bookingID);
+				Employee emp = getEmployee(employeeID);
+				booking.addDetails(date, startTime, endTime, service, emp, customerUsername);
+				bookList.add(booking);
+				calendar.setBookingList(bookList);
+			}
 		}
-		calendar.setBookingList(bookList);
 		return bookList;
 	}
 	
@@ -298,6 +332,7 @@ public class Company {
 		for(Entry<String, HashMap<String,String>> x : map.entrySet()) {
 			ArrayList<String> service_arraylist = new ArrayList<String>();
 			String username = x.getKey();
+			String compName = x.getValue().get("compName");
 			String fname = x.getValue().get("fname");
 			String lname = x.getValue().get("lname");
 			String service_list = x.getValue().get("service");
@@ -308,7 +343,10 @@ public class Company {
 					service_arraylist.add(type);
 				}
 			}
-			employList.put(username, new Employee(username,fname,lname,service_arraylist));
+			if(this.compName.equals(compName))
+			{
+				employList.put(username, new Employee(username, this.compName, fname,lname,service_arraylist));
+			}
 		}
 		employeeList = employList;
 	}

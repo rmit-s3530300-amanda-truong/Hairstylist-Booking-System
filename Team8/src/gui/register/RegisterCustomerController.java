@@ -237,7 +237,7 @@ public class RegisterCustomerController {
 		if(fnameValid && lnameValid && unameValid && passValid && mobileValid && addressLineValid && suburbValid && zipValid){
 			String fullAddress = address + ", " + suburb + ", " + state + " "+ postcode;
 			menu.registerCustomer(username, fname, lname, password, mobile, fullAddress);
-			Customer c = new Customer(username, fname, lname);
+			Customer c = new Customer(username, comp.getName(), fname, lname);
 			comp.addCustomer(c);
 			goToPortal();
 		}

@@ -129,7 +129,7 @@ public class CompanyDatabase{
 		}
 	}
 	
-	// add business owner or employee info to a record
+	// add new business
 	public void addBusiness(String username, String cname, String bFname, String bLname, String pw,
 			String mobile, String address, String service, String busHours)
 	{		
@@ -139,7 +139,7 @@ public class CompanyDatabase{
 			{
 				getConnection();
 			}
-			prep = conn.prepareStatement("INSERT INTO COMPANY values(?,?,?,?,?,?,?,?,?);");
+			prep = conn.prepareStatement("INSERT INTO BUSINESS values(?,?,?,?,?,?,?,?,?);");
 			prep.setString(1, username);
 			prep.setString(2, cname);
 			prep.setString(3, bFname);
@@ -284,9 +284,11 @@ public class CompanyDatabase{
 				if(result.getString("busStatus").equals("employee")){
 					HashMap<String,String> empInfo = new HashMap<String,String>();
 					String id = result.getString("username");
+					String compName = result.getString("compName");
 					String fName = result.getString("fname");
 					String lName = result.getString("lname");
 					String service = result.getString("service");
+					empInfo.put("compName", compName);
 					empInfo.put("fname", fName);
 					empInfo.put("lname", lName);
 					empInfo.put("service", service);
@@ -362,7 +364,7 @@ public class CompanyDatabase{
 			{
 				getConnection();
 			}
-			prep = conn.prepareStatement("SELECT username,password FROM COMPANY WHERE username = ? AND password = ?;");
+			prep = conn.prepareStatement("SELECT username,password FROM BUSINESS WHERE username = ? AND password = ?;");
 			prep.setString(1, username);
 			prep.setString(2, password);			
 			result = prep.executeQuery();
@@ -392,8 +394,9 @@ public class CompanyDatabase{
 		try
 		{
 			//making sure no duplicates are added when program restarts
-			if(!checkValueExists("username","abcboss","COMPANY") || !checkValueExists("username","e1","COMPANY")
-					|| !checkValueExists("username","e2","COMPANY"))
+			if((!checkValueExists("username","abcboss","COMPANY") && !checkValueExists("compName","ABC","COMPANY")) || 
+					(!checkValueExists("username","e1","COMPANY") && !checkValueExists("compName","ABC","COMPANY"))
+					|| (!checkValueExists("username","e2","COMPANY") && !checkValueExists("compName","ABC","COMPANY")))
 			{
 				if(conn.isClosed())
 				{
@@ -452,21 +455,21 @@ public class CompanyDatabase{
 				prep.setString(6,"0430202101");
 				prep.setString(7,"1 Bossy Street, Bossville, 3000");
 				prep.setString(8,"Female Cut, Male Cut, Female Dye, Male Dye, Female Perm, Male Perm, Female Wash, Male Wash");
-				prep.setString(9,"Monday-Friday=08:00,16:00");
+				prep.setString(9,"Monday=08:00,16:00|Tuesday=08:00,16:00|Wednesday=08:00,16:00|Thursday=08:00,16:00|Friday=08:00,16:00");
 				prep.execute();
 				prep.close();
-				/*PreparedStatement prep2 = conn.prepareStatement("INSERT INTO COMPANY values(?,?,?,?,?,?,?,?,?);");
-				prep2.setString(1,"e1");
-				prep2.setString(2,"ABC");
-				prep2.setString(3,"Bob");
-				prep2.setString(4,"Lee");
-				prep2.setString(5,null);
-				prep2.setString(6,"0400123000");
-				prep2.setString(7,"1 Hair Street, Hairy, 2000");
-				prep2.setString(8,"femaleCut, maleCut, femaleDye");
-				prep2.setString(9,"employee");
+				PreparedStatement prep2 = conn.prepareStatement("INSERT INTO BUSINESS values(?,?,?,?,?,?,?,?,?);");
+				prep2.setString(1,"defboss");
+				prep2.setString(2,"DEF");
+				prep2.setString(3,"Chris");
+				prep2.setString(4,"Pratt");
+				prep2.setString(5,"password");
+				prep2.setString(6,"0423123999");
+				prep2.setString(7,"1 Chris Street, Prattville, 2000");
+				prep2.setString(8,"Female Cut, Male Cut, Female Dye, Male Dye, Female Perm, Male Perm");
+				prep2.setString(9,"Monday=09:00,17:00|Tuesday=09:00,17:00|Wednesday=09:00,17:00|Thursday=09:00,17:00|Friday=09:00,17:00");
 				prep2.execute();
-				prep2.close();*/
+				prep2.close();
 			}
 			conn.close();
 		}
@@ -479,7 +482,7 @@ public class CompanyDatabase{
 	}
 	
 	//check how many employees are in the database
-	public int checkEmployees()
+	public int checkEmployees(String compName)
 	{
 		int counter = 0;
 		try
@@ -488,14 +491,14 @@ public class CompanyDatabase{
 			{
 				getConnection();
 			}
-			stmt = conn.createStatement();
-			String sql = "SELECT * FROM COMPANY WHERE busStatus = 'employee';";
-			result = stmt.executeQuery(sql);
+			prep = conn.prepareStatement("SELECT * FROM COMPANY WHERE busStatus = 'employee' AND compName = ?;");
+			prep.setString(1, compName);
+			result = prep.executeQuery();
 			while(result.next())
 			{
 				counter++;
 			}
-			stmt.close();
+			prep.close();
 			result.close();
 			conn.close();
 		}

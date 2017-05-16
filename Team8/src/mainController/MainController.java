@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import business.Company;
+import business.Customer;
 import business.Employee;
 import calendar.Calendar;
 import database.AvailabilityDatabase;
@@ -34,20 +35,29 @@ public class MainController {
 	}
 		
 	public String authenticate(String uName, String pass){
-		if(customerDb.checkLogin(uName,pass)){
-			return "customer";
+		HashMap<String, Customer> custList = comp.getCustList();
+		Customer cust = custList.get(uName);
+		if(cust != null || companyDb.checkLogin(uName, pass))
+		{
+			if(customerDb.checkLogin(uName,pass) && cust.getCompName().equals(comp.getName())){
+				return "customer";
+			}
+			else if(comp.getUsername().equals(uName) && comp.getPassword().equals(pass)){
+				return "business";
+			}
+			else{
+				return "false";
+			}
 		}
-		else if(companyDb.checkLogin(uName,pass)){
-			return "business";
-		}
-		else{
+		else
+		{
 			return "false";
 		}
 	}
 	
 	public void registerCustomer(String cUname, String cFname, String cLname, 
 			String cPassword, String cMobile, String cAddress){
-		customerDb.addCustInfo(cUname, cFname, cLname, cPassword, cMobile, cAddress);
+		customerDb.addCustInfo(cUname, comp.getName(), cFname, cLname, cPassword, cMobile, cAddress);
 	}
 	
 	public Company getCompany() {
@@ -61,7 +71,7 @@ public class MainController {
 		if(checkId && checkDate){
 			availDb.deleteAvail(username, day.toString());
 		}
-		availDb.addAvailabilityInfo(username, day.toString(), startTime.toString(), endTime.toString());
+		availDb.addAvailabilityInfo(username, comp.getName(), day.toString(), startTime.toString(), endTime.toString());
 		comp.retrieveDatabaseInfo(customerDb, companyDb, availDb, bookDb, servDb);
 		comp.getCalendar().updateCalendar(comp.getEmployeeList());
 		updateEmpAvailability(day, startTime, endTime, username);
@@ -79,7 +89,7 @@ public class MainController {
 	
 	public void addBooking(String id, String custUsername, String service, String empID, String date, String time, String status)
 	{
-		bookDb.addBooking(id, custUsername, service, empID, date, time, status);
+		bookDb.addBooking(id, comp.getName(), custUsername, service, empID, date, time, status);
 	}
 	
 	public boolean idValid(String id) {
@@ -109,16 +119,16 @@ public class MainController {
 	}
 	
 	public String getEmpUname(){
-		int uname = companyDb.checkEmployees() + 1;
+		int uname = companyDb.checkEmployees(comp.getName()) + 1;
 		String username = "e" + uname;
 		return username;
 	}
 	
 	public void addEmployee(String username, String fname, String lname, String mobile, String address, String service){
 		String password = null;
-		String company = "ABC";
+		//String company = "ABC";
 		String status = "employee";
-		companyDb.addBusInfo(username, company, fname, lname, password, mobile, address, service, status);		
+		companyDb.addBusInfo(username, comp.getName(), fname, lname, password, mobile, address, service, status);		
 	}
 
 	//validates the user input against regexs

@@ -4,11 +4,13 @@ public class Customer {
 	String username;
 	String fname;
 	String lname;
+	String compName;
 	
-	public Customer(String username, String fname, String lname) {
+	public Customer(String username, String compName, String fname, String lname) {
 		this.username = username;
 		this.fname = fname;
 		this.lname = lname;
+		this.compName = compName;
 	}
 	
 	public String getUsername() {
@@ -21,5 +23,9 @@ public class Customer {
 	
 	public String getLastName() {
 		return lname;
+	}
+	
+	public String getCompName() {
+		return compName;
 	}
 }

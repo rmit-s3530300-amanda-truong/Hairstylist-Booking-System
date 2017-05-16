@@ -9,7 +9,7 @@ import business.Company;
 import gui.booking.MakeBooking1Controller;
 import gui.booking_summary.BookingHistoryController;
 import gui.booking_summary.UpcomingBookingController;
-import gui.calendar.CalendarController;
+import gui.calendar.ViewCalendarController;
 import gui.company.AddAvailTimeController;
 import gui.company.AddEmpController;
 import gui.login.LoginController;
@@ -107,7 +107,7 @@ public class BusinessPController {
 		FXMLLoader viewCalendar = new FXMLLoader(getClass().getResource("../calendar/ViewCalendar.fxml"));
 		pane = viewCalendar.load();
 		rootPane.getChildren().setAll(pane);
-		CalendarController controller = viewCalendar.getController();
+		ViewCalendarController controller = viewCalendar.getController();
 		controller.initiate(comp, null, "business", bms);
 	}
 	

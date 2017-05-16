@@ -318,7 +318,7 @@ public class AddEmpController {
 		if(fnameValid && lnameValid && mobileValid && addressLineValid && suburbValid && zipValid && serviceValid){
 			String fullAddress = address + ", " + suburb + ", " + state + " "+ postcode;
 			menu.addEmployee(username, fname, lname, mobile, fullAddress, services);
-			comp.addEmployee(new Employee(username, fname, lname, serviceList));
+			comp.addEmployee(new Employee(username, comp.getName(), fname, lname, serviceList));
 			goToPortal();
 		}
 	}

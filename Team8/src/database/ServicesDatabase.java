@@ -20,6 +20,7 @@ public class ServicesDatabase {
 	public ServicesDatabase() {
 		this.initialise();
 		this.addTimes();
+		this.addTimes2();
 	}
 	
 	//get initial connection and create the table
@@ -65,7 +66,7 @@ public class ServicesDatabase {
 				{
 					stmt = conn.createStatement();
 					String sql = "CREATE TABLE IF NOT EXISTS SERVICES ("
-							+ "business text REFERENCES COMPANY(compName) NOT NULL,"
+							+ "business text REFERENCES BUSINESS(compName) NOT NULL,"
 							+ "service text REFERENCES COMPANY(service) NOT NULL ,"	
 							+ "time text NOT NULL   );";
 					stmt.executeUpdate(sql);
@@ -104,35 +105,6 @@ public class ServicesDatabase {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
-	}
-	
-	// displaying the values in service table
-	public ResultSet displayTable()
-	{
-		try
-		{
-			if(conn.isClosed())
-			{
-				getConnection();
-			}
-			
-			stmt = conn.createStatement();
-			result = stmt.executeQuery("SELECT * FROM SERVICES");
-			while (result.next())
-			{
-				System.out.println(result.getString("business") + " " + result.getString("service") + " " + result.getString("time"));
-			}
-			stmt.close();
-			result.close();
-			conn.close();;
-		}
-		catch(Exception e)
-		{
-			LOGGER.info(e.getClass().getName() + ": " + e.getMessage());
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
-		}
-		return result;
 	}
 	
 	public HashMap<String,String> storeServiceValues()
@@ -216,11 +188,10 @@ public class ServicesDatabase {
 	
 	public void addTimes()
 	{
-		Boolean check = false;
 		try
 		{
 			//making sure no duplicates are added when program restarts
-			if(check == false)
+			if(!checkValueExists("compName","ABC"))
 			{
 				if(conn.isClosed())
 				{
@@ -274,7 +245,64 @@ public class ServicesDatabase {
 				prep8.setString(3,"1");
 				prep8.execute();
 				prep8.close();
-				check = true;
+			}
+			conn.close();
+		}
+		catch(Exception e)
+		{
+			LOGGER.info(e.getClass().getName() + ": " + e.getMessage());
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+	}
+	
+	public void addTimes2()
+	{
+		try
+		{
+			//making sure no duplicates are added when program restarts
+			if(!checkValueExists("compName","DEF"))
+			{
+				if(conn.isClosed())
+				{
+					getConnection();
+				}
+				prep = conn.prepareStatement("INSERT INTO SERVICES values(?,?,?);");
+				prep.setString(1,"DEF");
+				prep.setString(2,"Male Cut");
+				prep.setString(3,"1");
+				prep.execute();
+				prep.close();
+				PreparedStatement prep2 = conn.prepareStatement("INSERT INTO SERVICES values(?,?,?);");
+				prep2.setString(1,"DEF");
+				prep2.setString(2,"Female Cut");
+				prep2.setString(3,"2");
+				prep2.execute();
+				prep2.close();
+				PreparedStatement prep3 = conn.prepareStatement("INSERT INTO SERVICES values(?,?,?);");
+				prep3.setString(1,"DEF");
+				prep3.setString(2,"Male Dye");
+				prep3.setString(3,"3");
+				prep3.execute();
+				prep3.close();
+				PreparedStatement prep4 = conn.prepareStatement("INSERT INTO SERVICES values(?,?,?);");
+				prep4.setString(1,"DEF");
+				prep4.setString(2,"Female Dye");
+				prep4.setString(3,"4");
+				prep4.execute();
+				prep4.close();
+				PreparedStatement prep5 = conn.prepareStatement("INSERT INTO SERVICES values(?,?,?);");
+				prep5.setString(1,"DEF");
+				prep5.setString(2,"Male Shave");
+				prep5.setString(3,"3");
+				prep5.execute();
+				prep5.close();
+				PreparedStatement prep6 = conn.prepareStatement("INSERT INTO SERVICES values(?,?,?);");
+				prep6.setString(1,"DEF");
+				prep6.setString(2,"Female Shave");
+				prep6.setString(3,"3");
+				prep6.execute();
+				prep6.close();
 			}
 			conn.close();
 		}

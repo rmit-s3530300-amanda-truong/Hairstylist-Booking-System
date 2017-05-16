@@ -10,7 +10,7 @@ import database.CustomerDatabase;
 import gui.booking.MakeBooking2Controller;
 import gui.booking_summary.BookingHistoryController;
 import gui.booking_summary.UpcomingBookingController;
-import gui.calendar.CalendarController;
+import gui.calendar.ViewCalendarController;
 import gui.login.LoginController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -75,7 +75,7 @@ public class CustomerPController {
 		FXMLLoader viewCalendar = new FXMLLoader(getClass().getResource("../calendar/ViewCalendar.fxml"));
 		pane = viewCalendar.load();
 		rootPane.getChildren().setAll(pane);
-		CalendarController controller = viewCalendar.getController();
+		ViewCalendarController controller = viewCalendar.getController();
 		controller.initiate(comp, cust_id, "customer", bms);
 	}
 	

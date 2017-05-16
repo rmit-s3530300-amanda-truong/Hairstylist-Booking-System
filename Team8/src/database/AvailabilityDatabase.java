@@ -66,6 +66,7 @@ public class AvailabilityDatabase {
 					stmt = conn.createStatement();
 					String sql = "CREATE TABLE IF NOT EXISTS AVAILABILITY ("
 							+ "employeeID text REFERENCES COMPANY(username) NOT NULL	,"
+							+ "compName text REFERENCES BUSINESS(compName) NOT NULL	,"
 							+ "day text NOT NULL		,"
 							+ "startTime text NOT NULL	,"
 							+ "endTime text NOT NULL   );";
@@ -83,7 +84,7 @@ public class AvailabilityDatabase {
 	}
 	
 	// add employee availability to a record
-	public void addAvailabilityInfo(String employeeID, String day, String startTime, String endTime)
+	public void addAvailabilityInfo(String employeeID, String compName, String day, String startTime, String endTime)
 	{		
 		try
 		{
@@ -91,11 +92,12 @@ public class AvailabilityDatabase {
 			{
 				getConnection();
 			}
-			prep = conn.prepareStatement("INSERT INTO AVAILABILITY values(?,?,?,?);");
+			prep = conn.prepareStatement("INSERT INTO AVAILABILITY values(?,?,?,?,?);");
 			prep.setString(1, employeeID);
-			prep.setString(2, day);
-			prep.setString(3, startTime);
-			prep.setString(4, endTime);
+			prep.setString(2, compName);
+			prep.setString(3, day);
+			prep.setString(4, startTime);
+			prep.setString(5, endTime);
 			prep.execute();
 			prep.close();
 			conn.close();
@@ -122,8 +124,9 @@ public class AvailabilityDatabase {
 			{
 				ArrayList<String> timeList = new ArrayList<String>();
 				String employeeID = result.getString("employeeID");
+				String compName = result.getString("compName");
 				String dayStr = result.getString("day");
-				String key = employeeID + ":" + dayStr;
+				String key = employeeID + ":" + dayStr + ":" + compName;
 				String startTimeStr = result.getString("startTime");
 				String endTimeStr = result.getString("endTime");
 				timeList.add(dayStr);
@@ -157,6 +160,10 @@ public class AvailabilityDatabase {
 			if(col.equals("employeeID"))
 			{
 				colName = "employeeID";
+			}
+			else if(col.equals("compName"))
+			{
+				colName = "compName";
 			}
 			else if(col.equals("day"))
 			{
@@ -230,25 +237,28 @@ public class AvailabilityDatabase {
 				{
 					getConnection();
 				}
-				prep = conn.prepareStatement("INSERT INTO AVAILABILITY values(?,?,?,?);");
+				prep = conn.prepareStatement("INSERT INTO AVAILABILITY values(?,?,?,?,?);");
 				prep.setString(1,"e1");
-				prep.setString(2,"Monday");
-				prep.setString(3,"08:15");
-				prep.setString(4,"10:15");
+				prep.setString(2, "ABC");
+				prep.setString(3,"Monday");
+				prep.setString(4,"08:15");
+				prep.setString(5,"10:15");
 				prep.execute();
 				prep.close();
-				PreparedStatement prep2 = conn.prepareStatement("INSERT INTO AVAILABILITY values(?,?,?,?);");
+				PreparedStatement prep2 = conn.prepareStatement("INSERT INTO AVAILABILITY values(?,?,?,?,?);");
 				prep2.setString(1,"e1");
-				prep2.setString(2,"Tuesday");
-				prep2.setString(3,"09:15");
-				prep2.setString(4,"12:15");
+				prep2.setString(2, "ABC");
+				prep2.setString(3,"Tuesday");
+				prep2.setString(4,"09:15");
+				prep2.setString(5,"12:15");
 				prep2.execute();
 				prep2.close();
-				PreparedStatement prep3 = conn.prepareStatement("INSERT INTO AVAILABILITY values(?,?,?,?);");
+				PreparedStatement prep3 = conn.prepareStatement("INSERT INTO AVAILABILITY values(?,?,?,?,?);");
 				prep3.setString(1,"e2");
-				prep3.setString(2,"Wednesday");
-				prep3.setString(3,"13:00");
-				prep3.setString(4,"15:00");
+				prep3.setString(2, "ABC");
+				prep3.setString(3,"Wednesday");
+				prep3.setString(4,"13:00");
+				prep3.setString(5,"15:00");
 				prep3.execute();
 				prep3.close();
 			}
