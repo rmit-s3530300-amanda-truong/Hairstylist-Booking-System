@@ -7,7 +7,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import business.Company;
-import business.Customer;
 import business.Employee;
 import calendar.Calendar;
 import database.AvailabilityDatabase;
@@ -33,31 +32,23 @@ public class MainController {
 		this.servDb = servDb;
 		comp = company;
 	}
-		
-	public String authenticate(String uName, String pass){
-		HashMap<String, Customer> custList = comp.getCustList();
-		Customer cust = custList.get(uName);
-		if(cust != null || companyDb.checkLogin(uName, pass))
-		{
-			if(customerDb.checkLogin(uName,pass) && cust.getCompName().equals(comp.getName())){
-				return "customer";
-			}
-			else if(comp.getUsername().equals(uName) && comp.getPassword().equals(pass)){
-				return "business";
-			}
-			else{
-				return "false";
-			}
+	
+	//checks the input against database
+	public String authenticate(String uName, String pass, String business){
+		if(customerDb.checkLogin(uName,pass,business)){
+			return "customer";
 		}
-		else
-		{
+		else if(comp.getUsername().equals(uName) && comp.getPassword().equals(pass)){
+			return "business";
+		}
+		else{
 			return "false";
 		}
 	}
 	
-	public void registerCustomer(String cUname, String cFname, String cLname, 
+	public void registerCustomer(String cUname, String company, String cFname, String cLname, 
 			String cPassword, String cMobile, String cAddress){
-		customerDb.addCustInfo(cUname, comp.getName(), cFname, cLname, cPassword, cMobile, cAddress);
+		customerDb.addCustInfo(cUname, company, cFname, cLname, cPassword, cMobile, cAddress);
 	}
 	
 	public Company getCompany() {

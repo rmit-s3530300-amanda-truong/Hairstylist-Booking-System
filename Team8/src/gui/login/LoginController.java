@@ -3,6 +3,7 @@ package gui.login;
 import java.io.IOException;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
@@ -11,8 +12,9 @@ import business.Company;
 import gui.portal.AdminPController;
 import gui.portal.BusinessPController;
 import gui.portal.CustomerPController;
-import gui.register.RegisterCustomerController;
-import gui.welcome.PreWelcomeController;
+import gui.register.RegisterController;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,6 +26,9 @@ public class LoginController {
 
 	private MainController menu;
 	private Company comp;
+	
+	ObservableList<String> businessList = FXCollections.observableArrayList
+			("company 1", "company 2", "DBC", "ABC");
 	
 	@FXML
 	private AnchorPane rootPane;
@@ -43,7 +48,15 @@ public class LoginController {
     @FXML
     private Label invalid_id_password;
     
+    @FXML
+    private JFXComboBox<String> chooseBusiness;
+    
     private BookingManagementSystem bms;
+    
+    @FXML
+    private void initialize(){
+    	chooseBusiness.setItems(businessList);
+    }
     
     public void initiate(Company comp, BookingManagementSystem bms){
     	this.comp = comp;
@@ -55,28 +68,43 @@ public class LoginController {
     void login(ActionEvent event){
     	String username = l_username.getText();
     	String password = l_password.getText();
+    	String business = chooseBusiness.getValue();
     	
-    	if(menu.authenticate(username, password).equals("customer")){
-    		goToCustomerPortal(username);
+    	if(business == null){
+    		if(username.equals("admin") && username.equals("admin")){
+    			goToAdminPortal();
+    		}
+    		else if(menu.authenticate(username, password, business).equals("business")){
+        		goToBusinessPortal(username);
+        	}
+    		else{
+    			invalid_id_password.setText("Invalid username or password. Please try again");
+    		}
     	}
-    	else if (menu.authenticate(username, password).equals("business")){
-    		goToBusinessPortal(username);
+    	else{
+    		System.out.println("Debug 1");
+    		if(menu.authenticate(username, password, business).equals("customer")){
+    			goToCustomerPortal(username);
+        	}
+        	else if (menu.authenticate(username, password, business).equals("business")){
+        		goToBusinessPortal(username);
+        	}
+        	else if (username.equals("admin") && password.equals("admin")){
+        		goToAdminPortal();
+        	}
+    		else{
+    			invalid_id_password.setText("Invalid username or password. Please try again");
+    		}
     	}
-    	else if (username.equals("admin") && password.equals("admin")){
-    		goToAdminPortal();
-    	}
-		else{
-			invalid_id_password.setText("Invalid username or password. Please try again");
-		}
     }
     
     @FXML
     void goToRegister(ActionEvent event) throws IOException{
     	AnchorPane pane;
-    	FXMLLoader register = new FXMLLoader(getClass().getResource("../register/RegisterCustomer.fxml"));
+    	FXMLLoader register = new FXMLLoader(getClass().getResource("../register/Register.fxml"));
     	pane = register.load();
     	rootPane.getChildren().setAll(pane);
-    	RegisterCustomerController controller = register.getController();
+    	RegisterController controller = register.getController();
 		controller.initiate(comp, bms);
     }
 	
@@ -109,16 +137,6 @@ public class LoginController {
 			e.printStackTrace();
 		}
 	}
-	
-	@FXML
-    void goToBusiness(ActionEvent event) throws IOException{
-    	AnchorPane pane;
-    	FXMLLoader business = new FXMLLoader(getClass().getResource("../welcome/PreWelcome.fxml"));
-    	pane = business.load();
-    	rootPane.getChildren().setAll(pane);
-    	PreWelcomeController controller = business.getController();
-		controller.initiate(bms);
-    }
 	
 	void goToAdminPortal(){
 		try {
