@@ -73,11 +73,11 @@ public class ViewCalendarController {
 		this.bms = bms;
 		contPane = new Pane();
 		scrollPaneCal = new ScrollPane();
-		scrollPaneCal.setLayoutX(110);
-		scrollPaneCal.setLayoutY(94);
+		scrollPaneCal.setLayoutX(180);
+		scrollPaneCal.setLayoutY(120);
 		scrollPaneCal.setPrefHeight(530.0);
 		scrollPaneCal.setPrefWidth(1100.0);
-		scrollPaneCal.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
+		scrollPaneCal.setVbarPolicy(ScrollBarPolicy.NEVER);
 		populateTable();
 		createRectangles();
 		scrollPaneCal.setContent(contPane);
@@ -170,7 +170,7 @@ public class ViewCalendarController {
 			day.setLayoutX(154.0 + (135*i));
 			day.setLayoutY(5);
 			day.setStyle("-fx-font: 16 Lato;");
-			day.setTextFill(Color.web("#000000"));
+			day.setStyle("-fx-text-fill: white");
 			contPane.getChildren().add(day);
 		}
 		String busHours = comp.getBusinessHours();
@@ -213,7 +213,7 @@ public class ViewCalendarController {
 			time1.setLayoutX(10.0);
 			time1.setLayoutY(40 + (30*i));
 			time1.setStyle("-fx-font: 16 Lato;");
-			time1.setTextFill(Color.web("#000000"));
+			time1.setStyle("-fx-text-fill: white");
 			contPane.getChildren().add(time1);
 		}
 	}
