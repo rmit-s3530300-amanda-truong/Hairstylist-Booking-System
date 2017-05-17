@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="rootPane" prefHeight="788.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.register.RegisterBusiness4Controller">
+   <children>
+      <Pane id="content" layoutY="74.0" prefHeight="714.0" prefWidth="1400.0">
+         <children>
+            <Rectangle arcHeight="40.0" arcWidth="40.0" height="680.0" layoutX="345.0" layoutY="18.0" opacity="0.65" stroke="BLACK" strokeType="INSIDE" width="710.0" />
+            <Label layoutX="588.0" layoutY="20.0" text="REGISTER" textFill="WHITE">
+               <font>
+                  <Font name="Lato Black" size="47.0" />
+               </font>
+            </Label>
+            <Label layoutX="615.0" layoutY="97.0" text="REVIEW REGISTRATION" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="488.0" layoutY="223.0" text="BUSINESS NAME" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <JFXButton id="button" layoutX="746.0" layoutY="622.0" onAction="#submit" prefHeight="60.0" prefWidth="250.0" style="-fx-background-radius: 60;" stylesheets="@../stylesheet.css" text="SUBMIT REQUEST" textFill="WHITE">
+               <font>
+                  <Font name="Lato Black" size="20.0" />
+               </font>
+            </JFXButton>
+            <JFXButton id="button" layoutX="403.0" layoutY="622.0" onAction="#backRegister3" prefHeight="60.0" prefWidth="250.0" style="-fx-background-radius: 60;" stylesheets="@../stylesheet.css" text="BACK" textFill="WHITE">
+               <font>
+                  <Font name="Lato Black" size="20.0" />
+               </font>
+            </JFXButton>
+            <Label layoutX="681.0" layoutY="223.0" text="BUSINESS NAME TEXT" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="483.0" layoutY="281.0" text="BUSINESS HOURS" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="683.0" layoutY="281.0" text="Monday (08-16), Tuesday (08-16)" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="683.0" layoutY="304.0" text="WEDNESDAY (08-16), THURSDAY (08-16)" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="684.0" layoutY="327.0" text="FRIDAY (08-16), SATURDAY (08-16)" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="683.0" layoutY="351.0" text="SUNDAY (08-16)" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="468.0" layoutY="391.0" text="BUSINESS SERVICES" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="683.0" layoutY="391.0" text="FEMALE CUT (30min), MALE CUT (15min)" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="683.0" layoutY="413.0" text="FEMALE WASH (30min), MALE WASH (15min)" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+         </children></Pane>
+      <Pane id="menuPane" prefHeight="75.0" prefWidth="1400.0">
+         <children>
+            <JFXButton id="button" disable="true" layoutX="1199.0" layoutY="19.0" prefHeight="38.0" prefWidth="125.0" stylesheets="@../stylesheet.css" text="REGISTER" textFill="WHITE">
+               <font>
+                  <Font name="Helvetica-Normal" size="16.0" />
+               </font>
+            </JFXButton>
+            <Label layoutX="38.0" layoutY="20.0" maxWidth="615.0" prefHeight="37.0" prefWidth="611.0" text="TEAM 8 BOOKING MANAGEMENT SYSTEM" textFill="WHITE">
+               <font>
+                  <Font name="Lato Black" size="22.0" />
+               </font>
+            </Label>
+            <JFXButton id="button" layoutX="1034.0" layoutY="19.0" onAction="#goToLogin" prefHeight="38.0" prefWidth="125.0" stylesheets="@../stylesheet.css" text="LOGIN" textFill="WHITE">
+               <font>
+                  <Font name="Helvetica-Normal" size="16.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

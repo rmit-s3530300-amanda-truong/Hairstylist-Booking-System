@@ -11,7 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import mainController.MainController;
 
-public class RegisterBusiness3Controller {
+public class RegisterBusiness4Controller {
 
 	private MainController menu;
 	private Company comp;
@@ -27,12 +27,12 @@ public class RegisterBusiness3Controller {
 	}
 
     @FXML
-    void backRegister(ActionEvent event) {
-
+    void backRegister3(ActionEvent event) {
+    	
     }
-    
+
     @FXML
-    void nextRegister3(ActionEvent event) {
+    void submit(ActionEvent event) {
 
     }
     
@@ -45,4 +45,5 @@ public class RegisterBusiness3Controller {
     	LoginController controller = login.getController();
 		controller.initiate(comp, bms);
     }
+
 }
