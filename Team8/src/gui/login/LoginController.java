@@ -145,7 +145,7 @@ public class LoginController {
 	    	pane = adminPortal.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	AdminPController controller = adminPortal.getController();
-			controller.initiate(menu, bms);
+			controller.initiate(comp, bms);
 		} 
 		catch (IOException e) {
 			e.printStackTrace();

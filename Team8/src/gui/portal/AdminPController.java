@@ -5,6 +5,8 @@ import java.io.IOException;
 import com.jfoenix.controls.JFXButton;
 
 import Main.BookingManagementSystem;
+import business.Company;
+import gui.register.PendingRegistrationController;
 import gui.welcome.PreWelcomeController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,6 +16,7 @@ import mainController.MainController;
 
 public class AdminPController {
 	
+	private Company comp;
 	private MainController menu;
 	private BookingManagementSystem bms;
 	
@@ -26,20 +29,21 @@ public class AdminPController {
 	@FXML
 	private JFXButton gotoLogout;
 	
-	public void initiate(MainController menu, BookingManagementSystem bms) {
-		this.menu = menu;
+	public void initiate(Company comp, BookingManagementSystem bms) {
+		this.comp = comp;
+		menu = comp.getMenu();
 		this.bms = bms;
 	}
 	
 	//go to add business form
 	@FXML
 	void addBusiness(ActionEvent event) throws IOException{
-//		AnchorPane pane;
-//    	FXMLLoader addBuss = new FXMLLoader(getClass().getResource("../register/RegisterBusiness.fxml"));
-//    	pane = addBuss.load();
-//    	rootPane.getChildren().setAll(pane);
-//    	RegisterBusinessController controller = addBuss.getController();
-//		controller.initiate(menu, bms);
+		AnchorPane pane;
+    	FXMLLoader addBuss = new FXMLLoader(getClass().getResource("../register/PendingRegistration.fxml"));
+    	pane = addBuss.load();
+    	rootPane.getChildren().setAll(pane);
+    	PendingRegistrationController controller = addBuss.getController();
+		controller.initiate(comp, bms);
 	}
 	
 	//logout

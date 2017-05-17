@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="rootPane" prefHeight="788.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.register.PendingRegistrationController">
+   <children>
+      <Pane id="menuPane" prefHeight="75.0" prefWidth="1400.0">
+         <children>
+            <JFXButton id="button" fx:id="gotoLogout" layoutX="1199.0" layoutY="21.0" onAction="#goToLogout" prefHeight="35.0" prefWidth="125.0" stylesheets="@../stylesheet.css" text="LOGOUT" textFill="WHITE">
+               <font>
+                  <Font name="Helvetica-Normal" size="16.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </Pane>
+      <Pane id="content_addEmp" layoutY="74.0" prefHeight="714.0" prefWidth="1400.0">
+         <children>
+            <Rectangle arcHeight="40.0" arcWidth="40.0" height="553.0" layoutX="440.0" layoutY="74.0" opacity="0.6" stroke="BLACK" strokeType="INSIDE" width="585.0" />
+            <Label layoutX="512.0" layoutY="347.0" text="BUSINESS NAME" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="466.0" layoutY="109.0" text="REVIEW NEW BUSINESS REQUEST" textFill="WHITE">
+               <font>
+                  <Font name="Lato Black" size="33.0" />
+               </font>
+            </Label>
+            <Pane prefHeight="714.0" prefWidth="82.0" style="-fx-background-color: #1d1c1c;">
+            <children>
+                  <JFXButton id="home" contentDisplay="GRAPHIC_ONLY" layoutX="8.0" layoutY="16.0" onAction="#goToPortal" ripplerFill="#1d1c1c00" />
+               </children>
+            </Pane>
+            <Label fx:id="username" layoutX="504.0" layoutY="110.0" prefHeight="24.0" prefWidth="75.0" textFill="WHITE">
+               <font>
+                  <Font name="Lato Heavy" size="19.0" />
+               </font>
+            </Label>
+            <JFXComboBox fx:id="chooseBusiness" focusColor="#aa9144" layoutX="700.0" layoutY="330.0" prefHeight="38.0" prefWidth="230.0" promptText="PLEASE SELECT" unFocusColor="WHITE" />
+            <JFXButton id="button" fx:id="registerAction" layoutX="783.0" layoutY="554.0" onAction="#register" prefHeight="45.0" prefWidth="170.0" style="-fx-background-radius: 60;" stylesheets="@../stylesheet.css" text="APPROVE" textFill="WHITE">
+               <font>
+                  <Font name="Lato Black" size="20.0" />
+               </font>
+            </JFXButton>
+            <JFXButton id="button" fx:id="registerAction1" layoutX="498.0" layoutY="554.0" onAction="#register" prefHeight="45.0" prefWidth="170.0" style="-fx-background-radius: 60;" stylesheets="@../stylesheet.css" text="DECLINE" textFill="WHITE">
+               <font>
+                  <Font name="Lato Black" size="20.0" />
+               </font>
+            </JFXButton>
+            <Label layoutX="505.0" layoutY="200.0" text="SELECT A BUSINESS THAT YOU WANT TO APPROVE OR DECLINE" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="invalidbussName" layoutX="700.0" layoutY="372.0" prefHeight="25.0" prefWidth="230.0" textFill="RED">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+         </children></Pane>
+   </children>
+</AnchorPane>
