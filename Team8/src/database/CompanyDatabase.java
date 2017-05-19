@@ -455,7 +455,7 @@ public class CompanyDatabase{
 				prep.setString(6,"0430202101");
 				prep.setString(7,"1 Bossy Street, Bossville, 3000");
 				prep.setString(8,"Female Cut, Male Cut, Female Dye, Male Dye, Female Perm, Male Perm, Female Wash, Male Wash");
-				prep.setString(9,"Monday=08:00,16:00|Tuesday=08:00,16:00|Wednesday=08:00,16:00|Thursday=08:00,16:00|Friday=08:00,16:00");
+				prep.setString(9,"Monday=08:00,16:00|Tuesday=08:00,16:00|Wednesday=08:00,16:00|Thursday=08:00,16:00|Friday=08:00,16:00|Saturday=empty|Sunday=empty");
 				prep.execute();
 				prep.close();
 				PreparedStatement prep2 = conn.prepareStatement("INSERT INTO BUSINESS values(?,?,?,?,?,?,?,?,?);");
@@ -467,7 +467,7 @@ public class CompanyDatabase{
 				prep2.setString(6,"0423123999");
 				prep2.setString(7,"1 Chris Street, Prattville, 2000");
 				prep2.setString(8,"Female Cut, Male Cut, Female Dye, Male Dye, Female Perm, Male Perm");
-				prep2.setString(9,"Monday=09:00,17:00|Tuesday=09:00,17:00|Wednesday=09:00,17:00|Thursday=09:00,17:00|Friday=09:00,17:00");
+				prep2.setString(9,"Monday=09:00,17:00|Tuesday=09:00,17:00|Wednesday=09:00,17:00|Thursday=09:00,17:00|Friday=09:00,17:00|Saturday=empty|Sunday=empty");
 				prep2.execute();
 				prep2.close();
 			}

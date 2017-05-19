@@ -2,6 +2,7 @@ package mainController;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -119,6 +120,13 @@ public class MainController {
 		String password = null;
 		//String company = "ABC";
 		String status = "employee";
+		String[] serviceList = service.split(", ");
+		ArrayList<String> serviceType = new ArrayList<String>();
+		for(int i=0; i<serviceList.length; i++)
+		{
+			serviceType.add(serviceList[i]);
+		}
+		Employee emp = new Employee(username, comp.getName(), fname, lname, serviceType);
 		companyDb.addBusInfo(username, comp.getName(), fname, lname, password, mobile, address, service, status);		
 	}
 

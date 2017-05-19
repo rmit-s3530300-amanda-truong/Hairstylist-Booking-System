@@ -94,7 +94,7 @@ public class PreWelcomeController {
     	}
     	else
     	{
-    		controller.initiate(company, bms);
+    		controller.initiate(bms);
     	}
     }
 	

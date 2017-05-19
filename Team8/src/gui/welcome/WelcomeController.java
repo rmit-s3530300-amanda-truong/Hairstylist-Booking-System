@@ -43,7 +43,7 @@ public class WelcomeController {
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	LoginController controller = login.getController();
-		controller.initiate(comp, bms);
+		controller.initiate(bms);
     }
     
     @FXML
@@ -53,6 +53,6 @@ public class WelcomeController {
     	pane = register.load();
     	rootPane.getChildren().setAll(pane);
     	RegisterController controller = register.getController();
-		controller.initiate(comp, bms);
+		controller.initiate(bms);
     }
 }

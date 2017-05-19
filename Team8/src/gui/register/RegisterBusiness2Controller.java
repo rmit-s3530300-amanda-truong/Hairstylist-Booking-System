@@ -217,7 +217,14 @@ public class RegisterBusiness2Controller {
 	 public void initiate(Company comp, BookingManagementSystem bms, String fName, String lName, 
     		String uName, String passWord,String mobileNo,String address) {
 		this.comp = comp;
-		menu = comp.getMenu();
+		if(comp == null)
+		{
+			menu = bms.getMenu();
+		}
+		else
+		{
+			menu = comp.getMenu();
+		}
 		this.bms = bms;
 		this.fname = fName;
 		this.lname = lName;
@@ -239,7 +246,7 @@ public class RegisterBusiness2Controller {
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	LoginController controller = login.getController();
-		controller.initiate(comp, bms);
+		controller.initiate(bms);
     }
 
     @FXML

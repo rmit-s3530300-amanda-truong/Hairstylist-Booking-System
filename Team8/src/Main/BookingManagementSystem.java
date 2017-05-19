@@ -23,6 +23,11 @@ public class BookingManagementSystem extends Application {
 	private static final Logger LOGGER = Logger.getLogger("InfoLogging");
 	private MainController menu;
 	private ArrayList<Company> company_list;
+	private CustomerDatabase customerDb;
+	private CompanyDatabase companyDb;
+	private AvailabilityDatabase availDb;
+	private BookingDatabase bookingDb;
+	private ServicesDatabase servDb;
 	
 	public BookingManagementSystem() {
 		company_list = new ArrayList<Company>();
@@ -53,11 +58,11 @@ public class BookingManagementSystem extends Application {
 	public void createCompanyList()
 	{
 		HashMap<String, HashMap<String,String>> busValues;
-		CustomerDatabase customerDb = new CustomerDatabase();
-		CompanyDatabase companyDb = new CompanyDatabase();
-		AvailabilityDatabase availDb = new AvailabilityDatabase();
-		BookingDatabase bookingDb = new BookingDatabase();
-		ServicesDatabase servDb = new ServicesDatabase();
+		customerDb = new CustomerDatabase();
+		companyDb = new CompanyDatabase();
+		availDb = new AvailabilityDatabase();
+		bookingDb = new BookingDatabase();
+		servDb = new ServicesDatabase();
 		
 		String compName = null;
 		String username = null;
@@ -85,14 +90,11 @@ public class BookingManagementSystem extends Application {
 			busHours = busInfo.get("busHours");
 			Company comp = new Company(compName, username, password, owner_fname, owner_lname, mobile, address, service, busHours);
 			addCompany(comp);
-			if(startup == true)
-			{
-				comp.retrieveDatabaseInfo(customerDb, companyDb, availDb, bookingDb, servDb);
-				LOGGER.info("Retrieved Database Information");
-				comp.getCalendar().updateCalendar(comp.getEmployeeList());
-				LOGGER.info("Updated Calendar");
-				startup = false;
-			}
+			comp.retrieveDatabaseInfo(customerDb, companyDb, availDb, bookingDb, servDb);
+			LOGGER.info("Retrieved Database Information");
+			comp.getCalendar().updateCalendar(comp.getEmployeeList());
+			LOGGER.info("Updated Calendar");
+			startup = false;
 		}
 		LOGGER.info("Set Business Values");
 	}
@@ -106,11 +108,21 @@ public class BookingManagementSystem extends Application {
 	}
 	
 	public MainController getMenu() {
+		menu = new MainController(null,customerDb, companyDb, availDb, bookingDb, servDb);
 		return menu;
 	}
 	
 	public static void main(String[] args) {
 		launch(args);
 		new BookingManagementSystem();
+	}
+
+	public Company getCompany(String business) {
+		for(Company c: company_list) {
+			if(c.getName().equals(business)) {
+				return c;
+			}
+		}
+		return null;
 	}
 }

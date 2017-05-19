@@ -43,6 +43,6 @@ public class RegisterBusiness3Controller {
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	LoginController controller = login.getController();
-		controller.initiate(comp, bms);
+		controller.initiate(bms);
     }
 }

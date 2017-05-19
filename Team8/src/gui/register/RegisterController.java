@@ -1,6 +1,7 @@
 package gui.register;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -12,6 +13,8 @@ import business.Company;
 import business.Customer;
 import gui.login.LoginController;
 import gui.portal.CustomerPController;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -26,8 +29,10 @@ public class RegisterController {
 
 	ObservableList<String> rc_stateList = FXCollections.observableArrayList
 			("VIC", "NSW","Queensland", "WA", "SA", "Tasmania");
-	ObservableList<String> businessList = FXCollections.observableArrayList
-			("company 1", "company 2", "company 3", "Register New Company");
+	
+	ObservableList<String> businessList = FXCollections.observableArrayList();
+	
+	String business=null;
 	
 	private MainController menu;
 	private Company comp;
@@ -116,10 +121,37 @@ public class RegisterController {
     	chooseBusiness.setItems(businessList);
     }
 
-	public void initiate(Company comp, BookingManagementSystem bms) {
-		this.comp = comp;
-		menu = comp.getMenu();
+	public void initiate(BookingManagementSystem bms) {
 		this.bms = bms;
+		ArrayList<Company> company_list = bms.getCompanyList();
+		if(company_list.size() >0) {
+			for(Company company : company_list) {
+				businessList.add(company.getName());
+			}
+		}
+		businessList.add("Register New Company");
+		
+		chooseBusiness.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if(!newValue.equals("Register New Company"))
+				{
+					System.out.println(newValue.toString());
+					comp = bms.getCompany(newValue.toString());
+					System.out.println(comp.getName());
+					menu = comp.getMenu();
+					System.out.println(menu);
+					System.out.println("changed");
+					business = newValue.toString();
+				}
+				else
+				{
+					menu = bms.getMenu();
+					System.out.println(menu);
+				}
+			}
+		});
 	}
 	
 	@FXML
@@ -276,7 +308,7 @@ public class RegisterController {
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	LoginController controller = login.getController();
-		controller.initiate(comp, bms);
+		controller.initiate(bms);
     }
 	
     void goToCustomerPortal() throws IOException{

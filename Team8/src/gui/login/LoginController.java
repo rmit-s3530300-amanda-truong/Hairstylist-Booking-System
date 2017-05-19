@@ -1,10 +1,14 @@
 package gui.login;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
+import org.omg.Messaging.SyncScopeHelper;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
 
 import Main.BookingManagementSystem;
@@ -13,13 +17,17 @@ import gui.portal.AdminPController;
 import gui.portal.BusinessPController;
 import gui.portal.CustomerPController;
 import gui.register.RegisterController;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Font;
 import mainController.MainController;
 
 public class LoginController {
@@ -27,8 +35,9 @@ public class LoginController {
 	private MainController menu;
 	private Company comp;
 	
-	ObservableList<String> businessList = FXCollections.observableArrayList
-			("company 1", "company 2", "DBC", "ABC");
+	ObservableList<String> businessList = FXCollections.observableArrayList();
+	
+	String business=null;
 	
 	@FXML
 	private AnchorPane rootPane;
@@ -58,35 +67,54 @@ public class LoginController {
     	chooseBusiness.setItems(businessList);
     }
     
-    public void initiate(Company comp, BookingManagementSystem bms){
-    	this.comp = comp;
-    	menu = comp.getMenu();
+    @SuppressWarnings("unchecked")
+	public void initiate(BookingManagementSystem bms){
     	this.bms = bms;
+		ArrayList<Company> company_list = bms.getCompanyList();
+		if(company_list.size() >0) {
+			for(Company company : company_list) {
+				businessList.add(company.getName());
+			}
+		}
+		
+		chooseBusiness.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				comp = bms.getCompany(newValue.toString());
+				menu = comp.getMenu();
+				business = newValue.toString();
+			}
+		});
     }
 
     @FXML
     void login(ActionEvent event){
     	String username = l_username.getText();
     	String password = l_password.getText();
-    	String business = chooseBusiness.getValue();
+    	
     	
     	if(business == null){
     		if(username.equals("admin") && username.equals("admin")){
     			goToAdminPortal();
     		}
-    		else if(menu.authenticate(username, password, business).equals("business")){
+/*    		else if(menu.authenticate(username, password, business).equals("business")){
+    			comp = bms.getCompany(business);
         		goToBusinessPortal(username);
-        	}
+        	}*/
     		else{
     			invalid_id_password.setText("Invalid username or password. Please try again");
     		}
     	}
     	else{
-    		System.out.println("Debug 1");
+    		System.out.println("Debug 1");	
+    		//menu is null when def boss is chosen
     		if(menu.authenticate(username, password, business).equals("customer")){
+    			comp = bms.getCompany(business);
     			goToCustomerPortal(username);
         	}
         	else if (menu.authenticate(username, password, business).equals("business")){
+        		comp = bms.getCompany(business);
         		goToBusinessPortal(username);
         	}
         	else if (username.equals("admin") && password.equals("admin")){
@@ -105,7 +133,7 @@ public class LoginController {
     	pane = register.load();
     	rootPane.getChildren().setAll(pane);
     	RegisterController controller = register.getController();
-		controller.initiate(comp, bms);
+		controller.initiate(bms);
     }
 	
     //loads customer portal scene

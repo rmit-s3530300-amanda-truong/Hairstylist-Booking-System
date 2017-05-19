@@ -122,6 +122,22 @@
             </Label>
             <JFXComboBox fx:id="endHour" focusColor="#aa9144" layoutX="759.0" layoutY="430.0" unFocusColor="WHITE" />
             <JFXComboBox fx:id="endMinute" focusColor="#aa9144" layoutX="840.0" layoutY="430.0" unFocusColor="WHITE" />
+            <JFXRadioButton fx:id="sat" layoutX="766.0" layoutY="315.0" text="SATURDAY" textFill="WHITE">
+               <toggleGroup>
+                  <ToggleGroup fx:id="days1" />
+               </toggleGroup>
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </JFXRadioButton>
+            <JFXRadioButton fx:id="sun" layoutX="623.0" layoutY="357.0" text="SUNDAY" textFill="WHITE">
+               <toggleGroup>
+                  <ToggleGroup fx:id="days11" />
+               </toggleGroup>
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </JFXRadioButton>
          </children></Pane>
    </children>
 </AnchorPane>

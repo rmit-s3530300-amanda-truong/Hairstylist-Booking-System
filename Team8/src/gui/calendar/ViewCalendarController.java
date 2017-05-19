@@ -184,13 +184,16 @@ public class ViewCalendarController {
 		{
 			String[] split1 = dayandTime[i].split("=");
 			day = split1[0];
-			String[] split2 = split1[1].split(",");
-			startTime = split2[0];
-			endTime = split2[1];
-			hours.put(day, startTime+"-"+endTime);
+			if(!split1[1].equals("empty"))
+			{
+				String[] split2 = split1[1].split(",");
+				startTime = split2[0];
+				endTime = split2[1];
+				hours.put(day, startTime+"-"+endTime);
+				sTime = LocalTime.parse(startTime);
+				eTime = LocalTime.parse(endTime);
+			}
 		}
-		sTime = LocalTime.parse(startTime);
-		eTime = LocalTime.parse(endTime);
 		//checking the earliest and latest business hours to set frame of calendar
 		for(Entry<String,String> x: hours.entrySet())
 		{
@@ -225,7 +228,7 @@ public class ViewCalendarController {
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	LoginController controller = login.getController();
-		controller.initiate(comp, bms);
+		controller.initiate(bms);
     }
 	
 	@FXML

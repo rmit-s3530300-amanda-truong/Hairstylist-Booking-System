@@ -330,7 +330,7 @@ public class AddEmpController {
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	LoginController controller = login.getController();
-		controller.initiate(comp, bms);
+		controller.initiate(bms);
 		LOGGER.info("Logout");
     }
 	

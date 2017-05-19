@@ -3,6 +3,7 @@ package gui.company;
 import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
+import java.util.HashMap;
 import java.util.logging.Logger;
 
 import com.jfoenix.controls.JFXButton;
@@ -14,6 +15,8 @@ import Main.BookingManagementSystem;
 import business.Company;
 import gui.login.LoginController;
 import gui.portal.BusinessPController;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,6 +24,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import mainController.MainController;
@@ -30,6 +34,20 @@ public class AddAvailTimeController {
 	
 	private MainController menu;
 	private Company comp;
+    ObservableList<String> monStartHourList = FXCollections.observableArrayList();
+    ObservableList<String> monEndHourList = FXCollections.observableArrayList();
+    ObservableList<String> tueStartHourList = FXCollections.observableArrayList();
+    ObservableList<String> tueEndHourList = FXCollections.observableArrayList();
+    ObservableList<String> wedStartHourList = FXCollections.observableArrayList();
+    ObservableList<String> wedEndHourList = FXCollections.observableArrayList();
+    ObservableList<String> thurStartHourList = FXCollections.observableArrayList();
+    ObservableList<String> thurEndHourList = FXCollections.observableArrayList();
+    ObservableList<String> friStartHourList = FXCollections.observableArrayList();
+    ObservableList<String> friEndHourList = FXCollections.observableArrayList();
+    ObservableList<String> satStartHourList = FXCollections.observableArrayList();
+    ObservableList<String> satEndHourList = FXCollections.observableArrayList();
+    ObservableList<String> sunStartHourList = FXCollections.observableArrayList();
+    ObservableList<String> sunEndHourList = FXCollections.observableArrayList();
 	
 	@FXML
     private AnchorPane rootPane;
@@ -62,6 +80,12 @@ public class AddAvailTimeController {
     private JFXRadioButton fri;
     
     @FXML
+    private JFXRadioButton sat;
+    
+    @FXML
+    private JFXRadioButton sun;
+    
+    @FXML
     private Label invalidusername;
 
     @FXML
@@ -91,23 +115,178 @@ public class AddAvailTimeController {
 		this.comp = comp;
     	menu = comp.getMenu();
 		this.bms = bms;
+		
+		String busHours = comp.getBusinessHours();
+		//need to escape | and \\
+		String[] dayandTime = busHours.split("\\|",-1);
+		String startTime = null;
+		String endTime = null;
+		String day;
+		int stime = 0;
+		int etime = 0;
+		for(int i=0; i<dayandTime.length; i++)
+		{
+			String[] split1 = dayandTime[i].split("=");
+			day = split1[0];
+			if(!split1[1].equals("empty"))
+			{
+				String[] split2 = split1[1].split(",");
+				startTime = split2[0];
+				endTime = split2[1];
+				String[] stimesplit = startTime.split(":");
+				String[] etimesplit = endTime.split(":");
+				stime = Integer.parseInt(stimesplit[0]);
+				etime = Integer.parseInt(etimesplit[0]);
+			}
+			if(day.equals("Monday"))
+			{
+				for(int t = stime; t<etime; t++)
+				{
+					monStartHourList.add(String.valueOf(t));
+					monEndHourList.add(String.valueOf(t+1));
+				}	
+				if(split1[1].equals("empty"))
+				{
+					mon.setDisable(true);
+				}
+			}
+			else if(day.equals("Tuesday"))
+			{
+				for(int t = stime; t<etime; t++)
+				{
+					tueStartHourList.add(String.valueOf(t));	
+					tueEndHourList.add(String.valueOf(t+1));
+				}
+				if(split1[1].equals("empty"))
+				{
+					tue.setDisable(true);
+				}
+			}
+			else if(day.equals("Wednesday"))
+			{
+				for(int t = stime; t<etime; t++)
+				{
+					wedStartHourList.add(String.valueOf(t));	
+					wedEndHourList.add(String.valueOf(t+1));
+				}
+				if(split1[1].equals("empty"))
+				{
+					wed.setDisable(true);
+				}
+			}
+			else if(day.equals("Thursday"))
+			{
+				for(int t = stime; t<etime; t++)
+				{
+					thurStartHourList.add(String.valueOf(t));	
+					thurEndHourList.add(String.valueOf(t+1));
+				}
+				if(split1[1].equals("empty"))
+				{
+					thu.setDisable(true);
+				}
+			}
+			else if(day.equals("Friday"))
+			{
+				for(int t = stime; t<etime; t++)
+				{
+					friStartHourList.add(String.valueOf(t));	
+					friEndHourList.add(String.valueOf(t+1));
+				}
+				if(split1[1].equals("empty"))
+				{
+					fri.setDisable(true);
+				}
+			}
+			else if(day.equals("Saturday"))
+			{
+				for(int t = stime; t<etime; t++)
+				{
+					satStartHourList.add(String.valueOf(t));	
+					satEndHourList.add(String.valueOf(t+1));
+					if(split1[1].equals("empty"))
+					{
+						sat.setDisable(true);
+					}
+				}
+			}
+			else if(day.equals("Sunday"))
+			{
+				for(int t = stime; t<etime; t++)
+				{
+					sunStartHourList.add(String.valueOf(t));	
+					sunEndHourList.add(String.valueOf(t+1));
+				}
+				System.out.println(sunStartHourList.isEmpty());
+				if(split1[1].equals("empty"))
+				{
+					sun.setDisable(true);
+				}
+			}
+		}
+		
+		mon.setToggleGroup(days);
+		tue.setToggleGroup(days);
+		wed.setToggleGroup(days);
+		thu.setToggleGroup(days);
+		fri.setToggleGroup(days);
+		sat.setToggleGroup(days);
+		sun.setToggleGroup(days);
+		days.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+            @Override
+            public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
+            	JFXRadioButton button = (JFXRadioButton)newValue.getToggleGroup().getSelectedToggle();
+            	if(button.getText().equals("MONDAY"))
+            	{
+            		startHour.setItems(monStartHourList);
+            		endHour.setItems(monEndHourList);
+            	}
+            	else if(button.getText().equals("TUESDAY"))
+            	{
+            		startHour.setItems(tueStartHourList);
+            		endHour.setItems(tueEndHourList);
+            	}
+            	else if(button.getText().equals("WEDNESDAY"))
+            	{
+            		startHour.setItems(wedStartHourList);
+            		endHour.setItems(wedEndHourList);
+            	}
+            	else if(button.getText().equals("THURSDAY"))
+            	{
+            		startHour.setItems(thurStartHourList);
+            		endHour.setItems(thurEndHourList);
+            	}
+            	else if(button.getText().equals("FRIDAY"))
+            	{
+            		startHour.setItems(friStartHourList);
+            		endHour.setItems(friEndHourList);
+            	}
+            	else if(button.getText().equals("SATURDAY"))
+            	{
+            		startHour.setItems(satStartHourList);
+            		endHour.setItems(satEndHourList);
+            	}
+            	else if(button.getText().equals("SUNDAY"))
+            	{
+            		startHour.setItems(sunStartHourList);
+            		endHour.setItems(sunEndHourList);
+            	}
+            }
+        });
+		
 	}
-    
-    ObservableList<String> startHourList = FXCollections.observableArrayList
-			("08", "09","10", "11", "12", "13", "14", "15");
-    ObservableList<String> endHourList = FXCollections.observableArrayList
-			("09","10", "11", "12", "13", "14", "15", "16");
+
     ObservableList<String> minuteList = FXCollections.observableArrayList
 			("00", "15", "30", "45");
 
     @FXML
     private void initialize(){
-    	startHour.setValue("08");
-    	startMinute.setValue("00");
-    	startHour.setItems(startHourList);
-    	endHour.setValue("16");
-    	endMinute.setValue("00");
-    	endHour.setItems(endHourList);
+    	//startHour.setValue("08");
+    	//startMinute.setValue("00");
+    	//startHour.setItems(startHourList);
+    	//endHour.setValue("16");
+    	//endMinute.setValue("00");
+    	//endHour.setItems(endHourList);
     	startMinute.setItems(minuteList);
     	endMinute.setItems(minuteList);
     }
@@ -138,7 +317,7 @@ public class AddAvailTimeController {
     	}
     	
     	//checking day
-    	if(mon.isSelected() || tue.isSelected() || wed.isSelected() || thu.isSelected() || fri.isSelected()){
+    	if(mon.isSelected() || tue.isSelected() || wed.isSelected() || thu.isSelected() || fri.isSelected() || sat.isSelected() || sun.isSelected()){
     		if(mon.isSelected()){
     			LOGGER.info("Monday selected");
     			day = DayOfWeek.of(1);
@@ -158,6 +337,14 @@ public class AddAvailTimeController {
         	if(fri.isSelected()){
         		LOGGER.info("Friday selected");
         		day = DayOfWeek.of(5);
+        	}
+        	if(sat.isSelected()){
+        		LOGGER.info("Saturday selected");
+        		day = DayOfWeek.of(6);
+        	}
+        	if(sun.isSelected()){
+        		LOGGER.info("Sunday selected");
+        		day = DayOfWeek.of(7);
         	}
         	dayValid = true;
         	invalidday.setText("");
@@ -198,7 +385,7 @@ public class AddAvailTimeController {
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	LoginController controller = login.getController();
-		controller.initiate(comp, bms);
+		controller.initiate(bms);
 		LOGGER.info("Logout");
     }
     

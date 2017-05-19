@@ -217,8 +217,11 @@ public class Company {
 					Employee emp  = entry.getValue();
 				}
 				Employee emp = getEmployee(employeeID);
-				emp.addAvailability(day,startTime,endTime);
-				timeMap = emp.getAvailability();
+				if(emp != null)
+				{
+					emp.addAvailability(day,startTime,endTime);
+					timeMap = emp.getAvailability();
+				}
 			}
 		}
 		return timeMap;
@@ -296,9 +299,12 @@ public class Company {
 			{
 				Booking booking = new Booking(status, bookingID);
 				Employee emp = getEmployee(employeeID);
-				emp.addBooking(date, startTime, endTime);
-				booking.addDetails(date, startTime, endTime, service, emp, customerUsername);
-				bookList.add(booking);
+				if(emp != null)
+				{
+					emp.addBooking(date, startTime, endTime);
+					booking.addDetails(date, startTime, endTime, service, emp, customerUsername);
+					bookList.add(booking);
+				}
 				calendar.setBookingList(bookList);
 			}
 		}
