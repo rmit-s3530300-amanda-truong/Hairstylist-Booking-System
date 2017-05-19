@@ -296,6 +296,7 @@ public class Company {
 			{
 				Booking booking = new Booking(status, bookingID);
 				Employee emp = getEmployee(employeeID);
+				emp.addBooking(date, startTime, endTime);
 				booking.addDetails(date, startTime, endTime, service, emp, customerUsername);
 				bookList.add(booking);
 				calendar.setBookingList(bookList);

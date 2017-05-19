@@ -90,8 +90,11 @@ public class MakeBooking6Controller {
 		
 		Boolean contains = false;
 		
+		// if the available day exists
 		if(avail.get(day)!= null){
+			// if customer chose morning
 			if(select.equals("morning")) {
+				// check if the times available are not within the 'available time slot'
 				for(LocalTime time : avail.get(day)) {
 					for(LocalTime t1 : unavail) {
 						if(t1.equals(time)) {
@@ -104,7 +107,7 @@ public class MakeBooking6Controller {
 						}
 					}
 				}
-					
+			// if customer chose afternoon		
 			} else {
 				for(LocalTime time : avail.get(day)) {
 					for(LocalTime t1 : unavail) {
