@@ -26,10 +26,10 @@ import mainController.MainController;
 public class RegisterBusiness2Controller {
 	
 	ObservableList<String> hourList = FXCollections.observableArrayList
-			("Please Select","Closed", "01","02", "03", "04", "05", "06","07", "08", "09", "10", "11",
-			"12", "13", "14", "15", "16","17", "18", "19", "20", "21","22", "23", "24");
+			("Closed", "00", "01","02", "03", "04", "05", "06","07", "08", "09", "10", "11",
+			"12", "13", "14", "15", "16","17", "18", "19", "20", "21","22", "23");
 	ObservableList<String> minuteList = FXCollections.observableArrayList
-			("Please Select", "Closed","00", "15", "30","45");
+			("Closed","00", "15", "30","45");
 	
 	private Company comp;
 	
