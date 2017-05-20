@@ -17,12 +17,7 @@
                   <Font name="Lato Black" size="47.0" />
                </font>
             </Label>
-            <Label layoutX="615.0" layoutY="97.0" text="REVIEW REGISTRATION" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Label layoutX="488.0" layoutY="223.0" text="BUSINESS NAME" textFill="WHITE">
+            <Label layoutX="604.0" layoutY="98.0" text="REVIEW REGISTRATION" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -37,51 +32,6 @@
                   <Font name="Lato Black" size="20.0" />
                </font>
             </JFXButton>
-            <Label layoutX="681.0" layoutY="223.0" text="BUSINESS NAME TEXT" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Label layoutX="483.0" layoutY="281.0" text="BUSINESS HOURS" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Label layoutX="683.0" layoutY="281.0" text="Monday (08-16), Tuesday (08-16)" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Label layoutX="683.0" layoutY="304.0" text="WEDNESDAY (08-16), THURSDAY (08-16)" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Label layoutX="684.0" layoutY="327.0" text="FRIDAY (08-16), SATURDAY (08-16)" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Label layoutX="683.0" layoutY="351.0" text="SUNDAY (08-16)" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Label layoutX="468.0" layoutY="391.0" text="BUSINESS SERVICES" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Label layoutX="683.0" layoutY="391.0" text="FEMALE CUT (30min), MALE CUT (15min)" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Label layoutX="683.0" layoutY="413.0" text="FEMALE WASH (30min), MALE WASH (15min)" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
          </children></Pane>
       <Pane id="menuPane" prefHeight="75.0" prefWidth="1400.0">
          <children>

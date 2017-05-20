@@ -13,7 +13,6 @@ import mainController.MainController;
 
 public class RegisterBusiness4Controller {
 
-	private MainController menu;
 	private Company comp;
 	private BookingManagementSystem bms;
 	
@@ -22,7 +21,6 @@ public class RegisterBusiness4Controller {
     
     public void initiate(Company comp, BookingManagementSystem bms) {
 		this.comp = comp;
-		menu = comp.getMenu();
 		this.bms = bms;
 	}
 

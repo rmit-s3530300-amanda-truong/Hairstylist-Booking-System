@@ -77,7 +77,7 @@ public class ViewCalendarController {
 		scrollPaneCal.setLayoutY(120);
 		scrollPaneCal.setPrefHeight(530.0);
 		scrollPaneCal.setPrefWidth(1100.0);
-		scrollPaneCal.setVbarPolicy(ScrollBarPolicy.NEVER);
+		scrollPaneCal.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 		populateTable();
 		createRectangles();
 		scrollPaneCal.setContent(contPane);
