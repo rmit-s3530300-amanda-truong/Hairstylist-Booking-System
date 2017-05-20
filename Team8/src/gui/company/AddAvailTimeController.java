@@ -13,6 +13,7 @@ import com.jfoenix.controls.JFXTextField;
 
 import Main.BookingManagementSystem;
 import business.Company;
+import business.Employee;
 import gui.login.LoginController;
 import gui.portal.BusinessPController;
 import javafx.beans.value.ChangeListener;
@@ -224,7 +225,6 @@ public class AddAvailTimeController {
 				}
 			}
 		}
-		
 		mon.setToggleGroup(days);
 		tue.setToggleGroup(days);
 		wed.setToggleGroup(days);
@@ -305,10 +305,19 @@ public class AddAvailTimeController {
     	boolean idValid = false, dayValid = false, startTimeValid = false, endTimeValid = false;
     	
     	//checking username
-    	if(menu.idValid(username)){
-    		idValid = true;
-    		LOGGER.info("True "+username);
-    		invalidusername.setText("");
+    	Employee emp = comp.getEmployee(username);
+    	if(emp != null)
+    	{
+        	if(menu.idValid(username) && comp.getName().equals(emp.getCompName())){
+        		idValid = true;
+        		LOGGER.info("True "+username);
+        		invalidusername.setText("");
+        	}
+        	else{
+        		LOGGER.info("False "+username);
+        		invalidusername.setText("Invalid username.");
+    			invalidusername.setAlignment(Pos.CENTER_LEFT);
+        	}	
     	}
     	else{
     		LOGGER.info("False "+username);
@@ -354,21 +363,39 @@ public class AddAvailTimeController {
     		invalidday.setText("Please select a day.");
 			invalidday.setAlignment(Pos.CENTER_LEFT);
     	}
-    	startTime = LocalTime.of(Integer.parseInt(sHour), Integer.parseInt(sMinute));
-		LOGGER.info(sHour + " " + sMinute);
-		startTimeValid = true;
+    	//checking start hour
+    	if(!startHour.getSelectionModel().isEmpty())
+    	{
+    		startTime = LocalTime.of(Integer.parseInt(sHour), Integer.parseInt(sMinute));
+    		LOGGER.info(sHour + " " + sMinute);
+    		startTimeValid = true;
+    		invalidendhour.setText("");
+    	}
+    	else
+    	{
+    		invalidendhour.setText("Please select a start time");
+    		invalidendhour.setAlignment(Pos.CENTER);
+    	}
     	
     	//checking end time
-		if(menu.validEndTime(sHour, eHour, sMinute, eMinute)){
-			endTime = LocalTime.of(Integer.parseInt(eHour), Integer.parseInt(eMinute));
-			endTimeValid = true;
-			invalidendhour.setText("");
+    	if(!endHour.getSelectionModel().isEmpty())
+    	{
+    		if(menu.validEndTime(sHour, eHour, sMinute, eMinute)){
+    			endTime = LocalTime.of(Integer.parseInt(eHour), Integer.parseInt(eMinute));
+				endTimeValid = true;
+				invalidendhour.setText("");
+			}
+    		else{
+    			invalidendhour.setText("Invalid End time. Must be atleast 1 hour more than Start time.");
+    			LOGGER.info("Invalid End time. Must be atleast 1 hour more than Start time.");
+    			invalidendhour.setAlignment(Pos.CENTER);
+    		}
 		}
 		else{
-			invalidendhour.setText("Invalid End time. Must be atleast 1 hour more than Start time.");
-			LOGGER.info("Invalid End time. Must be atleast 1 hour more than Start time.");
+			invalidendhour.setText("Please select an end time");
 			invalidendhour.setAlignment(Pos.CENTER);
 		}
+
     	
     	//sending user input to database
     	if(idValid && dayValid && startTimeValid && endTimeValid){
