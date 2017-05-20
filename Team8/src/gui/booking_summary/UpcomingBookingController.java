@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXRadioButton;
+import com.jfoenix.controls.JFXTextField;
 
 import Main.BookingManagementSystem;
 import business.Company;
@@ -12,9 +14,15 @@ import calendar.Calendar;
 import gui.login.LoginController;
 import gui.portal.BusinessPController;
 import gui.portal.CustomerPController;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -25,6 +33,8 @@ public class UpcomingBookingController {
 	private MainController menu;
 	
 	private String id;
+	
+	final ToggleGroup group = new ToggleGroup();
 	
 	private Company comp;
 	
@@ -39,6 +49,15 @@ public class UpcomingBookingController {
 	
 	@FXML
 	private VBox textBox;
+	
+	@FXML
+	private Label invalid;
+	
+	@FXML
+	private JFXTextField text;
+	
+	private Boolean status;
+	private ArrayList<Booking> list;
 	
 	@FXML
 	public void initialize() {;
@@ -85,6 +104,53 @@ public class UpcomingBookingController {
 		id = cust_id;
 		this.bms = bms;
 		getUpcomingBooking();
+	}
+	
+	@FXML
+	void apply(ActionEvent event) {
+		System.out.println("entered");
+		String id = text.getText();
+		if(list.isEmpty()) {
+			invalid.setStyle("-fx-text-fill: red; -fx-font-size: 16;");
+			invalid.setText("Invalid Booking ID");
+		}
+		Boolean exist = false;
+		for(Booking b : list) {
+			String current = b.getID();
+			if(current.equals(id)) {
+				if(!exist) {
+					System.out.println("valid "+status);
+					invalid.setText("");
+					if(status) {
+						Boolean s1 = comp.getCalendar().acceptBooking(id);
+						if(s1){
+							invalid.setStyle("-fx-text-fill: green; -fx-font-size: 16;");
+							invalid.setText("Successfully Accepted");
+							exist = true;
+						} else {
+							invalid.setStyle("-fx-text-fill: red; -fx-font-size: 16;");
+							invalid.setText("Invalid Booking ID");
+						}
+					} else {
+						Boolean s2 = comp.getCalendar().declineBooking(id);
+						if(s2) {
+							invalid.setStyle("-fx-text-fill: green; -fx-font-size: 16;");
+							invalid.setText("Successfully Declined");
+							exist = true;
+						} else {
+							invalid.setStyle("-fx-text-fill: red; -fx-font-size: 16;");
+							invalid.setText("Invalid Booking ID");
+						}
+						
+					}
+				}
+			}
+		} 
+		if(!exist) {
+			System.out.println("invalid");
+			invalid.setStyle("-fx-text-fill: red; -fx-font-size: 16;");
+			invalid.setText("Invalid Booking ID");
+		}
 	}
 	
 	@FXML

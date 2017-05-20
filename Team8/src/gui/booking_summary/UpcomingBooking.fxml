@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
@@ -67,6 +68,17 @@
                   <Font name="Lato Heavy" size="19.0" />
                </font>
             </Label>
+            <Label layoutX="566.0" layoutY="541.0" prefHeight="25.0" prefWidth="85.0" text="Booking ID:" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <JFXTextField fx:id="text" focusColor="#aa9144" layoutX="661.0" layoutY="539.0" prefHeight="25.0" prefWidth="174.0" unFocusColor="WHITE" />
          </children></Pane>
+      <JFXButton id="button" fx:id="apply" layoutX="591.0" layoutY="656.0" onAction="#apply" prefHeight="54.0" prefWidth="258.0" style="-fx-background-radius: 60;" stylesheets="@../../application/application.css" text="APPLY" textFill="WHITE">
+         <font>
+            <Font name="Lato Black" size="18.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>
