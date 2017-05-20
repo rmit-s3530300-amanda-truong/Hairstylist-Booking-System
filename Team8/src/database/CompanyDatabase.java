@@ -107,14 +107,15 @@ public class CompanyDatabase{
 					stmt = conn.createStatement();
 					String sql = "CREATE TABLE IF NOT EXISTS BUSINESS ("
 							+ "username text NOT NULL	,"
-							+ "compName text			,"
-							+ "fname text 				,"
-							+ "lname text 				,"
+							+ "compName text NOT NULL	,"
+							+ "fname text NOT NULL		,"
+							+ "lname text NOT NULL		,"
 							+ "password text NOT NULL	,"
-							+ "mobile text 				,"
-							+ "address text		     	,"
-							+ "service text				,"
-							+ "busHours text);";
+							+ "mobile text NOT NULL		,"
+							+ "address text NOT NULL	,"
+							+ "service text	NOT NULL	,"
+							+ "busHours text NOT NULL	,"	
+							+ "status text NOT NULL		);";
 					stmt.executeUpdate(sql);
 					stmt.close();
 					conn.close();
@@ -131,7 +132,7 @@ public class CompanyDatabase{
 	
 	// add new business
 	public void addBusiness(String username, String cname, String bFname, String bLname, String pw,
-			String mobile, String address, String service, String busHours)
+			String mobile, String address, String service, String busHours, String status)
 	{		
 		try
 		{
@@ -139,7 +140,7 @@ public class CompanyDatabase{
 			{
 				getConnection();
 			}
-			prep = conn.prepareStatement("INSERT INTO BUSINESS values(?,?,?,?,?,?,?,?,?);");
+			prep = conn.prepareStatement("INSERT INTO BUSINESS values(?,?,?,?,?,?,?,?,?,?);");
 			prep.setString(1, username);
 			prep.setString(2, cname);
 			prep.setString(3, bFname);
@@ -149,6 +150,7 @@ public class CompanyDatabase{
 			prep.setString(7, address);
 			prep.setString(8, service);
 			prep.setString(9, busHours);
+			prep.setString(10, status);
 			prep.execute();
 			prep.close();
 			conn.close();
@@ -244,6 +246,10 @@ public class CompanyDatabase{
 			{
 				colName = "busHours";
 			}
+			else if(col.equals("status"))
+			{
+				colName = "status";
+			}
 			prep = conn.prepareStatement("SELECT * FROM " + tableName + " WHERE " + colName + " = ?;");
 			prep.setString(1, value);
 			result = prep.executeQuery();
@@ -331,6 +337,7 @@ public class CompanyDatabase{
 				String address = result.getString("address");
 				String service = result.getString("service");
 				String busHours = result.getString("busHours");
+				String status = result.getString("status");
 				busInfo.put("username", id);
 				busInfo.put("password", password);
 				busInfo.put("fname", fName);
@@ -339,6 +346,7 @@ public class CompanyDatabase{
 				busInfo.put("address", address);
 				busInfo.put("service", service);
 				busInfo.put("busHours", busHours);
+				busInfo.put("status",status);
 				busValues.put(compName, busInfo);
 			}
 			stmt.close();
@@ -446,7 +454,7 @@ public class CompanyDatabase{
 				{
 					getConnection();
 				}
-				prep = conn.prepareStatement("INSERT INTO BUSINESS values(?,?,?,?,?,?,?,?,?);");
+				prep = conn.prepareStatement("INSERT INTO BUSINESS values(?,?,?,?,?,?,?,?,?,?);");
 				prep.setString(1,"abcboss");
 				prep.setString(2,"ABC");
 				prep.setString(3,"John");
@@ -456,9 +464,10 @@ public class CompanyDatabase{
 				prep.setString(7,"1 Bossy Street, Bossville, 3000");
 				prep.setString(8,"Female Cut, Male Cut, Female Dye, Male Dye, Female Perm, Male Perm, Female Wash, Male Wash");
 				prep.setString(9,"Monday=08:00,16:00|Tuesday=08:00,16:00|Wednesday=08:00,16:00|Thursday=08:00,16:00|Friday=08:00,16:00|Saturday=empty|Sunday=empty");
+				prep.setString(10, "verified");
 				prep.execute();
 				prep.close();
-				PreparedStatement prep2 = conn.prepareStatement("INSERT INTO BUSINESS values(?,?,?,?,?,?,?,?,?);");
+				PreparedStatement prep2 = conn.prepareStatement("INSERT INTO BUSINESS values(?,?,?,?,?,?,?,?,?,?);");
 				prep2.setString(1,"defboss");
 				prep2.setString(2,"DEF");
 				prep2.setString(3,"Chris");
@@ -468,6 +477,7 @@ public class CompanyDatabase{
 				prep2.setString(7,"1 Chris Street, Prattville, 2000");
 				prep2.setString(8,"Female Cut, Male Cut, Female Dye, Male Dye, Female Perm, Male Perm");
 				prep2.setString(9,"Monday=09:00,17:00|Tuesday=09:00,17:00|Wednesday=09:00,17:00|Thursday=09:00,17:00|Friday=09:00,17:00|Saturday=empty|Sunday=empty");
+				prep2.setString(10, "verified");
 				prep2.execute();
 				prep2.close();
 			}

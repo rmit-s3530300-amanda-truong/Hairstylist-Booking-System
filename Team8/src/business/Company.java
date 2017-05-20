@@ -41,8 +41,9 @@ public class Company {
 	private String address;
 	private String service;
 	private String busHours;
+	private String status;
 	
-	public Company(String compName, String username, String password, String fname, String lname, String mobile, String address, String service, String busHours) {
+	public Company(String compName, String username, String password, String fname, String lname, String mobile, String address, String service, String busHours, String status) {
 		employeeList = new HashMap<String, Employee>();
 		custList = new HashMap<String, Customer>();
 		this.calendar = new Calendar(LocalDate.now());
@@ -58,6 +59,7 @@ public class Company {
 		this.address = address;
 		this.service = service;
 		this.busHours = busHours;
+		this.status = status;
 	}
 	
 	public String getName()
@@ -78,6 +80,11 @@ public class Company {
 	public String getBusinessHours()
 	{
 		return busHours;
+	}
+	
+	public String getStatus()
+	{
+		return status;
 	}
 	
 	public void addCustomer(Customer customer) {
@@ -304,6 +311,10 @@ public class Company {
 					emp.addBooking(date, startTime, endTime);
 					booking.addDetails(date, startTime, endTime, service, emp, customerUsername);
 					bookList.add(booking);
+				}
+				for(Booking book: bookList)
+				{
+					System.out.println(this.compName + book.getID());
 				}
 				calendar.setBookingList(bookList);
 			}
