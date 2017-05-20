@@ -11,7 +11,6 @@ import database.BookingDatabase;
 import database.CompanyDatabase;
 import database.CustomerDatabase;
 import database.ServicesDatabase;
-import gui.welcome.PreWelcomeController;
 import gui.welcome.WelcomeController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
