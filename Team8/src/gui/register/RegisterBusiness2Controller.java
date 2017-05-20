@@ -1,6 +1,12 @@
 package gui.register;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map.Entry;
 
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
@@ -20,20 +26,14 @@ import mainController.MainController;
 public class RegisterBusiness2Controller {
 	
 	ObservableList<String> hourList = FXCollections.observableArrayList
-			("Please Select","00", "01","02", "03", "04", "05", "06","07", "08", "09", "10", "11",
-			"12", "13", "14", "15", "16","17", "18", "19", "20", "21","22", "23");
+			("Please Select","Closed", "01","02", "03", "04", "05", "06","07", "08", "09", "10", "11",
+			"12", "13", "14", "15", "16","17", "18", "19", "20", "21","22", "23", "24");
 	ObservableList<String> minuteList = FXCollections.observableArrayList
-			("Please Select", "00", "15", "30","45");
+			("Please Select", "Closed","00", "15", "30","45");
 	
-	private MainController menu;
 	private Company comp;
+	
 	private BookingManagementSystem bms;
-	private String fname;
-	private String lname;
-	private String username;
-	private String password;
-	private String mobile;
-	private String address;
 	
 	 @FXML
 	 private AnchorPane rootPane;
@@ -122,8 +122,8 @@ public class RegisterBusiness2Controller {
 	 @FXML
 	 private JFXComboBox<String> suneminute;
 	 
-	 @FXML
-	 private Label uniInvalid;
+	 /*@FXML
+	 private Label uniInvalid;*/
 	 
 	 @FXML
 	 private Label monInvalid;
@@ -151,92 +151,74 @@ public class RegisterBusiness2Controller {
 
 	 @FXML
 	 private Label businessNameInvalid;
+	 
+	 @FXML
+	 private Label invalid_times;
+	 
+	 ArrayList<Label> invalid_days = new ArrayList<Label>();
+	 
+	 LinkedHashMap<JFXComboBox<String>, JFXComboBox<String>> times= new LinkedHashMap<JFXComboBox<String>, JFXComboBox<String>>();
+	 
+	 LinkedHashMap<String, String> avail_times = new LinkedHashMap<String, String>();
+	 
+	 String name;
     
 	 @FXML
 	 private void initialize(){
 		//populating combobox
-    	monshour.setItems(hourList);
-    	monshour.setValue("08");
-    	monehour.setItems(hourList);
-    	monehour.setValue("16");
-    	tueshour.setItems(hourList);
-    	tueshour.setValue("08");
-    	tueehour.setItems(hourList);
-    	tueehour.setValue("16");
-    	wedshour.setItems(hourList);
-    	wedshour.setValue("08");
-    	wedehour.setItems(hourList);
-    	wedehour.setValue("16");
-    	thushour.setItems(hourList);
-    	thushour.setValue("08");
-    	thuehour.setItems(hourList);
-    	thuehour.setValue("16");
-    	frishour.setItems(hourList);
-    	frishour.setValue("08");
-    	friehour.setItems(hourList);
-    	friehour.setValue("16");
-    	satshour.setItems(hourList);
-    	satshour.setValue("08");
-    	satehour.setItems(hourList);
-    	satehour.setValue("16");
-    	sunshour.setItems(hourList);
-    	sunshour.setValue("08");
-    	sunehour.setItems(hourList);
-    	sunehour.setValue("16");
-    	
-    	monsminute.setItems(minuteList);
-    	monsminute.setValue("00");
-    	moneminute.setItems(minuteList);
-    	moneminute.setValue("00");
-    	tuesminute.setItems(minuteList);
-    	tuesminute.setValue("00");	
-    	tueeminute.setItems(minuteList);
-    	tueeminute.setValue("00");
-    	wedsminute.setItems(minuteList);
-    	wedsminute.setValue("00");
-    	wedeminute.setItems(minuteList);
-    	wedeminute.setValue("00");
-    	thusminute.setItems(minuteList);
-    	thusminute.setValue("00");
-    	thueminute.setItems(minuteList);
-    	thueminute.setValue("00");
-    	frisminute.setItems(minuteList);
-    	frisminute.setValue("00");
-    	frieminute.setItems(minuteList);
-    	frieminute.setValue("00");
-    	satsminute.setItems(minuteList);
-    	satsminute.setValue("00");
-    	sateminute.setItems(minuteList);
-    	sateminute.setValue("00");
-    	sunsminute.setItems(minuteList);
-    	sunsminute.setValue("00");
-    	suneminute.setItems(minuteList);
-    	suneminute.setValue("00");
+		 times.put(monshour, monsminute);
+		 times.put(monehour, moneminute);
+		 times.put(tueshour, tuesminute);
+		 times.put(tueehour, tueeminute);
+		 times.put(wedshour, wedsminute);
+		 times.put(wedehour, wedeminute);
+		 times.put(thushour, thusminute);
+		 times.put(thuehour, thueminute);
+		 times.put(frishour, frisminute);
+		 times.put(friehour, frieminute);
+		 times.put(satshour, satsminute);
+		 times.put(satehour, sateminute);
+		 times.put(sunshour, sunsminute);
+		 times.put(sunehour, suneminute);
+		 
+		 int counter =1;
+		 for(Entry<JFXComboBox<String>, JFXComboBox<String>> entry : times.entrySet()) {
+			 entry.getKey().setItems(hourList);
+			 // if it is even then it is the end time 16
+			 if(counter%2 == 0){
+				 entry.getKey().setValue("16");
+			// if it is odd then it is the start time and set 08
+			 } else {
+				 entry.getKey().setValue("08");
+			 }
+			 entry.getValue().setItems(minuteList);
+			 entry.getValue().setValue("00");
+			 counter++;
+		 }
+		 
     }
     
-	 public void initiate(Company comp, BookingManagementSystem bms, String fName, String lName, 
-    		String uName, String passWord,String mobileNo,String address) {
-		this.comp = comp;
-		if(comp == null)
-		{
-			menu = bms.getMenu();
-		}
-		else
-		{
-			menu = comp.getMenu();
-		}
+	 public void initiate(BookingManagementSystem bms, Company comp) {
 		this.bms = bms;
-		this.fname = fName;
-		this.lname = lName;
-		this.username = uName;
-		this.password = passWord;
-		this.mobile = mobileNo;
-		this.address = address;
+		this.comp = comp;
+		
+		invalid_days.add(monInvalid);
+		invalid_days.add(tueInvalid);
+		invalid_days.add(wedInvalid);
+		invalid_days.add(thuInvalid);
+		invalid_days.add(friInvalid);
+		invalid_days.add(satInvalid);
+		invalid_days.add(sunInvalid);
 	}
     
     @FXML
-    void backRegister(ActionEvent event) {
-
+    void backRegister(ActionEvent event) throws IOException {
+    	AnchorPane pane;
+    	FXMLLoader register = new FXMLLoader(getClass().getResource("../register/Register.fxml"));
+    	pane = register.load();
+    	rootPane.getChildren().setAll(pane);
+    	RegisterController controller = register.getController();
+		controller.initiate(bms);
     }
 
     @FXML
@@ -250,7 +232,95 @@ public class RegisterBusiness2Controller {
     }
 
     @FXML
-    void nextRegister3(ActionEvent event) {
-
+    void nextRegister3(ActionEvent event) throws IOException {
+    	Boolean valid = true;
+    	
+    	invalid_times.setText("");
+    	businessNameInvalid.setText("");
+    	for(Label l : invalid_days){
+			l.setText("");
+		}
+    	
+    	name = businessName.getText();
+    	if(name == null || name.isEmpty()) {
+    		valid = false;
+    		businessNameInvalid.setText("Invalid Business Name");
+    	} else {
+    		for(Company c :bms.getCompanyList()) {
+    			if(c.getName().equals(name)) {
+    				businessNameInvalid.setText("Business Name has been taken");
+    				valid = false;
+    			}
+    		}
+    	}
+    	
+    	if(valid) {
+			// Checking if the times are closed
+	    	int counter =1;
+	    	for(Entry<JFXComboBox<String>, JFXComboBox<String>> entry : times.entrySet()) {
+	    		JFXComboBox<String> hour = entry.getKey();
+	    		JFXComboBox<String> min = entry.getValue();
+	    		if(hour.getValue().equals("Closed") && min.getValue().equals("Closed")) {
+	    			avail_times.put(Integer.toString(counter), "");
+	    		} else if(hour.getValue().equals("Closed") || min.getValue().equals("Closed")) {
+	    			invalid_times.setText("Invalid Times: Must choose Closed for Start and End Times");
+	    			invalid_days.get(counter-1).setText("Invalid Times");
+	    			valid = false;
+	    		} 
+	    	}
+	    	// Checking if the start time is before the end time
+	    	if(valid) {
+	    		ArrayList<JFXComboBox<String>> keyList = new ArrayList<JFXComboBox<String>>(times.keySet());
+	        	ArrayList<JFXComboBox<String>> valueList = new ArrayList<JFXComboBox<String>>(times.values());
+	    		String s_hour;
+	    		String e_hour;
+	    		String s_min;
+	    		String e_min;
+	    		for(int i=1;i<keyList.size();i=i+2){
+	    			int j = i;
+	    			j--;
+	    			s_hour = keyList.get(j).getValue();
+	    			e_hour = keyList.get(i).getValue();
+	    			s_min = valueList.get(j).getValue();
+	    			e_min = valueList.get(i).getValue();
+	    			if(!s_hour.equals("Closed") || !e_hour.equals("Closed") || !s_min.equals("Closed") || !e_min.equals("Closed")) {	
+		    			if(!validTime(s_hour, s_min, e_hour, e_min)) {
+		    				valid = false;
+		    				invalid_times.setText("Invalid Times: End Times must be after Start Time eg. 08:00 - 14:00");
+		        			invalid_days.get((i)/2).setText("Invalid Times");
+		    			} else {
+		    				String start = s_hour+":"+s_min;
+		    				String end = e_hour+":"+e_min;
+		    				String time = start+"-"+end;
+		    				avail_times.put(Integer.toString(counter), time);
+		    			}
+	    			}
+	    		}
+	    	}
+	    	if(valid) {
+	    		comp.setBusinessName(name);
+	    		nextStep(comp);
+	    	}
+    	}
     }
+    
+    public Boolean validTime(String s_hour, String s_min, String e_hour, String e_min) {
+    	LocalTime start = LocalTime.of(Integer.parseInt(s_hour), Integer.parseInt(s_min));
+    	LocalTime end = LocalTime.of(Integer.parseInt(e_hour), Integer.parseInt(e_min));
+    	if(start.isAfter(end) || start.equals(end)) {
+    		return false;
+    	} else {
+    		return true;
+    	}
+    }
+    
+    public void nextStep(Company comp) throws IOException {
+    	AnchorPane pane;
+    	FXMLLoader register = new FXMLLoader(getClass().getResource("../register/RegisterBusiness3.fxml"));
+    	pane = register.load();
+    	rootPane.getChildren().setAll(pane);
+    	RegisterBusiness3Controller register_controller = register.getController();
+		register_controller.initiate(comp, bms);
+    }
+    
 }

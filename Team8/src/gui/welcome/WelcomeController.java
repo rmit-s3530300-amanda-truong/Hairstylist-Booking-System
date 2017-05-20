@@ -16,9 +16,6 @@ import mainController.MainController;
 
 public class WelcomeController {
 	
-	private MainController menu;
-	private Company comp;
-	
 	@FXML
 	private AnchorPane rootPane;
 	
@@ -32,7 +29,6 @@ public class WelcomeController {
     
     public void initiate(BookingManagementSystem bms){
     	this.bms = bms;
-    	menu = bms.getMenu();
     }
 	
     @FXML

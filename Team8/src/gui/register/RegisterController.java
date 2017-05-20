@@ -170,7 +170,7 @@ public class RegisterController {
 		String state = rc_state.getValue();
 		String business = chooseBusiness.getValue();
 		
-		boolean businessValid = false, unameValid = false, fnameValid = false, lnameValid = false, passValid = false, 
+		boolean businessValid = false, unameValid = true, fnameValid = false, lnameValid = false, passValid = false, 
 				mobileValid = false, suburbValid = false ,zipValid = false, addressLineValid = false;
 		
 		//regex patterns for user input
@@ -241,19 +241,20 @@ public class RegisterController {
 			invalid_pass.setAlignment(Pos.CENTER_LEFT);
 		}
 		
-		//checking username input
-		if(menu.validate(username, uname)){
-			if(menu.uniqueUname(username)){
-				unameValid = true;
-				invalid_un.setText("");
-			}
-			else{
-				invalid_un.setText("Username is already taken.");
-				invalid_un.setAlignment(Pos.CENTER_LEFT);
+		// checking username
+		invalid_un.setText("");
+		if(menu.validate(username, uname)) {
+			for(Company c : bms.getCompanyList()) {
+				if(c.getUsername().equals(username)) {
+					System.out.println("invalid");
+					invalid_un.setText("Username is already taken");
+					invalid_un.setAlignment(Pos.CENTER_LEFT);
+					unameValid = false;
+				} 
 			}
 		}
 		else{
-			invalid_un.setText("Invalid Username.");
+			invalid_un.setText("Invalid Username must be >5 characters.");
 		}
 		
 		//checking lastname
@@ -276,6 +277,7 @@ public class RegisterController {
 			invalid_fn.setAlignment(Pos.CENTER_LEFT);
 		}
 		
+		invalid_business.setText("");
 		//checking business name
 		if(business == null){
 			invalid_business.setText("Please select a business.");
@@ -290,7 +292,8 @@ public class RegisterController {
 			
 			//checking if the user is creating a new business
 			if(business.equals("Register New Company")){
-				goToBusinessRegistration(fname, lname, username, password, mobile, fullAddress);
+				Company comp = new Company(fname, lname, username, password, mobile, fullAddress);
+				goToBusinessRegistration(comp);
 			}
 			else{
 				//customer registration
@@ -322,13 +325,12 @@ public class RegisterController {
     	controller.initiate(comp, rc_username.getText(), bms);
     }
     
-    void goToBusinessRegistration(String fName, String lName, String uName, String passWord, 
-    		String mobileNo, String address) throws IOException{
+    void goToBusinessRegistration(Company comp) throws IOException{
     	AnchorPane pane;
     	FXMLLoader login = new FXMLLoader(getClass().getResource("RegisterBusiness2.fxml"));
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	RegisterBusiness2Controller controller = login.getController();
-		controller.initiate(comp, bms, fName, lName, uName, passWord, mobileNo, address);
+		controller.initiate(bms, comp);
     }
 }

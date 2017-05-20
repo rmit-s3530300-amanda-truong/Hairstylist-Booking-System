@@ -187,11 +187,6 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label fx:id="uniInvalid" layoutX="356.0" layoutY="592.0" prefHeight="17.0" prefWidth="696.0" textFill="RED">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
             <Label fx:id="monInvalid" layoutX="941.0" layoutY="240.0" prefHeight="20.0" prefWidth="115.0" textFill="RED">
                <font>
                   <Font size="14.0" />
@@ -232,6 +227,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
+            <Label fx:id="invalid_times" layoutX="531.0" layoutY="594.0" prefHeight="17.0" prefWidth="364.0" textFill="RED" />
          </children></Pane>
       <Pane id="menuPane" prefHeight="75.0" prefWidth="1400.0">
          <children>

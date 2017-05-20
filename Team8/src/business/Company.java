@@ -43,6 +43,15 @@ public class Company {
 	private String busHours;
 	private String status;
 	
+	public Company(String fName, String lName, String uName, String password, String mobileNo, String address) {
+		owner_fname = fName;
+		owner_lname = lName;
+		username = uName;
+		this.password = password;
+		mobile = mobileNo;
+		this.address = address;
+	}
+	
 	public Company(String compName, String username, String password, String fname, String lname, String mobile, String address, String service, String busHours, String status) {
 		employeeList = new HashMap<String, Employee>();
 		custList = new HashMap<String, Customer>();
@@ -60,6 +69,10 @@ public class Company {
 		this.service = service;
 		this.busHours = busHours;
 		this.status = status;
+	}
+	
+	public void setBusinessName(String name) {
+		compName = name;
 	}
 	
 	public String getName()
