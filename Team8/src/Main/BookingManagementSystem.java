@@ -12,6 +12,7 @@ import database.CompanyDatabase;
 import database.CustomerDatabase;
 import database.ServicesDatabase;
 import gui.welcome.PreWelcomeController;
+import gui.welcome.WelcomeController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -37,12 +38,12 @@ public class BookingManagementSystem extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/welcome/PreWelcome.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/welcome/Welcome.fxml"));
 			AnchorPane root = loader.load();
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("/gui/stylesheet.css").toExternalForm());
 			
-			PreWelcomeController controller = loader.getController();
+			WelcomeController controller = loader.getController();
 			controller.initiate(this);
 			
 			primaryStage.setScene(scene);

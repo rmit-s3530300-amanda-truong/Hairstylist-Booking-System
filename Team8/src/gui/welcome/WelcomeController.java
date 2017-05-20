@@ -30,10 +30,9 @@ public class WelcomeController {
     
     private BookingManagementSystem bms;
     
-    public void initiate(Company comp, BookingManagementSystem bms){
-    	this.comp = comp;
-    	menu = comp.getMenu();
+    public void initiate(BookingManagementSystem bms){
     	this.bms = bms;
+    	menu = bms.getMenu();
     }
 	
     @FXML

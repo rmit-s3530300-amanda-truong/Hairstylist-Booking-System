@@ -123,6 +123,8 @@ public class RegisterController {
 
 	public void initiate(BookingManagementSystem bms) {
 		this.bms = bms;
+		menu = bms.getMenu();
+		
 		ArrayList<Company> company_list = bms.getCompanyList();
 		if(company_list.size() >0) {
 			for(Company company : company_list) {
