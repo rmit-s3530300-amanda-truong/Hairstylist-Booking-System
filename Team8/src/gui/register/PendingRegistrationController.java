@@ -19,7 +19,6 @@ import mainController.MainController;
 public class PendingRegistrationController {
 
 	private MainController menu;
-	private Company comp;
 	private BookingManagementSystem bms;
 	
     @FXML
@@ -43,9 +42,8 @@ public class PendingRegistrationController {
     @FXML
     private Label invalidbussName;
     
-    public void initiate(Company comp, BookingManagementSystem bms) {
-		this.comp = comp;
-		menu = comp.getMenu();
+    public void initiate(BookingManagementSystem bms) {
+		menu = bms.getMenu();
 		this.bms = bms;
 	}
 
@@ -67,7 +65,7 @@ public class PendingRegistrationController {
 	    	pane = adminPortal.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	AdminPController controller = adminPortal.getController();
-			controller.initiate(comp, bms);
+			controller.initiate(bms);
 		} 
 		catch (IOException e) {
 			e.printStackTrace();

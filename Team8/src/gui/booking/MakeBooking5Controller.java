@@ -13,6 +13,7 @@ import gui.portal.CustomerPController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import mainController.MainController;
 import Main.BookingManagementSystem;
@@ -44,6 +45,9 @@ public class MakeBooking5Controller {
     @FXML
     private JFXButton viewAfternoon;
     
+    @FXML
+    private Label logoText;
+    
     private BookingManagementSystem bms;
 
 	public void initiate(Company comp, String cust_id, String service, Employee employee, LocalDate date, String portal, BookingManagementSystem bms) {
@@ -55,6 +59,7 @@ public class MakeBooking5Controller {
 		this.date = date;
 		this.portal = portal;
 		this.bms = bms;
+		logoText.setText(comp.getName().toUpperCase());
 	}
 	
 	@FXML

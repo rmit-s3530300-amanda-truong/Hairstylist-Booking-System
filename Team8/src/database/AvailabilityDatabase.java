@@ -239,7 +239,7 @@ public class AvailabilityDatabase {
 				}
 				prep = conn.prepareStatement("INSERT INTO AVAILABILITY values(?,?,?,?,?);");
 				prep.setString(1,"e1");
-				prep.setString(2, "ABC");
+				prep.setString(2, "ABC HAIRSTYLIST");
 				prep.setString(3,"Monday");
 				prep.setString(4,"08:15");
 				prep.setString(5,"10:15");
@@ -247,7 +247,7 @@ public class AvailabilityDatabase {
 				prep.close();
 				PreparedStatement prep2 = conn.prepareStatement("INSERT INTO AVAILABILITY values(?,?,?,?,?);");
 				prep2.setString(1,"e1");
-				prep2.setString(2, "ABC");
+				prep2.setString(2, "ABC HAIRSTYLIST");
 				prep2.setString(3,"Tuesday");
 				prep2.setString(4,"09:15");
 				prep2.setString(5,"12:15");
@@ -255,7 +255,7 @@ public class AvailabilityDatabase {
 				prep2.close();
 				PreparedStatement prep3 = conn.prepareStatement("INSERT INTO AVAILABILITY values(?,?,?,?,?);");
 				prep3.setString(1,"e2");
-				prep3.setString(2, "ABC");
+				prep3.setString(2, "ABC HAIRSTYLIST");
 				prep3.setString(3,"Wednesday");
 				prep3.setString(4,"13:00");
 				prep3.setString(5,"15:00");

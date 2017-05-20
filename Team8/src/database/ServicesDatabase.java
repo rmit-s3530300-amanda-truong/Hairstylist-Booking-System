@@ -191,56 +191,56 @@ public class ServicesDatabase {
 		try
 		{
 			//making sure no duplicates are added when program restarts
-			if(!checkValueExists("compName","ABC"))
+			if(!checkValueExists("compName","ABC HAIRSTYLIST"))
 			{
 				if(conn.isClosed())
 				{
 					getConnection();
 				}
 				prep = conn.prepareStatement("INSERT INTO SERVICES values(?,?,?);");
-				prep.setString(1,"ABC");
+				prep.setString(1,"ABC HAIRSTYLIST");
 				prep.setString(2,"Male Cut");
 				prep.setString(3,"1");
 				prep.execute();
 				prep.close();
 				PreparedStatement prep2 = conn.prepareStatement("INSERT INTO SERVICES values(?,?,?);");
-				prep2.setString(1,"ABC");
+				prep2.setString(1,"ABC HAIRSTYLIST");
 				prep2.setString(2,"Female Cut");
 				prep2.setString(3,"2");
 				prep2.execute();
 				prep2.close();
 				PreparedStatement prep3 = conn.prepareStatement("INSERT INTO SERVICES values(?,?,?);");
-				prep3.setString(1,"ABC");
+				prep3.setString(1,"ABC HAIRSTYLIST");
 				prep3.setString(2,"Male Dye");
 				prep3.setString(3,"3");
 				prep3.execute();
 				prep3.close();
 				PreparedStatement prep4 = conn.prepareStatement("INSERT INTO SERVICES values(?,?,?);");
-				prep4.setString(1,"ABC");
+				prep4.setString(1,"ABC HAIRSTYLIST");
 				prep4.setString(2,"Female Dye");
 				prep4.setString(3,"4");
 				prep4.execute();
 				prep4.close();
 				PreparedStatement prep5 = conn.prepareStatement("INSERT INTO SERVICES values(?,?,?);");
-				prep5.setString(1,"ABC");
+				prep5.setString(1,"ABC HAIRSTYLIST");
 				prep5.setString(2,"Male Perm");
 				prep5.setString(3,"3");
 				prep5.execute();
 				prep5.close();
 				PreparedStatement prep6 = conn.prepareStatement("INSERT INTO SERVICES values(?,?,?);");
-				prep6.setString(1,"ABC");
+				prep6.setString(1,"ABC HAIRSTYLIST");
 				prep6.setString(2,"Female Perm");
 				prep6.setString(3,"3");
 				prep6.execute();
 				prep6.close();
 				PreparedStatement prep7 = conn.prepareStatement("INSERT INTO SERVICES values(?,?,?);");
-				prep7.setString(1,"ABC");
+				prep7.setString(1,"ABC HAIRSTYLIST");
 				prep7.setString(2,"Male Wash");
 				prep7.setString(3,"1");
 				prep7.execute();
 				prep7.close();
 				PreparedStatement prep8 = conn.prepareStatement("INSERT INTO SERVICES values(?,?,?);");
-				prep8.setString(1,"ABC");
+				prep8.setString(1,"ABC HAIRSTYLIST");
 				prep8.setString(2,"Female Wash");
 				prep8.setString(3,"1");
 				prep8.execute();
@@ -261,44 +261,44 @@ public class ServicesDatabase {
 		try
 		{
 			//making sure no duplicates are added when program restarts
-			if(!checkValueExists("compName","DEF"))
+			if(!checkValueExists("compName","DEF HAIRSTYLIST"))
 			{
 				if(conn.isClosed())
 				{
 					getConnection();
 				}
 				prep = conn.prepareStatement("INSERT INTO SERVICES values(?,?,?);");
-				prep.setString(1,"DEF");
+				prep.setString(1,"DEF HAIRSTYLIST");
 				prep.setString(2,"Male Cut");
 				prep.setString(3,"1");
 				prep.execute();
 				prep.close();
 				PreparedStatement prep2 = conn.prepareStatement("INSERT INTO SERVICES values(?,?,?);");
-				prep2.setString(1,"DEF");
+				prep2.setString(1,"DEF HAIRSTYLIST");
 				prep2.setString(2,"Female Cut");
 				prep2.setString(3,"2");
 				prep2.execute();
 				prep2.close();
 				PreparedStatement prep3 = conn.prepareStatement("INSERT INTO SERVICES values(?,?,?);");
-				prep3.setString(1,"DEF");
+				prep3.setString(1,"DEF HAIRSTYLIST");
 				prep3.setString(2,"Male Dye");
 				prep3.setString(3,"3");
 				prep3.execute();
 				prep3.close();
 				PreparedStatement prep4 = conn.prepareStatement("INSERT INTO SERVICES values(?,?,?);");
-				prep4.setString(1,"DEF");
+				prep4.setString(1,"DEF HAIRSTYLIST");
 				prep4.setString(2,"Female Dye");
 				prep4.setString(3,"4");
 				prep4.execute();
 				prep4.close();
 				PreparedStatement prep5 = conn.prepareStatement("INSERT INTO SERVICES values(?,?,?);");
-				prep5.setString(1,"DEF");
+				prep5.setString(1,"DEF HAIRSTYLIST");
 				prep5.setString(2,"Male Shave");
 				prep5.setString(3,"3");
 				prep5.execute();
 				prep5.close();
 				PreparedStatement prep6 = conn.prepareStatement("INSERT INTO SERVICES values(?,?,?);");
-				prep6.setString(1,"DEF");
+				prep6.setString(1,"DEF HAIRSTYLIST");
 				prep6.setString(2,"Female Shave");
 				prep6.setString(3,"3");
 				prep6.execute();

@@ -255,11 +255,11 @@ public class BookingDatabase {
 		try
 		{
 			//making sure no duplicates are added when program restarts
-			if((!checkValueExists("bookingID","2017-05-02/09:15") && !checkValueExists("compName","ABC")) || 
-					(!checkValueExists("bookingID","2017-05-03/13:00") && !checkValueExists("compName","ABC"))
-					|| (!checkValueExists("bookingID","2017-05-03/13:15") && !checkValueExists("compName","ABC")) 
-					|| (!checkValueExists("bookingID","2017-04-26/13:00") && !checkValueExists("compName","ABC"))
-					|| (!checkValueExists("bookingID","2017-04-19/14:00") && !checkValueExists("compName","ABC")))
+			if((!checkValueExists("bookingID","2017-05-02/09:15") && !checkValueExists("compName","ABC HAIRSTYLIST")) || 
+					(!checkValueExists("bookingID","2017-05-03/13:00") && !checkValueExists("compName","ABC HAIRSTYLIST"))
+					|| (!checkValueExists("bookingID","2017-05-03/13:15") && !checkValueExists("compName","ABC HAIRSTYLIST")) 
+					|| (!checkValueExists("bookingID","2017-04-26/13:00") && !checkValueExists("compName","ABC HAIRSTYLIST"))
+					|| (!checkValueExists("bookingID","2017-04-19/14:00") && !checkValueExists("compName","ABC HAIRSTYLIST")))
 			{
 				if(conn.isClosed())
 				{
@@ -267,7 +267,7 @@ public class BookingDatabase {
 				}
 				prep = conn.prepareStatement("INSERT INTO BOOKING values(?,?,?,?,?,?,?,?);");
 				prep.setString(1, "2017-05-02/09:15");
-				prep.setString(2, "ABC");
+				prep.setString(2, "ABC HAIRSTYLIST");
 				prep.setString(3,"jbrown");
 				prep.setString(4,"maleCut");
 				prep.setString(5,"e1");
@@ -278,7 +278,7 @@ public class BookingDatabase {
 				prep.close();
 				PreparedStatement prep2 = conn.prepareStatement("INSERT INTO BOOKING values(?,?,?,?,?,?,?,?);");
 				prep2.setString(1, "2017-05-03/13:00");
-				prep2.setString(2, "ABC");
+				prep2.setString(2, "ABC HAIRSTYLIST");
 				prep2.setString(3,"rgeorge");
 				prep2.setString(4,"femaleCut");
 				prep2.setString(5,"e2");
@@ -289,7 +289,7 @@ public class BookingDatabase {
 				prep2.close();
 				PreparedStatement prep3 = conn.prepareStatement("INSERT INTO BOOKING values(?,?,?,?,?,?,?,?);");
 				prep3.setString(1, "2017-05-03/13:15");
-				prep3.setString(2, "ABC");
+				prep3.setString(2, "ABC HAIRSTYLIST");
 				prep3.setString(3,"rgeorge");
 				prep3.setString(4,"femaleCut");
 				prep3.setString(5,"e2");
@@ -300,7 +300,7 @@ public class BookingDatabase {
 				prep3.close();
 				PreparedStatement prep4 = conn.prepareStatement("INSERT INTO BOOKING values(?,?,?,?,?,?,?,?);");
 				prep4.setString(1, "2017-04-26/13:00");
-				prep4.setString(2, "ABC");
+				prep4.setString(2, "ABC HAIRSTYLIST");
 				prep4.setString(3,"jbrown");
 				prep4.setString(4,"maleCut");
 				prep4.setString(5,"e2");
@@ -311,7 +311,7 @@ public class BookingDatabase {
 				prep4.close();
 				PreparedStatement prep5 = conn.prepareStatement("INSERT INTO BOOKING values(?,?,?,?,?,?,?,?);");
 				prep5.setString(1, "2017-04-19/14:00");
-				prep5.setString(2, "ABC");
+				prep5.setString(2, "ABC HAIRSTYLIST");
 				prep5.setString(3,"jbrown");
 				prep5.setString(4,"maleCut");
 				prep5.setString(5,"e2");

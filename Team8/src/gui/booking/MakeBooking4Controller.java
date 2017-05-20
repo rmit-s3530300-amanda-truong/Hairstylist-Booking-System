@@ -55,6 +55,9 @@ public class MakeBooking4Controller {
 	@FXML
     private JFXButton gotoLogout;
 	
+	@FXML
+    private Label logoText;
+	
 	private BookingManagementSystem bms;
 
 	public void initiate(Company comp, String cust_id, String
@@ -66,6 +69,7 @@ public class MakeBooking4Controller {
 		this.employee = employee;
 		this.portal = portal;
 		this.bms = bms;
+		logoText.setText(comp.getName().toUpperCase());
 		int counter = 0;
 		
 		LocalDate current_date = comp.getCalendar().getDate();

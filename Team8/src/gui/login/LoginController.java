@@ -109,7 +109,6 @@ public class LoginController {
     		}
     	}
     	else{
-    		System.out.println("Debug 1");	
     		//menu is null when def boss is chosen
     		if(menu.authenticate(username, password, business).equals("customer")){
     			comp = bms.getCompany(business);
@@ -176,7 +175,7 @@ public class LoginController {
 	    	pane = adminPortal.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	AdminPController controller = adminPortal.getController();
-			controller.initiate(comp, bms);
+			controller.initiate(bms);
 		} 
 		catch (IOException e) {
 			e.printStackTrace();

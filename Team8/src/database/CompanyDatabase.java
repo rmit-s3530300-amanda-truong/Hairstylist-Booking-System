@@ -402,9 +402,9 @@ public class CompanyDatabase{
 		try
 		{
 			//making sure no duplicates are added when program restarts
-			if((!checkValueExists("username","abcboss","COMPANY") && !checkValueExists("compName","ABC","COMPANY")) || 
-					(!checkValueExists("username","e1","COMPANY") && !checkValueExists("compName","ABC","COMPANY"))
-					|| (!checkValueExists("username","e2","COMPANY") && !checkValueExists("compName","ABC","COMPANY")))
+			if((!checkValueExists("username","abcboss","COMPANY") && !checkValueExists("compName","ABC HAIRSTYLIST","COMPANY")) || 
+					(!checkValueExists("username","e1","COMPANY") && !checkValueExists("compName","ABC HAIRSTYLIST","COMPANY"))
+					|| (!checkValueExists("username","e2","COMPANY") && !checkValueExists("compName","ABC HAIRSTYLIST","COMPANY")))
 			{
 				if(conn.isClosed())
 				{
@@ -412,7 +412,7 @@ public class CompanyDatabase{
 				}
 				prep = conn.prepareStatement("INSERT INTO COMPANY values(?,?,?,?,?,?,?,?,?);");
 				prep.setString(1,"abcboss");
-				prep.setString(2,"ABC");
+				prep.setString(2,"ABC HAIRSTYLIST");
 				prep.setString(3,"John");
 				prep.setString(4,"Bishop");
 				prep.setString(5,"password");
@@ -424,7 +424,7 @@ public class CompanyDatabase{
 				prep.close();
 				PreparedStatement prep2 = conn.prepareStatement("INSERT INTO COMPANY values(?,?,?,?,?,?,?,?,?);");
 				prep2.setString(1,"e1");
-				prep2.setString(2,"ABC");
+				prep2.setString(2,"ABC HAIRSTYLIST");
 				prep2.setString(3,"Bob");
 				prep2.setString(4,"Lee");
 				prep2.setString(5,null);
@@ -436,7 +436,7 @@ public class CompanyDatabase{
 				prep2.close();
 				PreparedStatement prep3 = conn.prepareStatement("INSERT INTO COMPANY values(?,?,?,?,?,?,?,?,?);");
 				prep3.setString(1,"e2");
-				prep3.setString(2,"ABC");
+				prep3.setString(2,"ABC HAIRSTYLIST");
 				prep3.setString(3,"Elissa");
 				prep3.setString(4,"Smith");
 				prep3.setString(5,null);
@@ -448,7 +448,7 @@ public class CompanyDatabase{
 				prep3.close();
 			}
 			conn.close();
-			if(!checkValueExists("compName","ABC","BUSINESS"))
+			if(!checkValueExists("compName","ABC HAIRSTYLIST","BUSINESS"))
 			{
 				if(conn.isClosed())
 				{
@@ -456,7 +456,7 @@ public class CompanyDatabase{
 				}
 				prep = conn.prepareStatement("INSERT INTO BUSINESS values(?,?,?,?,?,?,?,?,?,?);");
 				prep.setString(1,"abcboss");
-				prep.setString(2,"ABC");
+				prep.setString(2,"ABC HAIRSTYLIST");
 				prep.setString(3,"John");
 				prep.setString(4,"Bishop");
 				prep.setString(5,"password");
@@ -469,7 +469,7 @@ public class CompanyDatabase{
 				prep.close();
 				PreparedStatement prep2 = conn.prepareStatement("INSERT INTO BUSINESS values(?,?,?,?,?,?,?,?,?,?);");
 				prep2.setString(1,"defboss");
-				prep2.setString(2,"DEF");
+				prep2.setString(2,"DEF HAIRSTYLIST");
 				prep2.setString(3,"Chris");
 				prep2.setString(4,"Pratt");
 				prep2.setString(5,"password");

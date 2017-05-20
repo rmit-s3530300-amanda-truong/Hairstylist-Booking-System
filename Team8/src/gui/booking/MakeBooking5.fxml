@@ -16,7 +16,6 @@
                   <Font name="Helvetica-Normal" size="16.0" />
                </font>
             </JFXButton>
-            <Pane id="logo" fx:id="welcome_logo" layoutX="41.0" prefHeight="75.0" prefWidth="166.0" />
          </children>
       </Pane>
       <Pane id="content_calendar" layoutY="74.0" prefHeight="714.0" prefWidth="1400.0">
@@ -34,7 +33,7 @@
             </Label>
             <Pane prefHeight="714.0" prefWidth="82.0" style="-fx-background-color: #1d1c1c;">
             <children>
-                  <JFXButton id="home" contentDisplay="GRAPHIC_ONLY" layoutX="8.0" layoutY="16.0" onAction="#goToPortal" ripplerFill="#1d1c1c00" />
+                  <Pane id="home" layoutX="16.0" layoutY="20.0" onMouseClicked="#goToPortal" prefHeight="50.0" prefWidth="50.0" />
                </children>
             </Pane>
             <JFXButton id="button" fx:id="viewAfternoon" layoutX="725.0" layoutY="330.0" onAction="#clickAfternoon" prefHeight="54.0" prefWidth="258.0" style="-fx-background-radius: 60;" stylesheets="@../stylesheet.css" text="AFTERNOON" textFill="WHITE">
@@ -53,5 +52,10 @@
                </font>
             </Label>
          </children></Pane>
+      <Label fx:id="logoText" layoutX="38.0" layoutY="20.0" maxWidth="615.0" prefHeight="37.0" prefWidth="611.0" textFill="WHITE">
+         <font>
+            <Font name="Lato Black" size="22.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

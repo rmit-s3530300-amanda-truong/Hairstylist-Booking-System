@@ -48,6 +48,9 @@ public class CustomerPController {
     @FXML
     private JFXButton gotoLogout;
     
+    @FXML
+    private Label logoText;
+    
     private BookingManagementSystem bms;
 
 	public void initiate(Company comp, String username, BookingManagementSystem bms) {
@@ -57,6 +60,7 @@ public class CustomerPController {
 		cust_id = username;
 		String fullname = db1.getName(cust_id);
 		cust_name.setText(fullname.toUpperCase());
+		logoText.setText(comp.getName().toUpperCase());
 	}
 	
 	@FXML

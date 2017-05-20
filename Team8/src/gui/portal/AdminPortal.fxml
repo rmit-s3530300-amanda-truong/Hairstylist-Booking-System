@@ -16,7 +16,7 @@
                   <Font name="Lato Light" size="39.0" />
                </font>
             </Label>
-            <Label layoutX="732.0" layoutY="70.0" text="ADMIIN" textFill="WHITE">
+            <Label layoutX="732.0" layoutY="70.0" text="ADMIN" textFill="WHITE">
                <font>
                   <Font name="Lato Bold" size="39.0" />
                </font>
@@ -24,7 +24,7 @@
             <JFXButton contentDisplay="GRAPHIC_ONLY" layoutX="222.0" layoutY="164.0" onAction="#addBusiness" prefHeight="150.0" prefWidth="472.0" ripplerFill="WHITE" />
             <Pane prefHeight="714.0" prefWidth="82.0" style="-fx-background-color: #1d1c1c;">
                <children>
-                  <JFXButton id="home" contentDisplay="GRAPHIC_ONLY" disable="true" layoutX="8.0" layoutY="16.0" ripplerFill="#1d1c1c00" />
+                  <Pane id="home" layoutX="16.0" layoutY="20.0" prefHeight="50.0" prefWidth="50.0" />
                </children>
             </Pane>
          </children></Pane>

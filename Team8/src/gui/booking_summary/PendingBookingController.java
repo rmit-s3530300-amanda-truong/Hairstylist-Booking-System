@@ -65,6 +65,9 @@ public class PendingBookingController {
 	@FXML 
 	private JFXRadioButton decline;
 	
+	@FXML
+    private Label logoText;
+	
 	private BookingManagementSystem bms;
 	
 	@FXML
@@ -98,6 +101,7 @@ public class PendingBookingController {
 		this.bms = bms;
 		this.comp = comp;
 		menu = comp.getMenu();
+		logoText.setText(comp.getName().toUpperCase());
 		text.setStyle("-fx-text-fill: white; -fx-font-size: 16;");
 		accept.setToggleGroup(group);
 		accept.setUserData(true);

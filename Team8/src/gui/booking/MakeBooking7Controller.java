@@ -52,6 +52,9 @@ public class MakeBooking7Controller {
 	@FXML
     private JFXButton gotoLogout;
 	
+	@FXML
+    private Label logoText;
+	
 	private BookingManagementSystem bms;
 
 	public void initiate(Company comp, String cust_id, String service, Employee employee, LocalDate date, LocalTime time, String portal, BookingManagementSystem bms) {
@@ -65,6 +68,7 @@ public class MakeBooking7Controller {
 		this.portal = portal;
 		this.comp = comp;
 		this.bms = bms;
+		logoText.setText(comp.getName().toUpperCase());
 		
 		Label id_label = new Label();
 		Label service_label = new Label();

@@ -41,6 +41,9 @@ public class MakeBooking3Controller {
 	private String portal;
 	
 	@FXML
+    private Label logoText;
+	
+	@FXML
 	private Label invalid;
 	
 	final ToggleGroup group = new ToggleGroup();
@@ -60,6 +63,7 @@ public class MakeBooking3Controller {
 		this.service = service;
 		this.portal = portal;
 		this.bms = bms;
+		logoText.setText(comp.getName().toUpperCase());
 		int counter = 0;
 		
 		ArrayList<Employee> avail_list = new ArrayList<Employee>();

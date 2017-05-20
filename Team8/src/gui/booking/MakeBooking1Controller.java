@@ -33,15 +33,19 @@ public class MakeBooking1Controller {
 	@FXML
 	private JFXTextField username;
 	
+	@FXML
+    private Label logoText;
+	
 	private BookingManagementSystem bms;
 	
 	@FXML
 	private Label invalid;
 
 	public void initiate(Company comp, BookingManagementSystem bms) {
+		menu = bms.getMenu();
 		this.comp = comp;
-		menu = comp.getMenu();
 		this.bms = bms;
+		logoText.setText(comp.getName().toUpperCase());
 	}
 	
 	@FXML

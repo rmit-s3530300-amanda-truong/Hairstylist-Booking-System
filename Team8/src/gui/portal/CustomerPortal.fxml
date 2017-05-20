@@ -25,6 +25,11 @@
             <JFXButton fx:id="cust_vCalendar" contentDisplay="GRAPHIC_ONLY" layoutX="222.0" layoutY="355.0" onAction="#viewCalendar" prefHeight="150.0" prefWidth="472.0" ripplerFill="WHITE" />
             <JFXButton fx:id="cust_uBooking" contentDisplay="GRAPHIC_ONLY" layoutX="706.0" layoutY="192.0" onAction="#upcomingBooking" prefHeight="150.0" prefWidth="472.0" ripplerFill="WHITE" />
             <JFXButton fx:id="cust_vHistory" contentDisplay="GRAPHIC_ONLY" layoutX="706.0" layoutY="355.0" onAction="#viewHistory" prefHeight="150.0" prefWidth="472.0" ripplerFill="WHITE" />
+            <Pane prefHeight="714.0" prefWidth="82.0" style="-fx-background-color: #1d1c1c;">
+               <children>
+                  <Pane id="home" layoutX="16.0" layoutY="20.0" prefHeight="50.0" prefWidth="50.0" />
+               </children>
+            </Pane>
          </children></Pane>
       <Pane id="menuPane" prefHeight="75.0" prefWidth="1400.0">
          <children>

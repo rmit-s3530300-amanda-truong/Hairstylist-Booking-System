@@ -109,6 +109,9 @@ public class AddAvailTimeController {
 
     @FXML
     private JFXComboBox<String> endMinute;
+    
+    @FXML
+    private Label logoText;
 
     private BookingManagementSystem bms;
     
@@ -116,6 +119,7 @@ public class AddAvailTimeController {
 		this.comp = comp;
     	menu = comp.getMenu();
 		this.bms = bms;
+		logoText.setText(comp.getName().toUpperCase());
 		
 		String busHours = comp.getBusinessHours();
 		//need to escape | and \\

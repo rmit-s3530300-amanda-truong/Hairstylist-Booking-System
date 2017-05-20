@@ -29,8 +29,7 @@
             <JFXButton fx:id="own_vHistory" contentDisplay="GRAPHIC_ONLY" layoutX="706.0" layoutY="489.0" onAction="#viewPastBooking" prefHeight="150.0" prefWidth="472.0" ripplerFill="WHITE" />
             <Pane prefHeight="714.0" prefWidth="82.0" style="-fx-background-color: #1d1c1c;">
                <children>
-                  <JFXButton id="home" contentDisplay="GRAPHIC_ONLY" disable="true" layoutX="8.0" layoutY="16.0" ripplerFill="#1d1c1c00" />
-                  <JFXButton id="settings" contentDisplay="GRAPHIC_ONLY" layoutX="8.0" layoutY="93.0" ripplerFill="#1d1c1c00" />
+                  <Pane id="home" layoutX="16.0" layoutY="20.0" prefHeight="50.0" prefWidth="50.0" />
                </children>
             </Pane>
          </children></Pane>

@@ -91,6 +91,9 @@ public class AddEmpController {
     @FXML
     private Label username;
     
+    @FXML
+    private Label logoText;
+    
    /* @FXML
     private JFXCheckBox sfcut;
 
@@ -131,6 +134,7 @@ public class AddEmpController {
 		menu = comp.getMenu();
 		this.bms = bms;
 		username.setText(menu.getEmpUname());
+		logoText.setText(comp.getName().toUpperCase());
 		/*sfcut.setUserData(Service.femaleCut);
 		smcut.setUserData(Service.maleCut);
 		sfwash.setUserData(Service.femaleWash);

@@ -52,12 +52,16 @@ public class BusinessPController {
 	@FXML
 	private JFXButton gotoLogout;
 	
+	@FXML
+    private Label logoText;
+	
 	private BookingManagementSystem bms;
 	
 	public void initiate(Company comp, BookingManagementSystem bms) {
 		this.comp = comp;
 		menu = comp.getMenu();
 		this.bms = bms;
+		logoText.setText(comp.getName().toUpperCase());
 	}
 	
 	@FXML

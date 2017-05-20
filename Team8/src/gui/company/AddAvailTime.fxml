@@ -20,12 +20,6 @@
                   <Font name="Helvetica-Normal" size="16.0" />
                </font>
             </JFXButton>
-            <Pane id="logo" fx:id="welcome_logo" layoutX="41.0" prefHeight="75.0" prefWidth="166.0" />
-            <Label layoutX="598.0" layoutY="24.0" text="BUSINESS PORTAL" textFill="WHITE">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
          </children>
       </Pane>
       <Pane id="content_addEmp" layoutY="74.0" prefHeight="714.0" prefWidth="1400.0">
@@ -111,7 +105,7 @@
             </Label>
             <Pane prefHeight="714.0" prefWidth="82.0" style="-fx-background-color: #1d1c1c;">
              <children>
-                  <JFXButton id="home" contentDisplay="GRAPHIC_ONLY" layoutX="8.0" layoutY="16.0" onAction="#goToPortal" ripplerFill="#1d1c1c00" />
+                  <Pane id="home" layoutX="16.0" layoutY="20.0" onMouseClicked="#goToPortal" prefHeight="50.0" prefWidth="50.0" />
                </children></Pane>
             <JFXComboBox fx:id="startHour" focusColor="#aa9144" layoutX="504.0" layoutY="430.0" unFocusColor="WHITE" />
             <JFXComboBox fx:id="startMinute" focusColor="#aa9144" layoutX="585.0" layoutY="430.0" unFocusColor="WHITE" />
@@ -139,5 +133,10 @@
                </font>
             </JFXRadioButton>
          </children></Pane>
+      <Label fx:id="logoText" layoutX="38.0" layoutY="20.0" maxWidth="615.0" prefHeight="37.0" prefWidth="611.0" textFill="WHITE">
+         <font>
+            <Font name="Lato Black" size="22.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

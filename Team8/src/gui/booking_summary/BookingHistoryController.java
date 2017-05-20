@@ -16,6 +16,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -41,6 +42,9 @@ public class BookingHistoryController {
 	
 	@FXML
 	private VBox textBox;
+	
+	@FXML
+    private Label logoText;
 	
 	private BookingManagementSystem bms;
 	
@@ -86,8 +90,9 @@ public class BookingHistoryController {
 	public void initiate(Company comp, String cust_id, BookingManagementSystem bms) {
 		id = cust_id;
 		this.comp = comp;
-		menu = comp.getMenu();
+		menu = bms.getMenu();
 		this.bms = bms;
+		logoText.setText(comp.getName().toUpperCase());
 		getPastBooking();
 	}
 	

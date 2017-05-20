@@ -17,6 +17,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
@@ -40,6 +41,9 @@ public class MakeBooking2Controller {
 	
 	@FXML
     private JFXButton gotoLogout;
+	
+	@FXML
+    private Label logoText;
 	
 	/*@FXML
 	private JFXRadioButton femaleCut;
@@ -73,6 +77,7 @@ public class MakeBooking2Controller {
 		this.cust_id = cust_id;
 		this.portal = portal;
 		this.bms = bms;
+		logoText.setText(comp.getName().toUpperCase());
 		int counter = 0;
 		ArrayList<String> services_list = comp.getService();
 		ArrayList<JFXRadioButton> buttons = new ArrayList<JFXRadioButton>();

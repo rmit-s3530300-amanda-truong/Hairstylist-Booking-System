@@ -194,9 +194,9 @@ public class CustomerDatabase{
 		try
 		{
 			//making sure no duplicates are added when program restarts
-			if((!checkValueExists("username","jbrown") && !checkValueExists("compName","ABC")) || 
-					(!checkValueExists("username","rgeorge") && !checkValueExists("compName","ABC")) || 
-					(!checkValueExists("username","tswizzle") && !checkValueExists("compName","ABC")))
+			if((!checkValueExists("username","jbrown") && !checkValueExists("compName","ABC HAIRSTYLIST")) || 
+					(!checkValueExists("username","rgeorge") && !checkValueExists("compName","ABC HAIRSTYLIST")) || 
+					(!checkValueExists("username","tswizzle") && !checkValueExists("compName","ABC HAIRSTYLIST")))
 			{
 				if(conn.isClosed())
 				{
@@ -204,7 +204,7 @@ public class CustomerDatabase{
 				}
 				prep = conn.prepareStatement("INSERT INTO CUSTINFO values(?,?,?,?,?,?,?);");
 				prep.setString(1,"jbrown");
-				prep.setString(2, "ABC");
+				prep.setString(2, "ABC HAIRSTYLIST");
 				prep.setString(3,"John");	
 				prep.setString(4,"Brown");
 				prep.setString(5,"password");
@@ -214,7 +214,7 @@ public class CustomerDatabase{
 				prep.close();
 				PreparedStatement prep2 = conn.prepareStatement("INSERT INTO CUSTINFO values(?,?,?,?,?,?,?);");
 				prep2.setString(1,"rgeorge");
-				prep2.setString(2, "ABC");
+				prep2.setString(2, "ABC HAIRSTYLIST");
 				prep2.setString(3,"Regina");
 				prep2.setString(4,"George");
 				prep2.setString(5,"password1");
@@ -224,7 +224,7 @@ public class CustomerDatabase{
 				prep2.close();
 				PreparedStatement prep3 = conn.prepareStatement("INSERT INTO CUSTINFO values(?,?,?,?,?,?,?);");
 				prep3.setString(1,"tswizzle");
-				prep3.setString(2,"ABC");
+				prep3.setString(2,"ABC HAIRSTYLIST");
 				prep3.setString(3,"Taylor");
 				prep3.setString(4,"Swift");
 				prep3.setString(5,"password2");

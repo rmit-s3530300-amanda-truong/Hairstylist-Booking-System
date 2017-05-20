@@ -56,6 +56,9 @@ public class MakeBooking6Controller {
 	@FXML
     private JFXButton gotoLogout;
 	
+	@FXML
+    private Label logoText;
+	
 	private BookingManagementSystem bms;
 
 	public void initiate(Company comp, String cust_id, String service, Employee employee, LocalDate date, String select, String portal, BookingManagementSystem bms) {
@@ -67,6 +70,7 @@ public class MakeBooking6Controller {
 		this.date = date;
 		this.portal = portal;
 		this.bms = bms;
+		logoText.setText(comp.getName().toUpperCase());
 		
 		int counter = 0;
 		

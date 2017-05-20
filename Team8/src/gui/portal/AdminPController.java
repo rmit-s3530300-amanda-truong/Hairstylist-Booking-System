@@ -11,12 +11,12 @@ import gui.welcome.WelcomeController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import mainController.MainController;
 
 public class AdminPController {
 	
-	private Company comp;
 	private MainController menu;
 	private BookingManagementSystem bms;
 	
@@ -29,9 +29,11 @@ public class AdminPController {
 	@FXML
 	private JFXButton gotoLogout;
 	
-	public void initiate(Company comp, BookingManagementSystem bms) {
-		this.comp = comp;
-		menu = comp.getMenu();
+	@FXML
+    private Label logoText;
+	
+	public void initiate(BookingManagementSystem bms) {
+		menu = bms.getMenu();
 		this.bms = bms;
 	}
 	
@@ -43,7 +45,7 @@ public class AdminPController {
     	pane = addBuss.load();
     	rootPane.getChildren().setAll(pane);
     	PendingRegistrationController controller = addBuss.getController();
-		controller.initiate(comp, bms);
+		controller.initiate(bms);
 	}
 	
 	//logout
