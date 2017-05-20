@@ -60,6 +60,7 @@ public class RegisterBusiness3Controller {
     public void initiate(Company comp, BookingManagementSystem bms) {
 		this.comp = comp;
 		this.bms = bms;
+		comp.clearService();
 		service_time.setItems(times);
 		service_time.setValue("15");
 		contPane = new Pane();
@@ -162,25 +163,25 @@ public class RegisterBusiness3Controller {
     	} else {
     		//checking for empty service name
     		Boolean valid = true;
-    		for(int i=0; i<services.size();i++) {
-    			while(valid) {
-	    			for(Entry<JFXTextField, JFXComboBox<String>> entry :services.get(i).entrySet()) {
-	    				String serv_name = entry.getKey().getText();
-	    				if(serv_name == null || serv_name.isEmpty()) {
-	    					valid = false;
-	    					invalid.setText("Service Name Cannot Be Empty");
-	    					break;
-	    				} else {
-		    				Integer time = Integer.parseInt(entry.getValue().getValue())/15;
-		    				comp.addService(serv_name);
-		    				comp.addServiceTime(serv_name, time);
-	    				}
-	    			}
+    		int i =0;
+			while(valid&&i<services.size()) {
+    			for(Entry<JFXTextField, JFXComboBox<String>> entry :services.get(i).entrySet()) {
+    				String serv_name = entry.getKey().getText();
+    				if(serv_name == null || serv_name.isEmpty()) {
+    					valid = false;
+    					invalid.setText("Service Name Cannot Be Empty");
+    					break;
+    				} else {
+	    				Integer time = Integer.parseInt(entry.getValue().getValue())/15;
+	    				comp.addService(serv_name);
+	    				comp.addServiceTime(serv_name, time);
+    				}
     			}
-    		}
+    			i++;
+			}
     		if(valid) {
     			AnchorPane pane;
-    	    	FXMLLoader register = new FXMLLoader(getClass().getResource("../register/Register4.fxml"));
+    	    	FXMLLoader register = new FXMLLoader(getClass().getResource("../register/RegisterBusiness4.fxml"));
     	    	pane = register.load();
     	    	rootPane.getChildren().setAll(pane);
     	    	RegisterBusiness4Controller controller = register.getController();

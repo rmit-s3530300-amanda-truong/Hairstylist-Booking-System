@@ -1,6 +1,11 @@
 package gui.register;
 
 import java.io.IOException;
+import java.time.DayOfWeek;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map.Entry;
 
 import Main.BookingManagementSystem;
 import business.Company;
@@ -8,7 +13,13 @@ import gui.login.LoginController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
 import mainController.MainController;
 
 public class RegisterBusiness4Controller {
@@ -18,20 +29,121 @@ public class RegisterBusiness4Controller {
 	
     @FXML
     private AnchorPane rootPane;
+    @FXML
+	private Pane displayPane;
+	@FXML
+	private Pane contPane;
+	@FXML 
+	private ScrollPane scrollPaneCal;
+	
     
     public void initiate(Company comp, BookingManagementSystem bms) {
 		this.comp = comp;
+		comp.setStatus("pending");
 		this.bms = bms;
+		contPane = new Pane();
+		scrollPaneCal = new ScrollPane();
+		
+		scrollPaneCal.setLayoutX(440);
+		scrollPaneCal.setLayoutY(157);
+		scrollPaneCal.setPrefHeight(440.0);
+		scrollPaneCal.setPrefWidth(500.0);
+		scrollPaneCal.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+		
+		Label bus_title = new Label("Business Name: ");
+		Label bus_service = new Label("Business Service: ");
+		Label bus_open = new Label("Business Hours: ");
+		Label name = new Label(comp.getName());
+		
+		HashMap<String, Integer> service = comp.getServiceTime();
+		ArrayList<Label> service_list = new ArrayList<Label>();
+		LinkedHashMap<DayOfWeek, String> times = comp.getBusHours();
+		ArrayList<Label> time_list = new ArrayList<Label>();
+		
+		
+		bus_title.setTextFill(Paint.valueOf("white"));
+		bus_title.setLayoutX(50);
+		bus_title.setLayoutY(30);
+		bus_title.setFont(Font.font(16));
+		contPane.getChildren().add(bus_title);
+		
+		name.setTextFill(Paint.valueOf("white"));
+		name.setLayoutX(bus_title.getLayoutX()+170);
+		name.setLayoutY(bus_title.getLayoutY());
+		name.setFont(Font.font(16));
+		contPane.getChildren().add(name);
+
+		bus_open.setTextFill(Paint.valueOf("white"));
+		bus_open.setLayoutX(bus_title.getLayoutX());
+		bus_open.setLayoutY(name.getLayoutY()+50);
+		bus_open.setFont(Font.font(16));
+		contPane.getChildren().add(bus_open);
+		
+		double offsetX = bus_open.getLayoutX();
+		double offsetY = bus_open.getLayoutY();
+		int counter = 1;
+		for(Entry<DayOfWeek, String> entry : times.entrySet()) {
+			String s = entry.getKey().toString()+": ";
+			if(entry.getValue().equals("")) {
+				s+="Closed";
+			} else {
+				s+=entry.getValue();
+			}
+			
+			Label l = new Label(s);
+			l.setTextFill(Paint.valueOf("white"));
+			l.setLayoutX(offsetX+170);
+			l.setLayoutY(offsetY);
+			l.setFont(Font.font(16));
+			//time_list.add(l);
+			offsetY+=50;
+			contPane.getChildren().add(l);
+			counter++;
+		}
+		
+		
+		bus_service.setTextFill(Paint.valueOf("white"));
+		bus_service.setLayoutX(bus_open.getLayoutX());
+		bus_service.setLayoutY(offsetY);
+		bus_service.setFont(Font.font(16));
+		contPane.getChildren().add(bus_service);
+		
+		offsetX = bus_service.getLayoutX();
+		offsetY = bus_service.getLayoutY();
+		counter =1;
+		for(Entry<String, Integer> entry : service.entrySet()) {
+			int time = entry.getValue()*15;
+			String s = entry.getKey()+": "+Integer.toString(time)+"min";
+			Label l = new Label(s);
+			l.setTextFill(Paint.valueOf("white"));
+			l.setLayoutX(offsetX+170);
+			l.setLayoutY(offsetY);
+			l.setFont(Font.font(16));
+			//service_list.add(l);
+			offsetY+=50;
+			contPane.getChildren().add(l);
+			counter++;
+		}
+		
+		scrollPaneCal.setContent(contPane);
+		displayPane.getChildren().add(scrollPaneCal);
 	}
 
     @FXML
-    void backRegister3(ActionEvent event) {
-    	
+    void backRegister3(ActionEvent event) throws IOException {
+    	AnchorPane pane;
+    	FXMLLoader register = new FXMLLoader(getClass().getResource("../register/RegisterBusiness3.fxml"));
+    	pane = register.load();
+    	rootPane.getChildren().setAll(pane);
+    	RegisterBusiness3Controller register_controller = register.getController();
+		register_controller.initiate(comp, bms);
     }
 
     @FXML
     void submit(ActionEvent event) {
-
+    	//TODO: add to database
+    	// add to company list
+    	// have to do checking on login/register combobox that business is verified before showing in combobox
     }
     
     @FXML

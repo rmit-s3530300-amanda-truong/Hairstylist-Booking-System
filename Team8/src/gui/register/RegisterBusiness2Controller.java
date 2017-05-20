@@ -1,6 +1,7 @@
 package gui.register;
 
 import java.io.IOException;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -159,7 +160,7 @@ public class RegisterBusiness2Controller {
 	 
 	 LinkedHashMap<JFXComboBox<String>, JFXComboBox<String>> times= new LinkedHashMap<JFXComboBox<String>, JFXComboBox<String>>();
 	 
-	 LinkedHashMap<String, String> avail_times = new LinkedHashMap<String, String>();
+	 LinkedHashMap<DayOfWeek, String> avail_times = new LinkedHashMap<DayOfWeek, String>();
 	 
 	 String name;
     
@@ -261,12 +262,13 @@ public class RegisterBusiness2Controller {
 	    		JFXComboBox<String> hour = entry.getKey();
 	    		JFXComboBox<String> min = entry.getValue();
 	    		if(hour.getValue().equals("Closed") && min.getValue().equals("Closed")) {
-	    			avail_times.put(Integer.toString(counter), "");
+	    			//avail_times.put(DayOfWeek.of(counter), "");
 	    		} else if(hour.getValue().equals("Closed") || min.getValue().equals("Closed")) {
 	    			invalid_times.setText("Invalid Times: Must choose Closed for Start and End Times");
 	    			invalid_days.get(counter-1).setText("Invalid Times");
 	    			valid = false;
 	    		} 
+	    		counter++;
 	    	}
 	    	// Checking if the start time is before the end time
 	    	if(valid) {
@@ -283,7 +285,7 @@ public class RegisterBusiness2Controller {
 	    			e_hour = keyList.get(i).getValue();
 	    			s_min = valueList.get(j).getValue();
 	    			e_min = valueList.get(i).getValue();
-	    			if(!s_hour.equals("Closed") || !e_hour.equals("Closed") || !s_min.equals("Closed") || !e_min.equals("Closed")) {	
+	    			if(!s_hour.equals("Closed") && !e_hour.equals("Closed") && !s_min.equals("Closed") && !e_min.equals("Closed")) {	
 		    			if(!validTime(s_hour, s_min, e_hour, e_min)) {
 		    				valid = false;
 		    				invalid_times.setText("Invalid Times: End Times must be after Start Time eg. 08:00 - 14:00");
@@ -292,13 +294,33 @@ public class RegisterBusiness2Controller {
 		    				String start = s_hour+":"+s_min;
 		    				String end = e_hour+":"+e_min;
 		    				String time = start+"-"+end;
-		    				avail_times.put(Integer.toString(counter), time);
+		    				if(j==0) {
+		    					System.out.println(DayOfWeek.of(1)+" "+time);
+		    					avail_times.put(DayOfWeek.of(1), time);
+		    				} else if(j%2==0) {
+		    					System.out.println(DayOfWeek.of((j/2)+1)+" "+time);
+		    					avail_times.put(DayOfWeek.of((j/2)+1), time);
+		    				}
 		    			}
+	    			} else {
+	    				if(s_hour.equals("Closed") && e_hour.equals("Closed") && s_min.equals("Closed") && e_min.equals("Closed")) {
+	    					if(j==0) {
+		    					avail_times.put(DayOfWeek.of(1),"");
+		    				} else if(j%2==0) {
+		    					avail_times.put(DayOfWeek.of((j/2)+1), "");
+		    				}
+	    				} else {
+	    					valid = false;
+	    					invalid_times.setText("Invalid Times: Must choose Closed for Start and End Times");
+	    					comp.clearService();
+	    					break;
+	    				}
 	    			}
 	    		}
 	    	}
 	    	if(valid) {
 	    		comp.setBusinessName(name);
+	    		comp.setBusHours(avail_times);
 	    		nextStep(comp);
 	    	}
     	}

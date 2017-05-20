@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
@@ -27,8 +28,7 @@ public class Company {
 	private ArrayList<String> services;
 	// String is service name, int is time taken
 	private HashMap<String, Integer> service_times; 
-	private LocalTime start_time;
-	private LocalTime end_time;
+	private LinkedHashMap<DayOfWeek,String> business_hours;
 	
 	private MainController menu;
 	
@@ -40,7 +40,6 @@ public class Company {
 	private String mobile;
 	private String address;
 	private String service;
-	private String busHours;
 	private String status;
 	
 	public Company(String fName, String lName, String uName, String password, String mobileNo, String address) {
@@ -50,8 +49,11 @@ public class Company {
 		this.password = password;
 		mobile = mobileNo;
 		this.address = address;
+		services = new ArrayList<String>();
+		service_times = new HashMap<String, Integer>();
 	}
 	
+	// TODO: change String bushours to HashMap<DayOfWeek, String>
 	public Company(String compName, String username, String password, String fname, String lname, String mobile, String address, String service, String busHours, String status) {
 		employeeList = new HashMap<String, Employee>();
 		custList = new HashMap<String, Customer>();
@@ -67,7 +69,7 @@ public class Company {
 		this.mobile = mobile;
 		this.address = address;
 		this.service = service;
-		this.busHours = busHours;
+		//this.busHours = busHours;
 		this.status = status;
 	}
 	
@@ -90,14 +92,13 @@ public class Company {
 		return password;
 	}
 	
-	public String getBusinessHours()
-	{
-		return busHours;
-	}
-	
 	public String getStatus()
 	{
 		return status;
+	}
+	
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 	public void addCustomer(Customer customer) {
@@ -115,12 +116,17 @@ public class Company {
 		return custList;
 	}
 	
-	public void setStartTime(LocalTime time) {
-		start_time = time;
+	public void setBusHours(LinkedHashMap<DayOfWeek, String> avail_times) {
+		business_hours = avail_times;
 	}
 	
-	public void setEndTime(LocalTime time) {
-		end_time = time;
+	public LinkedHashMap<DayOfWeek, String> getBusHours() {
+		return business_hours;
+	}
+	
+	public void clearService() {
+		services.clear();
+		service_times.clear();
 	}
 	
 	public void addService(String service) {
