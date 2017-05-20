@@ -25,6 +25,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
@@ -104,6 +105,7 @@ public class LoginController {
         	}*/
     		else{
     			invalid_id_password.setText("Invalid username or password. Please try again");
+    			invalid_id_password.setAlignment(Pos.CENTER);
     		}
     	}
     	else{
@@ -122,6 +124,7 @@ public class LoginController {
         	}
     		else{
     			invalid_id_password.setText("Invalid username or password. Please try again");
+    			invalid_id_password.setAlignment(Pos.CENTER);
     		}
     	}
     }
