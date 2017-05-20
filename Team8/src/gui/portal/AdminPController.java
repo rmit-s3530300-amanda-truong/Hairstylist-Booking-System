@@ -7,7 +7,7 @@ import com.jfoenix.controls.JFXButton;
 import Main.BookingManagementSystem;
 import business.Company;
 import gui.register.PendingRegistrationController;
-import gui.welcome.PreWelcomeController;
+import gui.welcome.WelcomeController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -50,10 +50,10 @@ public class AdminPController {
 	@FXML
 	void goToLogout(ActionEvent event) throws IOException{
 		AnchorPane pane;
-    	FXMLLoader login = new FXMLLoader(getClass().getResource("../welcome/PreWelcome.fxml"));
+    	FXMLLoader login = new FXMLLoader(getClass().getResource("../welcome/Welcome.fxml"));
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
-    	PreWelcomeController controller = login.getController();
+    	WelcomeController controller = login.getController();
 		controller.initiate(bms);
 	}
 }
