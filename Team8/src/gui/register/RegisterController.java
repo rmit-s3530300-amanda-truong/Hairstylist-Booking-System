@@ -146,14 +146,14 @@ public class RegisterController {
 					comp = bms.getCompany(newValue.toString());
 					System.out.println(comp.getName());
 					menu = comp.getMenu();
-					System.out.println(menu);
-					System.out.println("changed");
+//					System.out.println(menu);
+//					System.out.println("changed");
 					business = newValue.toString();
 				}
 				else
 				{
 					menu = bms.getMenu();
-					System.out.println(menu);
+//					System.out.println(menu);
 				}
 			}
 		});
@@ -258,8 +258,6 @@ public class RegisterController {
 		invalid_un.setText("");
 		if(menu.validate(username, uname)) {
 			//checks business owner username uniquess
-			
-			System.out.println("Valid username");
 			if(business.equals("Register New Company")){
 				for(Company c : bms.getCompanyList()) {
 					if(c.getUsername().equals(username)) {
@@ -276,6 +274,7 @@ public class RegisterController {
 					unameValid = true;
 				}
 				else{
+					unameValid = false;
 					invalid_un.setText("Username is already taken");
 					invalid_un.setAlignment(Pos.CENTER_LEFT);
 				}
