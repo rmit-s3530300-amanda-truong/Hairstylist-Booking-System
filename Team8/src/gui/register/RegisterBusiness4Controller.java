@@ -86,7 +86,7 @@ public class RegisterBusiness4Controller {
 		int counter = 1;
 		for(Entry<DayOfWeek, String> entry : times.entrySet()) {
 			String s = entry.getKey().toString()+": ";
-			if(entry.getValue().equals("")) {
+			if(entry.getValue().equals("empty")) {
 				s+="Closed";
 			} else {
 				String[] time = entry.getValue().split(",");
