@@ -27,6 +27,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import mainController.MainController;
 
 public class ViewCalendarController {
@@ -169,7 +170,7 @@ public class ViewCalendarController {
 			day = new Label(current.plusDays(i).toString());
 			day.setLayoutX(154.0 + (135*i));
 			day.setLayoutY(5);
-			day.setStyle("-fx-font: 16 Lato;");
+			day.setFont(Font.font(16));
 			day.setStyle("-fx-text-fill: white");
 			contPane.getChildren().add(day);
 		}
@@ -215,7 +216,7 @@ public class ViewCalendarController {
 			time1 = new Label(sTime.plusMinutes(15*i)+"-"+sTime.plusMinutes(15*(i+1)));
 			time1.setLayoutX(10.0);
 			time1.setLayoutY(40 + (30*i));
-			time1.setStyle("-fx-font: 16 Lato;");
+			time1.setFont(Font.font(16));
 			time1.setStyle("-fx-text-fill: white");
 			contPane.getChildren().add(time1);
 		}
