@@ -9,7 +9,9 @@ import java.util.regex.Pattern;
 
 import business.Company;
 import business.Employee;
+import calendar.Booking;
 import calendar.Calendar;
+import calendar.Calendar.Status;
 import database.AvailabilityDatabase;
 import database.BookingDatabase;
 import database.CompanyDatabase;
@@ -81,7 +83,13 @@ public class MainController {
 	
 	public void addBooking(String id, String custUsername, String service, String empID, String date, String time, String status)
 	{
-		bookDb.addBooking(id, comp.getName(), custUsername, service, empID, date, time, status);
+		String[] startAndEnd = time.split("-");
+		LocalTime current_time = LocalTime.parse(startAndEnd[0]);
+		LocalTime end_time = LocalTime.parse(startAndEnd[1]);
+		while(!current_time.equals(end_time)) {
+			bookDb.addBooking(date + "/"+ current_time.toString(), comp.getName(), custUsername, service, empID, date, time, status);
+			current_time = current_time.plusMinutes(15);
+		}
 	}
 	
 	public boolean idValid(String id) {
