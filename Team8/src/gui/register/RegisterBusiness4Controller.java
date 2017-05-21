@@ -89,7 +89,8 @@ public class RegisterBusiness4Controller {
 			if(entry.getValue().equals("")) {
 				s+="Closed";
 			} else {
-				s+=entry.getValue();
+				String[] time = entry.getValue().split(",");
+				s+=time[0]+"-"+time[1];
 			}
 			
 			Label l = new Label(s);
@@ -143,9 +144,6 @@ public class RegisterBusiness4Controller {
 
     @FXML
     void submit(ActionEvent event) throws IOException {
-    	//TODO: add to database
-    	// add to company list
-    	// have to do checking on login/register combobox that business is verified before showing in combobox
     	String name = comp.getName();
     	String username = comp.getUsername();
     	String bFname = comp.getFname();
