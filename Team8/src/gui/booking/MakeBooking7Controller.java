@@ -114,6 +114,7 @@ public class MakeBooking7Controller {
 		comp.getCalendar().requestBooking(date, time, end_time, employee, service, cust_id);
 		String bID = comp.getCalendar().getCalendarInfo().get(date).get(time).getID();
 		menu.addBooking(bID, cust_id, service.toString(), employee.getID(), date.toString(), time.toString()+"-"+end_time.toString(), status);
+		employee.addBooking(date, time, end_time);
 		if(portal.equals("business")) {
 			status = "booked";
 			comp.getCalendar().acceptBooking(bID);

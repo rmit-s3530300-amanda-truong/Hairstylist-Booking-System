@@ -98,7 +98,6 @@ public class RegisterBusiness4Controller {
 			l.setLayoutX(offsetX+170);
 			l.setLayoutY(offsetY);
 			l.setFont(Font.font(16));
-			//time_list.add(l);
 			offsetY+=50;
 			contPane.getChildren().add(l);
 			counter++;

@@ -130,6 +130,7 @@ public class MakeBooking6Controller {
 			
 			if(booked_times != null) {
 				for(LocalTime times : booked_times) {
+					System.out.println(times);
 					if(avail_times.contains(times)) {
 						avail_times.remove(times);
 					}
