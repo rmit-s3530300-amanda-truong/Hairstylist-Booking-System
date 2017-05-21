@@ -283,10 +283,8 @@ public class Calendar {
 
 	public Boolean declineBooking(String bookingID) {
 		Booking book = getBooking(bookingID);
-		System.out.println(book);
 		if(book != null) {
 			Status status = book.getStatus();
-			System.out.println(status);
 			if(status == Calendar.Status.booked){
 				LocalTime current_time = book.getStartTime();
 				LocalTime end_time = book.getEndTime();

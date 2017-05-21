@@ -130,7 +130,6 @@ public class MakeBooking4Controller {
 			invalid.setText("Invalid Option");
 			invalid.setAlignment(Pos.CENTER);
 		} else {
-			System.out.println(date.toString());
 			AnchorPane pane;
 	    	FXMLLoader mb5 = new FXMLLoader(getClass().getResource("MakeBooking5.fxml"));
 	    	pane = mb5.load();

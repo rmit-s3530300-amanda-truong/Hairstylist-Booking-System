@@ -87,7 +87,6 @@ public class LoginController {
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				comp = bms.getCompany(newValue.toString());
 				menu = comp.getMenu();
-				System.out.println(menu);
 				business = newValue.toString();
 			}
 		});

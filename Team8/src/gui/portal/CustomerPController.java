@@ -90,7 +90,6 @@ public class CustomerPController {
     	pane = up.load();
     	rootPane.getChildren().setAll(pane);
     	UpcomingBookingController controller = up.getController();
-    	System.out.println(cust_id);
 		controller.initiate(comp, cust_id, bms);
 	}
 	

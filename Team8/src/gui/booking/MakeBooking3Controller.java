@@ -134,7 +134,6 @@ public class MakeBooking3Controller {
 			invalid.setText("Invalid Option");
 			invalid.setAlignment(Pos.CENTER);
 		} else {
-			System.out.println(employee.getFirstName().toString());
 			AnchorPane pane;
 	    	FXMLLoader mb4 = new FXMLLoader(getClass().getResource("MakeBooking4.fxml"));
 	    	pane = mb4.load();

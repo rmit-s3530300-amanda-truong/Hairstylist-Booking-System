@@ -123,7 +123,6 @@ public class ServicesDatabase {
 				String business = result.getString("business");
 				String service = result.getString("service");
 				String time = result.getString("time");
-				System.out.println(business + service + time);
 			}
 			stmt.close();
 			result.close();

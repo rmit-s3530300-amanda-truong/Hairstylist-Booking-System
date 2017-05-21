@@ -77,7 +77,6 @@ public class MakeBooking7Controller {
 		Label time_label = new Label();
 		
 		int time_taken = comp.getServiceTime(service);
-		System.out.println(time_taken);
 		end_time = time;
 		for(int i = 0; i<time_taken;i++) {
 			end_time = end_time.plusMinutes(15);

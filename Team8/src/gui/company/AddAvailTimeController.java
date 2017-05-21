@@ -130,7 +130,6 @@ public class AddAvailTimeController {
 		HashMap<String, Employee> list = comp.getEmployeeList();
 		for(Entry<String, Employee> entry : list.entrySet()) {
 			Employee e = entry.getValue();
-			System.out.println(e.getID());
 			empList.add(e.getID());
 		}
 		
@@ -246,7 +245,6 @@ public class AddAvailTimeController {
 					sunStartHourList.add(String.valueOf(t));	
 					sunEndHourList.add(String.valueOf(t+1));
 				}
-				System.out.println(sunStartHourList.isEmpty());
 				if(split1[1].equals("empty"))
 				{
 					sun.setDisable(true);

@@ -112,7 +112,6 @@ public class UpcomingBookingController {
 		menu = comp.getMenu();
 		id = cust_id;
 		this.bms = bms;
-		System.out.println(cust_id);
 		if(cust_id == null) { 
 			ArrayList<Booking> books = comp.getCalendar().getDisplayFutureBooking();
 			bookingList.clear();
@@ -124,7 +123,6 @@ public class UpcomingBookingController {
 				chooseBooking.setPromptText("Please Select");
 				for(Booking book : books) {
 					bookingList.add(book.getID());
-					System.out.println(book.getID());
 				}
 				chooseBooking.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 		
@@ -140,7 +138,6 @@ public class UpcomingBookingController {
 				chooseBooking.autosize();
 			}
 		} else {
-			System.out.println("dis");
 			chooseBooking.setOpacity(0);
 			bookid.setText("");
 			cancel.setOpacity(0);

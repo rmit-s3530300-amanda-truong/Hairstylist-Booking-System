@@ -88,7 +88,6 @@ public class MakeBooking6Controller {
 		for(int i =1;i<=service_time_taken;i++) {
 			if(avail.get(day).size()-1 >= i) {
 				unavail.add(avail.get(day).get(avail.get(day).size()-i));
-				System.out.println(avail.get(day).get(avail.get(day).size()-i));
 			}
 		}
 		
@@ -130,7 +129,6 @@ public class MakeBooking6Controller {
 			
 			if(booked_times != null) {
 				for(LocalTime times : booked_times) {
-					System.out.println(times);
 					if(avail_times.contains(times)) {
 						avail_times.remove(times);
 					}
@@ -184,7 +182,6 @@ public class MakeBooking6Controller {
 			invalid.setText("Invalid Option");
 			invalid.setAlignment(Pos.CENTER);
 		} else {
-			System.out.println(time.toString());
 			AnchorPane pane;
 	    	FXMLLoader mb7 = new FXMLLoader(getClass().getResource("MakeBooking7.fxml"));
 	    	pane = mb7.load();

@@ -85,18 +85,12 @@ public class Company {
 		this.busHours = busHours;
 		String[] split =busHours.split("\\|",-1);
 		for(int i=0; i<split.length;i++){
-			System.out.println(split[i]);
 			String[] day_times = split[i].split("=|,");
-			System.out.println(day_times[0]);
 			if(day_times[1].equals("empty")) {
 				business_hours.put(DayOfWeek.valueOf(day_times[0].toUpperCase()), "empty");
 			} else {
-				System.out.println(day_times[0]+" "+day_times[1]+" "+day_times[2]);
 				business_hours.put(DayOfWeek.valueOf(day_times[0].toUpperCase()), day_times[1]+","+day_times[2]);
 			}
-		}
-		for(Entry<DayOfWeek, String> entry : business_hours.entrySet()) {
-			System.out.println(entry.getKey()+" "+entry.getValue());
 		}
 		this.status = status;
 	}
@@ -388,10 +382,6 @@ public class Company {
 					emp.addBooking(date, startTime, endTime);
 					booking.addDetails(date, startTime, endTime, service, emp, customerUsername);
 					bookList.add(booking);
-				}
-				for(Booking book: bookList)
-				{
-					System.out.println(this.compName + book.getID());
 				}
 				calendar.setBookingList(bookList);
 			}

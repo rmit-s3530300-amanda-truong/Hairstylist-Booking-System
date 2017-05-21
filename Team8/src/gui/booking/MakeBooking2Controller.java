@@ -81,7 +81,6 @@ public class MakeBooking2Controller {
 		int counter = 0;
 		ArrayList<String> services_list = comp.getService();
 		ArrayList<JFXRadioButton> buttons = new ArrayList<JFXRadioButton>();
-		System.out.println(services_list.size());
 		if(services_list.size() > 0) {
 			for(String serv : services_list) {
 				JFXRadioButton b = new JFXRadioButton();
@@ -140,44 +139,14 @@ public class MakeBooking2Controller {
 	
 	@FXML
 	void next(ActionEvent event) throws IOException {
-		/*Employee.Service service;
-		if(services.equals("Female Cut")) {
-			service = Service.femaleCut;
-		} 
-		else if(services.equals("Male Cut")) {
-			service = Service.maleCut;
-		}
-		else if(services.equals("Female Dye")) {
-			service = Service.femaleDye;
-		}
-		else if(services.equals("Male Dye")) {
-			service = Service.maleDye;
-		}
-		else if(services.equals("Female Perm")) {
-			service = Service.femalePerm;
-		}
-		else if(services.equals("Male Perm")) {
-			service = Service.malePerm;
-		}
-		else if(services.equals("Female Wash")) {
-			service = Service.femaleWash;
-		}
-		else if(services.equals("Male Wash")) {
-			service = Service.maleWash;
-		} else {
-			service = null;
-		}*/
-		
-		// System.out.println(service.toString());
 		AnchorPane pane;
     	FXMLLoader mb3 = new FXMLLoader(getClass().getResource("MakeBooking3.fxml"));
     	pane = mb3.load();
     	rootPane.getChildren().setAll(pane);
     	MakeBooking3Controller controller = mb3.getController();
-    	controller.initiate(comp, cust_id, service, portal, bms);
-		
-		
+    	controller.initiate(comp, cust_id, service, portal, bms);	
 	}
+	
 	@FXML
 	void back(ActionEvent event) throws IOException {
 		if(portal.equals("business")) {

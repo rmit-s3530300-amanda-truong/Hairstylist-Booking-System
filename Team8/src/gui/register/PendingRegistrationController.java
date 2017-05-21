@@ -109,7 +109,6 @@ public class PendingRegistrationController {
     {
     	comp.setStatus("verified");
     	compDb.updateStatus("verified", comp.getUsername());
-    	System.out.println("register" + companyList);
     	goToPortal(event);
     }
     

@@ -120,7 +120,6 @@ public class PendingBookingController {
 	
 	@FXML
 	void apply(ActionEvent event) {
-		System.out.println("entered");
 		String id = text.getText();
 		if(list.isEmpty()) {
 			invalid.setStyle("-fx-text-fill: red; -fx-font-size: 16;");
@@ -131,7 +130,6 @@ public class PendingBookingController {
 			String current = b.getID();
 			if(current.equals(id)) {
 				if(!exist) {
-					System.out.println("valid "+status);
 					invalid.setText("");
 					if(status) {
 						Boolean s1 = comp.getCalendar().acceptBooking(id);
@@ -159,7 +157,6 @@ public class PendingBookingController {
 			}
 		} 
 		if(!exist) {
-			System.out.println("invalid");
 			invalid.setStyle("-fx-text-fill: red; -fx-font-size: 16;");
 			invalid.setText("Invalid Booking ID");
 		}

@@ -142,9 +142,7 @@ public class RegisterController {
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				if(!newValue.equals("Register New Company"))
 				{
-					System.out.println(newValue.toString());
 					comp = bms.getCompany(newValue.toString());
-					System.out.println(comp.getName());
 					menu = comp.getMenu();
 					business = newValue.toString();
 				}
