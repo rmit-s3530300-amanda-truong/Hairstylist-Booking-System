@@ -9,9 +9,7 @@ import java.util.regex.Pattern;
 
 import business.Company;
 import business.Employee;
-import calendar.Booking;
 import calendar.Calendar;
-import calendar.Calendar.Status;
 import database.AvailabilityDatabase;
 import database.BookingDatabase;
 import database.CompanyDatabase;
@@ -93,7 +91,7 @@ public class MainController {
 	}
 	
 	public boolean idValid(String id) {
-		if(companyDb.checkValueExists("username",id,"COMPANY")){
+		if(companyDb.checkValueExists("username",id,"EMPLOYEE")){
 			return true;
 		}
 		else{
@@ -126,8 +124,6 @@ public class MainController {
 	
 	public void addEmployee(String username, String fname, String lname, String mobile, String address, String service){
 		String password = null;
-		//String company = "ABC";
-		String status = "employee";
 		String[] serviceList = service.split(", ");
 		ArrayList<String> serviceType = new ArrayList<String>();
 		for(int i=0; i<serviceList.length; i++)
@@ -135,7 +131,7 @@ public class MainController {
 			serviceType.add(serviceList[i]);
 		}
 		Employee emp = new Employee(username, comp.getName(), fname, lname, serviceType);
-		companyDb.addBusInfo(username, comp.getName(), fname, lname, password, mobile, address, service, status);		
+		companyDb.addEmployee(username, comp.getName(), fname, lname, mobile, address, service);		
 	}
 
 	//validates the user input against regexs

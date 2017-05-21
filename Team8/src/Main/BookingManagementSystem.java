@@ -55,10 +55,7 @@ public class BookingManagementSystem extends Application {
 	//TODO: Need a function to pull info from db and fill company_list
 	public void createCompanyList()
 	{
-		HashMap<String, HashMap<String,String>> busValues;
-		//customerDb = new CustomerDatabase();
-		//companyDb = new CompanyDatabase();
-		
+		HashMap<String, HashMap<String,String>> busValues;		
 		String compName = null;
 		String username = null;
 		String password = null;

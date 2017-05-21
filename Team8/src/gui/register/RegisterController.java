@@ -146,14 +146,11 @@ public class RegisterController {
 					comp = bms.getCompany(newValue.toString());
 					System.out.println(comp.getName());
 					menu = comp.getMenu();
-//					System.out.println(menu);
-//					System.out.println("changed");
 					business = newValue.toString();
 				}
 				else
 				{
 					menu = bms.getMenu();
-//					System.out.println(menu);
 				}
 			}
 		});
@@ -184,7 +181,6 @@ public class RegisterController {
 		String suburbName = "^([a-zA-Z](\\s?))*$";
 		String zipCode = "^[0-9]{4}$";
 		String addressLine = "^\\d+\\s[A-z]+\\s[A-z]+";
-		
 		
 		//checking business name
 		if(business == null){

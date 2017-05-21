@@ -27,7 +27,7 @@ public class CompanyDatabase{
 	{
 		Connection connInit = getConnection();
 		createBusinessTable();
-		createCompanyTable();
+		createEmployeeTable();
 		return connInit;
 	}
 	
@@ -47,7 +47,7 @@ public class CompanyDatabase{
 		return conn;
 	}
 	
-	private void createCompanyTable()
+	private void createEmployeeTable()
 	{
 		try
 		{
@@ -64,16 +64,14 @@ public class CompanyDatabase{
 				if(!result.next())
 				{
 					stmt = conn.createStatement();
-					String sql = "CREATE TABLE IF NOT EXISTS COMPANY ("
+					String sql = "CREATE TABLE IF NOT EXISTS EMPLOYEE ("
 							+ "username text NOT NULL	,"
 							+ "compName text NOT NULL	,"
 							+ "fname text NOT NULL		,"
 							+ "lname text NOT NULL		,"
-							+ "password text 			,"
 							+ "mobile text NOT NULL		,"
 							+ "address text NOT NULL	,"
-							+ "service text				,"
-							+ "busStatus text NOT NULL);";
+							+ "service text NOT NULL );";
 					stmt.executeUpdate(sql);
 					stmt.close();
 					conn.close();
@@ -164,8 +162,7 @@ public class CompanyDatabase{
 	}
 	
 	// add business owner or employee info to a record
-	public void addBusInfo(String username, String cname, String bFname, String bLname, String pw,
-			String mobile, String address, String service, String busStatus)
+	public void addEmployee(String username, String cname, String bFname, String bLname, String mobile, String address, String service)
 	{		
 		try
 		{
@@ -173,16 +170,14 @@ public class CompanyDatabase{
 			{
 				getConnection();
 			}
-			prep = conn.prepareStatement("INSERT INTO COMPANY values(?,?,?,?,?,?,?,?,?);");
+			prep = conn.prepareStatement("INSERT INTO EMPLOYEE values(?,?,?,?,?,?,?);");
 			prep.setString(1, username);
 			prep.setString(2, cname);
 			prep.setString(3, bFname);
 			prep.setString(4, bLname);
-			prep.setString(5, pw);
-			prep.setString(6, mobile);
-			prep.setString(7, address);
-			prep.setString(8, service);
-			prep.setString(9, busStatus);
+			prep.setString(5, mobile);
+			prep.setString(6, address);
+			prep.setString(7, service);
 			prep.execute();
 			prep.close();
 			conn.close();
@@ -238,10 +233,6 @@ public class CompanyDatabase{
 			{
 				colName = "service";
 			}
-			else if(col.equals("busStatus"))
-			{
-				colName = "busStatus";
-			}
 			else if(col.equals("busHours"))
 			{
 				colName = "busHours";
@@ -284,22 +275,20 @@ public class CompanyDatabase{
 				getConnection();
 			}
 			stmt = conn.createStatement();
-			result = stmt.executeQuery("SELECT * FROM COMPANY");
+			result = stmt.executeQuery("SELECT * FROM EMPLOYEE");
 			while (result.next())
 			{
-				if(result.getString("busStatus").equals("employee")){
-					HashMap<String,String> empInfo = new HashMap<String,String>();
-					String id = result.getString("username");
-					String compName = result.getString("compName");
-					String fName = result.getString("fname");
-					String lName = result.getString("lname");
-					String service = result.getString("service");
-					empInfo.put("compName", compName);
-					empInfo.put("fname", fName);
-					empInfo.put("lname", lName);
-					empInfo.put("service", service);
-					empValues.put(id+"-"+compName, empInfo);
-				}
+				HashMap<String,String> empInfo = new HashMap<String,String>();
+				String id = result.getString("username");
+				String compName = result.getString("compName");
+				String fName = result.getString("fname");
+				String lName = result.getString("lname");
+				String service = result.getString("service");
+				empInfo.put("compName", compName);
+				empInfo.put("fname", fName);
+				empInfo.put("lname", lName);
+				empInfo.put("service", service);
+				empValues.put(id+"-"+compName, empInfo);
 			}
 			stmt.close();
 			result.close();
@@ -402,48 +391,42 @@ public class CompanyDatabase{
 		try
 		{
 			//making sure no duplicates are added when program restarts
-			if((!checkValueExists("username","abcboss","COMPANY") && !checkValueExists("compName","ABC HAIRSTYLIST","COMPANY")) || 
-					(!checkValueExists("username","e1","COMPANY") && !checkValueExists("compName","ABC HAIRSTYLIST","COMPANY"))
-					|| (!checkValueExists("username","e2","COMPANY") && !checkValueExists("compName","ABC HAIRSTYLIST","COMPANY")))
+			if((!checkValueExists("username","e1","EMPLOYEE") && !checkValueExists("compName","DEF HAIRSTYLIST","EMPLOYEE")) || 
+					(!checkValueExists("username","e1","EMPLOYEE") && !checkValueExists("compName","ABC HAIRSTYLIST","EMPLOYEE"))
+					|| (!checkValueExists("username","e2","EMPLOYEE") && !checkValueExists("compName","ABC HAIRSTYLIST","EMPLOYEE")))
 			{
 				if(conn.isClosed())
 				{
 					getConnection();
 				}
-				prep = conn.prepareStatement("INSERT INTO COMPANY values(?,?,?,?,?,?,?,?,?);");
-				prep.setString(1,"abcboss");
-				prep.setString(2,"ABC HAIRSTYLIST");
-				prep.setString(3,"John");
-				prep.setString(4,"Bishop");
-				prep.setString(5,"password");
-				prep.setString(6,"0430202101");
-				prep.setString(7,"1 Bossy Street, Bossville, 3000");
-				prep.setString(8,null);
-				prep.setString(9,"owner");
+				prep = conn.prepareStatement("INSERT INTO EMPLOYEE values(?,?,?,?,?,?,?);");
+				prep.setString(1,"e1");
+				prep.setString(2,"DEF HAIRSTYLIST");
+				prep.setString(3,"Spider");
+				prep.setString(4,"Man");
+				prep.setString(5,"0430202101");
+				prep.setString(6,"1 Bossy Street, Bossville, 3000");
+				prep.setString(7,"Female Cut, Male Cut, Female Dye, Male Dye, Female Shave, Male Shave");
 				prep.execute();
 				prep.close();
-				PreparedStatement prep2 = conn.prepareStatement("INSERT INTO COMPANY values(?,?,?,?,?,?,?,?,?);");
+				PreparedStatement prep2 = conn.prepareStatement("INSERT INTO EMPLOYEE values(?,?,?,?,?,?,?);");
 				prep2.setString(1,"e1");
 				prep2.setString(2,"ABC HAIRSTYLIST");
 				prep2.setString(3,"Bob");
 				prep2.setString(4,"Lee");
-				prep2.setString(5,null);
-				prep2.setString(6,"0400123000");
-				prep2.setString(7,"1 Hair Street, Hairy, 2000");
-				prep2.setString(8,"Female Cut, Male Cut, Female Dye");
-				prep2.setString(9,"employee");
+				prep2.setString(5,"0400123000");
+				prep2.setString(6,"1 Hair Street, Hairy, 2000");
+				prep2.setString(7,"Female Cut, Male Cut, Female Dye");
 				prep2.execute();
 				prep2.close();
-				PreparedStatement prep3 = conn.prepareStatement("INSERT INTO COMPANY values(?,?,?,?,?,?,?,?,?);");
+				PreparedStatement prep3 = conn.prepareStatement("INSERT INTO EMPLOYEE values(?,?,?,?,?,?,?);");
 				prep3.setString(1,"e2");
 				prep3.setString(2,"ABC HAIRSTYLIST");
 				prep3.setString(3,"Elissa");
 				prep3.setString(4,"Smith");
-				prep3.setString(5,null);
-				prep3.setString(6,"0469899898");
-				prep3.setString(7,"1 ChoppaChoppa Street, Choparoo, 3333");
-				prep3.setString(8,"Female Cut");
-				prep3.setString(9,"employee");
+				prep3.setString(5,"0469899898");
+				prep3.setString(6,"1 ChoppaChoppa Street, Choparoo, 3333");
+				prep3.setString(7,"Female Cut, Male Cut, Female Dye, Male Dye, Female Perm, Male Perm, Female Wash, Male Wash");
 				prep3.execute();
 				prep3.close();
 			}
@@ -475,7 +458,7 @@ public class CompanyDatabase{
 				prep2.setString(5,"password");
 				prep2.setString(6,"0423123999");
 				prep2.setString(7,"1 Chris Street, Prattville, 2000");
-				prep2.setString(8,"Female Cut, Male Cut, Female Dye, Male Dye, Female Perm, Male Perm");
+				prep2.setString(8,"Female Cut, Male Cut, Female Dye, Male Dye, Female Shave, Male Shave");
 				prep2.setString(9,"Monday=09:00,17:00|Tuesday=09:00,17:00|Wednesday=09:00,17:00|Thursday=09:00,17:00|Friday=09:00,17:00|Saturday=empty|Sunday=empty");
 				prep2.setString(10, "verified");
 				prep2.execute();
@@ -550,7 +533,7 @@ public class CompanyDatabase{
 			{
 				getConnection();
 			}
-			prep = conn.prepareStatement("SELECT * FROM COMPANY WHERE busStatus = 'employee' AND compName = ?;");
+			prep = conn.prepareStatement("SELECT * FROM EMPLOYEE WHERE compName = ?;");
 			prep.setString(1, compName);
 			result = prep.executeQuery();
 			while(result.next())
