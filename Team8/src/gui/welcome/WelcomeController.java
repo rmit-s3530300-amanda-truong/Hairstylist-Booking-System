@@ -34,7 +34,7 @@ public class WelcomeController {
     @FXML
     void goToLogin(ActionEvent event) throws IOException{
     	AnchorPane pane;
-    	FXMLLoader login = new FXMLLoader(getClass().getResource("../login/Login.fxml"));
+    	FXMLLoader login = new FXMLLoader(getClass().getResource("/gui/login/Login.fxml"));
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	LoginController controller = login.getController();
@@ -44,7 +44,7 @@ public class WelcomeController {
     @FXML
     void goToRegister(ActionEvent event) throws IOException{
     	AnchorPane pane;
-    	FXMLLoader register = new FXMLLoader(getClass().getResource("../register/Register.fxml"));
+    	FXMLLoader register = new FXMLLoader(getClass().getResource("/gui/register/Register.fxml"));
     	pane = register.load();
     	rootPane.getChildren().setAll(pane);
     	RegisterController controller = register.getController();

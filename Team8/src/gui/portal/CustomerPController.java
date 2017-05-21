@@ -66,7 +66,7 @@ public class CustomerPController {
 	@FXML
 	void newBooking(ActionEvent event) throws IOException{
 		AnchorPane pane;
-    	FXMLLoader mb2 = new FXMLLoader(getClass().getResource("../booking/MakeBooking2.fxml"));
+    	FXMLLoader mb2 = new FXMLLoader(getClass().getResource("/gui/booking/MakeBooking2.fxml"));
     	pane = mb2.load();
     	rootPane.getChildren().setAll(pane);
     	MakeBooking2Controller controller = mb2.getController();
@@ -76,7 +76,7 @@ public class CustomerPController {
 	@FXML
 	void viewCalendar(ActionEvent event) throws IOException{
 		AnchorPane pane;
-		FXMLLoader viewCalendar = new FXMLLoader(getClass().getResource("../calendar/ViewCalendar.fxml"));
+		FXMLLoader viewCalendar = new FXMLLoader(getClass().getResource("/gui/calendar/ViewCalendar.fxml"));
 		pane = viewCalendar.load();
 		rootPane.getChildren().setAll(pane);
 		ViewCalendarController controller = viewCalendar.getController();
@@ -86,7 +86,7 @@ public class CustomerPController {
 	@FXML
 	void upcomingBooking(ActionEvent event) throws IOException{
 		AnchorPane pane;
-    	FXMLLoader up = new FXMLLoader(getClass().getResource("../booking_summary/UpcomingBooking.fxml"));
+    	FXMLLoader up = new FXMLLoader(getClass().getResource("/gui/booking_summary/UpcomingBooking.fxml"));
     	pane = up.load();
     	rootPane.getChildren().setAll(pane);
     	UpcomingBookingController controller = up.getController();
@@ -96,7 +96,7 @@ public class CustomerPController {
 	@FXML
 	void viewHistory(ActionEvent event) throws IOException{
 		AnchorPane pane;
-    	FXMLLoader bh = new FXMLLoader(getClass().getResource("../booking_summary/BookingHistory.fxml"));
+    	FXMLLoader bh = new FXMLLoader(getClass().getResource("/gui/booking_summary/BookingHistory.fxml"));
     	pane = bh.load();
     	rootPane.getChildren().setAll(pane);
     	BookingHistoryController controller = bh.getController();
@@ -106,7 +106,7 @@ public class CustomerPController {
 	@FXML
 	void goToLogout(ActionEvent event) throws IOException{
 		AnchorPane pane;
-    	FXMLLoader login = new FXMLLoader(getClass().getResource("../login/Login.fxml"));
+    	FXMLLoader login = new FXMLLoader(getClass().getResource("/gui/login/Login.fxml"));
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	LoginController controller = login.getController();

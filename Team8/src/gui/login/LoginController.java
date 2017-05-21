@@ -129,7 +129,7 @@ public class LoginController {
     @FXML
     void goToRegister(ActionEvent event) throws IOException{
     	AnchorPane pane;
-    	FXMLLoader register = new FXMLLoader(getClass().getResource("../register/Register.fxml"));
+    	FXMLLoader register = new FXMLLoader(getClass().getResource("/gui/register/Register.fxml"));
     	pane = register.load();
     	rootPane.getChildren().setAll(pane);
     	RegisterController controller = register.getController();
@@ -140,7 +140,7 @@ public class LoginController {
 	void goToCustomerPortal(String username){
 		try {
 			AnchorPane pane;
-	    	FXMLLoader custPortal = new FXMLLoader(getClass().getResource("../portal/CustomerPortal.fxml"));
+	    	FXMLLoader custPortal = new FXMLLoader(getClass().getResource("/gui/portal/CustomerPortal.fxml"));
 	    	pane = custPortal.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	CustomerPController controller = custPortal.getController();
@@ -155,7 +155,7 @@ public class LoginController {
 	void goToBusinessPortal(String username){
 		try {
 			AnchorPane pane;
-	    	FXMLLoader bussPortal = new FXMLLoader(getClass().getResource("../portal/BusinessPortal.fxml"));
+	    	FXMLLoader bussPortal = new FXMLLoader(getClass().getResource("/gui/portal/BusinessPortal.fxml"));
 	    	pane = bussPortal.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	BusinessPController controller = bussPortal.getController();
@@ -169,7 +169,7 @@ public class LoginController {
 	void goToAdminPortal(){
 		try {
 			AnchorPane pane;
-	    	FXMLLoader adminPortal = new FXMLLoader(getClass().getResource("../portal/AdminPortal.fxml"));
+	    	FXMLLoader adminPortal = new FXMLLoader(getClass().getResource("/gui/portal/AdminPortal.fxml"));
 	    	pane = adminPortal.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	AdminPController controller = adminPortal.getController();

@@ -182,7 +182,7 @@ public class RegisterBusiness3Controller {
 			}
     		if(valid) {
     			AnchorPane pane;
-    	    	FXMLLoader register = new FXMLLoader(getClass().getResource("../register/RegisterBusiness4.fxml"));
+    	    	FXMLLoader register = new FXMLLoader(getClass().getResource("/gui/register/RegisterBusiness4.fxml"));
     	    	pane = register.load();
     	    	rootPane.getChildren().setAll(pane);
     	    	RegisterBusiness4Controller controller = register.getController();
@@ -194,7 +194,7 @@ public class RegisterBusiness3Controller {
     @FXML
     void goToLogin(ActionEvent event) throws IOException {
     	AnchorPane pane;
-    	FXMLLoader login = new FXMLLoader(getClass().getResource("../login/Login.fxml"));
+    	FXMLLoader login = new FXMLLoader(getClass().getResource("/gui/login/Login.fxml"));
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	LoginController controller = login.getController();

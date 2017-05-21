@@ -90,7 +90,7 @@ public class PendingRegistrationController {
     @FXML
     void goToLogout(ActionEvent event) throws IOException {
     	AnchorPane pane;
-    	FXMLLoader login = new FXMLLoader(getClass().getResource("../login/Login.fxml"));
+    	FXMLLoader login = new FXMLLoader(getClass().getResource("/gui/login/Login.fxml"));
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	LoginController controller = login.getController();
@@ -100,7 +100,7 @@ public class PendingRegistrationController {
     @FXML
     void goToPortal() throws IOException {
     	AnchorPane pane;
-	    FXMLLoader adminPortal = new FXMLLoader(getClass().getResource("../portal/AdminPortal.fxml"));
+	    FXMLLoader adminPortal = new FXMLLoader(getClass().getResource("/gui/portal/AdminPortal.fxml"));
 	    pane = adminPortal.load();
 	    rootPane.getChildren().setAll(pane);
 	    AdminPController controller = adminPortal.getController();

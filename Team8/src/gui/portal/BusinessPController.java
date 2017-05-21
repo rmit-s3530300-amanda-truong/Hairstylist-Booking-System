@@ -67,7 +67,7 @@ public class BusinessPController {
 	@FXML
 	void addEmployee(ActionEvent event) throws IOException{
 		AnchorPane pane;
-    	FXMLLoader addEmp = new FXMLLoader(getClass().getResource("../company/addEmployee.fxml"));
+    	FXMLLoader addEmp = new FXMLLoader(getClass().getResource("/gui/company/addEmployee.fxml"));
     	pane = addEmp.load();
     	rootPane.getChildren().setAll(pane);
     	AddEmpController controller = addEmp.getController();
@@ -77,7 +77,7 @@ public class BusinessPController {
 	@FXML
 	void addAvaiTimes(ActionEvent event) throws IOException{
 		AnchorPane pane;
-    	FXMLLoader addAvail = new FXMLLoader(getClass().getResource("../company/AddAvailTime.fxml"));
+    	FXMLLoader addAvail = new FXMLLoader(getClass().getResource("/gui/company/AddAvailTime.fxml"));
     	pane = addAvail.load();
     	rootPane.getChildren().setAll(pane);
     	AddAvailTimeController controller = addAvail.getController();
@@ -88,7 +88,7 @@ public class BusinessPController {
 	@FXML
 	void makeBooking(ActionEvent event) throws IOException{
 		AnchorPane pane;
-    	FXMLLoader makeBook = new FXMLLoader(getClass().getResource("../booking/MakeBooking1.fxml"));
+    	FXMLLoader makeBook = new FXMLLoader(getClass().getResource("/gui/booking/MakeBooking1.fxml"));
     	pane = makeBook.load();
     	rootPane.getChildren().setAll(pane);
     	MakeBooking1Controller controller = makeBook.getController();
@@ -98,7 +98,7 @@ public class BusinessPController {
 	@FXML
 	void viewUpcomingBooking(ActionEvent event) throws IOException{	
 		AnchorPane pane;
-    	FXMLLoader upcomingBooking = new FXMLLoader(getClass().getResource("../booking_summary/UpcomingBooking.fxml"));
+    	FXMLLoader upcomingBooking = new FXMLLoader(getClass().getResource("/gui/booking_summary/UpcomingBooking.fxml"));
     	pane = upcomingBooking.load();
     	rootPane.getChildren().setAll(pane);
     	UpcomingBookingController controller = upcomingBooking.getController();
@@ -108,7 +108,7 @@ public class BusinessPController {
 	@FXML
 	void viewCalendar(ActionEvent event) throws IOException{	
 		AnchorPane pane;
-		FXMLLoader viewCalendar = new FXMLLoader(getClass().getResource("../calendar/ViewCalendar.fxml"));
+		FXMLLoader viewCalendar = new FXMLLoader(getClass().getResource("/gui/calendar/ViewCalendar.fxml"));
 		pane = viewCalendar.load();
 		rootPane.getChildren().setAll(pane);
 		ViewCalendarController controller = viewCalendar.getController();
@@ -118,7 +118,7 @@ public class BusinessPController {
 	@FXML
 	void viewPastBooking(ActionEvent event) throws IOException{	
 		AnchorPane pane;
-    	FXMLLoader pastBooking = new FXMLLoader(getClass().getResource("../booking_summary/BookingHistory.fxml"));
+    	FXMLLoader pastBooking = new FXMLLoader(getClass().getResource("/gui/booking_summary/BookingHistory.fxml"));
     	pane = pastBooking.load();
     	rootPane.getChildren().setAll(pane);
     	BookingHistoryController controller = pastBooking.getController();
@@ -128,7 +128,7 @@ public class BusinessPController {
 	@FXML
 	void goToLogout(ActionEvent event) throws IOException{
 		AnchorPane pane;
-    	FXMLLoader login = new FXMLLoader(getClass().getResource("../login/Login.fxml"));
+    	FXMLLoader login = new FXMLLoader(getClass().getResource("/gui/login/Login.fxml"));
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	LoginController controller = login.getController();

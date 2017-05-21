@@ -439,7 +439,7 @@ public class AddAvailTimeController {
     @FXML
     void goToLogout(ActionEvent event) throws IOException {
     	AnchorPane pane;
-    	FXMLLoader login = new FXMLLoader(getClass().getResource("../login/Login.fxml"));
+    	FXMLLoader login = new FXMLLoader(getClass().getResource("/gui/login/Login.fxml"));
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	LoginController controller = login.getController();
@@ -450,7 +450,7 @@ public class AddAvailTimeController {
     @FXML
 	void goToPortal() throws IOException{
     	AnchorPane pane;
-    	FXMLLoader bussPortal = new FXMLLoader(getClass().getResource("../portal/BusinessPortal.fxml"));
+    	FXMLLoader bussPortal = new FXMLLoader(getClass().getResource("/gui/portal/BusinessPortal.fxml"));
     	pane = bussPortal.load();
     	rootPane.getChildren().setAll(pane);
     	BusinessPController controller = bussPortal.getController();

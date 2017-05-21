@@ -157,7 +157,7 @@ public class MakeBooking3Controller {
 	@FXML
 	void goToLogout() throws IOException{
 		AnchorPane pane;
-    	FXMLLoader login = new FXMLLoader(getClass().getResource("../login/Login.fxml"));
+    	FXMLLoader login = new FXMLLoader(getClass().getResource("/gui/login/Login.fxml"));
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	LoginController controller = login.getController();
@@ -168,14 +168,14 @@ public class MakeBooking3Controller {
 	void goToPortal() throws IOException{
 		if(portal.equals("business")) {
 			AnchorPane pane;
-	    	FXMLLoader bussPortal = new FXMLLoader(getClass().getResource("../portal/BusinessPortal.fxml"));
+	    	FXMLLoader bussPortal = new FXMLLoader(getClass().getResource("/gui/portal/BusinessPortal.fxml"));
 	    	pane = bussPortal.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	BusinessPController controller = bussPortal.getController();
 	    	controller.initiate(comp,bms);
 		} else {
 			AnchorPane pane;
-	    	FXMLLoader cusPortal = new FXMLLoader(getClass().getResource("../portal/CustomerPortal.fxml"));
+	    	FXMLLoader cusPortal = new FXMLLoader(getClass().getResource("/gui/portal/CustomerPortal.fxml"));
 	    	pane = cusPortal.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	CustomerPController controller = cusPortal.getController();
