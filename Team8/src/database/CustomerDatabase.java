@@ -137,7 +137,7 @@ public class CustomerDatabase{
 				custInfo.put("compName", compName);
 				custInfo.put("fname", fName);
 				custInfo.put("lname", lName);
-				custValues.put(id, custInfo);
+				custValues.put(id+"-"+compName, custInfo);
 			}
 			stmt.close();
 			result.close();

@@ -313,7 +313,8 @@ public class Company {
 	public void setCustList(HashMap<String, HashMap<String, String>> map) {
 		HashMap<String, Customer> custList = new HashMap<String, Customer>();
 		for(Entry<String, HashMap<String,String>> x : map.entrySet()) {
-			String username = x.getKey();
+			String[] id = x.getKey().split("-");
+			String username = id[0];
 			String compName = x.getValue().get("compName");
 			String fname = x.getValue().get("fName");
 			String lname = x.getValue().get("lName");

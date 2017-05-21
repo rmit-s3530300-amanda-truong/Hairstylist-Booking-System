@@ -258,7 +258,10 @@ public class RegisterController {
 		invalid_un.setText("");
 		if(menu.validate(username, uname)) {
 			//checks business owner username uniquess
-			if(business.equals("Register New Company")){
+			if(business == null) {
+				invalid_business.setText("Please select a business.");
+			}
+			else if(business.equals("Register New Company")){
 				for(Company c : bms.getCompanyList()) {
 					if(c.getUsername().equals(username)) {
 						invalid_un.setText("Username is already taken");
@@ -269,7 +272,7 @@ public class RegisterController {
 			}
 			else{
 				//checks customer username uniqueness
-				if(menu.uniqueUname(username)){
+				if(menu.uniqueUname(username, business)){
 					invalid_un.setText("");
 					unameValid = true;
 				}
