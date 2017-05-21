@@ -1,14 +1,20 @@
 package gui.register;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
 import Main.BookingManagementSystem;
 import business.Company;
+import database.CompanyDatabase;
 import gui.login.LoginController;
 import gui.portal.AdminPController;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,8 +25,11 @@ import mainController.MainController;
 public class PendingRegistrationController {
 
 	private MainController menu;
+	private Company comp;
+	private CompanyDatabase compDb;
 	private BookingManagementSystem bms;
-	
+	private ArrayList<Company> companyList;
+	ObservableList<String> businessList = FXCollections.observableArrayList();
     @FXML
     private AnchorPane rootPane;
 
@@ -31,20 +40,45 @@ public class PendingRegistrationController {
     private Label username;
 
     @FXML
-    private JFXComboBox<?> chooseBusiness;
+    private JFXComboBox<String> chooseBusiness;
 
     @FXML
-    private JFXButton registerAction;
+    private JFXButton approveButton;
 
     @FXML
-    private JFXButton registerAction1;
+    private JFXButton declineButton;
 
     @FXML
     private Label invalidbussName;
     
+    @FXML
+    private void initialize(){
+    	chooseBusiness.setItems(businessList);
+    }
+    
     public void initiate(BookingManagementSystem bms) {
 		menu = bms.getMenu();
 		this.bms = bms;
+		compDb = bms.getCompDb();
+		companyList = bms.getCompanyList();
+		for(Company comp: companyList)
+		{
+			System.out.println(comp.getName());
+			System.out.println(comp.getStatus());
+			if(comp.getStatus().equals("pending"))
+			{
+				businessList.add(comp.getName());
+			}
+		}
+		
+		chooseBusiness.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				comp = bms.getCompany(newValue.toString());
+				menu = comp.getMenu();
+			}
+		});
 	}
 
     @FXML
@@ -73,8 +107,20 @@ public class PendingRegistrationController {
     }
 
     @FXML
-    void register(ActionEvent event) {
-
+    void register(ActionEvent event) 
+    {
+    	comp.setStatus("verified");
+    	compDb.updateStatus("verified", comp.getUsername());
+    	System.out.println("register" + companyList);
+    	goToPortal(event);
+    }
+    
+    @FXML
+    void decline(ActionEvent event)
+    {
+    	companyList.remove(comp);
+    	compDb.removeBusiness(comp.getUsername());
+    	goToPortal(event);
     }
 
 }

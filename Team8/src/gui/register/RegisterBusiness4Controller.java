@@ -9,7 +9,10 @@ import java.util.Map.Entry;
 
 import Main.BookingManagementSystem;
 import business.Company;
+import database.CompanyDatabase;
+import database.ServicesDatabase;
 import gui.login.LoginController;
+import gui.welcome.WelcomeController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,7 +29,6 @@ public class RegisterBusiness4Controller {
 
 	private Company comp;
 	private BookingManagementSystem bms;
-	
     @FXML
     private AnchorPane rootPane;
     @FXML
@@ -140,10 +142,58 @@ public class RegisterBusiness4Controller {
     }
 
     @FXML
-    void submit(ActionEvent event) {
+    void submit(ActionEvent event) throws IOException {
     	//TODO: add to database
     	// add to company list
     	// have to do checking on login/register combobox that business is verified before showing in combobox
+    	String name = comp.getName();
+    	String username = comp.getUsername();
+    	String bFname = comp.getFname();
+    	String bLname = comp.getLname();
+    	String pw = comp.getPassword();
+    	String mobile = comp.getMobile();
+    	String address = comp.getAddress();
+    	ArrayList<String> service = comp.getService();
+    	String serviceStr = service.get(0);
+    	for(int i=1; i<service.size(); i++)
+    	{
+    		String time = String.valueOf(comp.getServiceTime(service.get(i)));
+    		ServicesDatabase servDb = comp.getServDb();
+    		servDb.addServices(comp.getName(), service.get(i), time);
+    		serviceStr = serviceStr + ", " + service.get(i);
+    	}
+    	LinkedHashMap<DayOfWeek, String> busHour = comp.getBusHours();
+    	String busHourStr = null;
+    	int count = 0;
+    	for(Entry<DayOfWeek,String> entry: busHour.entrySet())
+    	{
+    		if(count == 0)
+    		{
+    			busHourStr = entry.getKey().toString() + "=" + entry.getValue().toString();
+    		}
+    		else
+    		{
+    			busHourStr = busHourStr + "|" + entry.getKey().toString() + "=" + entry.getValue().toString();
+    		}
+			count++;
+    	}
+    	comp.setBusString(busHourStr);
+    	String status = comp.getStatus();
+    	CompanyDatabase companyDb = bms.getCompDb();
+    	companyDb.addBusiness(username, name, bFname, bLname, pw, mobile, address, serviceStr, busHourStr, status);
+    	bms.addCompany(comp);
+    	goToWelcome();
+    }
+    
+    @FXML
+    void goToWelcome() throws IOException
+    {
+    	AnchorPane pane;
+    	FXMLLoader welcome = new FXMLLoader(getClass().getResource("/gui/welcome/Welcome.fxml"));
+    	pane = welcome.load();
+    	rootPane.getChildren().setAll(pane);
+    	WelcomeController controller = welcome.getController();
+		controller.initiate(bms);
     }
     
     @FXML

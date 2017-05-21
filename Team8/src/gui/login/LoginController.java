@@ -74,7 +74,10 @@ public class LoginController {
 		ArrayList<Company> company_list = bms.getCompanyList();
 		if(company_list.size() >0) {
 			for(Company company : company_list) {
-				businessList.add(company.getName());
+				if(company.getStatus().equals("verified"))
+				{
+					businessList.add(company.getName());	
+				}
 			}
 		}
 		
@@ -84,6 +87,7 @@ public class LoginController {
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				comp = bms.getCompany(newValue.toString());
 				menu = comp.getMenu();
+				System.out.println(menu);
 				business = newValue.toString();
 			}
 		});
@@ -109,7 +113,6 @@ public class LoginController {
     		}
     	}
     	else{
-    		//menu is null when def boss is chosen
     		if(menu.authenticate(username, password, business).equals("customer")){
     			comp = bms.getCompany(business);
     			goToCustomerPortal(username);

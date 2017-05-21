@@ -43,6 +43,12 @@ public class Company {
 	private String service;
 	private String status;
 	
+	private CompanyDatabase companyDb = new CompanyDatabase();
+	private CustomerDatabase customerDb = new CustomerDatabase();
+	private AvailabilityDatabase availDb = new AvailabilityDatabase();
+	private BookingDatabase bookingDb = new BookingDatabase();
+	private ServicesDatabase servDb = new ServicesDatabase();
+	
 	public Company(String fName, String lName, String uName, String password, String mobileNo, String address) {
 		owner_fname = fName;
 		owner_lname = lName;
@@ -50,8 +56,13 @@ public class Company {
 		this.password = password;
 		mobile = mobileNo;
 		this.address = address;
+		employeeList = new HashMap<String, Employee>();
+		custList = new HashMap<String, Customer>();
 		services = new ArrayList<String>();
 		service_times = new HashMap<String, Integer>();
+		this.calendar = new Calendar(LocalDate.now());
+		business_hours = new LinkedHashMap<DayOfWeek, String>();
+		menu = new MainController(this, customerDb, companyDb, availDb, bookingDb, servDb);
 	}
 	
 	// TODO: change String bushours to HashMap<DayOfWeek, String>
@@ -118,6 +129,26 @@ public class Company {
 		this.status = status;
 	}
 	
+	public CustomerDatabase getCustDb()
+	{
+		return customerDb;
+	}
+	
+	public BookingDatabase getBookingDb()
+	{
+		return bookingDb;
+	}
+	
+	public AvailabilityDatabase getAvailDb()
+	{
+		return availDb;
+	}
+	
+	public ServicesDatabase getServDb()
+	{
+		return servDb;
+	}
+	
 	public void addCustomer(Customer customer) {
 		String username = customer.getUsername();
 		LOGGER.info("addCustomer: "+customer.getUsername());
@@ -139,6 +170,11 @@ public class Company {
 	
 	public void setBusHours(LinkedHashMap<DayOfWeek, String> avail_times) {
 		business_hours = avail_times;
+	}
+	
+	public void setBusString(String busHour)
+	{
+		this.busHours = busHour;
 	}
 	
 	public LinkedHashMap<DayOfWeek, String> getBusHours() {
@@ -196,7 +232,7 @@ public class Company {
 	}
 	
 	// Get database info and populates customer, employee and calendar info
-	public void retrieveDatabaseInfo(CustomerDatabase customerDb, CompanyDatabase companyDb, AvailabilityDatabase availDb, BookingDatabase bookingDb, ServicesDatabase servDb) {
+	public void retrieveDatabaseInfo(CustomerDatabase customerDb, CompanyDatabase companyDb) {
 		HashMap<String, HashMap<String,String>> empValues;
 		HashMap<String, HashMap<String,String>> custValues;
 		HashMap<String, ArrayList<String>> availValues;
@@ -438,7 +474,25 @@ public class Company {
 		} else {
 			return null;
 		}
-	}*/
+	}*/	public String getFname()
+	{
+		return owner_fname;
+	}
+	
+	public String getLname()
+	{
+		return owner_lname;
+	}
+	
+	public String getMobile()
+	{
+		return mobile;
+	}
+	
+	public String getAddress()
+	{
+		return address;
+	}
 	
 	public Status getStatus(String s)
 	{

@@ -23,11 +23,9 @@ public class BookingManagementSystem extends Application {
 	private static final Logger LOGGER = Logger.getLogger("InfoLogging");
 	private MainController menu;
 	private ArrayList<Company> company_list;
-	private CustomerDatabase customerDb;
-	private CompanyDatabase companyDb;
-	private AvailabilityDatabase availDb;
-	private BookingDatabase bookingDb;
-	private ServicesDatabase servDb;
+	private CompanyDatabase companyDb = new CompanyDatabase();
+	private CustomerDatabase customerDb = new CustomerDatabase();
+
 	
 	public BookingManagementSystem() {
 		company_list = new ArrayList<Company>();
@@ -58,11 +56,8 @@ public class BookingManagementSystem extends Application {
 	public void createCompanyList()
 	{
 		HashMap<String, HashMap<String,String>> busValues;
-		customerDb = new CustomerDatabase();
-		companyDb = new CompanyDatabase();
-		availDb = new AvailabilityDatabase();
-		bookingDb = new BookingDatabase();
-		servDb = new ServicesDatabase();
+		//customerDb = new CustomerDatabase();
+		//companyDb = new CompanyDatabase();
 		
 		String compName = null;
 		String username = null;
@@ -91,12 +86,17 @@ public class BookingManagementSystem extends Application {
 			status = busInfo.get("status");
 			Company comp = new Company(compName, username, password, owner_fname, owner_lname, mobile, address, service, busHours, status);
 			addCompany(comp);
-			comp.retrieveDatabaseInfo(customerDb, companyDb, availDb, bookingDb, servDb);
+			comp.retrieveDatabaseInfo(customerDb, companyDb);
 			LOGGER.info("Retrieved Database Information");
 			comp.getCalendar().updateCalendar(comp.getEmployeeList());
 			LOGGER.info("Updated Calendar");
 		}
 		LOGGER.info("Set Business Values");
+	}
+	
+	public CompanyDatabase getCompDb()
+	{
+		return companyDb;
 	}
 	
 	public void addCompany(Company company) {
@@ -108,7 +108,7 @@ public class BookingManagementSystem extends Application {
 	}
 	
 	public MainController getMenu() {
-		menu = new MainController(null,customerDb, companyDb, availDb, bookingDb, servDb);
+		menu = new MainController(null,customerDb, companyDb, null, null, null);
 		return menu;
 	}
 	

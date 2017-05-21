@@ -293,7 +293,7 @@ public class RegisterBusiness2Controller {
 		    			} else {
 		    				String start = s_hour+":"+s_min;
 		    				String end = e_hour+":"+e_min;
-		    				String time = start+"-"+end;
+		    				String time = start+","+end;
 		    				if(j==0) {
 		    					System.out.println(DayOfWeek.of(1)+" "+time);
 		    					avail_times.put(DayOfWeek.of(1), time);
@@ -305,9 +305,9 @@ public class RegisterBusiness2Controller {
 	    			} else {
 	    				if(s_hour.equals("Closed") && e_hour.equals("Closed") && s_min.equals("Closed") && e_min.equals("Closed")) {
 	    					if(j==0) {
-		    					avail_times.put(DayOfWeek.of(1),"");
+		    					avail_times.put(DayOfWeek.of(1),"empty");
 		    				} else if(j%2==0) {
-		    					avail_times.put(DayOfWeek.of((j/2)+1), "");
+		    					avail_times.put(DayOfWeek.of((j/2)+1), "empty");
 		    				}
 	    				} else {
 	    					valid = false;

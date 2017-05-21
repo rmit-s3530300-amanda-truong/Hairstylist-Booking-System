@@ -64,7 +64,7 @@ public class MainController {
 			availDb.deleteAvail(username, day.toString());
 		}
 		availDb.addAvailabilityInfo(username, comp.getName(), day.toString(), startTime.toString(), endTime.toString());
-		comp.retrieveDatabaseInfo(customerDb, companyDb, availDb, bookDb, servDb);
+		comp.retrieveDatabaseInfo(customerDb, companyDb);
 		comp.getCalendar().updateCalendar(comp.getEmployeeList());
 		updateEmpAvailability(day, startTime, endTime, username);
 	}

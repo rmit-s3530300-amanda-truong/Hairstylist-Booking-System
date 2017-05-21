@@ -43,12 +43,12 @@
                </font>
             </Label>
             <JFXComboBox fx:id="chooseBusiness" focusColor="#aa9144" layoutX="700.0" layoutY="330.0" prefHeight="38.0" prefWidth="230.0" promptText="PLEASE SELECT" unFocusColor="WHITE" />
-            <JFXButton id="button" fx:id="registerAction" layoutX="783.0" layoutY="554.0" onAction="#register" prefHeight="45.0" prefWidth="170.0" style="-fx-background-radius: 60;" stylesheets="@../stylesheet.css" text="APPROVE" textFill="WHITE">
+            <JFXButton id="button" fx:id="approveButton" layoutX="783.0" layoutY="554.0" onAction="#register" prefHeight="45.0" prefWidth="170.0" style="-fx-background-radius: 60;" stylesheets="@../stylesheet.css" text="APPROVE" textFill="WHITE">
                <font>
                   <Font name="Lato Black" size="20.0" />
                </font>
             </JFXButton>
-            <JFXButton id="button" fx:id="registerAction1" layoutX="498.0" layoutY="554.0" onAction="#register" prefHeight="45.0" prefWidth="170.0" style="-fx-background-radius: 60;" stylesheets="@../stylesheet.css" text="DECLINE" textFill="WHITE">
+            <JFXButton id="button" fx:id="declineButton" layoutX="498.0" layoutY="554.0" onAction="#decline" prefHeight="45.0" prefWidth="170.0" style="-fx-background-radius: 60;" stylesheets="@../stylesheet.css" text="DECLINE" textFill="WHITE">
                <font>
                   <Font name="Lato Black" size="20.0" />
                </font>

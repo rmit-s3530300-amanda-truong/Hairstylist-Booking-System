@@ -491,6 +491,55 @@ public class CompanyDatabase{
 		}
 	}
 	
+	public void updateStatus(String status, String username)
+	{
+		try
+		{
+			if(conn.isClosed())
+			{
+				getConnection();
+			}
+			prep = conn.prepareStatement("UPDATE BUSINESS SET status = ? WHERE username = ?;");
+			prep.setString(1, status);
+			prep.setString(2, username);
+			prep.executeUpdate();
+			prep.close();
+			stmt = conn.createStatement();
+			result.close();
+			conn.close();
+		}
+		catch(Exception e)
+		{
+			LOGGER.info(e.getClass().getName() + ": " + e.getMessage());
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+	}
+	
+	public void removeBusiness(String businessName)
+	{
+		try
+		{
+			if(conn.isClosed())
+			{
+				getConnection();
+			}
+			prep = conn.prepareStatement("DELETE FROM BUSINESS WHERE username = ?;");
+			prep.setString(1, businessName);
+			prep.execute();
+			prep.close();
+			stmt = conn.createStatement();
+			result = stmt.executeQuery("SELECT * FROM BUSINESS");
+			conn.close();
+		}
+		catch(Exception e)
+		{
+			LOGGER.info(e.getClass().getName() + ": " + e.getMessage());
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+	}
+	
 	//check how many employees are in the database
 	public int checkEmployees(String compName)
 	{

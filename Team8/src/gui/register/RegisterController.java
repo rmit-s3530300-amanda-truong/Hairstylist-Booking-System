@@ -128,7 +128,10 @@ public class RegisterController {
 		ArrayList<Company> company_list = bms.getCompanyList();
 		if(company_list.size() >0) {
 			for(Company company : company_list) {
-				businessList.add(company.getName());
+				if(company.getStatus().equals("verified"))
+				{
+					businessList.add(company.getName());
+				}
 			}
 		}
 		businessList.add("Register New Company");
