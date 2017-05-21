@@ -330,4 +330,32 @@ public class CustomerDatabase{
 		}
 		return fullname;
 	}
+	
+	public boolean checkUsername(String username, String compName)
+	{
+		boolean check = false;
+		try{
+			if(conn.isClosed()){
+				getConnection();
+			}
+			prep = conn.prepareStatement("SELECT * FROM CUSTINFO WHERE username = ? AND compName = ?;");
+			prep.setString(1, username);
+			prep.setString(2, compName);
+			result = prep.executeQuery();
+			if(result.next())
+			{
+				check = true;
+			}
+			prep.close();
+			result.close();
+			conn.close();	
+		}
+		catch(Exception e)
+		{
+			LOGGER.info(e.getClass().getName() + ": " + e.getMessage());
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+		return check;
+	}
 }
