@@ -93,15 +93,12 @@ public class ViewCalendarController {
 	{
 		ArrayList<Booking> bookingList = comp.getCalendar().getBookingList();
 		HashMap<String, Employee> empList = comp.getEmployeeList();
-
 		int columns = 7, horizontal = 95, vertical = 25;
         Rectangle rect = null;
         LocalDate current = comp.getCalendar().getDate();
         for(int i = 0; i < columns; i++)
         {
-        	//only creating rectangles for morning times 08:00 - 12:00
         	int j = 0;
-        	//LocalTime current_time = LocalTime.of(8, 00);
         	LocalTime current_time = sTime;
             while(!current_time.equals(eTime))
             {
@@ -207,7 +204,7 @@ public class ViewCalendarController {
 			{
 				sTime = start;
 			}
-			if(end.isBefore(eTime))
+			if(end.isAfter(eTime))
 			{
 				eTime = end;
 			}
