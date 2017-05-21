@@ -122,7 +122,6 @@ public class AddAvailTimeController {
 		logoText.setText(comp.getName().toUpperCase());
 		
 		String busHours = comp.getBusString();
-		System.out.println(busHours);
 		//need to escape | and \\
 		String[] dayandTime = busHours.split("\\|",-1);
 		String startTime = null;
@@ -144,7 +143,7 @@ public class AddAvailTimeController {
 				stime = Integer.parseInt(stimesplit[0]);
 				etime = Integer.parseInt(etimesplit[0]);
 			}
-			if(day.equals("MONDAY"))
+			if(day.equals("MONDAY") || day.equals("Monday"))
 			{
 				for(int t = stime; t<etime; t++)
 				{
@@ -156,7 +155,7 @@ public class AddAvailTimeController {
 					mon.setDisable(true);
 				}
 			}
-			else if(day.equals("TUESDAY"))
+			else if(day.equals("TUESDAY") || day.equals("Tuesday"))
 			{
 				for(int t = stime; t<etime; t++)
 				{
@@ -168,7 +167,7 @@ public class AddAvailTimeController {
 					tue.setDisable(true);
 				}
 			}
-			else if(day.equals("WEDNESDAY"))
+			else if(day.equals("WEDNESDAY") || day.equals("Wednesday"))
 			{
 				for(int t = stime; t<etime; t++)
 				{
@@ -180,7 +179,7 @@ public class AddAvailTimeController {
 					wed.setDisable(true);
 				}
 			}
-			else if(day.equals("ThURSDAY"))
+			else if(day.equals("THURSDAY") || day.equals("Thursday"))
 			{
 				for(int t = stime; t<etime; t++)
 				{
@@ -192,7 +191,7 @@ public class AddAvailTimeController {
 					thu.setDisable(true);
 				}
 			}
-			else if(day.equals("FRIDAY"))
+			else if(day.equals("FRIDAY") || day.equals("Friday"))
 			{
 				for(int t = stime; t<etime; t++)
 				{
@@ -204,7 +203,7 @@ public class AddAvailTimeController {
 					fri.setDisable(true);
 				}
 			}
-			else if(day.equals("SATURDAY"))
+			else if(day.equals("SATURDAY") ||day.equals("Saturday"))
 			{
 				for(int t = stime; t<etime; t++)
 				{
@@ -216,7 +215,7 @@ public class AddAvailTimeController {
 					}
 				}
 			}
-			else if(day.equals("SUNDAY"))
+			else if(day.equals("SUNDAY") || day.equals("Sunday"))
 			{
 				for(int t = stime; t<etime; t++)
 				{
