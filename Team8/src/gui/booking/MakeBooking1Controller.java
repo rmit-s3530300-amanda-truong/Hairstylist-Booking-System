@@ -2,15 +2,22 @@ package gui.booking;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 
 import Main.BookingManagementSystem;
 import business.Company;
 import business.Customer;
+import calendar.Booking;
 import gui.login.LoginController;
 import gui.portal.BusinessPController;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,6 +30,9 @@ public class MakeBooking1Controller {
 	private MainController menu;
 	
 	private Company comp;
+	private HashMap<String, Customer> custMap;
+	private String custUser;
+	ObservableList<String> custList = FXCollections.observableArrayList();
 	
 	@FXML
 	private AnchorPane rootPane;
@@ -31,7 +41,7 @@ public class MakeBooking1Controller {
     private JFXButton gotoLogout;
 	
 	@FXML
-	private JFXTextField username;
+	private JFXComboBox<String> username;
 	
 	@FXML
     private Label logoText;
@@ -46,13 +56,37 @@ public class MakeBooking1Controller {
 		this.comp = comp;
 		this.bms = bms;
 		logoText.setText(comp.getName().toUpperCase());
+		custMap = comp.getCustList();
+		if(custMap.size() == 0) {
+			username.setPromptText("No Customers");
+			username.setDisable(true);
+		} 
+		else 
+		{
+			username.setDisable(false);
+			username.setPromptText("Please Select");
+			for(Entry<String, Customer> entry: custMap.entrySet()) {
+				custList.add(entry.getKey());
+			}
+			username.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+	
+				@Override
+				public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+					if(custList.size()>0) {
+						 custUser = newValue.toString();
+						invalid.setText("");
+					}
+				}
+			});
+			username.setItems(custList);
+			username.autosize();
+		}
 	}
 	
 	@FXML
 	void next(ActionEvent event) throws IOException {
-		String cust_id = username.getText();
-		HashMap<String, Customer> custList = comp.getCustList();
-		Customer c = custList.get(cust_id);
+
+		Customer c = custMap.get(custUser);
 		if(c == null) {
 			invalid.setText("Invalid Customer ID.");
 			invalid.setAlignment(Pos.CENTER);
@@ -62,7 +96,7 @@ public class MakeBooking1Controller {
 	    	pane = m2.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	MakeBooking2Controller controller = m2.getController();
-	    	controller.initiate(comp, cust_id, "business", bms);
+	    	controller.initiate(comp, custUser, "business", bms);
 		}
 	}
 	
