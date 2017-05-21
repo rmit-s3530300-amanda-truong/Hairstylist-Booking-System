@@ -77,6 +77,7 @@ public class RegisterBusiness3Controller {
     	invalid.setText("");
     	if(name.getText() == null || name.getText().isEmpty()) {
     		invalid.setText("Service Name cannot be empty.");
+    		System.out.println("done");
     	} else {
     		JFXComboBox<String> serv = new JFXComboBox<String>();
     		serv.setItems(times);
@@ -160,6 +161,7 @@ public class RegisterBusiness3Controller {
     void nextRegister4(ActionEvent event) throws IOException {
     	invalid.setText("");
     	if(services.isEmpty()) {
+    		invalid.setText("Service Name cannot be empty.");
     	} else {
     		//checking for empty service name
     		Boolean valid = true;

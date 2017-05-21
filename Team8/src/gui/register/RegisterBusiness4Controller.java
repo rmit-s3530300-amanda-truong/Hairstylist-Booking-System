@@ -83,7 +83,6 @@ public class RegisterBusiness4Controller {
 		
 		double offsetX = bus_open.getLayoutX();
 		double offsetY = bus_open.getLayoutY();
-		int counter = 1;
 		for(Entry<DayOfWeek, String> entry : times.entrySet()) {
 			String s = entry.getKey().toString()+": ";
 			if(entry.getValue().equals("empty")) {
@@ -100,7 +99,6 @@ public class RegisterBusiness4Controller {
 			l.setFont(Font.font(16));
 			offsetY+=50;
 			contPane.getChildren().add(l);
-			counter++;
 		}
 		
 		
@@ -112,7 +110,6 @@ public class RegisterBusiness4Controller {
 		
 		offsetX = bus_service.getLayoutX();
 		offsetY = bus_service.getLayoutY();
-		counter =1;
 		for(Entry<String, Integer> entry : service.entrySet()) {
 			int time = entry.getValue()*15;
 			String s = entry.getKey()+": "+Integer.toString(time)+"min";
@@ -121,10 +118,8 @@ public class RegisterBusiness4Controller {
 			l.setLayoutX(offsetX+170);
 			l.setLayoutY(offsetY);
 			l.setFont(Font.font(16));
-			//service_list.add(l);
 			offsetY+=50;
 			contPane.getChildren().add(l);
-			counter++;
 		}
 		
 		scrollPaneCal.setContent(contPane);
