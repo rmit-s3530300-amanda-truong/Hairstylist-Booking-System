@@ -58,9 +58,6 @@ public class UpcomingBookingController {
 	@FXML
 	private Label invalid;
 	
-	@FXML
-	private JFXTextField t;
-	
 	private Boolean status;
 	private ArrayList<Booking> list;
 	
@@ -75,6 +72,12 @@ public class UpcomingBookingController {
 	private BookingManagementSystem bms;
 	
 	String bookingID=null;
+	
+	@FXML
+	private JFXButton cancel;
+	
+	@FXML
+	private Label bookid;
 	
 	public String getUpcomingBooking() {
 		Calendar cal = comp.getCalendar();
@@ -109,30 +112,40 @@ public class UpcomingBookingController {
 		menu = comp.getMenu();
 		id = cust_id;
 		this.bms = bms;
-		ArrayList<Booking> books = comp.getCalendar().getDisplayFutureBooking();
-		bookingList.clear();
-		if(books.size() == 0) {
-			chooseBooking.setPromptText("No Bookings");
-			chooseBooking.setDisable(true);
-		} else {
-			chooseBooking.setDisable(false);
-			chooseBooking.setPromptText("Please Select");
-			for(Booking book : books) {
-				bookingList.add(book.getID());
-				System.out.println(book.getID());
-			}
-			chooseBooking.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-	
-				@Override
-				public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-					if(bookingList.size()>0) {
-						bookingID = newValue.toString();
-						invalid.setText("");
-					}
+		System.out.println(cust_id);
+		if(cust_id == null) { 
+			ArrayList<Booking> books = comp.getCalendar().getDisplayFutureBooking();
+			bookingList.clear();
+			if(books.size() == 0) {
+				chooseBooking.setPromptText("No Bookings");
+				chooseBooking.setDisable(true);
+			} else {
+				chooseBooking.setDisable(false);
+				chooseBooking.setPromptText("Please Select");
+				for(Booking book : books) {
+					bookingList.add(book.getID());
+					System.out.println(book.getID());
 				}
-			});
-			chooseBooking.setItems(bookingList);
-			chooseBooking.autosize();
+				chooseBooking.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+		
+					@Override
+					public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+						if(bookingList.size()>0) {
+							bookingID = newValue.toString();
+							invalid.setText("");
+						}
+					}
+				});
+				chooseBooking.setItems(bookingList);
+				chooseBooking.autosize();
+			}
+		} else {
+			System.out.println("dis");
+			chooseBooking.setOpacity(0);
+			bookid.setText("");
+			cancel.setOpacity(0);
+			cancel.setDisable(true);
+			chooseBooking.setDisable(true);
 		}
 		getUpcomingBooking();
 	}
