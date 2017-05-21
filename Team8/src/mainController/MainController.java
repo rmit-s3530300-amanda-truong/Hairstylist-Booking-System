@@ -146,7 +146,7 @@ public class MainController {
 	
 	//checking if the username is unique
 	public boolean uniqueUname(String uUname) {
-		if(customerDb.checkValueExists("username",uUname)){
+		if(customerDb.checkValueExists("username", uUname)){
 			return false;
 		}
 		else{

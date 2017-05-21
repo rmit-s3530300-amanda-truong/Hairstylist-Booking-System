@@ -185,6 +185,16 @@ public class RegisterController {
 		String zipCode = "^[0-9]{4}$";
 		String addressLine = "^\\d+\\s[A-z]+\\s[A-z]+";
 		
+		
+		//checking business name
+		if(business == null){
+			invalid_business.setText("Please select a business.");
+		}
+		else{
+			businessValid = true;
+			invalid_business.setText("");
+		}
+		
 		//checking postcode
 		if(menu.validate(postcode, zipCode)){
 			zipValid = true;
@@ -247,13 +257,28 @@ public class RegisterController {
 		// checking username
 		invalid_un.setText("");
 		if(menu.validate(username, uname)) {
-			for(Company c : bms.getCompanyList()) {
-				if(c.getUsername().equals(username)) {
-					System.out.println("invalid");
+			//checks business owner username uniquess
+			
+			System.out.println("Valid username");
+			if(business.equals("Register New Company")){
+				for(Company c : bms.getCompanyList()) {
+					if(c.getUsername().equals(username)) {
+						invalid_un.setText("Username is already taken");
+						invalid_un.setAlignment(Pos.CENTER_LEFT);
+						unameValid = false;
+					} 
+				}
+			}
+			else{
+				//checks customer username uniqueness
+				if(menu.uniqueUname(username)){
+					invalid_un.setText("");
+					unameValid = true;
+				}
+				else{
 					invalid_un.setText("Username is already taken");
 					invalid_un.setAlignment(Pos.CENTER_LEFT);
-					unameValid = false;
-				} 
+				}
 			}
 		}
 		else{
@@ -278,15 +303,6 @@ public class RegisterController {
 		else{
 			invalid_fn.setText("Invalid First Name.");
 			invalid_fn.setAlignment(Pos.CENTER_LEFT);
-		}
-		
-		invalid_business.setText("");
-		//checking business name
-		if(business == null){
-			invalid_business.setText("Please select a business.");
-		}
-		else{
-			businessValid = true;
 		}
 		
 		if(businessValid && fnameValid && lnameValid && unameValid && passValid && mobileValid && 
