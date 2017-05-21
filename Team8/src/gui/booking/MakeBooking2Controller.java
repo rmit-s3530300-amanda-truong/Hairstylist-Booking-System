@@ -45,30 +45,6 @@ public class MakeBooking2Controller {
 	@FXML
     private Label logoText;
 	
-	/*@FXML
-	private JFXRadioButton femaleCut;
-	
-	@FXML
-	private JFXRadioButton maleCut;
-	
-	@FXML
-	private JFXRadioButton femaleWash;
-	
-	@FXML
-	private JFXRadioButton maleWash;
-	
-	@FXML
-	private JFXRadioButton femaleDye;
-	
-	@FXML
-	private JFXRadioButton maleDye;
-	
-	@FXML
-	private JFXRadioButton femalePerm;
-	
-	@FXML
-	private JFXRadioButton malePerm;*/
-	
 	private BookingManagementSystem bms;
 
 	public void initiate(Company comp, String cust_id, String portal, BookingManagementSystem bms) {
@@ -106,27 +82,6 @@ public class MakeBooking2Controller {
 			service = (String)buttons.get(0).getUserData();
 		}
 		
-		/*femaleWash.setUserData("Female Wash");
-		femaleCut.setUserData("Female Cut");
-		femaleDye.setUserData("Female Dye");
-		femalePerm.setUserData("Female Perm");
-		maleWash.setUserData("Male Wash");
-		maleDye.setUserData("Male Dye");
-		malePerm.setUserData("Male Perm");
-		maleCut.setUserData("Male Cut");
-		
-		femaleWash.setToggleGroup(group);
-		femaleDye.setToggleGroup(group);
-		femaleCut.setToggleGroup(group);
-		femalePerm.setToggleGroup(group);
-		maleWash.setToggleGroup(group);
-		maleDye.setToggleGroup(group);
-		maleCut.setToggleGroup(group);
-		malePerm.setToggleGroup(group);
-
-		femaleCut.setSelected(true);
-		services = "Female Cut";*/
-		
 		group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
 
 			@Override
@@ -158,7 +113,7 @@ public class MakeBooking2Controller {
 	    	controller.initiate(comp, bms);
 		} else {
 			AnchorPane pane;
-	    	FXMLLoader cusPortal = new FXMLLoader(getClass().getResource("../portal/CustomerPortal.fxml"));
+	    	FXMLLoader cusPortal = new FXMLLoader(getClass().getResource("/gui/portal/CustomerPortal.fxml"));
 	    	pane = cusPortal.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	CustomerPController controller = cusPortal.getController();
@@ -169,7 +124,7 @@ public class MakeBooking2Controller {
 	@FXML
 	void goToLogout() throws IOException{
 		AnchorPane pane;
-    	FXMLLoader login = new FXMLLoader(getClass().getResource("../login/Login.fxml"));
+    	FXMLLoader login = new FXMLLoader(getClass().getResource("/gui/login/Login.fxml"));
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	LoginController controller = login.getController();
@@ -180,14 +135,14 @@ public class MakeBooking2Controller {
 	void goToPortal() throws IOException{
 		if(portal.equals("business")) {
 			AnchorPane pane;
-	    	FXMLLoader bussPortal = new FXMLLoader(getClass().getResource("../portal/BusinessPortal.fxml"));
+	    	FXMLLoader bussPortal = new FXMLLoader(getClass().getResource("/gui/portal/BusinessPortal.fxml"));
 	    	pane = bussPortal.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	BusinessPController controller = bussPortal.getController();
 	    	controller.initiate(comp, bms);
 		} else {
 			AnchorPane pane;
-	    	FXMLLoader cusPortal = new FXMLLoader(getClass().getResource("../portal/CustomerPortal.fxml"));
+	    	FXMLLoader cusPortal = new FXMLLoader(getClass().getResource("/gui/portal/CustomerPortal.fxml"));
 	    	pane = cusPortal.load();
 	    	rootPane.getChildren().setAll(pane);
 	    	CustomerPController controller = cusPortal.getController();

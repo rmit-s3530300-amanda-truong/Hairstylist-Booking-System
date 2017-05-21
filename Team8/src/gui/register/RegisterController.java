@@ -324,7 +324,7 @@ public class RegisterController {
 	@FXML
     void goToLogin(ActionEvent event) throws IOException{
 		AnchorPane pane;
-    	FXMLLoader login = new FXMLLoader(getClass().getResource("../login/Login.fxml"));
+    	FXMLLoader login = new FXMLLoader(getClass().getResource("/gui/login/Login.fxml"));
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	LoginController controller = login.getController();
@@ -333,7 +333,7 @@ public class RegisterController {
 	
     void goToCustomerPortal() throws IOException{
     	AnchorPane pane;
-    	FXMLLoader customerPortal = new FXMLLoader(getClass().getResource("../portal/CustomerPortal.fxml"));
+    	FXMLLoader customerPortal = new FXMLLoader(getClass().getResource("/gui/portal/CustomerPortal.fxml"));
     	pane = customerPortal.load();
     	rootPane.getChildren().setAll(pane);
     	CustomerPController controller = customerPortal.getController();

@@ -41,7 +41,7 @@ public class AdminPController {
 	@FXML
 	void addBusiness(ActionEvent event) throws IOException{
 		AnchorPane pane;
-    	FXMLLoader addBuss = new FXMLLoader(getClass().getResource("../register/PendingRegistration.fxml"));
+    	FXMLLoader addBuss = new FXMLLoader(getClass().getResource("/gui/register/PendingRegistration.fxml"));
     	pane = addBuss.load();
     	rootPane.getChildren().setAll(pane);
     	PendingRegistrationController controller = addBuss.getController();
@@ -52,7 +52,7 @@ public class AdminPController {
 	@FXML
 	void goToLogout(ActionEvent event) throws IOException{
 		AnchorPane pane;
-    	FXMLLoader login = new FXMLLoader(getClass().getResource("../welcome/Welcome.fxml"));
+    	FXMLLoader login = new FXMLLoader(getClass().getResource("/gui/welcome/Welcome.fxml"));
     	pane = login.load();
     	rootPane.getChildren().setAll(pane);
     	WelcomeController controller = login.getController();
