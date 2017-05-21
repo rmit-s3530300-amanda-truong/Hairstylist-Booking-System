@@ -272,7 +272,7 @@ public class Calendar {
 	
 	public void addBookingToCalendar(LocalDate date, LocalTime start_time, LocalTime end_time) {
 		LocalTime current_time = start_time;
-		LOGGER.info("Adding Booking To Calendar: "+date.toString()+" "+start_time.toString()+""+end_time.toString());
+		LOGGER.info("Adding Booking To Calendar: "+date.toString()+" "+start_time.toString()+" "+end_time.toString());
 		while(!current_time.equals(end_time)) {
 			Booking book = calendar.get(date).get(current_time);
 			book.setStatus(Status.booked);
@@ -283,8 +283,10 @@ public class Calendar {
 
 	public Boolean declineBooking(String bookingID) {
 		Booking book = getBooking(bookingID);
+		System.out.println(book);
 		if(book != null) {
 			Status status = book.getStatus();
+			System.out.println(status);
 			if(status == Calendar.Status.booked){
 				LocalTime current_time = book.getStartTime();
 				LocalTime end_time = book.getEndTime();

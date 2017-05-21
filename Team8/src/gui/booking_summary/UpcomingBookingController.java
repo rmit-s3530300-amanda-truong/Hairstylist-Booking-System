@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
 
@@ -16,6 +17,8 @@ import gui.portal.BusinessPController;
 import gui.portal.CustomerPController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,6 +36,8 @@ public class UpcomingBookingController {
 	private MainController menu;
 	
 	private String id;
+	
+	ObservableList<String> bookingList = FXCollections.observableArrayList();
 	
 	final ToggleGroup group = new ToggleGroup();
 	
@@ -54,7 +59,7 @@ public class UpcomingBookingController {
 	private Label invalid;
 	
 	@FXML
-	private JFXTextField text;
+	private JFXTextField t;
 	
 	private Boolean status;
 	private ArrayList<Booking> list;
@@ -64,17 +69,17 @@ public class UpcomingBookingController {
 		ta = new TextArea();
 	}
 	
+	@FXML
+	private JFXComboBox<String> chooseBooking;
+	
 	private BookingManagementSystem bms;
+	
+	String bookingID=null;
 	
 	public String getUpcomingBooking() {
 		Calendar cal = comp.getCalendar();
-		ArrayList<Booking> list = cal.getDisplayFutureBooking();
+		list = cal.getDisplayFutureBooking();
 		String future="";
-		
-		System.out.println(id);
-		for(Booking book : list) {
-			System.out.println(book.getID());
-		}
 		
 		for(Booking book : list) {
 			if(id != null) {
@@ -91,9 +96,10 @@ public class UpcomingBookingController {
 		ta.setEditable(false);
 		ta.setLayoutX(340.0);
 		ta.setLayoutY(270.0);
-		ta.setPrefHeight(430.0);
+		ta.setPrefHeight(330.0);
 		ta.setPrefWidth(793.0);
 		
+		rootPane.getChildren().remove(ta);
 		rootPane.getChildren().add(ta);
 		return future;
 	}
@@ -103,53 +109,68 @@ public class UpcomingBookingController {
 		menu = comp.getMenu();
 		id = cust_id;
 		this.bms = bms;
+		ArrayList<Booking> books = comp.getCalendar().getDisplayFutureBooking();
+		bookingList.clear();
+		if(books.size() == 0) {
+			chooseBooking.setPromptText("No Bookings");
+			chooseBooking.setDisable(true);
+		} else {
+			chooseBooking.setDisable(false);
+			chooseBooking.setPromptText("Please Select");
+			for(Booking book : books) {
+				bookingList.add(book.getID());
+				System.out.println(book.getID());
+			}
+			chooseBooking.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+	
+				@Override
+				public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+					if(bookingList.size()>0) {
+						bookingID = newValue.toString();
+						invalid.setText("");
+					}
+				}
+			});
+			chooseBooking.setItems(bookingList);
+			chooseBooking.autosize();
+		}
 		getUpcomingBooking();
 	}
 	
 	@FXML
 	void apply(ActionEvent event) {
-		System.out.println("entered");
-		String id = text.getText();
-		if(list.isEmpty()) {
+		invalid.setText("");
+		String id = bookingID;
+		
+		if(list == null || list.isEmpty()) {
 			invalid.setStyle("-fx-text-fill: red; -fx-font-size: 16;");
 			invalid.setText("Invalid Booking ID");
-		}
-		Boolean exist = false;
-		for(Booking b : list) {
-			String current = b.getID();
-			if(current.equals(id)) {
-				if(!exist) {
-					System.out.println("valid "+status);
-					invalid.setText("");
-					if(status) {
-						Boolean s1 = comp.getCalendar().acceptBooking(id);
-						if(s1){
-							invalid.setStyle("-fx-text-fill: green; -fx-font-size: 16;");
-							invalid.setText("Successfully Accepted");
-							exist = true;
-						} else {
-							invalid.setStyle("-fx-text-fill: red; -fx-font-size: 16;");
-							invalid.setText("Invalid Booking ID");
-						}
-					} else {
+		} else {
+			Boolean exist = false;
+			for(Booking b : list) {
+				String current = b.getID();
+				if(current.equals(id)) {
+					if(!exist) {
 						Boolean s2 = comp.getCalendar().declineBooking(id);
 						if(s2) {
 							invalid.setStyle("-fx-text-fill: green; -fx-font-size: 16;");
 							invalid.setText("Successfully Declined");
 							exist = true;
+							// implement removal in db for the booking
+							comp.getBookingDb().deleteBooking(id);
+							initiate(comp,this.id,bms);
 						} else {
 							invalid.setStyle("-fx-text-fill: red; -fx-font-size: 16;");
 							invalid.setText("Invalid Booking ID");
 						}
-						
 					}
 				}
-			}
-		} 
-		if(!exist) {
-			System.out.println("invalid");
-			invalid.setStyle("-fx-text-fill: red; -fx-font-size: 16;");
-			invalid.setText("Invalid Booking ID");
+				if(!exist) {
+					invalid.setStyle("-fx-text-fill: red; -fx-font-size: 16;");
+					invalid.setText("Invalid Booking ID");
+				}
+			} 
+			
 		}
 	}
 	
