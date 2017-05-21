@@ -236,6 +236,11 @@ public class AddAvailTimeController {
 		fri.setToggleGroup(days);
 		sat.setToggleGroup(days);
 		sun.setToggleGroup(days);
+		
+		mon.setSelected(true);
+		startHour.setItems(monStartHourList);
+		endHour.setItems(monEndHourList);
+		
 		days.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
             @Override
             public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
