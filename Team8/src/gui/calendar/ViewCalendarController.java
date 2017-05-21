@@ -58,6 +58,8 @@ public class ViewCalendarController {
 	private Rectangle bookedBox;
 	@FXML
     private JFXButton gotoLogout;
+	@FXML
+    private Label logoText;
 	
 	private String cust_id;
 	LocalTime sTime;
@@ -71,6 +73,7 @@ public class ViewCalendarController {
 		this.cust_id = cust_id;
 		this.portal = portal;
 		this.bms = bms;
+		logoText.setText(comp.getName().toUpperCase());
 		contPane = new Pane();
 		scrollPaneCal = new ScrollPane();
 		scrollPaneCal.setLayoutX(180);
