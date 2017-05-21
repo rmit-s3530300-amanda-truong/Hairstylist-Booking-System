@@ -432,10 +432,6 @@ public class Company {
 			String lname = x.getValue().get("lname");
 			String service_list = x.getValue().get("service");
 			String[] services = service_list.split(", ");
-			System.out.println("This comp: "+this.compName);
-			System.out.println("Emp comp: "+compName);
-			System.out.println("Emp user: "+username);
-			System.out.println("Emp fname: "+fname);
 			for(int i=0;i<services.length;i++) {
 				String type = services[i];
 				if(type != null) {
@@ -444,7 +440,6 @@ public class Company {
 			}
 			if(this.compName.equals(compName))
 			{
-				System.out.println(true);
 				employList.put(username, new Employee(username, this.compName, fname,lname,service_arraylist));
 			}
 		}

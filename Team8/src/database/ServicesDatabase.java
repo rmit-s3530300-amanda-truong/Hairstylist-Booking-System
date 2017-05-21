@@ -21,6 +21,7 @@ public class ServicesDatabase {
 		this.initialise();
 		this.addTimes();
 		this.addTimes2();
+		displayTable();
 	}
 	
 	//get initial connection and create the table
@@ -102,6 +103,35 @@ public class ServicesDatabase {
 		}
 		catch( Exception e)
 		{
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+	}
+	
+	public void displayTable()
+	{
+		try
+		{
+			if(conn.isClosed())
+			{
+				getConnection();
+			}
+			stmt = conn.createStatement();
+			result = stmt.executeQuery("SELECT * FROM SERVICES");
+			while (result.next())
+			{
+				String business = result.getString("business");
+				String service = result.getString("service");
+				String time = result.getString("time");
+				System.out.println(business + service + time);
+			}
+			stmt.close();
+			result.close();
+			conn.close();
+		}
+		catch(Exception e)
+		{
+			LOGGER.info(e.getClass().getName() + ": " + e.getMessage());
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
@@ -191,7 +221,7 @@ public class ServicesDatabase {
 		try
 		{
 			//making sure no duplicates are added when program restarts
-			if(!checkValueExists("compName","ABC HAIRSTYLIST"))
+			if(!checkValueExists("business","ABC HAIRSTYLIST"))
 			{
 				if(conn.isClosed())
 				{
@@ -261,7 +291,7 @@ public class ServicesDatabase {
 		try
 		{
 			//making sure no duplicates are added when program restarts
-			if(!checkValueExists("compName","DEF HAIRSTYLIST"))
+			if(!checkValueExists("business","DEF HAIRSTYLIST"))
 			{
 				if(conn.isClosed())
 				{

@@ -63,8 +63,6 @@ public class PendingRegistrationController {
 		companyList = bms.getCompanyList();
 		for(Company comp: companyList)
 		{
-			System.out.println(comp.getName());
-			System.out.println(comp.getStatus());
 			if(comp.getStatus().equals("pending"))
 			{
 				businessList.add(comp.getName());
