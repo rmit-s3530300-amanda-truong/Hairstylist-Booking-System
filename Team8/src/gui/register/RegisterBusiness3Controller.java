@@ -77,7 +77,6 @@ public class RegisterBusiness3Controller {
     	invalid.setText("");
     	if(name.getText() == null || name.getText().isEmpty()) {
     		invalid.setText("Service Name cannot be empty.");
-    		System.out.println("done");
     	} else {
     		JFXComboBox<String> serv = new JFXComboBox<String>();
     		serv.setItems(times);
