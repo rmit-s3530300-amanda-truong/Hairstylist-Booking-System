@@ -425,12 +425,17 @@ public class Company {
 		HashMap<String, Employee> employList = new HashMap<String, Employee>();
 		for(Entry<String, HashMap<String,String>> x : map.entrySet()) {
 			ArrayList<String> service_arraylist = new ArrayList<String>();
-			String username = x.getKey();
+			String[] id = x.getKey().split("-");
+			String username = id[0];
 			String compName = x.getValue().get("compName");
 			String fname = x.getValue().get("fname");
 			String lname = x.getValue().get("lname");
 			String service_list = x.getValue().get("service");
 			String[] services = service_list.split(", ");
+			System.out.println("This comp: "+this.compName);
+			System.out.println("Emp comp: "+compName);
+			System.out.println("Emp user: "+username);
+			System.out.println("Emp fname: "+fname);
 			for(int i=0;i<services.length;i++) {
 				String type = services[i];
 				if(type != null) {
@@ -439,6 +444,7 @@ public class Company {
 			}
 			if(this.compName.equals(compName))
 			{
+				System.out.println(true);
 				employList.put(username, new Employee(username, this.compName, fname,lname,service_arraylist));
 			}
 		}

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.HashMap;
+import java.util.Map.Entry;
 import java.util.logging.Logger;
 
 import com.jfoenix.controls.JFXButton;
@@ -49,6 +50,8 @@ public class AddAvailTimeController {
     ObservableList<String> satEndHourList = FXCollections.observableArrayList();
     ObservableList<String> sunStartHourList = FXCollections.observableArrayList();
     ObservableList<String> sunEndHourList = FXCollections.observableArrayList();
+    
+    ObservableList<String> empList = FXCollections.observableArrayList();
 	
 	@FXML
     private AnchorPane rootPane;
@@ -56,8 +59,8 @@ public class AddAvailTimeController {
     @FXML
     private JFXButton gotoLogout;
 
-    @FXML
-    private JFXTextField empUsername;
+    
+    private String empUsername;
 
     @FXML
     private JFXButton addAvailability;
@@ -112,6 +115,9 @@ public class AddAvailTimeController {
     
     @FXML
     private Label logoText;
+    
+    @FXML
+    private JFXComboBox<String> chooseEmp;
 
     private BookingManagementSystem bms;
     
@@ -120,6 +126,24 @@ public class AddAvailTimeController {
     	menu = comp.getMenu();
 		this.bms = bms;
 		logoText.setText(comp.getName().toUpperCase());
+		
+		HashMap<String, Employee> list = comp.getEmployeeList();
+		for(Entry<String, Employee> entry : list.entrySet()) {
+			Employee e = entry.getValue();
+			System.out.println(e.getID());
+			empList.add(e.getID());
+		}
+		
+		chooseEmp.setItems(empList);
+		
+		chooseEmp.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if(empList.size()>0) {
+					empUsername = newValue;
+				}
+			}
+		});
 		
 		String busHours = comp.getBusString();
 		//need to escape | and \\
@@ -305,7 +329,7 @@ public class AddAvailTimeController {
     	DayOfWeek day = null;
     	LocalTime startTime = null;
     	LocalTime endTime = null;
-    	String username = empUsername.getText();
+    	String username = empUsername;
     	String sHour = startHour.getValue();
     	String sMinute = startMinute.getValue();
     	String eHour = endHour.getValue();

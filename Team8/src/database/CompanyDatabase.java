@@ -298,7 +298,7 @@ public class CompanyDatabase{
 					empInfo.put("fname", fName);
 					empInfo.put("lname", lName);
 					empInfo.put("service", service);
-					empValues.put(id, empInfo);
+					empValues.put(id+"-"+compName, empInfo);
 				}
 			}
 			stmt.close();
