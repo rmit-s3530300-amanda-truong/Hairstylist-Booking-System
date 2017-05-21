@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXRadioButton;
 
 import Main.BookingManagementSystem;
@@ -18,6 +19,8 @@ import gui.portal.BusinessPController;
 import gui.portal.CustomerPController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -60,8 +63,15 @@ public class MakeBooking6Controller {
     private Label logoText;
 	
 	private BookingManagementSystem bms;
+	
+	@FXML
+	private JFXComboBox<String> chooseTime;
+	
+	private ObservableList<String> times = FXCollections.observableArrayList();
+	
+	
 
-	public void initiate(Company comp, String cust_id, String service, Employee employee, LocalDate date, String select, String portal, BookingManagementSystem bms) {
+	public void initiate(Company comp, String cust_id, String service, Employee employee, LocalDate date, String portal, BookingManagementSystem bms) {
 		this.comp = comp;
 		menu = comp.getMenu();
 		this.cust_id = cust_id;
@@ -92,37 +102,16 @@ public class MakeBooking6Controller {
 		}
 		
 		Boolean contains = false;
-		
-		// if the available day exists
 		if(avail.get(day)!= null){
-			// if customer chose morning
-			if(select.equals("morning")) {
-				// check if the times available are not within the 'available time slot'
-				for(LocalTime time : avail.get(day)) {
-					for(LocalTime t1 : unavail) {
-						if(t1.equals(time)) {
-							contains = true;
-						}
-					}
-					if(!contains) {
-						if(time.isBefore(LocalTime.of(12, 00))) {
-							avail_times.add(time);
-						}
+			// check if the times available are not within the 'available time slot'
+			for(LocalTime time : avail.get(day)) {
+				for(LocalTime t1 : unavail) {
+					if(t1.equals(time)) {
+						contains = true;
 					}
 				}
-			// if customer chose afternoon		
-			} else {
-				for(LocalTime time : avail.get(day)) {
-					for(LocalTime t1 : unavail) {
-						if(t1.equals(time)) {
-							contains = true;
-						}
-					}
-					if(!contains) {
-						if(time.isAfter(LocalTime.of(11, 45)) && time.isBefore(LocalTime.of(16, 00) )) {
-							avail_times.add(time);
-						}
-					}
+				if(!contains) {
+					avail_times.add(time);
 				}
 			}
 			ArrayList<LocalTime> booked_times = booking.get(date);
@@ -139,41 +128,23 @@ public class MakeBooking6Controller {
 		if(avail_times.size() > 0) {
 			ArrayList<JFXRadioButton> buttons = new ArrayList<JFXRadioButton>();
 			for(LocalTime time : avail_times) {
-				JFXRadioButton b = new JFXRadioButton();
-				b.setUserData(time);
-				b.setText(time.toString());
-				b.setStyle("-fx-text-fill: white");
-				b.setFont(Font.font(16));
-				if(counter <8) {
-					b.setLayoutX(487.0);
-					b.setLayoutY(255.0+(counter*50));
-				} else {
-					b.setLayoutX(715.0);
-					b.setLayoutY(255.0+((counter-8)*50));
+				times.add(time.toString());
+			}
+			chooseTime.setItems(times);
+			chooseTime.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+				@Override
+				public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+					if(times.size()>0) {
+						time = LocalTime.parse(newValue);
+					}
 				}
-				rootPane.getChildren().add(b);
-				buttons.add(b);
-				counter++;
-			}
-			for(JFXRadioButton button : buttons) {
-				button.setToggleGroup(group);
-			}
-			buttons.get(0).setSelected(true);
-			time = (LocalTime) buttons.get(0).getUserData();
+			});
 		} else {
+			chooseTime.setOpacity(0);
+			chooseTime.setDisable(true);
 			invalid.setText("No Times Available");
 			invalid.setAlignment(Pos.CENTER);
 		}
-		
-		group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
-
-			@Override
-			public void changed(ObservableValue<? extends Toggle> arg0, Toggle arg1, Toggle arg2) {
-				time = (LocalTime) arg2.getUserData();
-				
-			}
-			
-		});
 	}
 	
 	@FXML
@@ -194,11 +165,11 @@ public class MakeBooking6Controller {
 	@FXML
 	void back(ActionEvent event) throws IOException {
 		AnchorPane pane;
-    	FXMLLoader mb5 = new FXMLLoader(getClass().getResource("MakeBooking5.fxml"));
-    	pane = mb5.load();
+    	FXMLLoader mb4 = new FXMLLoader(getClass().getResource("MakeBooking4.fxml"));
+    	pane = mb4.load();
     	rootPane.getChildren().setAll(pane);
-    	MakeBooking5Controller controller = mb5.getController();
-    	controller.initiate(comp, cust_id, service, employee, date, portal, bms);
+    	MakeBooking4Controller controller = mb4.getController();
+    	controller.initiate(comp, cust_id, service, employee, portal, bms);
 	}
 	
 	@FXML

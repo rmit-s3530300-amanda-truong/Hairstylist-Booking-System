@@ -131,10 +131,10 @@ public class MakeBooking4Controller {
 			invalid.setAlignment(Pos.CENTER);
 		} else {
 			AnchorPane pane;
-	    	FXMLLoader mb5 = new FXMLLoader(getClass().getResource("MakeBooking5.fxml"));
-	    	pane = mb5.load();
+	    	FXMLLoader mb6 = new FXMLLoader(getClass().getResource("MakeBooking6.fxml"));
+	    	pane = mb6.load();
 	    	rootPane.getChildren().setAll(pane);
-	    	MakeBooking5Controller controller = mb5.getController();
+	    	MakeBooking6Controller controller = mb6.getController();
 	    	controller.initiate(comp, cust_id, service, employee, date, portal, bms);
 			
 		}
