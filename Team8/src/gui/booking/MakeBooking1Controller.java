@@ -64,7 +64,7 @@ public class MakeBooking1Controller {
 		else 
 		{
 			username.setDisable(false);
-			username.setPromptText("Please Select");
+			username.setPromptText("PLEASE SELECT");
 			for(Entry<String, Customer> entry: custMap.entrySet()) {
 				custList.add(entry.getKey());
 			}

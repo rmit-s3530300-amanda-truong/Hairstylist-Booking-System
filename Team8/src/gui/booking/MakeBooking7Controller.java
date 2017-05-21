@@ -97,10 +97,10 @@ public class MakeBooking7Controller {
 		
 		int counter = 0;
 		for(Label lab : labels) {
-			lab.setFont(Font.font(20));
+			lab.setFont(Font.font(16));
 			lab.setStyle("-fx-text-fill: white");
-			lab.setLayoutX(580.0);
-			lab.setLayoutY(255.0+(counter*70));
+			lab.setLayoutX(598.0);
+			lab.setLayoutY(280.0+(counter*70));
 			rootPane.getChildren().add(lab);
 			counter++;
 		}

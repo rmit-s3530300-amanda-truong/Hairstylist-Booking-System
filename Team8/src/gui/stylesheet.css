@@ -2,15 +2,22 @@
 	-fx-background-color: #aa9144;
 	-fx-border-radius: 60;
 	-fx-background-radius: 60;
-	}
+}
+.button{
+	-fx-border-radius: 0;
+	-fx-background-radius: 0;
+}
+
 #menuPane{
 	-fx-background-color: #212121;
 }
+
 #logo{
 	-fx-background-image: url("img/logo.png");
 	-fx-background-size: 166 75;
     -fx-background-repeat: no-repeat;
 }
+
 #content{
 	-fx-background-image: url("img/content.jpg");
 	-fx-background-size: 1400 714;
@@ -31,52 +38,29 @@
 	-fx-background-size: 1400 714;
     -fx-background-repeat: no-repeat;
 }
-#content_addEmp{
-	-fx-background-image: url("img/content.jpg");
-	-fx-background-size: 1400 714;
-    -fx-background-repeat: no-repeat;
-}
-#content_calendar{
-	-fx-background-image: url("img/content.jpg");
-	-fx-background-size: 1400 714;
-    -fx-background-repeat: no-repeat;
-}
-.button{
-	-fx-border-radius: 0;
-	-fx-background-radius: 0;
-}
 
 .combo-box{
     -fx-font: 16px "System";
 }
-
 .combo-box .cell{
     -fx-text-fill: white;
 }
 
 #home{
-	-fx-graphic: url("img/home1.png");
 	-fx-background-image: url("img/home.png");
 	-fx-background-size: 50 50;
     -fx-background-repeat: no-repeat;
 }
 
-#settings{
-	-fx-graphic: url("img/settings.png");
-}
-
 .text-area {
     -fx-background-color: rgba(0,0,0,0.0);
 }
-
 .text-area .scroll-pane {
     -fx-background-color: transparent;
 }
-
 .text-area .scroll-pane .viewport{
     -fx-background-color: transparent;
 }
-
 .text-area .scroll-pane .content{
     -fx-background-color: transparent;
 }
@@ -84,7 +68,9 @@
 .scroll-pane > .viewport {
    -fx-background-color: transparent;
 }
-
 .scroll-pane {
    -fx-background-color: transparent;
+}
+.address .scroll-pane {
+  -fx-background-color: transparent;
 }

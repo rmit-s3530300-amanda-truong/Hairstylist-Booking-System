@@ -80,7 +80,7 @@ public class AvailabilityDatabaseTest {
 		String day = "Thursday";
 		String startTime = "14:00";
 		String endTime = "16:00";
-		availDb.addAvailabilityInfo(employeeID, day, startTime, endTime);
+		//availDb.addAvailabilityInfo(employeeID, day, startTime, endTime);
 		
 		actual = availDb.checkValueExists("employeeID", employeeID);
 		assertEquals(expected,actual);
@@ -108,7 +108,7 @@ public class AvailabilityDatabaseTest {
 		String day = "Thursday";
 		String startTime = "12:00";
 		String endTime = "15:00";
-		availDb.addAvailabilityInfo(employeeID, day, startTime, endTime);
+		//availDb.addAvailabilityInfo(employeeID, day, startTime, endTime);
 		availDb.deleteAvail(employeeID, day);
 		actual = availDb.checkValueExists(day, "Thursday");
 		assertEquals(expected,actual);
@@ -124,7 +124,7 @@ public class AvailabilityDatabaseTest {
 		String day = "Thursday";
 		String startTime = "12:00";
 		String endTime = "15:00";
-		availDb.addAvailabilityInfo(employeeID, day, startTime, endTime);
+		//availDb.addAvailabilityInfo(employeeID, day, startTime, endTime);
 		HashMap<String, ArrayList<String>> expectedMap = new HashMap<String,ArrayList<String>>();
 		ArrayList<String> list = new ArrayList<String>();
 		list.add(day);
@@ -159,7 +159,7 @@ public class AvailabilityDatabaseTest {
 		String day = "Monday";
 		String startTime = "12:00";
 		String endTime = "15:00";
-		availDb.addAvailabilityInfo(employeeID, day, startTime, endTime);
+		//availDb.addAvailabilityInfo(employeeID, day, startTime, endTime);
 		
 		Boolean actual = false;
 		Boolean expected = true;
@@ -176,7 +176,7 @@ public class AvailabilityDatabaseTest {
 		String day = "Monday";
 		String startTime = "12:00";
 		String endTime = "15:00";
-		availDb.addAvailabilityInfo(employeeID, day, startTime, endTime);
+		//availDb.addAvailabilityInfo(employeeID, day, startTime, endTime);
 		
 		Boolean actual = true;
 		Boolean expected = false;
@@ -193,7 +193,7 @@ public class AvailabilityDatabaseTest {
 		String day = "Monday";
 		String startTime = "12:00";
 		String endTime = "15:00";
-		availDb.addAvailabilityInfo(employeeID, day, startTime, endTime);
+		//availDb.addAvailabilityInfo(employeeID, day, startTime, endTime);
 		
 		Boolean actual = false;
 		Boolean expected = true;

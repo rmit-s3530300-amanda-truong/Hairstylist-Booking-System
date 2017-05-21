@@ -85,7 +85,7 @@ public class BookingDatabaseTest {
 		String endTime = "08:30";
 		String time = startTime + "-" + endTime;
 		String status = "booked";
-		bookingDb.addBooking(bookingID, customerUsername, service, employeeID, date, time, status);
+		//bookingDb.addBooking(bookingID, customerUsername, service, employeeID, date, time, status);
 		
 		actual = bookingDb.checkValueExists("bookingID", bookingID);
 		assertEquals(expected,actual);
@@ -130,7 +130,7 @@ public class BookingDatabaseTest {
 		String endTime = "08:30";
 		String time = startTime + "-" + endTime;
 		String status = "booked";
-		bookingDb.addBooking(bookingID, customerUsername, service, employeeID, date, time, status);
+		//bookingDb.addBooking(bookingID, customerUsername, service, employeeID, date, time, status);
 		bookingDb.deleteBooking(bookingID);
 		actual = bookingDb.checkValueExists("date", date);
 		assertEquals(expected,actual);
@@ -269,7 +269,7 @@ public class BookingDatabaseTest {
 		String endTime = "08:30";
 		String time = startTime + "-" + endTime;
 		String status = "booked";
-		bookingDb.addBooking(bookingID, customerUsername, service, employeeID, date, time, status);
+		//bookingDb.addBooking(bookingID, customerUsername, service, employeeID, date, time, status);
 		
 		Boolean actual = false;
 		Boolean expected = true;
@@ -291,7 +291,7 @@ public class BookingDatabaseTest {
 		String endTime = "08:30";
 		String time = startTime + "-" + endTime;
 		String status = "booked";
-		bookingDb.addBooking(bookingID, customerUsername, service, employeeID, date, time, status);
+		//bookingDb.addBooking(bookingID, customerUsername, service, employeeID, date, time, status);
 		
 		Boolean actual = true;
 		Boolean expected = false;
@@ -313,7 +313,7 @@ public class BookingDatabaseTest {
 		String endTime = "08:30";
 		String time = startTime + "-" + endTime;
 		String status = "booked";
-		bookingDb.addBooking(bookingID, customerUsername, service, employeeID, date, time, status);
+		//bookingDb.addBooking(bookingID, customerUsername, service, employeeID, date, time, status);
 		
 		Boolean actual = false;
 		Boolean expected = true;

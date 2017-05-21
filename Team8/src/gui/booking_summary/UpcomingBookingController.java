@@ -58,7 +58,9 @@ public class UpcomingBookingController {
 	@FXML
 	private Label invalid;
 	
-	private Boolean status;
+	@FXML
+    private Label logoText;
+	
 	private ArrayList<Booking> list;
 	
 	@FXML
@@ -112,15 +114,16 @@ public class UpcomingBookingController {
 		menu = comp.getMenu();
 		id = cust_id;
 		this.bms = bms;
+		logoText.setText(comp.getName().toUpperCase());
 		if(cust_id == null) { 
 			ArrayList<Booking> books = comp.getCalendar().getDisplayFutureBooking();
 			bookingList.clear();
 			if(books.size() == 0) {
-				chooseBooking.setPromptText("No Bookings");
+				chooseBooking.setPromptText("NO BOOKINGS");
 				chooseBooking.setDisable(true);
 			} else {
 				chooseBooking.setDisable(false);
-				chooseBooking.setPromptText("Please Select");
+				chooseBooking.setPromptText("PLEASE SELECT");
 				for(Booking book : books) {
 					bookingList.add(book.getID());
 				}

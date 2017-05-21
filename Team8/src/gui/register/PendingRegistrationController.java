@@ -24,6 +24,7 @@ import mainController.MainController;
 
 public class PendingRegistrationController {
 
+	@SuppressWarnings("unused")
 	private MainController menu;
 	private Company comp;
 	private CompanyDatabase compDb;
@@ -77,6 +78,13 @@ public class PendingRegistrationController {
 				menu = comp.getMenu();
 			}
 		});
+		
+		if(businessList.size() == 0){
+			declineButton.setDisable(true);
+			approveButton.setDisable(true);
+			invalidbussName.setText("Good Job. No pending registration.");
+			invalidbussName.setStyle("-fx-text-fill: green; -fx-font-size: 16;");
+		}
 	}
 
     @FXML
@@ -90,34 +98,29 @@ public class PendingRegistrationController {
     }
 
     @FXML
-    void goToPortal(ActionEvent event) {
-    	try {
-			AnchorPane pane;
-	    	FXMLLoader adminPortal = new FXMLLoader(getClass().getResource("../portal/AdminPortal.fxml"));
-	    	pane = adminPortal.load();
-	    	rootPane.getChildren().setAll(pane);
-	    	AdminPController controller = adminPortal.getController();
-			controller.initiate(bms);
-		} 
-		catch (IOException e) {
-			e.printStackTrace();
-		}
+    void goToPortal() throws IOException {
+    	AnchorPane pane;
+	    FXMLLoader adminPortal = new FXMLLoader(getClass().getResource("../portal/AdminPortal.fxml"));
+	    pane = adminPortal.load();
+	    rootPane.getChildren().setAll(pane);
+	    AdminPController controller = adminPortal.getController();
+		controller.initiate(bms);
     }
 
     @FXML
-    void register(ActionEvent event) 
+    void register(ActionEvent event) throws IOException 
     {
     	comp.setStatus("verified");
     	compDb.updateStatus("verified", comp.getUsername());
-    	goToPortal(event);
+    	goToPortal();
     }
     
     @FXML
-    void decline(ActionEvent event)
+    void decline(ActionEvent event) throws IOException
     {
     	companyList.remove(comp);
     	compDb.removeBusiness(comp.getUsername());
-    	goToPortal(event);
+    	goToPortal();
     }
 
 }

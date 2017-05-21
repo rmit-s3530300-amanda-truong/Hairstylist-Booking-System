@@ -34,7 +34,7 @@ public class BookingTest {
 		
 		ArrayList<String> s = new ArrayList<String>();
 		s.add("femaleCut");
-		emp = new Employee("111", "herro", "yes", s);
+		//emp = new Employee("111", "herro", "yes", s);
 		
 		expected_customerID = "a";
 		

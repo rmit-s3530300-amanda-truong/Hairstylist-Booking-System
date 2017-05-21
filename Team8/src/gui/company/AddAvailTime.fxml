@@ -21,7 +21,7 @@
             </JFXButton>
          </children>
       </Pane>
-      <Pane id="content_addEmp" layoutY="74.0" prefHeight="714.0" prefWidth="1400.0">
+      <Pane id="content" layoutY="74.0" prefHeight="714.0" prefWidth="1400.0">
          <children>
             <Rectangle arcHeight="40.0" arcWidth="40.0" height="566.0" layoutX="464.0" layoutY="94.0" opacity="0.6" stroke="BLACK" strokeType="INSIDE" width="482.0" />
             <Label layoutX="504.0" layoutY="149.0" text="EMPLOYEE USERNAME" textFill="WHITE">

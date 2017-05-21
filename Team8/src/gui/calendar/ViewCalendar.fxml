@@ -23,9 +23,9 @@
             </Label>
          </children>
       </Pane>
-      <Pane id="content_calendar" fx:id="displayPane" layoutY="74.0" prefHeight="714.0" prefWidth="1400.0">
+      <Pane id="content" fx:id="displayPane" layoutY="74.0" prefHeight="714.0" prefWidth="1400.0">
          <children>
-            <Rectangle arcHeight="40.0" arcWidth="40.0" height="659.0" layoutX="131.0" layoutY="31.0" opacity="0.6" stroke="BLACK" strokeType="INSIDE" width="1205.0" />
+            <Rectangle arcHeight="40.0" arcWidth="40.0" height="588.0" layoutX="131.0" layoutY="102.0" opacity="0.6" stroke="BLACK" strokeType="INSIDE" width="1205.0" />
             <Label layoutX="614.0" layoutY="45.0" text="CALENDAR" textFill="WHITE">
                <font>
                   <Font name="Lato Black" size="33.0" />

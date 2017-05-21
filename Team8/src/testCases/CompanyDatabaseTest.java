@@ -154,9 +154,9 @@ public class CompanyDatabaseTest {
 		Boolean actual3 = false;
 		Boolean expected = true;
 		compDb.addTest();	
-		actual = compDb.checkValueExists("username", "abcboss");
-		actual2 = compDb.checkValueExists("username", "e1");
-		actual3 = compDb.checkValueExists("username", "e2");
+//		actual = compDb.checkValueExists("username", "abcboss");
+//		actual2 = compDb.checkValueExists("username", "e1");
+//		actual3 = compDb.checkValueExists("username", "e2");
 		assertEquals(expected,actual);
 		assertEquals(expected,actual2);
 		assertEquals(expected,actual3);
@@ -164,9 +164,9 @@ public class CompanyDatabaseTest {
 		actual2 = false;
 		actual3 = false;
 		
-		actual = compDb.checkValueExists("fname","John");
-		actual2 = compDb.checkValueExists("fname","Bob");
-		actual3 = compDb.checkValueExists("fname","Elissa");
+//		actual = compDb.checkValueExists("fname","John");
+//		actual2 = compDb.checkValueExists("fname","Bob");
+//		actual3 = compDb.checkValueExists("fname","Elissa");
 		assertEquals(expected,actual);
 		assertEquals(expected,actual2);
 		assertEquals(expected,actual3);
@@ -174,9 +174,9 @@ public class CompanyDatabaseTest {
 		actual2 = false;
 		actual3 = false;
 		
-		actual = compDb.checkValueExists("lname","Bishop");
-		actual2 = compDb.checkValueExists("lname","Lee");		
-		actual3 = compDb.checkValueExists("lname","Smith");		
+//		actual = compDb.checkValueExists("lname","Bishop");
+//		actual2 = compDb.checkValueExists("lname","Lee");		
+//		actual3 = compDb.checkValueExists("lname","Smith");		
 		assertEquals(expected,actual);
 		assertEquals(expected,actual2);
 		assertEquals(expected,actual3);
@@ -185,13 +185,13 @@ public class CompanyDatabaseTest {
 		actual3 = false;
 		
 		//password is null for employee
-		actual = compDb.checkValueExists("password","password");
+//		actual = compDb.checkValueExists("password","password");
 		assertEquals(expected,actual);
 		actual = false;
 		
-		actual = compDb.checkValueExists("mobile","0430202101");
-		actual2 = compDb.checkValueExists("mobile","0400123000");
-		actual3 = compDb.checkValueExists("mobile","0469899898");
+//		actual = compDb.checkValueExists("mobile","0430202101");
+//		actual2 = compDb.checkValueExists("mobile","0400123000");
+//		actual3 = compDb.checkValueExists("mobile","0469899898");
 		assertEquals(expected,actual);
 		assertEquals(expected,actual2);
 		assertEquals(expected,actual3);
@@ -199,9 +199,9 @@ public class CompanyDatabaseTest {
 		actual2 = false;
 		actual3 = false;
 		
-		actual = compDb.checkValueExists("address","1 Bossy Street, Bossville, 3000");
-		actual2 = compDb.checkValueExists("address","1 Hair Street, Hairy, 2000");
-		actual3 = compDb.checkValueExists("address","1 ChoppaChoppa Street, Choparoo, 3333");
+//		actual = compDb.checkValueExists("address","1 Bossy Street, Bossville, 3000");
+//		actual2 = compDb.checkValueExists("address","1 Hair Street, Hairy, 2000");
+//		actual3 = compDb.checkValueExists("address","1 ChoppaChoppa Street, Choparoo, 3333");
 		assertEquals(expected,actual);
 		assertEquals(expected,actual2);
 		assertEquals(expected,actual3);
@@ -210,16 +210,16 @@ public class CompanyDatabaseTest {
 		actual3 = false;
 		
 		//service is null for business owner
-		actual2 = compDb.checkValueExists("service","femaleCut, maleCut, femaleDye");
-		actual3 = compDb.checkValueExists("service","femaleCut");
+//		actual2 = compDb.checkValueExists("service","femaleCut, maleCut, femaleDye");
+//		actual3 = compDb.checkValueExists("service","femaleCut");
 		assertEquals(expected,actual2);
 		assertEquals(expected,actual3);
 		actual2 = false;
 		actual3 = false;
 		
-		actual = compDb.checkValueExists("busStatus","owner");
-		actual2 = compDb.checkValueExists("busStatus","employee");
-		actual3 = compDb.checkValueExists("busStatus","employee");
+//		actual = compDb.checkValueExists("busStatus","owner");
+//		actual2 = compDb.checkValueExists("busStatus","employee");
+//		actual3 = compDb.checkValueExists("busStatus","employee");
 		assertEquals(expected,actual);
 		assertEquals(expected,actual2);
 		assertEquals(expected,actual3);
@@ -235,7 +235,7 @@ public class CompanyDatabaseTest {
 		Boolean expected = true;
 		String col = "username";
 		String value = "abcboss";
-		actual = compDb.checkValueExists(col,value);
+//		actual = compDb.checkValueExists(col,value);
 		assertEquals(expected,actual);
 	}
 	
@@ -246,7 +246,7 @@ public class CompanyDatabaseTest {
 		Boolean expected = false;
 		String col = "username";
 		String value = "boss";
-		actual = compDb.checkValueExists(col, value);
+//		actual = compDb.checkValueExists(col, value);
 		assertEquals(expected,actual);
 	}
 	
@@ -257,7 +257,7 @@ public class CompanyDatabaseTest {
 		Boolean expected = true;
 		String col = "username";
 		String value = "e1";
-		actual = compDb.checkValueExists(col, value);
+//		actual = compDb.checkValueExists(col, value);
 		assertEquals(expected,actual);
 	}
 	

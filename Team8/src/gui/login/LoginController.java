@@ -99,13 +99,9 @@ public class LoginController {
     	
     	
     	if(business == null){
-    		if(username.equals("admin") && username.equals("admin")){
+    		if(username.equals("admin") && password.equals("admin")){
     			goToAdminPortal();
     		}
-/*    		else if(menu.authenticate(username, password, business).equals("business")){
-    			comp = bms.getCompany(business);
-        		goToBusinessPortal(username);
-        	}*/
     		else{
     			invalid_id_password.setText("Invalid username or password. Please try again");
     			invalid_id_password.setAlignment(Pos.CENTER);

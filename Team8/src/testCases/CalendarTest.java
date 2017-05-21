@@ -26,8 +26,8 @@ public class CalendarTest {
 	public void setUp() throws Exception {
 		ArrayList<String> services = new ArrayList<String>();
 		services.add("femaleCut");
-		emp = new Employee("01", "John", "Snow", services);
-		cust = new Customer("000", "Margaery", "Tyrell");
+//		emp = new Employee("01", "John", "Snow", services);
+//		cust = new Customer("000", "Margaery", "Tyrell");
 		cust_id = cust.getUsername();
 		
 		LocalDate localdate = LocalDate.of(2017, 01, 10);

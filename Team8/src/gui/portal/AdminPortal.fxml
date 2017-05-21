@@ -21,7 +21,7 @@
                   <Font name="Lato Bold" size="39.0" />
                </font>
             </Label>
-            <JFXButton contentDisplay="GRAPHIC_ONLY" layoutX="222.0" layoutY="164.0" onAction="#addBusiness" prefHeight="150.0" prefWidth="472.0" ripplerFill="WHITE" />
+            <JFXButton contentDisplay="GRAPHIC_ONLY" layoutX="464.0" layoutY="202.0" onAction="#addBusiness" prefHeight="150.0" prefWidth="472.0" ripplerFill="WHITE" />
             <Pane prefHeight="714.0" prefWidth="82.0" style="-fx-background-color: #1d1c1c;">
                <children>
                   <Pane id="home" layoutX="16.0" layoutY="20.0" prefHeight="50.0" prefWidth="50.0" />

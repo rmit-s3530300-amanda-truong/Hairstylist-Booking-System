@@ -93,30 +93,6 @@ public class AddEmpController {
     
     @FXML
     private Label logoText;
-    
-   /* @FXML
-    private JFXCheckBox sfcut;
-
-    @FXML
-    private JFXCheckBox smcut;
-
-    @FXML
-    private JFXCheckBox sfwash;
-
-    @FXML
-    private JFXCheckBox smwash;
-
-    @FXML
-    private JFXCheckBox sfperm;
-
-    @FXML
-    private JFXCheckBox smperm;
-
-    @FXML
-    private JFXCheckBox sfdye;
-
-    @FXML
-    private JFXCheckBox smdye;*/
 
     @FXML
     private Label invalidservices;
@@ -135,14 +111,6 @@ public class AddEmpController {
 		this.bms = bms;
 		username.setText(menu.getEmpUname());
 		logoText.setText(comp.getName().toUpperCase());
-		/*sfcut.setUserData(Service.femaleCut);
-		smcut.setUserData(Service.maleCut);
-		sfwash.setUserData(Service.femaleWash);
-		smwash.setUserData(Service.maleWash);
-		sfperm.setUserData(Service.femalePerm);
-		smperm.setUserData(Service.malePerm);
-		sfdye.setUserData(Service.femaleDye);
-		smdye.setUserData(Service.maleDye);*/
 		int counter = 0;
 		ArrayList<String> services_list = comp.getService();
 		serviceBoxes = new ArrayList<JFXCheckBox>();

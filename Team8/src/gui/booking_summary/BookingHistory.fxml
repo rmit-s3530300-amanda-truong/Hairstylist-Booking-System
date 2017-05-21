@@ -18,7 +18,7 @@
             </JFXButton>
          </children>
       </Pane>
-      <Pane id="content_addEmp" layoutY="74.0" prefHeight="714.0" prefWidth="1400.0">
+      <Pane id="content" layoutY="74.0" prefHeight="714.0" prefWidth="1400.0">
          <children>
             <Rectangle arcHeight="40.0" arcWidth="40.0" height="540.0" layoutX="231.0" layoutY="126.0" opacity="0.6" stroke="BLACK" strokeType="INSIDE" width="1026.0" />
             <Label layoutX="354.0" layoutY="158.0" text="BOOKING ID" textFill="WHITE">

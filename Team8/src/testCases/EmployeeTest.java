@@ -29,7 +29,7 @@ public class EmployeeTest {
 		expected_lastName = "snow";
 		expected_service = new ArrayList<String>();
 		expected_service.add("maleWash");
-		e = new Employee(expected_id, expected_firstName, expected_lastName, expected_service);
+//		e = new Employee(expected_id, expected_firstName, expected_lastName, expected_service);
 	}
 	
 	@Test

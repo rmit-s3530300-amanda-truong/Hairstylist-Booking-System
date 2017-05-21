@@ -18,7 +18,7 @@ public class CustomerTest {
 		expected_username = "0";
 		expected_fname = "fname";
 		expected_lname = "lname";
-		customer = new Customer(expected_username, expected_fname, expected_lname);
+//		customer = new Customer(expected_username, expected_fname, expected_lname);
 	}
 	
 	@Test

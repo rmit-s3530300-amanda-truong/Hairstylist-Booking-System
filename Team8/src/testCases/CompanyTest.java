@@ -30,18 +30,18 @@ public class CompanyTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		comp = new Company();
+//		comp = new Company();
 		compDb = new CompanyDatabase();
 		custDb = new CustomerDatabase();
 		availDb = new AvailabilityDatabase();
 		ID = "000";
-		customer = new Customer(ID,"fname", "lname");
+//		customer = new Customer(ID,"fname", "lname");
 		comp.addCustomer(customer);
 		custList = comp.getCustList();
 		
 		service = new ArrayList<String>();
 		service.add("femaleCut");
-		employee = new Employee("0", "fname", "lname", service);
+//		employee = new Employee("0", "fname", "lname", service);
 		comp.addEmployee(employee);
 	}
 
@@ -50,7 +50,7 @@ public class CompanyTest {
 		String expected_ID = "000";
 		String expected_fname = "fname";
 		String expected_lname = "lname";
-		Customer customer = new Customer(expected_ID,expected_fname, expected_lname);
+//		Customer customer = new Customer(expected_ID,expected_fname, expected_lname);
 		
 		comp.addCustomer(customer);
 		HashMap<String, Customer>custList = comp.getCustList();
@@ -128,7 +128,7 @@ public class CompanyTest {
 		String expected_ID = "0";
 		String expected_fname = "fname";
 		String expected_lname ="lname";
-		Employee employee = new Employee("0", "fname", "lname", service);
+//		Employee employee = new Employee("0", "fname", "lname", service);
 		
 		comp.addEmployee(employee);
 		HashMap<String, Employee> employee_list = comp.getEmployeeList();
