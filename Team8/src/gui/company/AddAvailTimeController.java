@@ -121,7 +121,7 @@ public class AddAvailTimeController {
 		this.bms = bms;
 		logoText.setText(comp.getName().toUpperCase());
 		
-		String busHours = comp.getBusinessHours();
+		String busHours = comp.getBusString();
 		//need to escape | and \\
 		String[] dayandTime = busHours.split("\\|",-1);
 		String startTime = null;

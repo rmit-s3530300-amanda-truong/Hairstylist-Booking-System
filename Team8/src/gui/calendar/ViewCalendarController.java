@@ -173,7 +173,7 @@ public class ViewCalendarController {
 			day.setStyle("-fx-text-fill: white");
 			contPane.getChildren().add(day);
 		}
-		String busHours = comp.getBusinessHours();
+		String busHours = comp.getBusString();
 		//need to escape | and \\
 		String[] dayandTime = busHours.split("\\|",-1);
 		String startTime = null;

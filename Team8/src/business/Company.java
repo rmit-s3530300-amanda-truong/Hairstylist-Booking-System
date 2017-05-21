@@ -29,6 +29,7 @@ public class Company {
 	// String is service name, int is time taken
 	private HashMap<String, Integer> service_times; 
 	private LinkedHashMap<DayOfWeek,String> business_hours;
+	private String busHours;
 	
 	private MainController menu;
 	
@@ -60,6 +61,7 @@ public class Company {
 		this.calendar = new Calendar(LocalDate.now());
 		services = new ArrayList<String>();
 		service_times = new HashMap<String, Integer>();
+		business_hours = new LinkedHashMap<DayOfWeek, String>();
 		
 		this.compName = compName;
 		this.username = username;
@@ -69,7 +71,22 @@ public class Company {
 		this.mobile = mobile;
 		this.address = address;
 		this.service = service;
-		//this.busHours = busHours;
+		this.busHours = busHours;
+		String[] split =busHours.split("\\|",-1);
+		for(int i=0; i<split.length;i++){
+			System.out.println(split[i]);
+			String[] day_times = split[i].split("=|,");
+			System.out.println(day_times[0]);
+			if(day_times[1].equals("empty")) {
+				business_hours.put(DayOfWeek.valueOf(day_times[0].toUpperCase()), "empty");
+			} else {
+				System.out.println(day_times[0]+" "+day_times[1]+" "+day_times[2]);
+				business_hours.put(DayOfWeek.valueOf(day_times[0].toUpperCase()), day_times[1]+","+day_times[2]);
+			}
+		}
+		for(Entry<DayOfWeek, String> entry : business_hours.entrySet()) {
+			System.out.println(entry.getKey()+" "+entry.getValue());
+		}
 		this.status = status;
 	}
 	
@@ -114,6 +131,10 @@ public class Company {
 	
 	public HashMap<String, Customer> getCustList() {
 		return custList;
+	}
+	
+	public String getBusString() {
+		return busHours;
 	}
 	
 	public void setBusHours(LinkedHashMap<DayOfWeek, String> avail_times) {

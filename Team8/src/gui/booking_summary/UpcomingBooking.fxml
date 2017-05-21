@@ -75,7 +75,7 @@
             </Label>
             <JFXTextField fx:id="text" focusColor="#aa9144" layoutX="661.0" layoutY="539.0" prefHeight="25.0" prefWidth="174.0" unFocusColor="WHITE" />
          </children></Pane>
-      <JFXButton id="button" fx:id="apply" layoutX="591.0" layoutY="656.0" onAction="#apply" prefHeight="54.0" prefWidth="258.0" style="-fx-background-radius: 60;" stylesheets="@../../application/application.css" text="APPLY" textFill="WHITE">
+      <JFXButton id="button" fx:id="apply" layoutX="591.0" layoutY="656.0" onAction="#apply" prefHeight="54.0" prefWidth="258.0" style="-fx-background-radius: 60;" stylesheets="@../stylesheet.css" text="APPLY" textFill="WHITE">
          <font>
             <Font name="Lato Black" size="18.0" />
          </font>
