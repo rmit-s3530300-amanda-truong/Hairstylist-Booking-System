@@ -153,7 +153,7 @@ public class AddEmpController {
 				suburbValid = false ,zipValid = false, addressLineValid = false, serviceValid = false;
 		
 		//regex patterns for user input
-		String name = "^[a-zA-Z-//s]*$";
+		String name = "^[a-zA-Z-\\s]*$";
 		String mobileNo = "^(?:\\+?61|0)4 ?(?:(?:[01] ?[0-9]|2 ?[0-57-9]|3 ?[1-9]|4 ?[7-9]|5 ?[018]) ?[0-9]|3 ?0 ?[0-5])(?: ?[0-9]){5}$";
 		String suburbName = "^([a-zA-Z](\\s?))*$";
 		String zipCode = "^[0-9]{4}$";
@@ -227,7 +227,7 @@ public class AddEmpController {
 		}
 		else{
 			LOGGER.info("Invalid First Name");
-			invalidfname.setText("nvalid First Name.");
+			invalidfname.setText("Invalid First Name.");
 			invalidfname.setAlignment(Pos.CENTER_LEFT);
 		}
 		
