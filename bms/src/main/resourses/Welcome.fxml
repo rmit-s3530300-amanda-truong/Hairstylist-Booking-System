@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="rootPane" prefHeight="788.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="team8.bms.gui.WelcomeController">
+   <children>
+      <Pane id="content" layoutY="74.0" prefHeight="714.0" prefWidth="1400.0">
+         <children>
+            <Label layoutX="64.0" layoutY="313.0" text="Only Top Tier Hair Dressers" textFill="WHITE">
+               <font>
+                  <Font name="Lato Black" size="45.0" />
+               </font>
+            </Label>
+            <Label layoutX="64.0" layoutY="385.0" text="Team 8 is a booking management system where you can book appointment" textFill="WHITE">
+               <font>
+                  <Font name="Courier New" size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="64.0" layoutY="410.0" text="from certified hair dressers, who are not just professionals" textFill="WHITE">
+               <font>
+                  <Font name="Courier New" size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="65.0" layoutY="436.0" text="but are talented masters in the industry." textFill="WHITE">
+               <font>
+                  <Font name="Courier New" size="17.0" />
+               </font>
+            </Label>
+         </children></Pane>
+      <Pane id="menuPane" prefHeight="75.0" prefWidth="1400.0">
+         <children>
+            <Label fx:id="logoText" layoutX="38.0" layoutY="20.0" maxWidth="615.0" prefHeight="37.0" prefWidth="611.0" text="TEAM 8 BOOKING MANAGEMENT SYSTEM" textFill="WHITE">
+               <font>
+                  <Font name="Lato Black" size="22.0" />
+               </font>
+            </Label>
+            <JFXButton id="button" fx:id="gotoRegister" layoutX="1199.0" layoutY="19.0" onAction="#goToRegister" prefHeight="38.0" prefWidth="125.0" stylesheets="@../stylesheet.css" text="REGISTER" textFill="WHITE">
+               <font>
+                  <Font name="Helvetica-Normal" size="16.0" />
+               </font>
+            </JFXButton>
+            <JFXButton id="button" fx:id="gotoLogin" layoutX="1034.0" layoutY="19.0" onAction="#goToLogin" prefHeight="38.0" prefWidth="125.0" stylesheets="@../stylesheet.css" text="LOGIN" textFill="WHITE">
+               <font>
+                  <Font name="Helvetica-Normal" size="16.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
