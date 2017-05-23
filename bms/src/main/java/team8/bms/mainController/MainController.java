@@ -23,6 +23,7 @@ public class MainController {
 	private CompanyDatabase companyDb;
 	private AvailabilityDatabase availDb;
 	private BookingDatabase bookDb;
+	@SuppressWarnings("unused")
 	private ServicesDatabase servDb;
 	
 	public MainController(Company company, CustomerDatabase customerDb, CompanyDatabase companyDb, AvailabilityDatabase availDb, BookingDatabase bookDb, ServicesDatabase servDb){
@@ -123,13 +124,13 @@ public class MainController {
 	}
 	
 	public void addEmployee(String username, String fname, String lname, String mobile, String address, String service){
-		String password = null;
 		String[] serviceList = service.split(", ");
 		ArrayList<String> serviceType = new ArrayList<String>();
 		for(int i=0; i<serviceList.length; i++)
 		{
 			serviceType.add(serviceList[i]);
 		}
+		@SuppressWarnings("unused")
 		Employee emp = new Employee(username, comp.getName(), fname, lname, serviceType);
 		companyDb.addEmployee(username, comp.getName(), fname, lname, mobile, address, service);		
 	}

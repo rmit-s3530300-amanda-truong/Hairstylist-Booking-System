@@ -10,14 +10,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import team8.bms.BookingManagementSystem;
-import team8.bms.business.Company;
 import team8.bms.gui.WelcomeController;
 import team8.bms.gui.register.PendingRegistrationController;
-import team8.bms.mainController.MainController;
-
 public class AdminPController {
 	
-	private MainController menu;
 	private BookingManagementSystem bms;
 	
 	@FXML
@@ -33,7 +29,6 @@ public class AdminPController {
     private Label logoText;
 	
 	public void initiate(BookingManagementSystem bms) {
-		menu = bms.getMenu();
 		this.bms = bms;
 	}
 	

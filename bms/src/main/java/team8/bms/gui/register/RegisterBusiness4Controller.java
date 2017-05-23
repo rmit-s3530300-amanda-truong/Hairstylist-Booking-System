@@ -23,7 +23,6 @@ import team8.bms.database.CompanyDatabase;
 import team8.bms.database.ServicesDatabase;
 import team8.bms.gui.LoginController;
 import team8.bms.gui.WelcomeController;
-import team8.bms.mainController.MainController;
 
 public class RegisterBusiness4Controller {
 
@@ -58,9 +57,7 @@ public class RegisterBusiness4Controller {
 		Label name = new Label(comp.getName());
 		
 		HashMap<String, Integer> service = comp.getServiceTime();
-		ArrayList<Label> service_list = new ArrayList<Label>();
 		LinkedHashMap<DayOfWeek, String> times = comp.getBusHours();
-		ArrayList<Label> time_list = new ArrayList<Label>();
 		
 		
 		bus_title.setTextFill(Paint.valueOf("white"));

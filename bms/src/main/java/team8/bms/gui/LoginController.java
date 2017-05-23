@@ -3,12 +3,9 @@ package team8.bms.gui;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import org.omg.Messaging.SyncScopeHelper;
-
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXPasswordField;
-import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
 
 import team8.bms.gui.portal.AdminPController;
@@ -18,7 +15,6 @@ import team8.bms.gui.register.RegisterController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,7 +22,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Font;
 import team8.bms.BookingManagementSystem;
 import team8.bms.business.Company;
 import team8.bms.mainController.MainController;
@@ -68,8 +63,7 @@ public class LoginController {
     	chooseBusiness.setItems(businessList);
     }
     
-    @SuppressWarnings("unchecked")
-	public void initiate(final BookingManagementSystem bms){
+    public void initiate(final BookingManagementSystem bms){
     	this.bms = bms;
 		ArrayList<Company> company_list = bms.getCompanyList();
 		if(company_list.size() >0) {

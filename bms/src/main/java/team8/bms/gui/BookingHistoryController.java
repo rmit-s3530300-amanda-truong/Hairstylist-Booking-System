@@ -7,8 +7,6 @@ import com.jfoenix.controls.JFXButton;
 
 import team8.bms.gui.portal.BusinessPController;
 import team8.bms.gui.portal.CustomerPController;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -20,17 +18,13 @@ import team8.bms.BookingManagementSystem;
 import team8.bms.business.Company;
 import team8.bms.calendar.Booking;
 import team8.bms.calendar.Calendar;
-import team8.bms.mainController.MainController;
 
 public class BookingHistoryController {
-	
-	private MainController menu;
 	
 	private Company comp;
 	
 	private String id;
 	
-	//@FXML
 	private TextArea ta;
 	
 	@FXML
@@ -82,7 +76,6 @@ public class BookingHistoryController {
 	public void initiate(Company comp, String cust_id, BookingManagementSystem bms) {
 		id = cust_id;
 		this.comp = comp;
-		menu = bms.getMenu();
 		this.bms = bms;
 		logoText.setText(comp.getName().toUpperCase());
 		getPastBooking();

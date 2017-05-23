@@ -9,7 +9,6 @@ import java.util.HashMap;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXRadioButton;
 
 import team8.bms.gui.portal.BusinessPController;
 import team8.bms.gui.portal.CustomerPController;
@@ -22,18 +21,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Font;
 import team8.bms.BookingManagementSystem;
 import team8.bms.business.Company;
 import team8.bms.business.Employee;
 import team8.bms.gui.LoginController;
-import team8.bms.mainController.MainController;
 
 public class MakeBooking6Controller {
-	private MainController menu;
+
 	private Company comp;
 	
 	private String cust_id;
@@ -73,7 +69,6 @@ public class MakeBooking6Controller {
 
 	public void initiate(Company comp, String cust_id, String service, Employee employee, LocalDate date, String portal, BookingManagementSystem bms) {
 		this.comp = comp;
-		menu = comp.getMenu();
 		this.cust_id = cust_id;
 		this.service = service;
 		this.employee = employee;
@@ -81,8 +76,6 @@ public class MakeBooking6Controller {
 		this.portal = portal;
 		this.bms = bms;
 		logoText.setText(comp.getName().toUpperCase());
-		
-		int counter = 0;
 		
 		HashMap<DayOfWeek, ArrayList<LocalTime>> avail = employee.getAvailability();
 		DayOfWeek day = date.getDayOfWeek();
@@ -126,7 +119,6 @@ public class MakeBooking6Controller {
 		}
 		
 		if(avail_times.size() > 0) {
-			ArrayList<JFXRadioButton> buttons = new ArrayList<JFXRadioButton>();
 			for(LocalTime time : avail_times) {
 				times.add(time.toString());
 			}

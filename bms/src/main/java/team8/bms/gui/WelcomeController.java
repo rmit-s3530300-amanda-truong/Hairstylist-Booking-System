@@ -11,8 +11,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import team8.bms.BookingManagementSystem;
-import team8.bms.business.Company;
-import team8.bms.mainController.MainController;
 
 public class WelcomeController {
 	

@@ -17,13 +17,10 @@ import team8.bms.gui.LoginController;
 import team8.bms.gui.UpcomingBookingController;
 import team8.bms.gui.ViewCalendarController;
 import team8.bms.gui.booking.MakeBooking2Controller;
-import team8.bms.mainController.MainController;
-
 public class CustomerPController {
 	
 	CustomerDatabase db1 = new CustomerDatabase();
 	
-	private MainController menu;
 	private Company comp;
 	private String cust_id;
 	
@@ -55,7 +52,6 @@ public class CustomerPController {
 
 	public void initiate(Company comp, String username, BookingManagementSystem bms) {
 		this.comp = comp;
-		menu = comp.getMenu();
 		this.bms = bms;
 		cust_id = username;
 		String fullname = db1.getName(cust_id);

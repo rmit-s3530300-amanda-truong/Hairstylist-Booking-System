@@ -18,11 +18,9 @@ import team8.bms.gui.LoginController;
 import team8.bms.gui.UpcomingBookingController;
 import team8.bms.gui.ViewCalendarController;
 import team8.bms.gui.booking.MakeBooking1Controller;
-import team8.bms.mainController.MainController;
 
 public class BusinessPController {
 	
-	private MainController menu;
 	private Company comp;
 	
 	@FXML
@@ -59,7 +57,6 @@ public class BusinessPController {
 	
 	public void initiate(Company comp, BookingManagementSystem bms) {
 		this.comp = comp;
-		menu = comp.getMenu();
 		this.bms = bms;
 		logoText.setText(comp.getName().toUpperCase());
 	}

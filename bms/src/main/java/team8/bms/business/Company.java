@@ -40,6 +40,7 @@ public class Company {
 	private String owner_lname;
 	private String mobile;
 	private String address;
+	@SuppressWarnings("unused")
 	private String service;
 	private String status;
 	
@@ -65,7 +66,6 @@ public class Company {
 		menu = new MainController(this, customerDb, companyDb, availDb, bookingDb, servDb);
 	}
 	
-	// TODO: change String bushours to HashMap<DayOfWeek, String>
 	public Company(String compName, String username, String password, String fname, String lname, String mobile, String address, String service, String busHours, String status) {
 		employeeList = new HashMap<String, Employee>();
 		custList = new HashMap<String, Customer>();
@@ -232,7 +232,9 @@ public class Company {
 		HashMap<String, ArrayList<String>> availValues;
 		HashMap<String, ArrayList<String>> bookValues;
 		HashMap<String, String> serviceTimeDb;
+		@SuppressWarnings("unused")
 		HashMap<String, String> serviceList;
+		@SuppressWarnings("unused")
 		ArrayList<Booking> bookList;
 		empValues = companyDb.storeEmpValues();
 		setEmployeeList(empValues);
@@ -291,6 +293,7 @@ public class Company {
 				HashMap<String, Employee> empList = getEmployeeList();
 				for(Entry<String, Employee> entry: empList.entrySet())
 				{
+					@SuppressWarnings("unused")
 					Employee emp  = entry.getValue();
 				}
 				Employee emp = getEmployee(employeeID);

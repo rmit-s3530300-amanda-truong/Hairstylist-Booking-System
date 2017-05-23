@@ -2,10 +2,8 @@ package team8.bms.gui.register;
 
 import java.io.IOException;
 import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
@@ -22,7 +20,6 @@ import javafx.scene.layout.AnchorPane;
 import team8.bms.BookingManagementSystem;
 import team8.bms.business.Company;
 import team8.bms.gui.LoginController;
-import team8.bms.mainController.MainController;
 
 public class RegisterBusiness2Controller {
 	

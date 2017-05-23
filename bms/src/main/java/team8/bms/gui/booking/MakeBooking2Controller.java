@@ -20,12 +20,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import team8.bms.BookingManagementSystem;
 import team8.bms.business.Company;
-import team8.bms.business.Employee;
 import team8.bms.gui.LoginController;
-import team8.bms.mainController.MainController;
 
 public class MakeBooking2Controller {
-	private MainController menu;
+
 	private Company comp;
 	
 	private String cust_id;
@@ -49,7 +47,6 @@ public class MakeBooking2Controller {
 
 	public void initiate(Company comp, String cust_id, String portal, BookingManagementSystem bms) {
 		this.comp = comp;
-		menu = comp.getMenu();
 		this.cust_id = cust_id;
 		this.portal = portal;
 		this.bms = bms;

@@ -1,14 +1,12 @@
 package team8.bms.gui;
 
 import java.io.IOException;
-import java.rmi.server.ServerCloneException;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
 
 import team8.bms.gui.portal.BusinessPController;
@@ -30,7 +28,7 @@ public class AddEmpController {
 	private Logger LOGGER = Logger.getLogger("InfoLogging");
 	
 	ObservableList<String> re_stateList = FXCollections.observableArrayList
-			("VIC", "NSW","Queensland", "WA", "SA", "Tasmania");
+			("VIC", "NSW","Qld", "WA", "SA", "Tas");
 	
 	private MainController menu;
 	private Company comp;
@@ -230,34 +228,6 @@ public class AddEmpController {
 			invalidfname.setAlignment(Pos.CENTER_LEFT);
 		}
 		
-		/*//checking services
-		if(sfcut.isSelected() || smcut.isSelected() || sfwash.isSelected() || smwash.isSelected() || sfperm.isSelected() 
-				|| smperm.isSelected() || sfdye.isSelected() || smdye.isSelected()){
-			invalidservices.setText("");
-			if(sfcut.isSelected()){
-				serviceList.add((Service) sfcut.getUserData());
-			}
-			if(smcut.isSelected()){
-				serviceList.add((Service) smcut.getUserData());
-			}
-			if(sfwash.isSelected()){
-				serviceList.add((Service) sfwash.getUserData());
-			}
-			if(smwash.isSelected()){
-				serviceList.add((Service) smwash.getUserData());
-			}
-			if(sfperm.isSelected()){
-				serviceList.add((Service) sfperm.getUserData());
-			}
-			if(smperm.isSelected()){
-				serviceList.add((Service) smperm.getUserData());
-			}
-			if(sfdye.isSelected()){
-				serviceList.add((Service) sfdye.getUserData());
-			}
-			if(smdye.isSelected()){
-				serviceList.add((Service) smdye.getUserData());
-			}*/
 		Boolean selected = false;
 		for(JFXCheckBox serv : serviceBoxes) {
 			if(serv.isSelected()) {

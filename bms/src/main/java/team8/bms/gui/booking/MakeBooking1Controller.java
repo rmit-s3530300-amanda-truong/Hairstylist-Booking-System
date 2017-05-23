@@ -6,7 +6,6 @@ import java.util.Map.Entry;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXTextField;
 
 import team8.bms.gui.portal.BusinessPController;
 import javafx.beans.value.ChangeListener;
@@ -22,12 +21,9 @@ import javafx.scene.layout.AnchorPane;
 import team8.bms.BookingManagementSystem;
 import team8.bms.business.Company;
 import team8.bms.business.Customer;
-import team8.bms.calendar.Booking;
 import team8.bms.gui.LoginController;
-import team8.bms.mainController.MainController;
 
 public class MakeBooking1Controller {
-	private MainController menu;
 	
 	private Company comp;
 	private HashMap<String, Customer> custMap;
@@ -52,7 +48,6 @@ public class MakeBooking1Controller {
 	private Label invalid;
 
 	public void initiate(Company comp, BookingManagementSystem bms) {
-		menu = bms.getMenu();
 		this.comp = comp;
 		this.bms = bms;
 		logoText.setText(comp.getName().toUpperCase());

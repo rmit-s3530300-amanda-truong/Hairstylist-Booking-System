@@ -10,7 +10,6 @@ import java.util.logging.Logger;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXRadioButton;
-import com.jfoenix.controls.JFXTextField;
 
 import team8.bms.gui.portal.BusinessPController;
 import javafx.beans.value.ChangeListener;
@@ -309,12 +308,6 @@ public class AddAvailTimeController {
 
     @FXML
     private void initialize(){
-    	//startHour.setValue("08");
-    	//startMinute.setValue("00");
-    	//startHour.setItems(startHourList);
-    	//endHour.setValue("16");
-    	//endMinute.setValue("00");
-    	//endHour.setItems(endHourList);
     	startMinute.setItems(minuteList);
     	endMinute.setItems(minuteList);
     }

@@ -6,11 +6,8 @@ import java.util.Map.Entry;
 import java.util.logging.Logger;
 
 import team8.bms.business.Company;
-import team8.bms.database.AvailabilityDatabase;
-import team8.bms.database.BookingDatabase;
 import team8.bms.database.CompanyDatabase;
 import team8.bms.database.CustomerDatabase;
-import team8.bms.database.ServicesDatabase;
 import team8.bms.gui.WelcomeController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

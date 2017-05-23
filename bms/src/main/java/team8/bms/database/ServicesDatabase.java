@@ -120,8 +120,11 @@ public class ServicesDatabase {
 			result = stmt.executeQuery("SELECT * FROM SERVICES");
 			while (result.next())
 			{
+				@SuppressWarnings("unused")
 				String business = result.getString("business");
+				@SuppressWarnings("unused")
 				String service = result.getString("service");
+				@SuppressWarnings("unused")
 				String time = result.getString("time");
 			}
 			stmt.close();

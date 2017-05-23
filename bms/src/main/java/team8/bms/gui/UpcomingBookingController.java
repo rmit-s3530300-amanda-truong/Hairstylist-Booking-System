@@ -5,8 +5,6 @@ import java.util.ArrayList;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXRadioButton;
-import com.jfoenix.controls.JFXTextField;
 
 import team8.bms.gui.portal.BusinessPController;
 import team8.bms.gui.portal.CustomerPController;
@@ -19,7 +17,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -28,11 +25,8 @@ import team8.bms.BookingManagementSystem;
 import team8.bms.business.Company;
 import team8.bms.calendar.Booking;
 import team8.bms.calendar.Calendar;
-import team8.bms.mainController.MainController;
 
 public class UpcomingBookingController {
-	
-	private MainController menu;
 	
 	private String id;
 	
@@ -42,7 +36,6 @@ public class UpcomingBookingController {
 	
 	private Company comp;
 	
-	//@FXML
 	private TextArea ta;
 	
 	@FXML
@@ -110,7 +103,6 @@ public class UpcomingBookingController {
 	
 	public void initiate(Company comp, String cust_id, BookingManagementSystem bms) {
 		this.comp = comp;
-		menu = comp.getMenu();
 		id = cust_id;
 		this.bms = bms;
 		logoText.setText(comp.getName().toUpperCase());

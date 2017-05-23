@@ -25,10 +25,8 @@ import team8.bms.BookingManagementSystem;
 import team8.bms.business.Company;
 import team8.bms.business.Employee;
 import team8.bms.gui.LoginController;
-import team8.bms.mainController.MainController;
 
 public class MakeBooking3Controller {
-	private MainController menu;
 	
 	private Company comp;
 	
@@ -58,7 +56,6 @@ public class MakeBooking3Controller {
 
 	public void initiate(Company comp, String cust_id, String service, String portal, BookingManagementSystem bms) {
 		this.comp = comp;
-		menu = comp.getMenu();
 		this.cust_id = cust_id;
 		this.service = service;
 		this.portal = portal;

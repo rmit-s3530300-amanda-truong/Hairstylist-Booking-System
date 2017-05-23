@@ -28,7 +28,7 @@ import team8.bms.mainController.MainController;
 public class RegisterController {
 
 	ObservableList<String> rc_stateList = FXCollections.observableArrayList
-			("VIC", "NSW","Queensland", "WA", "SA", "Tasmania");
+			("VIC", "NSW","Qld", "WA", "SA", "Tas");
 	
 	ObservableList<String> businessList = FXCollections.observableArrayList();
 	
