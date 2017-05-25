@@ -209,7 +209,7 @@ public class CustomerDatabase{
 				prep.setString(4,"Brown");
 				prep.setString(5,"password");
 				prep.setString(6,"0412123123");
-				prep.setString(7,"1 Happy Street, Happyville, NSW, 3000");
+				prep.setString(7,"1 Happy Street, Happyville, 3000, NSW");
 				prep.execute();
 				prep.close();
 				PreparedStatement prep2 = conn.prepareStatement("INSERT INTO CUSTINFO values(?,?,?,?,?,?,?);");
@@ -219,7 +219,7 @@ public class CustomerDatabase{
 				prep2.setString(4,"George");
 				prep2.setString(5,"password1");
 				prep2.setString(6,"0469123123");
-				prep2.setString(7,"1 Sad street, Sadville, VIC, 3000");
+				prep2.setString(7,"1 Sad street, Sadville, 3000, VIC");
 				prep2.execute();
 				prep2.close();
 				PreparedStatement prep3 = conn.prepareStatement("INSERT INTO CUSTINFO values(?,?,?,?,?,?,?);");
@@ -229,7 +229,7 @@ public class CustomerDatabase{
 				prep3.setString(4,"Swift");
 				prep3.setString(5,"password2");
 				prep3.setString(6,"0469999999");
-				prep3.setString(7,"1 Sing Street, Singville, VIC, 3000");
+				prep3.setString(7,"1 Sing Street, Singville, 3000, VIC");
 				prep3.execute();
 				prep3.close();
 			}
