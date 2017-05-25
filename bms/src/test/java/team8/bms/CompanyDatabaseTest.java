@@ -88,18 +88,6 @@ public class CompanyDatabaseTest {
 	}
 	
 	@Test
-	public void testAddBusiness()
-	{
-		
-	}
-	
-	@Test
-	public void testAddEmployee()
-	{
-		
-	}
-	
-	@Test
 	public void testStoreValues()
 	{
 		Boolean actual = false;
