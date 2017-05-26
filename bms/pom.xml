@@ -86,8 +86,24 @@
 				  </execution>
 				</executions>
 			</plugin>
-
 		</plugins>
+		
+		<resources>
+        <resource>
+            <directory>src/main/resources</directory>
+            <includes>
+                <include>**/*.fxml</include>
+                <include>**/*.css</include>
+            </includes>
+        </resource>
+        <resource>
+        <directory>src/main/resources/img</directory>
+            <includes>
+                <include>**/*.jpg</include>
+                <include>**/*.png</include>
+            </includes>
+        </resource>
+    </resources>
 	</build>
 
 </project>

@@ -35,7 +35,7 @@ public class BookingManagementSystem extends Application {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/Welcome.fxml"));
 			AnchorPane root = loader.load();
 			Scene scene = new Scene(root);
-			scene.getStylesheets().add(getClass().getResource("gui/stylesheet.css").toExternalForm());
+			scene.getStylesheets().add(getClass().getResource("/stylesheet.css").toExternalForm());
 			
 			WelcomeController controller = loader.getController();
 			controller.initiate(this);
