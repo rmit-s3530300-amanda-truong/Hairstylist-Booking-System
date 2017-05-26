@@ -13,22 +13,22 @@
 }
 
 #content{
-	-fx-background-image: url("content.jpg");
+	-fx-background-image: url("/content.jpg");
 	-fx-background-size: 1400 714;
     -fx-background-repeat: no-repeat;
 }
 #content_cp{
-	-fx-background-image: url("content_cp.png");
+	-fx-background-image: url("/content_cp.png");
 	-fx-background-size: 1400 714;
     -fx-background-repeat: no-repeat;
 }
 #content_bp{
-	-fx-background-image: url("content_bp.png");
+	-fx-background-image: url("/content_bp.png");
 	-fx-background-size: 1400 714;
     -fx-background-repeat: no-repeat;
 }
 #content_ap{
-	-fx-background-image: url("content_ap.png");
+	-fx-background-image: url("/content_ap.png");
 	-fx-background-size: 1400 714;
     -fx-background-repeat: no-repeat;
 }
@@ -41,7 +41,7 @@
 }
 
 #home{
-	-fx-background-image: url("img/home.png");
+	-fx-background-image: url("/home.png");
 	-fx-background-size: 50 50;
     -fx-background-repeat: no-repeat;
 }

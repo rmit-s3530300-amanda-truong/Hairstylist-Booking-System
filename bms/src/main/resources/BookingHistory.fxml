@@ -13,7 +13,7 @@
          <children>
             <JFXButton id="button" fx:id="gotoLogout" layoutX="1199.0" layoutY="21.0" onAction="#goToLogout" prefHeight="35.0" prefWidth="125.0" stylesheets="@../stylesheet.css" text="LOGOUT" textFill="WHITE">
                <font>
-                  <Font name="Lato Black" size="16.0" />
+                  <Font name="Helvetica-Normal" size="16.0" />
                </font>
             </JFXButton>
          </children>
