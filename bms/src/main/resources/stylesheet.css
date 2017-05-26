@@ -1,0 +1,70 @@
+#button{
+	-fx-background-color: #aa9144;
+	-fx-border-radius: 60;
+	-fx-background-radius: 60;
+}
+.button{
+	-fx-border-radius: 0;
+	-fx-background-radius: 0;
+}
+
+#menuPane{
+	-fx-background-color: #212121;
+}
+
+#content{
+	-fx-background-image: url("/content.jpg");
+	-fx-background-size: 1400 714;
+    -fx-background-repeat: no-repeat;
+}
+#content_cp{
+	-fx-background-image: url("/content_cp.png");
+	-fx-background-size: 1400 714;
+    -fx-background-repeat: no-repeat;
+}
+#content_bp{
+	-fx-background-image: url("/content_bp.png");
+	-fx-background-size: 1400 714;
+    -fx-background-repeat: no-repeat;
+}
+#content_ap{
+	-fx-background-image: url("/content_ap.png");
+	-fx-background-size: 1400 714;
+    -fx-background-repeat: no-repeat;
+}
+
+.combo-box{
+    -fx-font: 16px "System";
+}
+.combo-box .cell{
+    -fx-text-fill: white;
+}
+
+#home{
+	-fx-background-image: url("/home.png");
+	-fx-background-size: 50 50;
+    -fx-background-repeat: no-repeat;
+}
+
+.text-area {
+    -fx-background-color: rgba(0,0,0,0.0);
+}
+.text-area .scroll-pane {
+    -fx-background-color: transparent;
+}
+.text-area .scroll-pane .viewport{
+    -fx-background-color: transparent;
+}
+.text-area .scroll-pane .content{
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .viewport {
+   -fx-background-color: transparent;
+}
+.scroll-pane {
+   -fx-background-color: transparent;
+}
+.address .scroll-pane {
+  -fx-background-color: transparent;
+}

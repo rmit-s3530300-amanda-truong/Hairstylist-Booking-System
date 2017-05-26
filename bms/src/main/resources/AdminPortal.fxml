@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="rootPane" prefHeight="788.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="team8.bms.gui.portal.AdminPController">
+   <children>
+      <Pane id="content" layoutY="74.0" prefHeight="714.0" prefWidth="1400.0">
+         <children>
+            <Pane id="content_ap" prefHeight="714.0" prefWidth="1400.0" />
+            <Label layoutX="515.0" layoutY="70.0" text="WELCOME," textFill="WHITE">
+               <font>
+                  <Font name="Lato Light" size="39.0" />
+               </font>
+            </Label>
+            <Label layoutX="732.0" layoutY="70.0" text="ADMIN" textFill="WHITE">
+               <font>
+                  <Font name="Lato Bold" size="39.0" />
+               </font>
+            </Label>
+            <JFXButton contentDisplay="GRAPHIC_ONLY" layoutX="464.0" layoutY="202.0" onAction="#addBusiness" prefHeight="150.0" prefWidth="472.0" ripplerFill="WHITE" />
+            <Pane prefHeight="714.0" prefWidth="82.0" style="-fx-background-color: #1d1c1c;">
+               <children>
+                  <Pane id="home" layoutX="16.0" layoutY="20.0" prefHeight="50.0" prefWidth="50.0" />
+               </children>
+            </Pane>
+         </children></Pane>
+      <Pane id="menuPane" prefHeight="75.0" prefWidth="1400.0">
+         <children>
+            <JFXButton id="button" fx:id="gotoLogout" layoutX="1199.0" layoutY="21.0" onAction="#goToLogout" prefHeight="35.0" prefWidth="125.0" stylesheets="@../stylesheet.css" text="LOGOUT" textFill="WHITE">
+               <font>
+                  <Font name="Helvetica-Normal" size="16.0" />
+               </font>
+            </JFXButton>
+            <Label layoutX="38.0" layoutY="20.0" maxWidth="615.0" prefHeight="37.0" prefWidth="611.0" text="TEAM 8 BOOKING MANAGEMENT SYSTEM" textFill="WHITE">
+               <font>
+                  <Font name="Lato Black" size="22.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

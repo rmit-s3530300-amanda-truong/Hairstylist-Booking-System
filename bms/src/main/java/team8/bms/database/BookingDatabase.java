@@ -1,0 +1,333 @@
+package team8.bms.database;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.logging.Logger;
+
+public class BookingDatabase {
+	
+	private static Connection conn = null;
+	private static Statement stmt = null;
+	private static ResultSet result = null;
+	private static boolean hasData = false;
+	private static PreparedStatement prep = null;
+	private Logger LOGGER = Logger.getLogger("InfoLogging");
+	
+	public BookingDatabase() {
+		this.initialise();
+		this.addTest();
+	}
+	
+	//get initial connection and create the table
+	public Connection initialise()
+	{
+		Connection connInit = getConnection();
+		createBookingTable();
+		return connInit;
+	}
+	
+	//create connection to JDBC sqlite
+	private Connection getConnection()
+	{
+		try
+		{
+			Class.forName("org.sqlite.JDBC");
+			conn = DriverManager.getConnection("jdbc:sqlite:company.db");
+		}
+		catch(Exception e)
+		{
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+		return conn;
+	}
+	
+	private void createBookingTable()
+	{
+		try
+		{
+			if(conn.isClosed())
+			{
+				getConnection();
+			}						
+			if(!hasData)
+			{
+				hasData = true;
+				stmt = conn.createStatement();
+				//checking if there is already a table created in the database
+				result = stmt.executeQuery("SELECT name FROM sqlite_master WHERE type= 'table' AND name='user'");
+				if(!result.next())
+				{
+					stmt = conn.createStatement();
+					String sql = "CREATE TABLE IF NOT EXISTS BOOKING ("
+							+ "bookingID text NOT NULL		,"	
+							+ "compName text REFERENCES BUSINESS(compName) NOT NULL	,"	
+							+ "custUsername text NOT NULL	,"
+							+ "service text NOT NULL		,"
+							+ "employeeID text NOT NULL		,"
+							+ "date text NOT NULL		,"
+							+ "time text NOT NULL		,"
+							+ "status text NOT NULL   );";
+					stmt.executeUpdate(sql);
+					stmt.close();
+					conn.close();
+				}
+			}
+		}
+		catch (Exception e)
+		{
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+	}
+	
+	// add booking to a record
+	public void addBooking(String bookingID, String compName, String custUsername, String service, String employeeID, String date, String time, String status)
+	{		
+		try
+		{
+			if(conn.isClosed())
+			{
+				getConnection();
+			}
+			prep = conn.prepareStatement("INSERT INTO BOOKING values(?,?,?,?,?,?,?,?);");
+			prep.setString(1, bookingID);
+			prep.setString(2, compName);
+			prep.setString(3, custUsername);
+			prep.setString(4, service);
+			prep.setString(5, employeeID);
+			prep.setString(6, date);
+			prep.setString(7, time);
+			prep.setString(8, status);
+			prep.execute();
+			prep.close();
+			conn.close();
+		}
+		catch( Exception e)
+		{
+			LOGGER.info(e.getClass().getName() + ": " + e.getMessage());
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+	}
+	
+	public HashMap<String, ArrayList<String>> storeBookingValues()
+	{
+		HashMap<String, ArrayList<String>> bookingMap = new HashMap<String, ArrayList<String>>();
+		try
+		{
+			if(conn.isClosed())
+			{
+				getConnection();
+			}
+			stmt = conn.createStatement();
+			result = stmt.executeQuery("SELECT * FROM BOOKING");
+			while (result.next())
+			{
+				//2017-01-16/10:00 is the format for bookingID
+				ArrayList<String> info = new ArrayList<String>();
+				String bookingID = result.getString("bookingID");
+				String compName = result.getString("compName");
+				String customerUsername = result.getString("custUsername");
+				String employeeID = result.getString("employeeID");
+				String service = result.getString("service");
+				String date = result.getString("date");
+				String time = result.getString("time");
+				String status = result.getString("status");
+				info.add(compName);
+				info.add(customerUsername);
+				info.add(date);
+				info.add(time);
+				info.add(employeeID);
+				info.add(service);
+				info.add(status);
+				bookingMap.put(bookingID, info);
+			}
+			stmt.close();
+			result.close();
+			conn.close();
+		}
+		catch(Exception e)
+		{
+			LOGGER.info(e.getClass().getName() + ": " + e.getMessage());
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+		return bookingMap;
+	}
+	
+	//check if value exists in table
+	public Boolean checkValueExists(String col, String value)
+	{
+		Boolean checkExists = null;
+		String colName = null;
+		try
+		{
+			if(conn.isClosed())
+			{
+				getConnection();
+			}
+			if(col.equals("bookingID"))
+			{
+				colName = "bookingID";
+			}
+			else if(col.equals("compName"))
+			{
+				colName = "compName";
+			}
+			else if(col.equals("employeeID"))
+			{
+				colName = "employeeID";
+			}
+			else if(col.equals("custUsername"))
+			{
+				colName = "custUsername";
+			}
+			else if(col.equals("service"))
+			{
+				colName = "service";
+			}
+			else if(col.equals("date"))
+			{
+				colName = "date";
+			}
+			else if(col.equals("time"))
+			{
+				colName = "time";
+			}
+			else if(col.equals("status"))
+			{
+				colName = "status";
+			}
+			prep = conn.prepareStatement("SELECT * FROM BOOKING WHERE "+colName+" = ?;");
+			prep.setString(1, value);
+			result = prep.executeQuery();
+			if(result.next())
+			{
+				checkExists = true;
+			}
+			else
+			{
+				checkExists = false;
+			}
+			prep.close();
+			result.close();
+			conn.close();
+		}
+		catch(Exception e)
+		{
+			LOGGER.info(e.getClass().getName() + ": " + e.getMessage());
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+		return checkExists;
+	}
+	
+	public void deleteBooking(String id)
+	{
+		try
+		{
+			if(conn.isClosed())
+			{
+				getConnection();
+			}
+			prep = conn.prepareStatement("DELETE FROM BOOKING WHERE bookingID = ?");
+			prep.setString(1, id);
+			prep.execute();
+			prep.close();
+			conn.close();
+		}
+		catch(Exception e)
+		{
+			LOGGER.info(e.getClass().getName() + ": " + e.getMessage());
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+	}
+	
+	public void addTest()
+	{
+		try
+		{
+			//making sure no duplicates are added when program restarts
+			if((!checkValueExists("bookingID","2017-05-02/09:15") && !checkValueExists("compName","ABC HAIRSTYLIST")) || 
+					(!checkValueExists("bookingID","2017-05-03/13:00") && !checkValueExists("compName","ABC HAIRSTYLIST"))
+					|| (!checkValueExists("bookingID","2017-05-03/13:15") && !checkValueExists("compName","ABC HAIRSTYLIST")) 
+					|| (!checkValueExists("bookingID","2017-04-26/13:00") && !checkValueExists("compName","ABC HAIRSTYLIST"))
+					|| (!checkValueExists("bookingID","2017-04-19/14:00") && !checkValueExists("compName","ABC HAIRSTYLIST")))
+			{
+				if(conn.isClosed())
+				{
+					getConnection();
+				}
+				prep = conn.prepareStatement("INSERT INTO BOOKING values(?,?,?,?,?,?,?,?);");
+				prep.setString(1, "2017-05-02/09:15");
+				prep.setString(2, "ABC HAIRSTYLIST");
+				prep.setString(3,"jbrown");
+				prep.setString(4,"maleCut");
+				prep.setString(5,"e1");
+				prep.setString(6,"2017-05-02");
+				prep.setString(7,"09:15-09:30");
+				prep.setString(8,"booking");
+				prep.execute();
+				prep.close();
+				PreparedStatement prep2 = conn.prepareStatement("INSERT INTO BOOKING values(?,?,?,?,?,?,?,?);");
+				prep2.setString(1, "2017-05-03/13:00");
+				prep2.setString(2, "ABC HAIRSTYLIST");
+				prep2.setString(3,"rgeorge");
+				prep2.setString(4,"femaleCut");
+				prep2.setString(5,"e2");
+				prep2.setString(6,"2017-05-03");
+				prep2.setString(7,"13:00-13:30");
+				prep2.setString(8,"booked");
+				prep2.execute();
+				prep2.close();
+				PreparedStatement prep3 = conn.prepareStatement("INSERT INTO BOOKING values(?,?,?,?,?,?,?,?);");
+				prep3.setString(1, "2017-05-03/13:15");
+				prep3.setString(2, "ABC HAIRSTYLIST");
+				prep3.setString(3,"rgeorge");
+				prep3.setString(4,"femaleCut");
+				prep3.setString(5,"e2");
+				prep3.setString(6,"2017-05-03");
+				prep3.setString(7,"13:00-13:30");
+				prep3.setString(8,"booked");
+				prep3.execute();
+				prep3.close();
+				PreparedStatement prep4 = conn.prepareStatement("INSERT INTO BOOKING values(?,?,?,?,?,?,?,?);");
+				prep4.setString(1, "2017-04-26/13:00");
+				prep4.setString(2, "ABC HAIRSTYLIST");
+				prep4.setString(3,"jbrown");
+				prep4.setString(4,"maleCut");
+				prep4.setString(5,"e2");
+				prep4.setString(6,"2017-04-26");
+				prep4.setString(7,"13:00-13:15");
+				prep4.setString(8,"booked");
+				prep4.execute();
+				prep4.close();
+				PreparedStatement prep5 = conn.prepareStatement("INSERT INTO BOOKING values(?,?,?,?,?,?,?,?);");
+				prep5.setString(1, "2017-04-19/14:00");
+				prep5.setString(2, "ABC HAIRSTYLIST");
+				prep5.setString(3,"jbrown");
+				prep5.setString(4,"maleCut");
+				prep5.setString(5,"e2");
+				prep5.setString(6,"2017-04-19");
+				prep5.setString(7,"14:00-14:15");
+				prep5.setString(8,"booked");
+				prep5.execute();
+				prep5.close();
+			}
+			conn.close();
+		}
+		catch(Exception e)
+		{
+			LOGGER.info(e.getClass().getName() + ": " + e.getMessage());
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+	}
+}
